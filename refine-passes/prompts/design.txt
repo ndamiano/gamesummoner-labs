@@ -1,0 +1,1 @@
+I want to build a roguelike game with one input. The idea is your "input frequency" determines what happens. A single click moves you forward, a quick double click is an attack, that kinda thing. Design this in a markdown file in this folder.
