@@ -70,8 +70,10 @@ a judge call on basalt (`prompts/judge.txt`) reads the turn's end as an announce
 `prompts/continue.txt`, up to 5 times. The judge read all four turns so far correctly (both
 stalls CONTINUE, both finished passes DONE). Rerunning `build` only.
 
-**2026-10-13, r0 build (works; awaiting Nick's play).** One turn, 199 of 200 rounds, judge DONE,
-no continue needed. Commit 05b5b4d: ~3.8K lines of Python, `cadence/` package with a PIL renderer
+**2026-10-13, r0 build (works; awaiting Nick's play).** One turn, judge DONE. Not a natural finish: 193
+programs + 6 rejected bare tool calls hit coding-agent's 200-round cap, whose `_out_of_budget`
+asks for "what you did, what state things are in, what is left" (the REPL does not print that
+event). The summary's shape is that report, and the judge read it as finished work. Commit 05b5b4d: ~3.8K lines of Python, `cadence/` package with a PIL renderer
 in a tkinter window and synthesised audio piped to aplay/paplay. The stack came from the visuals
 pass, whose figure script calls itself "the seed of the renderer"; the turn had announced a
 browser game in attempt 2. 33-room, 3-floor plan, 7 enemy archetypes, 9 grammar relics, three
