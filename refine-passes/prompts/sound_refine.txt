@@ -1,1 +1,1 @@
-What is unclear about sound in this doc? Make decisions about it, and update the markdown.
+What is unclear about sound in DESIGN.md? Make decisions about it, and update the markdown.

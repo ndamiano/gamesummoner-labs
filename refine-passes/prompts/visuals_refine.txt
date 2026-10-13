@@ -1,1 +1,1 @@
-What is unclear about visuals in this doc? Make decisions about it, and update the markdown.
+What is unclear about visuals in DESIGN.md? Make decisions about it, and update the markdown.

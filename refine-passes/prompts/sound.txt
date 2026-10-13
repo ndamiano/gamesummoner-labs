@@ -1,1 +1,1 @@
-Add sound to this design.
+Add sound to DESIGN.md.
