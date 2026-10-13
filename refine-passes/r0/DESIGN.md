@@ -218,6 +218,9 @@ in priority order:
 5. **No hidden thresholds.** Pause > Input shows a live diagram of your own recent
    bursts and where your gaps landed relative to the thresholds; players can see their
    own rhythm and adjust it.
+6. **A visual language, not a visual style.** Section 14 is the art direction that serves all
+   five above: one palette, one glyph vocabulary, and three redundant channels (shape,
+   position, motion) for every state, so legibility never depends on colour or hearing.
 
 ### 5.1 Tutorial (first three rooms, no text)
 
@@ -336,3 +339,207 @@ Log every burst: `[t0, deltas[], count, median_gap, tier, verb, target_outcome]`
   fixed north-up map with a very strong facing arrow. Test both in M2.
 - Does an Undo-per-room make the game too safe, or is it the thing that makes the
   input learnable at all?
+
+---
+
+## 14. Visual design
+
+*A lantern in a stone room. Everything warm on the screen is you; everything else is the room.*
+
+The visual brief is the input brief in another medium: one channel has to carry everything, so
+it must be legible rather than pretty. Three laws follow, and everything below is derived from
+them.
+
+1. **Light is the interface.** The dungeon is dark and quiet; the only warm, moving thing on
+   screen is the player and their rhythm. Attention is directed by brightness, never by an arrow.
+2. **Hue is assigned by meaning, never by decoration.** Warm = you and your cadence. Cool =
+   the room's affordances. Violet = the grammar itself. A new room type may reuse a role; it
+   may not invent a colour.
+3. **Nothing is legible by colour alone.** Every state also has a shape and a position, and
+   most have a motion. Not an accessibility add-on: it is why the tier coding survives a
+   projector, a greyscale capture, a phone in sunlight and a colourblind player.
+
+**The test applied to every visual decision:** audio off, game in greyscale, 20% brightness,
+720p — can you still tell which verb you just committed, and which tile you are about to move
+into? If not, it is not a graphics bug, it is a control bug.
+
+**Non-goals for the look:** no painterly environments, no props or environmental storytelling,
+no particles, no parallax, no per-room tile variants. The look is deliberately cheap. A game
+whose verb set *is* a control scheme cannot also spend its identity on art; the art exists to
+make the grammar readable, and it should be possible to swap this look for someone else's
+prettier one without touching a mechanic. The shape law (14.2) and the tier coding (14.4) are
+the only things that must survive that swap.
+
+### 14.1 Palette
+
+Ten colours, three hue families, never more than five lit in one frame.
+
+| Name | Hex | Role | Never |
+|---|---|---|---|
+| INK | `#0E1116` | void, everything outside the light | inside a room |
+| SLATE | `#1B2129` | unlit floor | in UI |
+| (floor near) | `#28313C` | floor inside the lantern: slate + 14% lantern | as a UI fill |
+| STONE | `#2C343F` | wall faces, rendered *darker* than the floor | as an accent |
+| EDGE | `#39424E` | inactive UI, unlit rungs, frame lines | as a gameplay object |
+| ASH | `#8C93A0` | **Careful** tier, secondary text, unaware enemies | combat |
+| CHALK | `#E8E4DA` | the player, primary text | anything else at full strength |
+| LANTERN | `#E8A33D` | **Normal** tier, light, intent ghost, all intent previews | damage |
+| EMBER | `#D4483B` | **Frantic** tier, damage dealt and taken, aggro | decoration |
+| TEAL | `#4FA3A5` | the room's verbs: doors, chests, stairs, switches | combat |
+| VIOLET | `#7C6BD1` | the grammar: relics, ladder changes, pause accent | the diegetic world |
+
+Violet is the only "impossible" colour in the room: a relic should look like an edit to the
+rules, not like a prop. Tier colours are locked to ASH / LANTERN / EMBER and are the only
+colours allowed to tint UI chrome: the meter, the ghost and the frames use the same three for
+the whole game, in every locale and every difficulty.
+
+### 14.2 The shape law
+
+One rule generates every glyph in the game: **rung *n* of the ladder is a polygon with *n*
+sides.** 0 taps is an open ring, 1 a dot, 2 a two-sided lens, 3 a triangle, 4 a square, 5 a
+pentagon. The count is literally countable, the ladder reads as increasing complexity, and it
+survives greyscale.
+
+The same six shapes are then reused everywhere, without variation: the meter's rungs, the
+intent ghost on the floor, the commit flash, the pause poster, the tutorial cards, the icons in
+the input diagram, and the sound design's per-verb motifs (one shape, one timbre, one
+gesture). One vocabulary, learned once.
+
+All glyphs are drawn **screen-aligned** — never rotated with the world, never scaled per
+encounter. Minimum glyph size 22 px at 1080p, 15 px at 720p; minimum text size 13 px.
+
+![The shape law and the palette](figures/01_shape_law_and_palette.png)
+
+### 14.3 The world: tiles, light, camera
+
+- **Grid, top-down.** 46 px per tile at 1080p (the character is ~34 px tall; the whole ladder
+  fits inside a 1200 px safe area). A room is one screen.
+- **Walls are holes, not objects.** A wall face is always *darker* than the floor beside it,
+  with a 1 px lit lip on the edges facing the lantern. The room is read as silhouette. No
+  texture, no noise, no tile variants: per-room variety costs legibility, and this game cannot
+  afford it.
+- **One light.** A soft falloff centred on the player, radius ~7 tiles, warm-tinted within 3.
+  No shadow casting in v0 — light is a readability device, not a mechanic. If a light mechanic
+  ever arrives it must never be able to hide the intent ghost.
+- **Camera.** Rotates in a soft ~20 degrees-per-frame eased turn so facing always reads
+  up-right (section 4). Everything that is not world geometry — glyphs, labels, the meter, the
+  ghost's shape — stays screen-aligned. The facing notch lives on the **player's rim**, not in
+  the camera, so the composition is unchanged if the rotation is cut for motion sickness (open
+  question 13): the fallback is a fixed north-up grid with the same rim notch. Draw 8 detents
+  on the rim and enable 4 in v0, which also settles the 45-degree-versus-4-direction mismatch
+  between 2.1 and 4.
+- **Enemies** are darker than the tile they stand on, with exactly one bright feature (the eye
+  = aggro state). You read them as holes in the light. The brightest thing on screen is always
+  you, or the tile you are about to affect.
+- **Interactable states** use one colour and stroke patterns: solid teal = openable, dashed
+  teal = locked, teal with a violet flicker after a Strike = mimic revealed. No object gets a
+  colour of its own.
+
+![Screen composition](figures/04_screen_composition.png)
+
+### 14.4 The cadence meter
+
+The signature element (section 5, item 2). Spec at 1080p: 460 x 74 px, bottom centre, always
+on, never covered by any panel — if a panel would cover it, the panel moves.
+
+- Six rungs at fixed positions, drawn with the shape law. Rungs never move or re-order: the
+  meter's geography is muscle memory, and re-learning it mid-run taxes the wrong thing.
+- A **playhead** sits on the current rung and only ever travels left to right, so a burst
+  leaves a visible trace instead of a blinking icon.
+- The baseline under the rungs fills to the current rung in the tier colour.
+- Frame and behaviour per tier: **Careful** grey, static; **Normal** amber, pulsing at the
+  median gap you are actually producing (the metronome face — this is the diegetic part);
+  **Frantic** red, frame jittering 3 px. Reduced-motion swaps the jitter for a solid double
+  frame, so the tier stays readable without motion.
+- **Idle:** at `IDLE_WAIT`, rung 0 lights and the frame breathes once. Bracing must have a
+  face, or doing nothing looks like the game has frozen.
+- Not on the meter: a timer, a millisecond readout, a combo counter. The numbers live in
+  Pause > Input (section 5, item 5), where they are *your* numbers rather than a HUD element.
+
+![Cadence meter, four states](figures/02_cadence_meter.png)
+
+### 14.5 The intent ghost, and drawing one burst
+
+The escalation *is* the animation. While the recogniser is in PENDING the affected tile is
+outlined 2 px and filled 16% in the tier colour, holding the glyph of the pending verb; each
+added press morphs it to the next rung's shape, and Step / Lunge / Sprint draw a thin ray along
+the path they would take. By the time the verb commits the player has already seen the outcome,
+which is what turns `COMMIT_WINDOW` latency from lag into a beat.
+
+**Degradations are shown, not hidden.** A Strike with nothing in front draws its ghost, then
+morphs to the Step glyph with a small tick reading "as Step". The graceful degradation of 2.5
+has to be visible in the ghost, because the ghost is the only place the player is looking at
+that moment.
+
+Commit flash: 2 frames, a 4% full-screen lift in the tier colour, plus the verb's glyph fired
+from the player. Never a white flash (photosensitivity), never more than 4 px of shake; with
+reduced motion both are replaced by the glyph alone.
+
+![One burst, drawn](figures/05_burst_timeline.png)
+
+### 14.6 Verb feedback
+
+Every verb gets its own sound, glyph, light behaviour and duration. The requirement: each row
+is identifiable with audio off and the game in greyscale, from glyph and light alone. If two
+rows are confusable, one of the two verbs gets redesigned — the same bar as M1's "does a double
+click *feel* like a sword", applied to pixels.
+
+| Verb | Sound | Screen | Light | Duration |
+|---|---|---|---|---|
+| Brace | low thud, cloth | ring expands from your tile | lantern dims 10% for 6 frames | 150 ms |
+| Step | one soft cloth per tile crossed | dust at the destination | none | 120 ms |
+| Strike | dry click, hard attack | spike glyph along facing, 2 px shake for 1 frame | 10% flare | 140 ms |
+| Lunge | click then scuff, two-tone | double chevron + 3-tile streak | flare | 160 ms |
+| Guard | single bell | ring around you, persists to your next turn | none | 180 ms + ring |
+| Sprint | three cloths, spaced at your own gaps | fading dot trail along the path | the light travels with you | 3 x 120 ms |
+| Pivot | continuous soft scrape | dashed arc guide while held | none | while held |
+| Rest | page turn | world desaturates 40%, vignette closes | dims | 200 ms |
+
+### 14.7 Screen layout and the pause poster
+
+The complete persistent HUD: floor and room counter (top left, 15 px), turn counter under it
+(13 px, ASH), guard **pips on the player** (not a bar, not a corner), and the cadence meter.
+That is all of it, and the list is closed.
+
+- Room names are drawn on the door tile, shop prices on the counter tile, damage as a brief
+  glyph on the target. No popups, no floating number columns, nothing that can sit on the tile
+  you are about to step into.
+- **No minimap in v0.** A room is one screen, the meter owns the bottom of the frame, and a
+  minimap is the fastest way to make this game look like every other roguelike.
+- Pause > Ladder is the verb set as a poster, in the same column order as the meter — glyph,
+  taps, verb, effect, cost — so reading the poster and reading the meter are the same act. It
+  is also the tutorial card and the store-page art, drawn by the same code.
+
+![The ladder poster](figures/03_ladder_poster.png)
+
+### 14.8 Motion and pacing
+
+- **Input outranks presentation.** If a burst commits while the previous verb is still
+  animating, that animation collapses to its end state. The world never animates ahead of you,
+  as in section 3.
+- No verb animation longer than 180 ms; turn resolution is skippable by pressing again.
+- One easing curve for everything (ease-out, 120 ms) except Pivot, which is linear while held.
+- **Nothing idles.** No breathing, bobbing or pulsing on player or enemies. A still world is
+  the baseline that makes motion mean *something happened*, and it keeps the screen readable for
+  players who take their time reading it.
+- Reduced-motion: no shake, no jitter, no pulse. Shape, position and colour carry everything,
+  which is exactly what they are already required to carry.
+
+### 14.9 Never-list
+
+Enemy health bars (their telegraph is their shape and the tier they react to) · a player health
+bar · blood, debris, sparks · parallax and background art · tile variants for variety · more
+than one accent hue per meaning · anything that pulses or floats while the player is idle ·
+text that explains what the ghost already showed.
+
+### 14.10 How these figures are made
+
+`figures/make_figures.py` draws every figure in this section with the primitives, palette and
+glyph functions the renderer is meant to use: polygon, ellipse, line — no bitmaps, no licensed
+fonts, no hand-drawn art in v0. Keep it that way through M2: if the game cannot be drawn with
+those primitives and this palette, the visual design is not finished, it is decorated. Re-run
+`python3 figures/make_figures.py` after any change to the palette or the ladder, so the document
+and the renderer cannot drift apart.
+
+v0 asset budget: one atlas of ~40 glyph shapes, one 8 px grain dot, one vignette. Everything
+else is procedural, including the poster and the tutorial cards.
