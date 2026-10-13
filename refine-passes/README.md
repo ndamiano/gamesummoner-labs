@@ -48,7 +48,7 @@ Pass order per arm (refine after each stage, repeated N times):
 
 Run: `./run_arm.sh <arm> <N>`, e.g. `./run_arm.sh r0 0`. Each pass pipes one prompt file into a
 fresh `coding-agent` process (default flags: basalt via llama-swap on :5001, reasoning xhigh, file
-tools only, no `--shell`), the same harness the seed came from. Transcripts land in `<arm>/logs/`.
+tools plus `--shell`: bash in bubblewrap, no network). The seed came from the same harness without `--shell`. Transcripts land in `<arm>/logs/`.
 
 One commit per pass, titled `refine-passes <arm>: <prompt file>`, so `git log -p -- <arm>/DESIGN.md`
 is the whole design history of an arm. A new arm starts with `cp r0/DESIGN.md` from the seed

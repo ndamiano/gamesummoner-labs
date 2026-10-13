@@ -15,7 +15,7 @@ mkdir -p "$ARM/logs"
 pass() {
   local name=$1 log
   log="$ARM/logs/$(date +%H%M%S)_$name.log"
-  (cd "$ARM" && coding-agent < "$LAB/prompts/$name.txt") > "$log" 2>&1
+  (cd "$ARM" && coding-agent --shell < "$LAB/prompts/$name.txt") > "$log" 2>&1
   git add "$ARM"
   git diff --cached --quiet -- "$ARM" || git commit -q -m "refine-passes $ARM: $name" -- "$ARM"
   echo "$ARM $name $(wc -l < "$ARM/DESIGN.md") lines"
