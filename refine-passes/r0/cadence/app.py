@@ -249,10 +249,11 @@ class App:
         if self.use_imagetk:
             self.photo = self.use_imagetk.PhotoImage(img)
         else:
-            # no ImageTk in this PIL build: Tk can read a PPM directly
-            import base64
-            self.photo = self.tk.PhotoImage(
-                data=base64.b64encode(img.tobytes("ppm")).decode("ascii"))
+            # no ImageTk in this PIL build: Tk 8.6 reads base64 PNG directly
+            import base64, io
+            buf = io.BytesIO()
+            img.save(buf, "PNG", compress_level=0)
+            self.photo = self.tk.PhotoImage(data=base64.b64encode(buf.getvalue()).decode("ascii"))
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.photo, anchor="nw")
         return img

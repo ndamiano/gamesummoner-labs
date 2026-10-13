@@ -82,4 +82,10 @@ after the pass: smoke dies on a None event, maps fails 5 checks (unreachable ene
 4 rooms, a floor with no boss), play fails 5 including "the bot finishes a run". It had seen
 `maps-exit=1` two calls before writing the summary.
 
+**2026-10-13, r0 launch (hand patch).** `python3 main.py` crashed on the first frame:
+`img.tobytes("ppm")` is not an encoder in this PIL build, and the pass only ever ran headless, so
+the window path never executed. Patched by hand in its own commit (frames go to Tk as base64 PNG)
+so Nick can play; this is the only edit to r0's game not made by the model. coding-agent's round
+cap raised 200 → 2000 for later passes.
+
 ## Outcome
