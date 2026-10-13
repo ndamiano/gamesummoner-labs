@@ -438,6 +438,84 @@ def fig_timeline(path):
     im.save(path)
 
 
+# ------------------------------------------------------ 06 verb motifs -----
+# The audio design (DESIGN.md 15.2, 15.3) drawn with the same primitives as the
+# glyphs: an envelope is a shape, a grain is a tick, a tier is a filter.
+MOTIFS = [
+    ("BRACE", "ring", [(0, 150, 0.40, 20)], "0 grains: one low swell", "thud + cloth"),
+    ("STEP", "dot", [(0, 90, 1.00, 5)], "1 grain per tile crossed", "cloth"),
+    ("STRIKE", "lens", [(0, 45, 1.00, 0), (60, 60, 0.80, 0)], "2 grains: click, then contact", "click"),
+    ("LUNGE", "ngon3", [(0, 45, 1.00, 0), (120, 110, 0.70, 5)], "2 grains: click, then scuff", "click + cloth"),
+    ("GUARD", "ngon4", [(0, 620, 0.90, 2)], "1 grain, long metal tail", "bell"),
+    ("SPRINT", "ngon5", [(0, 90, 0.90, 5), (210, 90, 0.90, 5), (430, 90, 0.90, 5)],
+     "3 grains, spaced at YOUR gaps", "cloth x3"),
+]
+
+
+def env(d, x0, y, grains, scale, col, h=44):
+    """a grain = attack ramp + decay to the baseline; a motif = its grains."""
+    for (t, dur, amp, atk) in grains:
+        xa = x0 + t * scale
+        xb = xa + max(atk, 1) * scale
+        xc = x0 + (t + dur) * scale
+        pts = [(xa, y), (xb, y - h * amp), (xc, y)]
+        d.polygon(pts, fill=mix(INK, col, 0.28))
+        d.line(pts, fill=col, width=2)
+        d.line([(xa, y - h - 8), (xa, y + 4)], fill=col, width=2)
+
+
+def axis(d, x0, y, scale, span):
+    d.line([(x0, y), (x0 + span * scale, y)], fill=EDGE, width=1)
+    for ms in range(0, span + 1, 100):
+        x = x0 + ms * scale
+        d.line([(x, y - 3), (x, y + 3)], fill=EDGE, width=1)
+        if ms % 200 == 0:
+            txt(d, (x, y + 9), "%d" % ms, 11, mix(ASH, INK, 0.35), "mm")
+    txt(d, (x0 + span * scale + 12, y - 4), "ms", 11, ASH)
+
+
+def fig_motifs(path):
+    W, H = 1200, 940
+    im, d = canvas(W, H)
+    head(d, W, "15.3  Verb motifs, drawn",
+         "family and envelope carry the verb; pitch and filter carry the tier - a Strike must still be a Strike at any tier")
+
+    AX, SCALE, SPAN = 250, 0.60, 700
+    y = 168
+    for name, shape, grains, note, family in MOTIFS:
+        txt(d, (40, y - 9), name, 14, CHALK, "lt", True)
+        txt(d, (40, y + 10), family, 11, mix(ASH, INK, 0.25))
+        glyph(d, shape, 186, y - 8, 13, col=LANTERN)
+        axis(d, AX, y, SCALE, SPAN)
+        env(d, AX, y, grains, SCALE, LANTERN)
+        txt(d, (AX + SPAN * SCALE + 40, y - 8), note, 12, mix(ASH, LANTERN, 0.45))
+        txt(d, (AX + SPAN * SCALE + 40, y + 10),
+            "%d grain%s" % (len(grains), "" if len(grains) == 1 else "s"), 11, mix(ASH, INK, 0.3))
+        y += 92
+
+    d.line([(40, y - 26), (W - 40, y - 26)], fill=EDGE, width=1)
+    txt(d, (40, y - 16), "the same STRIKE, three tiers", 14, CHALK, "lt", True)
+    txt(d, (40, y + 4), "same source, same envelope, same two grains - only the filter, the attack and the tail move", 11, ASH)
+    ty = y + 130
+    tiers = [("CAREFUL", "low-passed, softened attack, no tail, -6 dB", ASH,
+              [(0, 40, 0.62, 9)]),
+             ("NORMAL", "as printed", LANTERN,
+              [(0, 45, 1.00, 0), (60, 60, 0.80, 0)]),
+             ("FRANTIC", "harder attack, longer tail, +2 semitones, +3 dB", EMBER,
+              [(0, 30, 1.00, 0), (55, 150, 0.95, 0)])]
+    for i, (lab, note, col, grains) in enumerate(tiers):
+        cx = 90 + i * 375
+        glyph(d, "lens", cx - 44, ty - 40, 11, col=col)
+        txt(d, (cx - 30, ty - 48), lab, 13, col, "lt", True)
+        axis(d, cx, ty, 0.24, 700)
+        env(d, cx, ty, grains, 0.24, col, h=30)
+        txt(d, (cx, ty + 30), note, 11, mix(ASH, col, 0.4))
+
+    caption(d, W, H,
+            "grain count = the number of things the verb does; grains under 80 ms apart merge into one (the streaming limit, not a style choice) - DESIGN.md 15.3")
+    im.save(path)
+
+
 if __name__ == "__main__":
     import sys
     out = sys.argv[1] if len(sys.argv) > 1 else "figures"
@@ -445,6 +523,7 @@ if __name__ == "__main__":
                      ("02_cadence_meter.png", fig_meter),
                      ("03_ladder_poster.png", fig_poster),
                      ("04_screen_composition.png", fig_screen),
-                     ("05_burst_timeline.png", fig_timeline)]:
+                     ("05_burst_timeline.png", fig_timeline),
+                     ("06_verb_motifs.png", fig_motifs)]:
         fn("%s/%s" % (out, name))
         print("wrote %s/%s" % (out, name))

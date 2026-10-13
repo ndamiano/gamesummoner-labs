@@ -403,7 +403,7 @@ survives greyscale.
 The same six shapes are then reused everywhere, without variation: the meter's rungs, the
 intent ghost on the floor, the commit flash, the pause poster, the tutorial cards, the icons in
 the input diagram, and the sound design's per-verb motifs (one shape, one timbre, one
-gesture). One vocabulary, learned once.
+gesture, 15.3). One vocabulary, learned once.
 
 All glyphs are drawn **screen-aligned** — never rotated with the world, never scaled per
 encounter. Minimum glyph size 22 px at 1080p, 15 px at 720p; minimum text size 13 px.
@@ -482,7 +482,8 @@ reduced motion both are replaced by the glyph alone.
 Every verb gets its own sound, glyph, light behaviour and duration. The requirement: each row
 is identifiable with audio off and the game in greyscale, from glyph and light alone. If two
 rows are confusable, one of the two verbs gets redesigned — the same bar as M1's "does a double
-click *feel* like a sword", applied to pixels.
+click *feel* like a sword", applied to pixels. The Sound column is the short form: section 15 is the
+audio design, and the two must not drift apart.
 
 | Verb | Sound | Screen | Light | Duration |
 |---|---|---|---|---|
@@ -534,7 +535,8 @@ text that explains what the ghost already showed.
 
 ### 14.10 How these figures are made
 
-`figures/make_figures.py` draws every figure in this section with the primitives, palette and
+`figures/make_figures.py` draws every figure in this section, and the motif diagram in 15.3, with
+the same primitives, palette and
 glyph functions the renderer is meant to use: polygon, ellipse, line — no bitmaps, no licensed
 fonts, no hand-drawn art in v0. Keep it that way through M2: if the game cannot be drawn with
 those primitives and this palette, the visual design is not finished, it is decorated. Re-run
@@ -543,3 +545,256 @@ and the renderer cannot drift apart.
 
 v0 asset budget: one atlas of ~40 glyph shapes, one 8 px grain dot, one vignette. Everything
 else is procedural, including the poster and the tutorial cards.
+
+---
+
+## 15. Sound design
+
+*The room is silent. Everything you hear is you, or something reacting to you.*
+
+The audio brief is the input brief and the visual brief in a third medium, and it inherits their
+problem in a sharper form: **the player is the loudest and most frequent sound source in the
+game.** A frantic run produces 100-300 presses in fifteen minutes, and every one of them already
+has a sound. So the hard problem here is not atmosphere, it is self-masking: the game has to stay
+audible *through* the sound of the player's own hand. Three laws, the same three as 14:
+
+1. **The player is the soundtrack.** There is no score to keep time with. The only rhythmic
+   element in the game is the player's own cadence, sounded back at them (15.4).
+2. **Timbre is assigned by meaning, never by decoration.** Dry transients are you and your verbs.
+   Resonant, room-sourced sound is the room's affordances. One impossible, purely synthesised
+   family is the grammar itself: relics, ladder edits, an Offbeat reversal. A new room type may
+   reuse a family; it may not invent one.
+3. **Nothing is legible by sound alone.** Every cue below already has a drawn equivalent in
+   section 14. Audio is a redundant channel by construction: never the only carrier, and no
+   mechanic may require hearing it.
+
+**The test applied to every audio decision:** sound on, picture at 20% brightness — can you tell
+which verb you just committed, at what tier, and whether the room noticed? And the half of the
+test that decides whether a cue is a control cue rather than decoration: with the audio off, is
+anything lost *but pleasure*? If actual information is missing, the cue must be drawn (14.6)
+before it is allowed to be heard.
+
+**Non-goals for the sound:** no adaptive or layered score, no licensed sample library, no ambient
+loops, no foley variety, no voice or barks, no UI whooshes, no sonar pings, no reverb used to
+make a cue pleasant instead of identifiable. Like the look, the sound is deliberately cheap and
+generated from primitives (15.9). It exists to make the grammar audible, and it should be possible
+to swap this audio design for someone else's better one without touching a mechanic. The voice
+budget (15.2) and the identity rule (15.3) are the only things that must survive that swap.
+
+### 15.1 The masking problem — the hard problem
+
+Everything else in this section is ordinary game audio. These five rules are what makes it a
+CADENCE soundtrack, and they are all consequences of the input design:
+
+1. **The switch sound and the verb sound are separate channels.** A press makes a **tick**: 12 ms,
+   band-limited, fixed level, identical on every device, never tiered, never pitched, never panned.
+   It says "the switch registered" and nothing else. Its emptiness is deliberate: it is the only
+   sound allowed to repeat five times a second, and a sound that repeats that often cannot carry
+   information — it can only carry rhythm. The verb's sound arrives at commit, ~260 ms later, and
+   is the only thing permitted to change character. Two messages, two channels: *it registered*,
+   and *here is what it meant*. Merging them buries both.
+2. **While you are still deciding, the gaps between the ticks are the tier.** The intent ghost is
+   silent on purpose (15.8). During PENDING the only audio is your own ticks, whose spacing is
+   exactly what the meter is showing (14.4). Sounding the escalation would put the game's voice
+   inside the player's hesitation, and an abandoned burst would be audible as a commitment.
+3. **One event owns the mix.** The committed verb owns the mix for its duration (14.6); anything
+   else that would sound in that window ducks 6 dB, and if it still collides it is dropped — with
+   its visual equivalent kept. Input outranks presentation (14.8), so a collapsed animation
+   collapses its sound too: tails are ducked, never hard-cut, because an abrupt cut is itself an
+   audible event and would be heard as a verb that did not happen.
+4. **Silence is the loudest cue.** The ambience floor is a room tone at the edge of hearing.
+   Aggro, an unseen enemy, the Swarm's panic meter (7) and the Careful tier are heard as *changes
+   in that floor*, not as added effects. This is "light is the interface" in another medium: what
+   matters is what the dark stops doing.
+5. **The player's rhythm must never be contradicted by the game.** Nothing in the mix is metrical
+   except what the player produced (15.4). If the game had a beat, the player's hand would be
+   either in time with it or wrong, and this game does not judge tempo.
+
+### 15.2 Nine sources, three families
+
+Mirroring 14.1: a closed list, three families — **you**, **the room**, **the grammar** — plus the
+switch, which belongs to no family. Never more than three of them sounding in one frame; the tick
+is listed for completeness and does not count against that limit, because it is not a game sound,
+it is the controller.
+
+| Source | Family | Role | Never |
+|---|---|---|---|
+| TICK | (switch) | 12 ms band-limited click: the press registered | carrying meaning; being ducked |
+| CLOTH | you | soft filtered noise: movement — Step, Sprint, Lunge tail | attacks |
+| CLICK | you | dry wood transient: Strike, the head of a Lunge | ambience |
+| BELL | you | struck metal, long tail: Guard, and only Guard | anything else |
+| THUD | room | low sine under cloth: Brace, damage taken | decoration |
+| SCRAPE | you | sustained filtered noise: Pivot, while held | staccato |
+| PAGE | you | paper transient plus a short filter sweep: Rest, menus | combat |
+| ROOMTONE | room | 20 s generated bed, filtered per room: the presence of a space | any rhythmic content |
+| GRAMMAR | grammar | two detuned sines with a slow beat: relics, ladder edits | anything diegetic |
+
+GRAMMAR is the audio VIOLET: the only sound in the game with no physical model, because a relic is
+an edit to the rules and not a prop. It is also the loudest thing in the game (15.6), and it is
+always alone.
+
+**Tier treatment is locked to three, for the whole game** — the audio of ASH / LANTERN / EMBER, and
+always a *treatment* of the same source, never a different source:
+
+| Tier | Treatment | Why |
+|---|---|---|
+| **Careful** | low-passed 1.8 kHz, attack +8 ms softer, no tail, -6 dB | 2.2's "silent, no aggro" made audible |
+| **Normal** | as printed | |
+| **Frantic** | +2 semitones, harder transient, tail +40%, +3 dB | the same verb, heard as panic |
+
+And the rule that keeps the mix from becoming a wall: **pitch and filter carry the tier; family and
+envelope carry the verb.** A Strike must still be a Strike at any tier, exactly as a lens must
+still read as a lens in greyscale (14.2). Any cue identifiable by pitch alone is a tier cue
+wearing a verb's clothes.
+
+### 15.3 The shape law, heard
+
+14.2 promises one shape, one timbre, one gesture per verb. The timbre is the family above. The
+gesture is the envelope, and it has three values, one rule each:
+
+- **falling** — fast attack, decaying tail: you acting on the room. Every verb.
+- **rising** — slow attack, energy arriving: the room acting on you. Enemy moves, doors, damage.
+- **sustained** — while held: an ongoing state. Pivot, Guard's ring, Rest.
+
+Brace is the single exception to *falling*: it is you acting on yourself, so it rises before it
+falls. One exception, stated once, so nobody designs it back in by accident.
+
+So the first thing a sound tells you is *who caused it*, before you hear what it is. That is the
+audio version of "walls are holes, not objects": one rule that makes the whole mix parseable.
+
+**Grain count: the number of grains equals the number of things the verb does.** Step crosses one
+tile, one cloth. Sprint crosses three, three cloths spaced at your own gaps. Strike is click plus
+contact, two grains. Brace does nothing, so it has no grains at all — one low swell. Grains closer
+than 80 ms merge into one grain plus a tail: that is the auditory streaming limit, not a style
+choice, and it is why a Frantic burst blurs. At five presses a second a count is noise.
+
+![Verb motifs, drawn](figures/06_verb_motifs.png)
+
+| Verb | Family | Grains | Gesture | Identity (the thing no tier may take away) |
+|---|---|---|---|---|
+| Brace | THUD + CLOTH | 0 | sustained, 150 ms, rising-then-falling | the only sound below 200 Hz |
+| Step | CLOTH | 1 per tile crossed | falling, 90 ms | no attack transient, ever |
+| Strike | CLICK | 2 | falling, hard attack | the only dry wood transient |
+| Lunge | CLICK then CLOTH | 2, 120 ms apart | falling | the only two-family pair |
+| Guard | BELL | 1, 600 ms tail | sustained | the only struck metal |
+| Sprint | CLOTH x3 | = tiles actually crossed, at your own gaps | falling | the spacing is yours, the family is not |
+| Pivot | SCRAPE | continuous | while held, linear (14.8) | the only sustained noise |
+| Rest | PAGE | 1 | falling plus a downward filter sweep | the only paper |
+
+This is the long form of the Sound column in 14.6; the two must not drift.
+
+**The honest tension:** the shape law counts *intent* (rung n is an n-sided polygon) and the motif
+counts *effect* (n grains are n things that happen). They agree for Brace, Step and Strike, and
+they diverge for the rest — a Lunge is three rungs on the meter and two sounds, a Guard is four
+rungs and one bell. Do not "fix" this. The glyph counts what you asked for; the sound counts what
+happened. When a Lunge is blocked by a wall (2.5) the two come apart in exactly the way 14.5 draws:
+the ghost climbs to three sides and the sound is one click. Two count-languages, both true, and the
+ear cannot reliably count past four anyway.
+
+### 15.4 The score is the player's own rhythm
+
+- **The Drone.** One room-specific drone per floor: a root note, a filtered noise bed, no melody,
+  no beat, at -30 dBFS. It changes only with the tier (15.2): Careful opens it and drops it below
+  the room tone, Frantic narrows it and lifts it two semitones. Slow play sounds like a quieter
+  game — that is the only way the Careful tier can be taught to a player who will never read a
+  number.
+- **The Pulse.** A soft tick at the median gap you are *actually* producing: the audio face of the
+  meter's pulsing frame (14.4). It is derived from your input, so it is always in time with you,
+  and it is the one element that makes the metronome diegetic rather than decorative. Slider, not
+  a feature; off by default in Calm mode.
+- **The only beat that is not yours** is the Drummer boss (7): it plays a period *at* you, and the
+  fight is hearing the difference between that period and your own hand. If this game has one
+  piece of music, that is it — and it is an enemy, not a soundtrack.
+- There is no music stem whose mute removes information: the Drone carries tier and aggro state,
+  which are already carried by shape and colour. Muting it costs atmosphere only.
+
+Open question (belongs with 13): does the Pulse teach the tier, or does it turn a turn-based game
+into a rhythm game in the player's head? Prototype it silent in M2. If players start matching the
+Pulse instead of reading the meter, cut it and keep the drone.
+
+### 15.5 The room heard — sound as the second light
+
+- **Falloff is the lantern's radius** (~7 tiles, 14.3). Nothing is positioned beyond sight: a room
+  is one screen, and a sound you cannot see is a sound you cannot act on.
+- **The rim doubles as a bearing indicator.** The player's rim already carries the facing detents
+  (14.3). Something sounding off-screen flashes a 1-frame **tick on the outside edge of the rim** at
+  that bearing — never solid, never in a tier colour, so facing (solid, inside) and hearing (tick,
+  outside) cannot be confused. This is the only positional cue in the game, and it is redundant:
+  the same event is already readable as shape and eye brightness.
+- **Enemies sound like their telegraph** (7). The Mirror plays your last motif back an octave down,
+  so you hear yourself in it. The Tic ticks at your own gaps, because you are its clock. The
+  Swarm's room tone rises with your press count, which is a panic detector you can hear coming.
+- **The input diagram (5, item 5) gets a "play it" button:** your last 20 bursts sounded as ticks against
+  the threshold marks, so your own rhythm can be heard as well as seen. Same data, third channel,
+  no new UI.
+
+### 15.6 Mix
+
+| Bus | Level | Rule |
+|---|---|---|
+| Room tone | -38 dBFS | always on, no rhythmic content, moves only with aggro |
+| Drone + pulse | -30 dBFS | tier-driven, never above the room's own events |
+| Press tick | -26 dBFS | fixed, never ducked, never tiered, identical on every device |
+| Room events (doors, chests, stairs) | -16 dBFS | affordance family, never the verb bus |
+| Verbs | -14 dBFS (-11 Frantic, -20 Careful) | owns the mix for its duration; everything but the tick ducks 6 dB |
+| Damage to you | -10 dBFS | the loudest diegetic sound |
+| Grammar (relic, ladder edit) | -8 dBFS | the loudest thing in the game, and always alone |
+
+- Six voices maximum. Overflow is dropped in this priority order, worst first: extra grains, room
+  events, enemy sounds, drone, verbs, and never the tick.
+- No cue may step more than 12 dB inside 100 ms (startle), and no cue may peak above 6 kHz
+  (repeated-transient and tinnitus fatigue). Hard limits, not a preset.
+- The tick is never processed differently per device. A switch-access player must not hear a
+  keyboard.
+
+### 15.7 Accessibility
+
+- **Nothing requires hearing.** Every cue in 15.2 and 15.3 has its 14.6 equivalent, and playing at
+  zero audio is a supported configuration, not an accessibility mode. Say it as loudly as the
+  one-switch claim in section 10.
+- **Four sliders, not a master:** Switch (ticks), Verbs, Room (tone and events), Drone. The tick is
+  a *control* sound, so a player who finds it grating must be able to silence it without losing
+  verb feedback — and the other way round. A single master volume would force the wrong choice.
+- **Quiet mode:** attacks softened 8 ms, tails shortened 40%, the tick moved to a lower, softer
+  band. Nothing is removed and no cue becomes ambiguous: it is the same mix with the edge taken
+  off, for players who cannot tolerate three hundred transients a minute.
+- **Haptics** reuse the same envelopes as one rumble channel: Brace is a long low pulse, verbs are
+  their own grain pattern, Frantic is a jitter. A third redundant channel, never a required one;
+  reduced-motion (14.4, 14.8) also disables the jitter.
+- **Mono must not break anything.** Identity lives in family and envelope, never in position.
+
+### 15.8 Never-list
+
+No adaptive or layered combat score · no licensed samples · no ambient loops · no footstep variety ·
+no voice or barks · no menu whooshes beyond the page turn · no sonar or ping · no sound for the
+intent ghost or the escalation (15.1) · no sting on room clear · no separate "damage dealt" and
+"damage taken" cue beyond the family and gesture that already separate them · no device-specific
+input sound · no reverb on a verb to make it pleasant · nothing that sounds more than three times
+in a row without the player's hand being the cause.
+
+### 15.9 How this sound is made
+
+Same discipline as 14.10, and the same reason: if the audio cannot be built from a parameter
+table, the sound design is not finished, it is decorated. Every source is synthesised from four
+primitives — a filtered noise burst, a decaying sine, a struck-metal partial set, and a swept
+filter — with no samples and no recorded audio in v0. The asset is the table; the synth is the
+renderer's seed:
+
+```
+source     family   primitive     attack/decay   band (Hz)    grains  tier treatment
+tick       switch   noise         0 / 12         1200-2500    1       none (fixed forever)
+cloth      you      noise         5 / 110        200-1800     1..3    lp1800 / +2st / +40% tail
+click      you      metal+noise   0 / 45         900-4200     2       lp1800 / +2st / +40% tail
+bell       you      metal         2 / 600        1400-6000    1       lp1800 / +2st / +40% tail
+thud       room     sine+noise    20 / 160       40-180       0       lp1800 / +2st / +40% tail
+scrape     you      noise         40 / held      300-1200     -       lp1800 / +2st / +40% tail
+page       you      noise+sweep   3 / 180        400-3000     1       lp1800 / +2st / +40% tail
+roomtone   room     noise         loop, 20 s     60-900       -       aggro -> +6 dB shelf
+grammar    grammar  sine pair     30 / 600 beat  220-660      1       always alone
+```
+
+v0 audio budget: 9 sources x 3 tier treatments = 27 parameter rows, three 20 s room tones, one
+6-voice mixer with a side-chain on the verb bus, zero seconds of recorded audio. `figure 06` is
+drawn by `figures/make_figures.py` from the same table, and any change to the ladder or the tier
+thresholds must re-run it (14.10): the document and the build are not allowed to drift apart.
+
