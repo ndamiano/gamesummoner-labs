@@ -91,5 +91,8 @@ Crash fixes, budget under 5 (Nick): (1) idle brace crashed effects.py, because t
 `brace` input event and the game's `brace` world event share a type and only the latter has a
 position. After the fix, a headless random-input fuzz (taps, bursts, idles, pivots, rest holds,
 frames drawn mid-run; 50 seeds) found no further crashes.
+Nick's play verdict on r0: the concept is great and the model "didn't do an awful job", but the
+game doesn't work properly. His read: more steps could fix it, more refinement probably would
+have been better. Next: r1.
 
 ## Outcome
