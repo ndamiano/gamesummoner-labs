@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
 # Runs one arm: each stage prompt, then its refine prompt N times, then the build; every pass is a
 # fresh coding-agent process on basalt in the arm folder, committed to the labs repo when it ends.
-# Usage: ./run_arm.sh <arm> <N>
+# Usage: ./run_arm.sh <arm> <N> [first pass to run, skipping those before it]
 set -euo pipefail
 cd "$(dirname "$0")"
 LAB=$PWD
 ARM=$1
 N=$2
 SEED=d0ee945
+FROM=${3:-}
 
 mkdir -p "$ARM/logs"
 [[ -f $ARM/DESIGN.md ]] || git show "$SEED:refine-passes/r0/DESIGN.md" > "$ARM/DESIGN.md"
 
 pass() {
   local name=$1 log
+  [[ -n $FROM && $name != "$FROM" ]] && return
+  FROM=
   log="$ARM/logs/$(date +%H%M%S)_$name.log"
-  (cd "$ARM" && coding-agent --shell < "$LAB/prompts/$name.txt") > "$log" 2>&1
+  (cd "$ARM" && python3 "$LAB/drive.py" "$LAB/prompts/$name.txt") > "$log" 2>&1
   git add "$ARM"
   if [[ $name != build ]] && git diff --cached --quiet -- "$ARM"; then
     echo "$ARM $name left $ARM unchanged; stopping, see $log"

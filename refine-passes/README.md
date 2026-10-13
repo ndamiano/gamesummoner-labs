@@ -46,8 +46,9 @@ Pass order per arm (refine after each stage, repeated N times):
 3. `sound.txt`, then `sound_refine.txt` × N
 4. `build.txt`
 
-Run: `./run_arm.sh <arm> <N>`, e.g. `./run_arm.sh r0 0`. Each pass pipes one prompt file into a
-fresh `coding-agent` process (default flags: basalt via llama-swap on :5001, reasoning xhigh, file
+Run: `./run_arm.sh <arm> <N> [first pass]`, e.g. `./run_arm.sh r0 0`. Each pass pipes one
+prompt file into a fresh `coding-agent` process via `drive.py`, which sends "continue" when the
+turn ends on an announcement instead of finished work (default flags: basalt via llama-swap on :5001, reasoning xhigh, file
 tools plus `--shell`: bash in bubblewrap, no network). The seed came from the same harness without `--shell`. Transcripts land in `<arm>/logs/`.
 
 One commit per pass, titled `refine-passes <arm>: <prompt file>`, so `git log -p -- <arm>/DESIGN.md`
@@ -61,5 +62,12 @@ DESIGN.md.") read "visuals" as figures for the doc: it probed PIL fonts to draw 
 ended its turn on "First, the generator script:" with no tool call, and DESIGN.md never changed.
 Prompts reworded to "Add a visual design" / "Add sound design"; the runner now stops an arm on a
 pass that changes nothing instead of carrying on.
+
+**2026-10-13, r0 attempt 2.** `visuals` (+207 lines, §14 plus a PIL figure script) and `sound`
+(+255, §15) landed; DESIGN.md 338 → 800 lines. `build` stalled like attempt 1's visuals: 8 calls,
+then "Starting with the core." and no tool call. Fix: `drive.py` keeps the session open, and when
+a judge call on basalt (`prompts/judge.txt`) reads the turn's end as an announcement it sends
+`prompts/continue.txt`, up to 5 times. The judge read all four turns so far correctly (both
+stalls CONTINUE, both finished passes DONE). Rerunning `build` only.
 
 ## Outcome
