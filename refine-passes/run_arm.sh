@@ -17,7 +17,11 @@ pass() {
   log="$ARM/logs/$(date +%H%M%S)_$name.log"
   (cd "$ARM" && coding-agent --shell < "$LAB/prompts/$name.txt") > "$log" 2>&1
   git add "$ARM"
-  git diff --cached --quiet -- "$ARM" || git commit -q -m "refine-passes $ARM: $name" -- "$ARM"
+  if git diff --cached --quiet -- "$ARM"; then
+    echo "$ARM $name left $ARM unchanged; stopping, see $log"
+    exit 1
+  fi
+  git commit -q -m "refine-passes $ARM: $name" -- "$ARM"
   echo "$ARM $name $(wc -l < "$ARM/DESIGN.md") lines"
 }
 

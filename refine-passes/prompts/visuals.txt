@@ -1,1 +1,1 @@
-Add visuals to DESIGN.md.
+Add a visual design to DESIGN.md.

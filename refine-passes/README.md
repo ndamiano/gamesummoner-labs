@@ -56,4 +56,10 @@ commit. Only authored text is tracked (see `labs/.gitignore`); the built game st
 
 ## Log
 
+**2026-10-13, r0 attempt 1 (implementation fix and rerun).** `visuals` ("Add visuals to
+DESIGN.md.") read "visuals" as figures for the doc: it probed PIL fonts to draw mock-ups, then
+ended its turn on "First, the generator script:" with no tool call, and DESIGN.md never changed.
+Prompts reworded to "Add a visual design" / "Add sound design"; the runner now stops an arm on a
+pass that changes nothing instead of carrying on.
+
 ## Outcome
