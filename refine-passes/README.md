@@ -87,5 +87,9 @@ after the pass: smoke dies on a None event, maps fails 5 checks (unreachable ene
 the window path never executed. Patched by hand in its own commit (frames go to Tk as base64 PNG)
 so Nick can play; this is the only edit to r0's game not made by the model. coding-agent's round
 cap raised 200 → 2000 for later passes.
+Crash fixes, budget under 5 (Nick): (1) idle brace crashed effects.py, because the recognizer's
+`brace` input event and the game's `brace` world event share a type and only the latter has a
+position. After the fix, a headless random-input fuzz (taps, bursts, idles, pivots, rest holds,
+frames drawn mid-run; 50 seeds) found no further crashes.
 
 ## Outcome

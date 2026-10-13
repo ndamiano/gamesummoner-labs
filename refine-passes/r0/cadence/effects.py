@@ -59,7 +59,7 @@ class FX:
             elif path:
                 x, y = path[-1]
                 self._add("dust", 120, x=x, y=y)
-        elif t == "brace":
+        elif t == "brace" and "x" in e:
             self._add("ring_expand", 150, x=e["x"], y=e["y"])
             self.dim = 1.0
         elif t == "guard":
