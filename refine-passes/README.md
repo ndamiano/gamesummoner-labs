@@ -101,5 +101,10 @@ script), `sound` → 1311 (+ `mockups/sound.py` and 29 reference cues). The cue 
 bytes: `wav()` returns the header without the samples. The §16 numbers are measured on
 in-memory buffers and hold; the pass's only check on the files was `ls`. Watch whether
 `sound_refine` catches it.
+Nick on the cues (heard via a patched copy): the sounds are fine; the real test is how the game
+feels. Off-target for both arms: the visual and sound prompts meant "write that part of the
+design", and every design pass also built tooling (figure, mock-up and cue scripts). Prompts stay
+as they are for r1 so the arms match; a "design only, no code" wording is a candidate lever for a
+later arm.
 
 ## Outcome
