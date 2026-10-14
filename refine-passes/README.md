@@ -109,5 +109,13 @@ later arm.
 `sound_refine` → 1507 lines, 88 calls: answered three questions the cue table left open and
 extended `sound.py` by 134 lines. It did not catch the 44-byte cue files; they are regenerated
 just as empty. Refinement closes gaps in the prose; it does not check artifacts it never opens.
+**r1 build (works; awaiting Nick's play).** One turn, 535 calls, judge DONE, cap 2000 never near.
+Browser game in plain JS (`index.html`, 11 modules in `src/`), as `design_refine` decided. Its
+claim of `npm test` 59/59 green reproduces (rerun after the pass: 59 pass, 0 fail), unlike r0's.
+It caught and fixed real behaviour bugs while testing (menu fired on the first tap, the room
+overflowed the frame, a sticky rest latch closed the menu), and its audio tests caught the
+cue-table attack values the design passes had asserted without rendering. Unbuilt by its own
+account: rooms 6-8, the arcade layout, Hard mode, gamepad. The `.js`/`.html`/`.css` sources are
+not tracked by `labs/.gitignore`, so only the README and Python tooling are in commit e56e1cd.
 
 ## Outcome
