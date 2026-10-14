@@ -366,7 +366,9 @@ These are decisions, not facts. Each carries the trigger that would reopen it.
 3. **Rotating camera?** **No. Fixed north-up map with a strong facing arrow for the
    first build.** It cannot be evaluated without a playtest, and it triples the
    rendering cost of the prototype. The input grammar is identical either way, which is
-   exactly why we can defer it; it comes back as a toggle.
+   exactly why we can defer it; it comes back as a toggle. ("Arrow" here means the
+   facing mark, not a filled triangle: 15.3 and 15.11-v5 draw it as a chevron, because
+   filled triangles in this game mean the exit or Frantic.)
 4. **Undo per room?** **Yes, but as a named mode rather than a hidden rule.** Calm
    (undo allowed, whiffs forgiven) / Standard (no undo, whiffs forgiven) / Hard (no undo,
    whiff kept). In a turn-based sim an undo is a state snapshot, ~free to implement
@@ -516,11 +518,14 @@ sequence is reproducible; (2) the renderer reads state and writes nothing.
 9. Metronome (+120 ms commit) turns test 3 into a Strike — proof that a relic really changes the grammar.
 10. Offbeat swaps 1<->2 without disturbing tiering.
 11. Same seed + same scripted input -> byte-identical run transcript.
-12. Renderer guard (15.6, 15.7): every palette entry in `cfg.js` is one of the ten tokens in
-    15.6, no hex literal appears in `render.js`, `TILE >= 20` is asserted rather than
-    assumed, and a ghost drawn over the brightest lit tile measures >= 3:1 through the plate
-    path. Cheap to write, and it is the only way the visual spec stays true after the
-    first person touches the renderer.
+12. Renderer guard (15.6, 15.7, 15.11): every palette entry in `cfg.js` is one of the ten
+    tokens in 15.6, no hex literal appears in `render.js`, `TILE >= 20` is asserted rather
+    than assumed, and a ghost drawn over the brightest lit tile measures >= 3:1 through the
+    plate path. Extended by 15.11's decisions: the meter axis width must equal the value
+    *derived* from the rung constants (a hard-coded 420 fails), the drawn text size is
+    asserted `>= 11`, and the two layouts are the only two the renderer will accept. Cheap
+    to write, and it is the only way the visual spec stays true after the first person
+    touches the renderer.
 
 **Definition of done for the first build:** `node --test` green; `index.html` opens and
 plays tutorial room 1 with no instructions on screen; the end screen prints my own tier
@@ -544,8 +549,10 @@ a deliverable of M1/M2, legibility is (12).
 
 This section is written as rules with numbers, because that is the only form of a visual
 spec that can be tested (14.6-12). Every number below is computed by `mockups/make.py`,
-which also draws the two reference figures this section points at; run it and it re-prints
-them. They are reference figures, not game assets.
+which also draws the three reference figures this section points at (`screen.png` at the
+large layout, `screen_small.png` at the small one, `shapes.png` for the vocabulary); run it
+and it re-prints the numbers and re-draws them. They are reference figures, not game assets.
+Where 15.1-15.9 left a choice open, 15.11 records the decision and the number behind it.
 
 ### 15.1 Five rules
 
@@ -570,10 +577,27 @@ them. They are reference figures, not game assets.
 
 ### 15.2 What goes where
 
-Reference surface **960 x 600**, `TILE = 30` -> a 32 x 20 room. The surface is
-integer-scaled to fit the window and letterboxed; the HUD is laid out in reference pixels
-and never reflows. When the window is too small for 1:1 the renderer drops `TILE` to 20
-before it shrinks any HUD text — and **20 px is a hard floor** (15.4).
+There are **two layouts, not one scale** (15.11-v4). `cfg.js` holds both; the renderer
+picks one and never interpolates. Both draw the same 32 x 20 room, integer-scaled to the
+window and letterboxed:
+
+| Layout | Chosen when | `TILE` | Rung | Rung gap | Meter axis width |
+|---|---|---|---|---|---|
+| **large** | window fits 960 x 600 | 30 | 76 x 26 | 8 | `5*76 + 4*8` = **412 px** |
+| **small** | otherwise | 20 | 60 x 26 | 6 | `5*60 + 4*6` = **324 px** |
+
+Below 640 x 400 the game does not shrink further — it letterboxes and stays at `TILE = 20`
+(15.4). The small layout drops exactly two things, the millisecond labels on the band ticks
+and the bottom-left verb log, and prints nothing smaller than 11 px (15.11-v6). That is the
+whole reflow rule, and `mockups/screen_small.png` is what it looks like.
+
+**No pixel in the meter is a magic number.** The axis width is *derived* from the rung
+constants above, and the rate band is drawn exactly that wide, so the press-count axis and
+the rate axis are one aligned object rather than two bars that happen to sit near each
+other (15.11-v4). `cfg.js` stores rung size and gap; the axis width, the centring, the tick
+x-positions and the badge x are all computed from them. `make.py` calls the same arithmetic,
+prints the result for both layouts and asserts the strip fits inside the surface, so a spec
+number that stops matching the code fails the run.
 
 ```
  (12,10) ROOM 4  BOTTLENECK                      HP ▮▮▮▯▯   GUARD ▮▮▯   (W-176,10)
@@ -581,55 +605,92 @@ before it shrinks any HUD text — and **20 px is a hard floor** (15.4).
  ┌────────────────────────────────────────────────────────────────────────────────┐
  │                                                                              │
  │                        T H E   R O O M   (full bleed)                        │
- │        terrain · light model · ghost plates · glyphs · telegraph             │
+ │    terrain · light model · plates · entities · ghost mark · telegraph · HUD  │
  │                                                                              │
  │ 23 BRACE  +1 guard    [ gap band ][ CADENCE RUNGS ]          MED 120 ms     │
  │ 25 STEP   ok              tier badge                                  2 TAPS │
  │ 26 BUMP   blocked                                                          │
  └────────────────────────────────────────────────────────────────────────────────┘
- (12,552) last three verbs        (310,528) and (310,542)            (852,542)
+ (12,552) log        band y=528, x=274..686, ticks x=363/514   rungs y=542, x=274..686
+   badge x=162                    numbers column x=702, ends x=772 (inside 960)
 ```
+
+The same strip on the small layout, from the same arithmetic: band and rungs x=158..482,
+ticks x=228/347 (unlabelled), badge x=46, numbers column x=498..568 (inside 640).
 
 | Region | Contents | Rule |
 |---|---|---|
 | Room, full bleed | the whole board; no panel, no frame around it | the room *is* the UI |
 | Top-left | room name, turn count | `dust`, 11-13 px, never `chalk` |
 | Top-right | HP pips, Guard pips | discrete squares, not bars — HP and Guard are integers (14.2-e) and a bar would lie |
-| Bottom-left | the last three verbs, `turn verb outcome` | the section 11 record in human words; it is what the end-of-run histogram is built from, so it should be normal to read |
-| Bottom-centre | the cadence meter (section 5, item 2) | two stacked rows, 420 px wide, centred. **Rungs** at y=542: five blocks of 76 x 26 with an 8 px gap, labelled — this is the *press-count* axis. **Gap band** at y=528: 420 x 6 mapping 0-1200 ms, with 2 px ticks at `TIER_FAST`=260 ms (x=361) and `TIER_SLOW`=700 ms (x=515), filled from 0 to the current median in the tier hue — this is the *rate* axis. Two axes because the recogniser has two axes (2.2); one bar would have to lie about one of them. |
-| Left of the meter | tier badge | shape + word, always both (15.5) |
+| Bottom-left | the last three verbs, `turn verb outcome` — **large layout only** | the section 11 record in human words; it is what the end-of-run histogram is built from, so it should be normal to read. Dropped at `TILE = 20`, where the strip is full: the record still exists on the end screen and in Pause > Input (15.11-v4) |
+| Bottom-centre | the cadence meter (section 5, item 2) | two stacked rows, centred, **both exactly as wide as the rungs** — 412 px at the large layout, 324 px at the small one. **Rungs** at y=542: five blocks at the rung size above, labelled — this is the *press-count* axis. **Gap band** at y=528: the same width x 6, mapping 0-1200 ms, with 2 px ticks at `TIER_FAST`=260 ms (x=363 large, x=228 small) and `TIER_SLOW`=700 ms (x=514 / x=347), filled from 0 to the current median in the tier hue — this is the *rate* axis. Two axes because the recogniser has two axes (2.2); one bar would have to lie about one of them. |
+| Left of the meter | tier badge | shape + word, always both, for a real tier; below `CADENCE_N` samples the shape slot is empty and only the word `READING` is drawn (15.5, 15.11-v11) |
+| Behind every HUD text block | an opaque `ink0` plate | 15.7's rule, applied to text as well as glyphs: text contrast stops depending on what the light model is doing underneath (15.11-v7) |
 | Right of the meter | median gap, tap count | the two numbers the tier was computed from, so the tier is never a mystery |
 
-No minimap, no log panel, no tooltips, no health bar over heads. Everything a player needs
-is either the board or the meter.
+No minimap, no framed panels, no tooltips, no health bar over heads. The `ink0` rectangles
+behind HUD text are not panels — they are the field colour, and the room stays full-bleed
+under them (15.7, 15.11-v7). Everything a player needs is either the board or the meter.
 
 ### 15.3 The light model — this is what "facing" looks like
 
-13, item 3 settled the camera as fixed north-up with a strong facing arrow. The arrow is 7 px of
-`chalk` on the player's own tile edge, and it is *not* the main device. The light model is,
+13, item 3 settled the camera as fixed north-up with a strong facing arrow. The mark that
+carries it is a **6 px outward chevron in `chalk`, drawn inside the facing edge of the
+player's own tile** (15.11-v5), and it is *not* the main device. The light model is,
 because it turns the facing cone into a place you can stand rather than a symbol next to
 you — and it is the only rendering of "forward" that costs nothing per frame.
 
+Why a chevron and not the arrow the earlier draft drew: the drawn mark was a filled
+triangle, and filled triangles in this game mean exactly two things — the exit and Frantic
+(15.4, 15.5) — so the most-read mark on the screen was made of a shape that already means
+something else. It also sat on the tile edge closest to the player glyph and collided with
+the `@`. The replacement reuses the Step chevron's geometry, which is already the game's
+"that way" shape, and the player glyph is offset 12% of a tile away from the marked edge so
+the two never touch.
+
 ```
-L(x,y) = max( falloff, cone )
+L(x,y) = max( falloff, cone ) ** 1.25
 falloff = 1 - dist((x,y), player) / 6.5                      # radius 6.5 tiles
 cone    = (1 - dist/10) * (1 + (34 - |da|)/34 * 0.6)        # |da| <= 34 degrees
 ```
+
+The exponent is not decoration (15.11-v3): the earlier formula had none, and `make.py`
+measured what that costs over the 32 x 20 fixture — a linear ramp leaves **31.5%** of the
+165 lit tiles at `L >= 0.5`, which reads as a lit hall rather than a torch; at 1.25 that
+share is **21.2%** and the mean light over lit tiles drops from 0.371 to 0.313. `LUM = 1.25`
+is a `cfg.js` tunable, so the torch can be widened without touching anything else.
 
 - `L` lerps from `ink0` to three **derived** ceilings — they are not tokens, they are
   formulas, so the palette stays at ten:
   `lit_floor = mix(ink0, dust, 0.27)` = `#2a2d31`,
   `lit_wall = mix(ink0, dust, 0.42)` = `#3b3f44`,
-  `lit_edge = mix(ink0, ghost, 0.55)` = `#6b7177` — the 2 px lip drawn along the bottom
+  `lit_edge = mix(ink0, ghost, 0.70)` = `#858c93` — the 2 px lip drawn along the bottom
   edge of a wall that borders a floor tile, which is the only thing that makes a wall read
-  as a wall rather than a hole at 20 px.
+  as a wall rather than a hole at 20 px. It is drawn at 0.70, not at the 0.55 an earlier
+  draft used, because the lip is a mark and marks clear 3:1 (rule 1): at 0.55 it measured
+  **2.15:1 against `lit_wall`**, i.e. the separator between wall and floor failed the very
+  rule that says terrain contrast is not carried by hue. At 0.70 it measures **3.12:1
+  against `lit_wall`** and 4.06:1 against `lit_floor`. That is also the whole reason the lip
+  exists: `lit_wall` against `lit_floor` is **1.30:1**, so the terrain masses are not
+  distinguishable on their own and never will be.
 - Unlit floor is `ink0`, the same value as the void. **Deliberate:** an unexplored
   direction and an unknown one look identical, which is what makes turning the cone worth
   doing. What has been seen may go dark; it never goes *unseen* — terrain memory is a
   floor of 8% on `L` for tiles already in the player's known set.
-- Entity glyphs clamp to 32% light, furniture and doors to 45%/60%. A Rat in the dark is
-  faint but never invisible: "you cannot see it clearly" and "it is not there" must not
-  look the same, because the second one is a lie the game never tells.
+- **An entity, relic or exit is drawn at its full token value, or not drawn at all**
+  (15.11-v1). The earlier rule faded them instead — 32% for entities, 45%/60% for
+  furniture — and the numbers say why that is gone: the darkest allowed values measured
+  **1.53:1, 1.93:1 and 2.55:1** against `ink0`, all under the 3:1 floor of rule 1, and the
+  faintest value that would pass (69%) is only **1.2x** dimmer than the lit one — too weak
+  to mean anything, too faint to read. So the two channels stay exactly as 14.2-j separates
+  them, and neither one dims anything: **lit now, or already in the known set -> drawn at
+  full value; neither -> not drawn.** "It is not there" is reserved for the second case,
+  which is a claim about the known set and not about brightness, and 14.2-j's Mirror keeps
+  rendering in the dark for the reason it always had — it is not a thing you see, it is a
+  thing you know. The one honest cost: a remembered Rat and a Rat you are looking at are now
+  drawn identically, so the board cannot tell you which. The verb log can, and 11's whole
+  argument is that the record is where that distinction lives.
 - The light model is the **only** place the renderer varies a colour, and nothing animates
   it. It is a pure function of `(x, y, player.x, player.y, player.face)`, which is why the
   frame can be frozen during PENDING (rule 4) for free.
@@ -644,28 +705,57 @@ so that the preview and the event are the same object — the player learns one 
 |---|---|---|
 | Brace | four corner brackets, `guard` | your own tile; static (14.2-c arms once, so it must not pulse) |
 | Step | hollow chevron | the tile you would occupy |
-| Strike | filled wedge with a spine | the occupant, or the wall you would hit |
+| Strike | filled wedge with a spine; **stroked, not filled, when the tile is occupied** | the occupant, or the wall you would hit |
 | Lunge | wedge + a faded chevron one tile beyond | both tiles — it is the only two-tile verb and it should look like it |
-| Guard | double square outline | your own tile |
+| Guard | double square outline — the only double square in the game | your own tile |
 | Sprint | three chevrons, fading along the line | each tile of the path, stopping early at the first wall (2.5) |
 | Pivot | open arc with an arrowhead | around your own tile, redrawn at each 90-degree snap (14.2-h) |
 | Bump | chevron with a bar across it | your own tile — the bar is the whole message: no movement, no damage (14.2-d) |
 
 **20 px is a hard floor, and the figure shows why.** Drawn at 30 / 20 / 14 px: at 20 px all
-eight still carry their message, but three get thin — Lunge's two marks nearly touch,
+eight still carry their message, but two get thin — Lunge's two marks nearly touch, and
 Sprint's three chevrons merge into one hatched arrow (it still reads as "more than one
-step", which is the message; it no longer reads as *three*, which is fine, because the
-count is printed on the meter), and Bump's chevron goes weak behind its bar. At 14 px Lunge
-collapses into a blob and Pivot loses its arrowhead; both are crossed out in `frantic` in
-that column of the figure, so the failure is on the record rather than in a footnote.
-`render.js` refuses `TILE < 20` and letterboxes instead. The one accepted degradation, at
-16-19 px: Sprint draws one chevron plus an outline on the final tile.
+step", which is the message; it no longer reads as *three*, which is fine, because the count
+is printed on the meter). At 14 px Lunge collapses into a blob and Pivot loses its arrowhead;
+both are crossed out in `frantic` in that column of the figure, so the failure is on the
+record rather than in a footnote, and the two crossed-out shapes are the two that would have
+to be redesigned before anything else if `TILE` ever went below 20. The one shape to watch is Guard's double
+square: the board is a grid of squares, so a second square on a tile could read as a tile.
+It survives at 20 px because the grid lines are 1 px of `ink0` and the double square is a
+2 px outlined pair inset inside the tile, and it is the reason this table declares Guard the
+only double square in the game — Brace is corners only, a telegraph is a single square, and
+the no-data meter state (15.11-v11) draws no shape at all.
+`render.js` refuses `TILE < 20` and letterboxes instead, so there is no 16-19 px layout in
+v0 and this degradation is a written answer rather than a live code path: if a small touch
+screen ever needs one, Sprint draws one chevron plus an outline on the final tile, and the
+figure's crossed-out Lunge and Pivot are the two shapes that would have to be redesigned
+before anything else.
+
+**A ghost over an occupied tile is stroked, never filled** (15.11-v2). Filled shapes are
+the game's "this will happen" marks, but a filled wedge over a Rat covered the Rat exactly
+when knowing the Rat mattered most, and 15.7's plate was being drawn for the wrong object —
+it darkened the tile to make the *ghost* legible while hiding the thing the ghost points at.
+So: filled on empty ground, 2 px outline over an occupant. The occupant is drawn
+*under* the mark and stays readable through it, which is the whole point of a Strike
+preview — the player is choosing to hit a specific thing and must be able to see it. The
+shape is unchanged either way, so the verb is still recognisable from the silhouette.
 
 Entities and furniture keep the ASCII glyphs from 14.5 (`@ r s m * + <`) — they are already
 a legible shape set, they need no assets, and the pause screen's poster can print the same
 characters the board uses. Non-ASCII exceptions, and they are the only ones: the relic is
 an outlined diamond, the exit is a filled triangle pointing down, an enemy telegraph is a
-2 px box in the tier hue of the *player* who provoked it (7).
+2 px box **plus the verb shape the enemy is committing** (15.11-v9) — a bare box says
+something is coming but not what, and the whole contract of 7 is that a telegraph is
+readable enough to answer, so it uses the 15.4 vocabulary it already teaches. The box is
+drawn on a plate like any other mark, in the tier hue captured when it was set.
+
+**Type floor: 11 px, everywhere, in both layouts** (15.11-v6). The earlier text quoted a
+"9 px floor" and then drew 9 px tick labels and 9 px palette captions in the figure — so the
+figure disagreed with the rule it was illustrating. 11 px is the smallest size the system mono
+stack renders honestly on the two layouts, `make.py` asserts it (`F(size)` raises below 11),
+and the small layout therefore drops the millisecond labels rather than shrinking them. Glyph
+size is derived from `TILE`: `round(0.66 * TILE)`, floored at 13 — 20 px at `TILE = 30`,
+13 px at `TILE = 20`, which is the size the 15.4 shape sheet draws its entity column at.
 
 ### 15.5 Tier coding — three redundant codes, one channel
 
@@ -688,6 +778,16 @@ an outlined diamond, the exit is a filled triangle pointing down, an enemy teleg
 - The three badges are drawn at 22 / 16 / 12 px in the figure. The filled triangle is the
   only *solid* mark, which is deliberate: Frantic is the tier the game punishes and it
   should be the loudest mark in all three codes.
+- **There is a fourth badge state, and it has no shape** (15.11-v11). Below `CADENCE_N`
+  samples there is no median, so there is no band fill, no tick side and no tier hue — and an
+  empty band is indistinguishable from a Careful one at a glance, which would hand a free
+  tier to a player who has pressed twice. The no-data state draws **the word `READING` and
+  nothing else**: the shape slot is left empty. Every shape in this table is a tier claim,
+  so borrowing one — even the neutral-looking hollow square, which is also the Guard glyph —
+  would put a claim on the screen that the data has not earned. `READING` rather than `--`
+  because 11's promise is that the game explains itself in words. The shape sheet draws the
+  three real badges and then the empty slot as a dashed `wall` outline, so the absence is
+  documented as a state rather than looking like a missing asset.
 
 ### 15.6 Palette — ten tokens, no more
 
@@ -696,15 +796,15 @@ by eye.
 
 | Token | Hex | Used for | vs `ink0` |
 |---|---|---|---|
-| `ink0` | `#0b0d10` | field, void, unlit floor | — |
-| `ink1` | `#14171c` | (reserved: panel fills) | 1.08 |
-| `wall` | `#1e232b` | unlit wall face, hairlines, frame | 1.23 |
-| `dust` | `#7d838c` | **all secondary text**, unlit entities | 5.09 |
-| `chalk` | `#e6e4df` | **all primary text**, the player | 15.31 |
-| `careful` | `#6f7883` | tier: Careful | 4.35 |
-| `normal` | `#d8a53f` | tier: Normal, door hardware | 8.69 |
-| `frantic` | `#e0553f` | tier: Frantic, enemy telegraph | 5.13 |
-| `guard` | `#5fa8c7` | Guard pips, Brace corners — never on the meter | 7.33 |
+| `ink0` | `#0b0d10` | field, void, unlit floor, **the plate under every HUD text block** (15.7) | — |
+| `ink1` | `#14171c` | the pause and end-screen scrim — its one job (15.11-v10) | 1.08 |
+| `wall` | `#1e232b` | unlit wall face, hairlines, frame, **the door slab** | 1.23 |
+| `dust` | `#7d838c` | **all secondary text**, entities, door seam and handle | 5.09 |
+| `chalk` | `#e6e4df` | **all primary text**, the player, HP pips, the active-rung outline | 15.31 |
+| `careful` | `#6f7883` | tier: Careful — shapes only, never text | 4.35 |
+| `normal` | `#d8a53f` | tier: Normal — shapes only, never text, never furniture | 8.69 |
+| `frantic` | `#e0553f` | tier: Frantic, enemy telegraph — shapes only, never text | 5.13 |
+| `guard` | `#5fa8c7` | Guard pips, Brace corners, the Guard glyph — never on the meter | 7.33 |
 | `ghost` | `#b9c2cb` | intent ghost glyphs, lit wall lips | 10.79 |
 
 - **Text is only ever `chalk` or `dust`.** Not a preference: `careful` measures 4.35:1,
@@ -716,6 +816,20 @@ by eye.
   3:1 floor. That is not a reason to dim the light; it is the reason for 15.7.
 - No hex literal appears in `render.js`, and no pixel constant that is not in `cfg.js`
   (D4: one file, read by the game and the pause screen alike). 14.6-12 asserts both.
+  `cfg.js` holds the *inputs* only - rung size, rung gap, `TILE`, the mix constants - and
+  the renderer derives everything else from them, so a stored pixel value that duplicates a
+  derivable one is a bug: the old hard-coded 420 px meter is exactly that bug (15.11-v4).
+- **The ten are really ten** (15.11-v8). The first figure quietly drew colours that were
+  not tokens — an olive door tile that was not `normal` and not `wall`, and a mid-grey for
+  the tile grid — so "ten tokens, no more" was true of the table and false of the picture.
+  The grid is now geometry rather than a colour: every tile is drawn one pixel short and the
+  gap is whatever is underneath it, which is `ink0` on the field and `ink0` in the void, so
+  no seam colour exists to break the budget. The door is a `wall` slab with a `dust` seam
+  and handle — a door is unlit wall that opens, and `normal` on it was a fourth meaning for
+  a tier hue, which rule 2 forbids. `make.py` greps its own body for colour literals and
+  for any `fill=`/`outline=` argument that did not come from a token or a documented
+  derived formula, and prints the count: **0**. That is the check that keeps the palette
+  honest after someone else touches the renderer.
 - Grey-first check: any two things distinguishable *only* by hue are a bug. The figures are
   legible converted to greyscale; that is the pass condition, and it is the same condition
   section 10's colourblind promise reduces to.
@@ -734,6 +848,19 @@ at full token colour. That is **10.05:1**, and more importantly it is *constant*
 legibility stops depending on where the light model happens to be, so neither system can
 break the other. Cost: one extra filled rectangle per ghost tile. The telegraph and the
 Pause > Input plot use the same code path, which is the only reason it is cheap.
+
+**The same rule applies to HUD text, and it had to** (15.11-v7). Rule 1 asks text for
+4.5:1, and 15.2 put the HUD directly over the full-bleed room, so the same cancellation
+that broke the ghost broke the log: `dust` text sitting on terrain measured **2.78:1 at its
+worst** (over `lit_wall`), 3.62:1 over `lit_floor`, 4.13:1 over an unlit wall — every HUD
+line was a coin flip decided by the light model. Even a *translucent* plate only lifts the
+worst case to 4.52:1, which passes by so little that one change to a mix constant in `cfg.js`
+would silently fail the test. So the HUD path uses an **opaque `ink0` rectangle** sized to
+the text block: `dust` on it is a constant **5.09:1** and `chalk` a constant 15.31:1,
+whatever is drawn underneath. The room stays full-bleed and the panel rule of 15.6 is not
+broken — `ink0` is the field colour, so these read as the board going quiet, not as panels.
+Cost: one rectangle per HUD block, and it is the reason the log can be dropped at
+`TILE = 20` instead of being painted over the meter.
 
 ### 15.8 Motion
 
@@ -769,15 +896,27 @@ by motion alone — the frame after any animation contains everything the animat
 
 ### 15.9 In the code
 
-- `render.js` (14.4) draws from state only, in a fixed order: terrain -> ghost plates ->
-  ghost glyphs -> entities -> telegraph -> HUD -> meter -> commit flash. It writes nothing
-  to state and holds no per-object visual state; there is nothing to keep in sync.
-- Palette tokens, the light-model formulas, and every pixel constant in 15.2/15.5 live in
-  `cfg.js` as data, beside the tunables (D4).
-- `mockups/make.py` regenerates `screen.png` and `shapes.png` and prints the contrast,
-  greyscale-separation and CVD tables quoted above. It is neither a game asset nor a test —
-  it is the figure and the measurement in one file, so the numbers in 15.1, 15.5, 15.6 and
-  15.7 can be re-derived instead of trusted.
+- `render.js` (14.4) draws from state only, in a fixed order: **terrain -> plates ->
+  player and facing -> entities -> ghost mark -> telegraph -> furniture -> HUD text plates
+  and text -> meter -> commit flash**. It writes nothing to state and holds no per-object
+  visual state; there is nothing to keep in sync.
+  Two things about that order are load-bearing and were wrong in the first draft (15.11-v2):
+  all plates are laid down before any glyph, so a plate can never darken another glyph, and
+  the **ghost mark is drawn last over its tile**, on top of the occupant it targets — 14.2-m
+  already requires that the player stays visible when the AI turn is deferred, and the same
+  reasoning covers the thing you are about to hit. A plate is never drawn twice on one tile;
+  `render.js` keeps a per-tile "plated" flag for the frame.
+- Palette tokens, the light-model formulas, and the pixel constants of 15.2/15.5 live in
+  `cfg.js` as data, beside the tunables (D4). The meter's axis width, centring, tick
+  positions and badge x are **not** in `cfg.js`: they are computed from the rung constants,
+  so there is one number to change and nothing to keep in step (15.11-v4). Derived ceilings
+  (`lit_*`) and the plate mix are computed the same way.
+- `mockups/make.py` regenerates `screen.png`, `screen_small.png` and `shapes.png` and prints
+  every contrast, greyscale-separation and CVD figure quoted above, plus the meter geometry
+  for both layouts and a self-scan for off-palette colour arguments. It is neither a game
+  asset nor a test — it is the figure and the measurement in one file, so the numbers in
+  15.1-15.7 and the decisions in 15.11 can be re-derived instead of trusted. It asserts its
+  own type floor (`F()` raises below 11 px) and that the meter strip fits its surface.
 
 ### 15.10 What this section does not settle
 
@@ -793,3 +932,61 @@ by motion alone — the frame after any animation contains everything the animat
 - **The light cone at `TILE < 20`** is untested because `TILE < 20` is refused. If a
   13-inch touchscreen ever needs 14 px tiles, the cone survives and the Lunge and Pivot
   glyphs do not (15.4) — that is the specific thing to redesign first.
+- **How much of the room should be lit.** 15.11-v3 fixed the *shape* of the falloff and
+  picked `LUM = 1.25` because a linear ramp reads as a lit hall, but "21.2% of lit tiles
+  above half brightness" is a number, not a taste. If the cone feels like a candle instead
+  of a torch, `LUM` and `R` are `cfg.js` tunables and everything in this section still
+  holds — the plate rule, the derived ceilings and the contrast floors are all relative.
+- **Whether the small layout may drop the verb log.** 15.11-v4 decided it may, because the
+  strip does not fit at 640 px and the record survives on the end screen and in Pause >
+  Input. That is a judgement about what a player needs *while playing* and it is exactly the
+  kind of thing 14.7 refuses to answer alone: one session on a small window with someone who
+  has never seen the log will settle it.
+- **Whether a stroked ghost reads as "I will hit that thing"** (15.11-v2). The filled wedge
+  is the louder mark; the outline is the honest one. M1's commit-feel question covers this.
+- **Whether `dust` at 11 px is comfortable on a real small screen.** 15.11-v6 set the floor
+  by reasoning about the mono stack, not by reading it off a laptop at 2x. If 11 px is hard,
+  the fix is to drop more text, not to shrink it.
+
+### 15.11 Decisions: what this section left open, and what I chose
+
+The first draft of 15 was a set of rules with a figure beside it. Where the rules and the
+figure disagreed, where a rule could be implemented two ways and the number was only
+implied, or where a token had no stated job, the gap is recorded here instead of being left
+for the implementer to guess. Each row is the question, the decision, and the measurement
+that forced it; `make.py` prints those measurements in the same order, so this table can be
+re-read against the output rather than trusted. What would reopen each one is at the end of
+the section and in 15.10.
+
+| # | What was unclear | Decided | Why (measured) |
+|---|---|---|---|
+| v1 | Does an entity in the dark fade or vanish? | **Full value, or not drawn at all** — where "drawn" means *lit now or already known* (14.2-j), and "not drawn" means the tile is empty terrain. | The old clamps (32/45/60%) measured **1.53/1.93/2.55:1** against `ink0` — all below rule 1's 3:1. The faintest value that would pass is only **1.2x** dimmer than the lit one, so a compliant clamp says nothing and a meaningful one breaks the floor. Two channels, one job each: light says *visible now*, the known set says *there*. |
+| v2 | What draws on top of what when a ghost points at an occupied tile? | **Plates first, then entities, then the ghost mark on top**, stroked instead of filled when the tile is occupied. One plate per tile per frame. | The old order drew the ghost *under* the occupant, so the mark that says what will happen was the thing the player could not see: **10** ghost pixels survived on the target tile. The shipped order leaves **145** of the tile's 870 pixels, which is what a 30 px outline costs — `make.py` counts them, so this row can be re-checked. The shape is unchanged, so the verb still reads from the silhouette. This is 14.2-m's "the player stays visible" reasoning, applied to the thing you are about to hit. |
+| v3 | Is the light formula's falloff linear? | **`L = max(falloff, cone) ** LUM`, `LUM = 1.25`**, a `cfg.js` tunable. | Over the 32 x 20 fixture a linear ramp leaves **31.5%** of the 165 lit tiles at `L >= 0.5` (mean **0.371**): a lit hall, not a torch. At 1.25 that is **21.2%** (mean **0.313**). The cone is the game's only description of "forward"; a flat one describes nothing. |
+| v4 | One layout, or a rule for smaller windows? The meter's "420 px" — from what? | **Two layouts** (large 960x600 / `TILE` 30, small 640x400 / `TILE` 20), and **the meter's width is derived from its rungs**: `5*76+4*8` = 412 px, band drawn exactly that wide; `5*60+4*6` = 324 px at the small layout. | The old spec's 420 px band did not match its own rungs, which span **412** — an 8 px misalignment between two axes that are supposed to be one instrument. At 640 px the fixed geometry put the tier badge at **x = -2**, off-screen. Derived geometry fits both (badge x 162 / 46, right column ends 772 / 568). `make.py` asserts it. |
+| v5 | What is the facing mark, exactly? | A **6 px outward `chalk` chevron inside the facing edge** of the player's tile; the player glyph offsets 12% of a tile away from that edge. | The drawn version was a filled triangle — a shape this game already reserves for the exit and for Frantic — and it landed on top of the `@`. Reusing the Step chevron adds no new shape and cannot be mistaken for a target. |
+| v6 | Two floors - 10 px for glyphs, 9 px for text - or one? | **One: 11 px, both layouts.** The small layout drops the tick millisecond labels and the verb log instead of shrinking them. | 15.4 said 10 px, 15.2 said 9 px, and the figure drew 9 px tick labels and palette captions, so the picture was already breaking the text and nobody could tell which floor was real. 11 px is the size the system mono stack renders honestly at both layouts; `F()` raises below it, so the floor is now one number and it is enforced. |
+| v7 | Does the plate rule cover HUD text, or only glyphs? | **HUD text sits on an opaque `ink0` rectangle.** | `dust` text over terrain measured **5.09:1** on the void, **4.13:1** on an unlit wall, **3.62:1** on lit floor, **2.78:1** on a lit wall, against a 4.5:1 requirement — the light model decided whether the log was readable. A translucent 0.72 plate lifts the worst case only to **4.52:1**; one changed mix constant fails the test. Opaque `ink0`: **5.09:1**, constant, and invisible as a panel because `ink0` is the field colour. |
+| v8 | Are there really ten colours? What is a grid line? What is a door made of? | **Yes, ten.** The grid is geometry: every tile is drawn 1 px short and the gap is whatever is under it, which is `ink0`. The door is a `wall` slab with a `dust` seam and handle. `lit_edge` moves from 0.55 to **0.70**. | The drawn figure used an olive door tile and a grey grid seam that were not among the ten, so the palette table and the picture disagreed about how many colours the game has. And the 0.55 lip measured **2.15:1** against `lit_wall`: the mark that separates wall from floor failed the very floor it exists to satisfy, while `lit_wall` vs `lit_floor` is only **1.30:1** — which is exactly why the lip is load-bearing. At 0.70 it measures **3.12:1** (4.06:1 against the floor). `make.py` now greps its own body for any colour argument that is not a token or a documented derived formula and prints the count: **0**. |
+| v9 | Does an enemy telegraph say what is coming? | **Box + the verb shape being committed**, on a plate, in the tier hue captured when it was set. | A bare box is a warning; 7's whole contract is that a telegraph is readable *enough to answer*, which needs the 15.4 vocabulary the player is already being taught. |
+| v10 | What is `ink1` for? | The **pause and end-screen scrim**, and nothing else. | A reserved token with no job drifts into use as a panel fill and quietly becomes an eleventh surface. Naming its one use keeps 15.6's cap real. |
+| v11 | What does the badge show before there are `CADENCE_N` samples? | **The word `READING`, and no shape at all.** No band fill, no tick side, no hue. | An empty band reads as Careful, which is a free tier for a player who pressed twice. But every shape in 15.5 is a tier claim, and a hollow square is one removed from Guard's double square, so borrowing any of them would say something the data has not earned. The absence is the honest state, and the shape sheet draws the empty slot as a dashed outline so it reads as a defined state, not a missing asset. |
+
+**What would reopen these.** **v1** if a player cannot tell "not drawn" from "not there" —
+that was the original worry, and it is a playtest question, not a measurement. **v2** is
+already open in 15.10: whether a stroked ghost reads as "I will hit that thing". **v3** the
+moment the cone feels wrong, deliberately — the exponent is a dial, and 15.10 says how much
+of the room *should* be lit is a taste, not a number. **v4** if a third window size matters,
+which means a third rung size, which means the derivation grows a row and nothing else
+changes; and whether the small layout may drop the verb log at all is in 15.10. **v5** only
+if a shape is ever added that means "that way" - then the facing mark has to be
+re-argued against it. **v6** if 11 px turns out to be hard to read on a real small screen,
+in which case the answer is to drop more text, never to shrink it (15.10). **v7** if someone
+wants the HUD over the room with no plates, which is allowed only if the terrain under every
+text block is forced to `ink0` — a different rule, not a tweak of this one. **v8** if a
+floor wants a second palette (15.10): the ten are one table, and a second table read by the
+same renderer is not an eleventh token. **v9** if a telegraph with a verb shape inside it
+proves too noisy at 20 px — then the shape moves beside the box instead of inside it, which
+is a change of position, not of vocabulary. **v10** and **v11** are not waiting on anything:
+naming a token's job and refusing to invent a badge shape are the kind of decision that has
+no measurement on the other side.
