@@ -117,5 +117,9 @@ overflowed the frame, a sticky rest latch closed the menu), and its audio tests 
 cue-table attack values the design passes had asserted without rendering. Unbuilt by its own
 account: rooms 6-8, the arcade layout, Hard mode, gamepad. The `.js`/`.html`/`.css` sources are
 not tracked by `labs/.gitignore`, so only the README and Python tooling are in commit e56e1cd.
+r1 hand fix 1 (same under-5 budget): the first cue threw in the browser, because `main.js`
+assigned `renderCue`'s Float32Array to `AudioBufferSourceNode.buffer`; it now wraps the samples
+in an `AudioBuffer` once per cached cue. Its tests never reach `main.js`, the one file allowed
+to touch WebAudio. Not in git (untracked `.js`).
 
 ## Outcome
