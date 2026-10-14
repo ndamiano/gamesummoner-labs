@@ -393,7 +393,7 @@ in 14.7.
 | D4 | Are the numbers in 2.1-2.3 promises or placeholders? | **Placeholders.** Every constant lives in one file (`src/cfg.js`) that both the game and the Pause > Input diagram read. Nothing is hard-coded twice. Defaults are as printed, with the corrections in 14.2. | You have telemetry to seed them. |
 | D5 | Will a human play this, or am I the only tester? | **Assume I am the only tester**, and compensate: a practice tile, the burst log printed on the end screen, and scripted-input tests (14.6) that pin the grammar. Everything M2 is supposed to answer ("can a stranger clear room 2 without instructions") stays explicitly unverified. | You can put a stranger in front of it — then I add an input-recording file so you can watch a run without being there. |
 | D6 | Art: ASCII glyphs or drawn shapes? | **Glyphs with a shape language.** System monospace only (no downloaded fonts, no network assets), no sprites. Verb identity by shape and position, never hue alone (section 10). | You have a palette or an artist. |
-| D7 | Is sound in scope? | **Yes, synthesised** — WebAudio, ~60 lines, no files. Per-verb audio is a section 5 requirement and costs nothing to fake with oscillators and envelopes. Mute toggle. | You want recorded samples (unfetchable offline). |
+| D7 | Is sound in scope? | **Yes, synthesised** — WebAudio, no files. Per-verb audio is a section 5 requirement and costs nothing to fake with oscillators and envelopes. Mute toggle. **Specified and measured as section 16** — cue table, band budgets, four mix buses, the audio plate. 14.1's discipline (a table of parameters, no hand-placed instances) turns out to apply to audio unchanged, which is why the cue table is `cfg.js` data. | You want recorded samples (unfetchable offline, and a fixture that drifts silently from the tuning). |
 | D8 | Which input surfaces must work on day one? | **Pointer (mouse), Space/Enter, and touch** — press on `pointerdown`, but touch commits on `pointerup` per section 9; OS key auto-repeat is never a press. Gamepad polling waits for M3 (it needs a poll loop, not an event). This is the product's central claim ("any single switch"), so it is not deferrable. | You only care about keyboard for now. |
 | D9 | How much run structure to fake? | **One floor, 8 hand-authored rooms**: tutorial 1-3 exactly as 5.1, then corridor, bottleneck, fork, vault, exit. No shop, no meta, no procedural generation, no floor 2. Section 8's 25 rooms / 3 floors is a target, not a deliverable. | You want generation early — the room format (14.5) is already what a generator would emit. |
 | D10 | Difficulty modes now? | **Calm and Standard.** Hard is a flag once 2.5 exists. Live mode (section 3) is out of scope. | — |
@@ -454,7 +454,7 @@ j. **Nothing says what a room is.** **Decision:** rooms are ASCII strings in
 
 **In:** the full recogniser (ladder, tiers, graceful degradation, Assist dwell wheel as a
 toggle); one floor of 8 hand-authored rooms including tutorial 1-3 verbatim; intent
-ghost, cadence meter, commit flash, per-verb glyph and SFX; Rat, Sentinel, Mirror;
+ghost, cadence meter, commit flash, per-verb glyph and per-verb cue (16.2); Rat, Sentinel, Mirror;
 Metronome and Offbeat relics; Calm/Standard modes with one undo per room; Pause > Input
 showing a live diagram of your own recent bursts against the thresholds; end-of-run
 cadence histogram; burst log persisted to `localStorage`.
@@ -474,13 +474,17 @@ src/recogniser.js       PURE: (event, t, state) -> {state, verb|null, fx[]}  no 
 src/sim.js              PURE: (state, verb, rng) -> {state, events[]}  grid, LOS, combat, AI
 src/rooms.js            ASCII rooms -> {grid, entities, spawn, facing}
 src/render.js           canvas draw from state only; ghost, meter, glyphs, flash
-src/audio.js            WebAudio per-verb cues, parameters from cfg
+src/audio.js            WebAudio: the 16.2 cue table as cfg data, four mix buses (16.5),
+                        clock passed in by the caller so 14.6's tests never touch WebAudio (16.9)
 src/telemetry.js        section 11 burst log -> localStorage + text histogram
 src/run.js              the loop: input -> recogniser -> sim -> render; owns the clock
 test/recogniser.test.js test/sim.test.js     `node --test`, offline
 mockups/make.py         the reference figures + the contrast/CVD math behind section 15
 mockups/screen.png      play-screen composition (figure for 15.2, 15.3)
 mockups/shapes.png      shape language, tier badges, palette (figure for 15.4-15.6)
+mockups/sound.py        the 16.2 cue table as synthesis + every figure 16.4-16.7 quotes
+mockups/sound.png       cue sheet: envelope, band profile, the rung ladder (16.2-16.4)
+mockups/cues/*.wav      one file per cue + the worst legal mix: the ear test for section 16
 ```
 
 Two rules keep this testable: (1) `recogniser.js` and `sim.js` receive the clock and the
@@ -526,6 +530,12 @@ sequence is reproducible; (2) the renderer reads state and writes nothing.
     asserted `>= 11`, and the two layouts are the only two the renderer will accept. Cheap
     to write, and it is the only way the visual spec stays true after the first person
     touches the renderer.
+13. Audio table audit (16.9, T8): every event cue's attack <= 25 ms and every world cue's
+    <= 60; no cue enters a reserved band (BODY < 150 Hz, AIR > 2.4 kHz, 16.4); every cue pair
+    is >= 6.0 dB apart after the 150-6500 Hz band-limit; all 15 tick variants peak at
+    -18.0 dBFS; and the worst legal collision exceeds the -3.0 dBFS ceiling *without* the
+    audio plate and clears it *with* one — if that last one ever passes without the plate, the
+    plate is dead code and gets deleted. `mockups/sound.py` already asserts all of it.
 
 **Definition of done for the first build:** `node --test` green; `index.html` opens and
 plays tutorial room 1 with no instructions on screen; the end screen prints my own tier
@@ -879,16 +889,21 @@ is buffered (14.2-i), so no animation can be interrupted or can eat a press.
 
 Per-verb commit feedback (section 5, item 3 requires each verb to feel different with the audio off):
 
-| Verb | Shake | Flash | Audio (D7, synthesised) |
+| Verb | Shake | Flash | Audio (16.2, synthesised) |
 |---|---|---|---|
-| Step | 1 px / 40 ms | ghost glyph fades out in place | soft tick, 220 Hz |
-| Strike | 4 px / 80 ms | wedge outline expands one tile then vanishes | short saw burst |
-| Bump | 2 px / 60 ms | the bar across the chevron flashes | **silence** — the whiff is deliberately quiet; it is a correction, not a hit |
-| Lunge | 6 px / 100 ms | wedge, then the chevron lands | two-tone, rising |
-| Guard | 0 px | double ring pulses once | low hum |
-| Sprint | 2 px x 3 | one chevron per tile entered | three ticks at your own cadence |
-| Pivot | 0 px | arc redraws per snap | click per snap, at 90-degree intervals |
-| Brace | 0 px | corners appear | nothing (it is the sound of doing nothing) |
+| Step | 1 px / 40 ms | ghost glyph fades out in place | `step` — one plosive |
+| Strike | 4 px / 80 ms | wedge outline expands one tile then vanishes | `strike` — one struck burst |
+| Bump | 2 px / 60 ms | the bar across the chevron flashes | **`bump` — silence**: the whiff is deliberately quiet; it is a correction, not a hit (16.1 rule 7) |
+| Lunge | 6 px / 100 ms | wedge, then the chevron lands | `lunge` — one attack, then the hit: the delay is audible |
+| Guard | 0 px | double ring pulses once | `guard` — a soft hum with a sustain |
+| Sprint | 2 px x 3 | one chevron per tile entered | `sprint` — the plosive three times, 200 ms apart |
+| Pivot | 0 px | arc redraws per snap | `pivot` — one air sweep for the whole verb, *not* one per snap: it costs nothing, so it must not sound like it does (13.1, 16.10-s8) |
+| Brace | 0 px | corners appear | **nothing** — doing nothing is silent in both media. What sounds is the world arming its free move (`idlearm`, world bus 1) |
+
+Every row here has an audio twin and the two channels agree by construction. The word *tick*
+is reserved for the metronome (16.3); a verb cue is never called a tick, because the tick is
+the only steady pulse in the mix and the player's timing is what plays against it (16.1
+rule 4).
 
 **Reduced motion** is a mode, not a scale factor: shake amplitude 0, every animation
 collapses to a single static frame, flashes become a one-frame outline. Nothing is carried
@@ -927,8 +942,15 @@ by motion alone — the frame after any animation contains everything the animat
 - **Floor 2-3 theming.** Out of scope (14.3). With ten tokens there is no per-floor palette;
   if later floors want one it is a second token table read by the same renderer, not a new
   system. Nothing here has to be reopened to add it.
-- **Sound design**, mentioned only as "distinct per verb" (section 5, item 3). The cues in 15.8 are
-  placeholders for D7's ~60 lines and are unreviewed by an ear.
+- **Sound design**, open in v9 as "distinct per verb", is now **section 16**: cue table, band
+  budgets, four mix buses, the audio plate. It is the one section this pass wrote where a
+  measurement contradicted the design: my first rung-ladder metric (spectral centroid) measured
+  the tone and not the parameter, and read 558 / 557 / 611 Hz across three rungs that are
+  supposed to be a ladder — the 15.3 "flat top" trap in another medium (16.3). Two things it did
+  *not* settle. The closest cue pair is 7.5 dB apart against a 6.0 dB floor, 1.5 dB of margin
+  (16.4, 16.10-s9); and **no human ear has heard any of it yet** — every figure in 16 is a
+  measurement of synthesised cues. `mockups/cues/*.wav` exists precisely so that hearing them is
+  the next step rather than an assumption baked into the tuning.
 - **The light cone at `TILE < 20`** is untested because `TILE < 20` is refused. If a
   13-inch touchscreen ever needs 14 px tiles, the cone survives and the Lunge and Pivot
   glyphs do not (15.4) — that is the specific thing to redesign first.
@@ -990,3 +1012,300 @@ proves too noisy at 20 px — then the shape moves beside the box instead of ins
 is a change of position, not of vocabulary. **v10** and **v11** are not waiting on anything:
 naming a token's job and refusing to invent a badge shape are the kind of decision that has
 no measurement on the other side.
+
+## 16. Sound design
+
+Section 15 starts from the fact that the player never sees the state, only a rendering of
+it. Sound has the opposite constraint: **it has no position, and it is gone the instant it
+happens.** The eye is already doing the reading. So audio is the channel for the one thing a
+frame cannot show — *sequence*: the room's tempo, a turn that is arriving, and whether the
+last thing you heard was caused by you or by the world. It is not decoration on top of 15; it
+is a second copy of every fact 15 draws, plus one fact 15 cannot draw.
+
+Same discipline as 15.10. `mockups/sound.py` synthesises every cue in 16.2 with the same
+oscillator/biquad/envelope set `src/audio.js` will use, renders the worst legal mix, and
+prints every figure quoted here; run it and the numbers move when the table moves. There is
+also an ear test now: `mockups/cues/*.wav`, one file per cue plus the worst mix, so 16 can be
+checked without a browser or a build. Nothing in this section is an opinion about what a cue
+should sound like; it is a measurement of cues that exist.
+
+### 16.1 Three channels, one job each
+
+15.1 has a rule that a hue may only mean cadence. Audio needs the same rule for the same
+reason, and harder: unlike a glyph, a sound cannot be looked at again.
+
+1. **Level means consequence, and nothing else.** The loud end of the table is reserved for
+   things that happen *to* the player. Every cue the player causes sits in a quiet band
+   (-10 to -20 dBFS); the loudest *recurring* sound in the game is the metronome tick at
+   -18.0 dBFS; the loudest sound in the game is taking a hit at -4.0 dBFS. **14.0 dB of the
+   level channel is reserved for consequence and spent on nothing else** (measured, 16.5). A
+   tuning pass will want to raise the verb cues to make the game "feel punchier"; that spends
+   the only audio channel carrying information, so this is a floor, not a taste.
+2. **Timbre and attack time carry verb identity.** Pitch is never the only difference between
+   two cues. This is 15.1 rule 2 copied, and it fails the same way in both media: a
+   pitch-only distinction is useless to an ear and useless over a phone speaker.
+3. **Pitch is used for exactly one thing: an ordered scale.** The tick's pitch is the tier
+   (16.3). A scale is legal where a hue is not, because it is ordered and because it is
+   redundant with the cadence meter (5.1), which stays the primary copy.
+4. **Rhythm belongs to the game, not the player.** The tick chain is the world's metronome;
+   an enemy's scheduled move gets its own cue one turn before it lands — 15.4's telegraph,
+   audible. Nothing the player does is quantised, because that is the thesis, so the only
+   steady pulse in the mix has to be the room's. The player's timing is what plays against it.
+5. **Attack time separates "answered your press" from "announcing the game".** A cue that
+   answers a press must reach 90% of its peak within **25 ms**, so it lands *with* the 40 ms
+   commit flash (15.8) instead of after it; later than that it reads as a reply to something
+   else. A
+   cue that announces the world may take up to **60 ms**, and the soft ones should: a slow
+   attack is how a swell is told from a click without looking. Measured worsts: 17.3 ms
+   (Guard, the slowest event cue) and 34.4 ms (the idle-arm swell).
+6. **One sound, reused.** The 15 tier×rung tick variants are one voice with 15 parameter
+   sets, exactly as 15.3 is one formula. A second tick voice would break the only way the
+   ladder can be heard — as a continuum.
+7. **Silence is a cue, and it is used.** Bump makes no sound at all (15.8: the whiff is
+   information, not a punishment), and the Brace verb is silent too — your own Brace is four
+   corner brackets, and what *sounds* is the world arming its free move (`idlearm`, 16.2). Two
+   of the game's sharper messages are carried by absence, and both keep a visual copy, so
+   neither becomes a mystery.
+
+### 16.2 The cue table
+
+Thirteen cues plus the tick. `kind` is the split rule 5 uses: **event** answers your press,
+**world** announces the game. `fam` is the identity channel, and it is shared with 15.4's
+shape language on purpose: three verbs are *struck* because all three are "hit something with
+force", and three movements are *plosive* because none of them hits anything.
+
+| cue | what it is | fam | kind | peak dBFS | len ms | attack ms |
+|---|---|---|---|---|---|---|
+| `step` | one press committed as Step (5.1's first rung) | plosive | event | -12.0 | 41 | 0.8 |
+| `strike` | one press committed as Strike | struck | event | -10.0 | 87 | 3.0 |
+| `lunge` | three presses: a single strike **delayed by design** — one attack, then the hit | struck | event | -10.0 | 151 | 3.0 |
+| `sprint` | five taps: the plosive three times, 200 ms apart — the run is audible as three steps | plosive | event | -12.0 | 445 | 0.7 |
+| `guard` | four taps: a soft sustained hum, the only verb cue with a sustain | hum | event | -12.0 | 189 | 17.3 |
+| `pivot` | the free verb: a two-part air sweep | sweep | event | -20.0 | 116 | 9.3 |
+| `rest` | two ascending notes — the menu, not an action | chime | event | -16.0 | 141 | 2.2 |
+| `bump` | stepped into an occupied tile | silence | event | — | 0 | — |
+| `hurt` | you took a hit (Guard absorbed it or not) | impact | world | -4.0 | 204 | 19.6 |
+| `kill` | an enemy died | struck | world | -8.0 | 120 | 1.8 |
+| `die` | you died — the only cue longer than a quarter second | chime | world | -6.0 | 597 | 6.7 |
+| `telegraph` | an enemy's scheduled move is arriving next turn | chime | world | -22.0 | 110 | 8.1 |
+| `idlearm` | the world's side of your idle: the free move armed | hum | world | -22.0 | 217 | 34.4 |
+| `tick.t<rung>` | the metronome face: 3 tiers x 5 rungs (16.3) | tick | world | -18.0 | 21 | 1.2-2.7 |
+
+Two notes on how to read the numbers. `len` is the audible length at -40 dB and `attack` is the
+time to 90% of peak, both **measured off the rendered files**, not declared by the synthesis
+recipe — the level column is a promise the cue actually peaks at, not a coincidence of how it
+was built. And every noisy cue is the mean of three seeded noise draws: one draw moves
+a 1/3-octave band by about 2 dB, and the floors in 16.4 and 16.7 are smaller than that, so an
+unaveraged table would be measuring the draw. The 15 ticks share one seed per rung, because
+they are one voice filtered differently and a ladder comparison must not also change the noise.
+
+### 16.3 The tick: the metronome face, in audio
+
+Section 11.1's meter has a face that is always on. Its audio twin is one 26 ms click.
+
+- **Pitch is the tier.** Careful 392.0 Hz, Normal 466.2 Hz, Frantic 554.4 Hz (+0 / +3 / +6
+  semitones). A three-step scale with small steps, because it is a *status colour in time*: it
+  has to be recognisable in one event and must not read as a melody.
+- **Brightness is the rung.** The transient partial's lowpass opens ×1.25 per rung
+  (900 / 1125 / 1406 / 1758 / 2197 Hz) and its share rises with it. Measured "openness" —
+  energy above 2.5x the fundamental, relative to the fundamental — across rungs 1-5 at the
+  Frantic pitch: **-48.8, -43.4, -39.1, -32.7, -27.5 dB.** Monotonic, 21.3 dB end to end.
+  That width is the whole rung channel, and it must stay a shading: a fifth rung is not a new
+  sound, it is the same sound opening up.
+- **Level is fixed at -18.0 dBFS at every tier and every rung.** Verified — the set of peaks
+  over the 15 sampled ticks is exactly `{-18.0}`. The ladder never gets louder at Frantic,
+  because the tier is already carried by the meter, the plate radius, the veil and the pitch,
+  and a metronome that hammered harder as you panicked would be punishing the fast player.
+- **The measure that failed first.** My first rung metric was spectral centroid; over a 26 ms
+  click it is dominated by the fundamental and read 558 / 557 / 611 Hz — not a ladder. That is
+  15.3's "flat top" trap in another medium: the obvious statistic measured the tone, not the
+  parameter being driven. Openness measures what the filter actually does.
+- **Band budget.** Measured across all 15 variants the tick's energy spans **240-1210 Hz** and
+  never enters either reserved band (16.4).
+- **Timing.** Its whole envelope is 21 ms, against `DEBOUNCE = 40 ms` (2.1): the metronome can
+  never smear into a double note however fast you press. The debounce is a sound constraint,
+  not only an input one.
+- **The relics act here and nowhere else.** Metronome and Offbeat (6.3) change the tick, which
+  is the audio form of 6.3's own rule that a relic adds no new verbs and no new shapes — and
+  13.2's "an unfamiliar sound as well as an unfamiliar glyph" is the same kill trigger, stated
+  in the medium it will actually be noticed in.
+
+### 16.4 Band budgets — the colour-blind test, in audio
+
+15.6's test is "can it be told apart once colour is removed". The audio version is **"can it
+be told apart once a phone speaker has removed everything below 150 Hz and above 6.5 kHz."**
+Both are about a channel that is already degraded, and both have to pass before the design is
+real. Measured span of each cue — the 1/3-octave bands within 12 dB of the cue's own peak,
+taken off the rendered cue and not off the recipe, because a 26 ms click leaks:
+
+| cue | low Hz | high Hz | | cue | low Hz | high Hz |
+|---|---|---|---|---|---|---|
+| `die` | 76 | 95 | | `step` | 190 | 240 |
+| `idlearm` | 76 | 76 | | `strike`, `lunge` | 240 | 480 |
+| `hurt` | 95 | 151 | | `kill` | 302 | 762 |
+| `guard` | 151 | 1920 | | `pivot` | 190 | 3840 |
+| `sprint` | 190 | 240 | | `telegraph` | 2419 | 3048 |
+| `rest` | 240 | 240 | | `tick` (all 15 variants) | 240 | 1210 |
+
+Two bands are **reserved**, and the table is what makes that checkable rather than
+aspirational:
+
+- **BODY, below 150 Hz — the world's side only** (`hurt`, `die`, `idlearm`). A low thud is the
+  one sound that reads as *happening to you*; if a verb ever acquires one, rule 1 has been
+  broken by accident instead of on purpose. The boundary is load-bearing in one place: `guard`
+  is the only verb cue that could plausibly have wanted a low end, and its hum is tuned to
+  175 Hz so its measured floor is 151 Hz — one band above the reservation. That is not a
+  coincidence of the tuning; it is the rule doing its job.
+- **AIR, above 2.4 kHz — Pivot and Telegraph only.** Those are the two cues that must be heard
+  over a room of other people's sounds and, in the telegraph's case, over a metronome that is
+  always playing. A 2.6 kHz two-note pip has that band to itself.
+
+Then the pairwise test, in the same shape as 15.6's table: the RMS dB difference across the
+23-band profile for every pair of cues, floor **6.0 dB**.
+
+| closest pairs | dB apart | after the 150-6500 Hz band-limit |
+|---|---|---|
+| `pivot` vs `kill` | **7.5** | 9.2 |
+| `step` vs `sprint` | 7.8 | — |
+| `step` vs `lunge` | 8.3 | 8.6 (closest after limiting) |
+| `strike` vs `pivot` | 8.4 | 10.6 |
+| furthest pair (`strike` vs `idlearm`) | 68.4 | — |
+
+Every pair clears the floor, and after band-limiting no pair is under it — the full-range
+number is the pessimistic one, because the low end is where the families differ most. But the
+**margin at the closest pair is 1.5 dB**, and that is the weak point of this section rather
+than something to smooth over. Most of it is Step and Lunge sharing a family, which is
+deliberate (Lunge *is* a delayed Strike); `pivot` vs `kill` at 7.5 dB is the pair to watch.
+Kill trigger: if two cues are confused in a playtest, one of them changes and the floor does
+not.
+
+### 16.5 The mix: four buses, and the worst legal collision
+
+| bus | what is on it | peak |
+|---|---|---|
+| 0 consequence | `hurt`, `die` | -4.0 |
+| 1 the world | `kill`, `telegraph`, `idlearm` | -8.0 to -22.0 |
+| 2 you | every verb cue, `rest` | -10.0 to -20.0 |
+| 3 metronome | the tick, always | -18.0 |
+
+The split is not mixing preference, it is the address 16.7's plate needs: a cue on a higher
+bus ducks the buses below it while it sounds. Consequence has to survive the player's own
+noise, and 14.2-i guarantees they collide — presses during the `RESOLVE_ANIM = 120 ms` window
+are buffered, so they land *on* the commit cue.
+
+Worst legal collision, rendered: a Frantic Lunge commit, plus the hit it schedules (`hurt`),
+plus the three presses you kept making during the resolve window, which arrive at `DEBOUNCE`
+spacing as three ticks. Six cues, **4 sounding at once** against a voice cap of 6:
+
+| | peak | against the -3.0 dBFS ceiling |
+|---|---|---|
+| no audio plate | -2.8 | **clips** |
+| with the plate (16.7) | -4.0 | ok, 1.0 dB of margin |
+
+That is why the plate is not optional: the ceiling is exceeded by the ordinary case, not by a
+pathological one. Mono output, no panning (16.6); voice cap 6, and `cue()` drops the
+*quietest* new voice rather than the oldest, so the metronome is never the thing that gets cut.
+
+### 16.6 What is deliberately not here
+
+- **No music.** The tick *is* the rhythm track, and putting a fixed tempo under a game whose
+  subject is the player's tempo contradicts the thesis. Kill trigger: a player asks how to turn
+  "the music" off — we have merged the metronome and the score, and the trim in 16.8 is the fix.
+- **No positional audio, no panning.** The facing cone is 270 degrees (2.4) and the screen is
+  not a stereo stage; a pan would assert an angle the model does not have. Same reasoning as
+  15.3's "one light model, not per-entity lights".
+- **No ambience, no reverb, no footsteps, no layering.** Rule 1: a cue that carries no fact
+  from the model is deleted, and a room tone carries none.
+- **No samples** (D7 reaffirmed). The table in 16.2 is data in `cfg.js`; a sample set is a
+  fixture that drifts silently away from the tuning, and offline (D1) it is also an asset that
+  cannot be fetched. The synthesis recipe is the spec, which is why `mockups/sound.py` holds
+  the same rows.
+- **No per-tier mix.** The tier is carried by the meter, the plate radius, the veil and the
+  tick's pitch. A mix that swelled as you sped up would be an opinion about your tempo.
+
+### 16.7 The audio plate (15.7's rule, restated)
+
+**A cue must clear whatever may be playing under it by 6 dB in its own peak band.** Measured in
+the cue's own peak band against the loudest of the 15 ticks — the one sound guaranteed to be
+there:
+
+| cue | band Hz | cue dB | tick there | margin, no plate | with plate |
+|---|---|---|---|---|---|
+| `kill` | 381 | -51.2 | -41.2 | **-10.0** | 6.0 |
+| `telegraph` | 2419 | -80.0 | -70.5 | **-9.5** | 6.5 |
+| `lunge` | 381 | -44.6 | -41.2 | **-3.4** | 12.6 |
+| `guard` | 151 | -65.5 | -67.6 | 2.1 | 18.1 |
+| `pivot`, `step`, `strike`, `sprint`, `rest`, `die`, `idlearm`, `hurt` | — | — | — | 10.8 to 48.3 | ok either way |
+
+Four cues fail without help — including `telegraph`, the one cue that has to be heard *before*
+something happens. The fix is the audio plate, and **its depth is derived, not chosen**: duck
+the metronome bus by (worst collision + the 6 dB floor) = **16.0 dB**, for the length of the
+cue plus 60 ms, restored over 80 ms. Every cue then clears 6.0 dB or more. Raising the cues
+instead is not available: that spends the level channel, which rule 1 says belongs to
+consequence.
+
+Like 15.7's plate, this is a constant guarantee rather than a per-case tuning: gain automation
+on a bus, not a compressor — deterministic, not a reaction to what the player did, and
+assertable in headless code. Note that the levels in 16.2 are *per-cue* peaks; they sum, which
+is exactly why 16.5 and this section exist.
+
+### 16.8 Accessibility and settings
+
+- **The promise, stated so it can be tested: no fact in this game is audio-only.** Every cue
+  duplicates a channel section 15 already draws — the tick duplicates the cadence meter, the
+  telegraph duplicates the ring plus the shape badge, `hurt` duplicates the screen shake and the
+  HP pips. `audio.js` can be deleted and the game is still complete. That is the same test 15.1
+  rule 2 passes for colour, and it is why audio is allowed to be quiet. What audio adds is
+  sequence and latency (rule 5), and the visual equivalent of the first already exists as 5.1's
+  meter.
+- **Three settings, not a toggle.** `off`; `world` (buses 0-1 only — you hear what happens to
+  you and what the world is doing, not your own clicks; the option for anyone who finds a
+  repeated transient fatiguing); `all`. Plus a **metronome trim, -3 to -12 dB**, on top of the
+  -18.0 floor. The trim exists because a recurring click is exactly the kind of sound some
+  people need to turn down without losing the whole channel; the game never mutes the tick
+  itself. Kill trigger: a player who reaches room 2 wanting everything off has found the tick
+  annoying, and the answer is the trim, not the default.
+- **Assist mode (10) is never audio-gated.** The dwell wheel's rung gets the tick at that
+  rung's measured brightness (16.3), so an Assist player *hears* the ladder they are selecting.
+  The reduced-flash option does not reduce audio: a flash and a click are not the same kind of
+  stimulus, and 15.10's "seizure-safe by construction" argument has no audio equivalent to lean
+  on.
+- **TTS (10) stays possible** because no cue is scheduled from inside `sim.js` (16.9), so a
+  narration bus is a fifth bus, not a rewrite.
+
+### 16.9 In the code
+
+- `cfg.js` holds the cue table as data: bus, family, kind, level in dBFS, envelope, filter
+  frequencies, noise seed. `mockups/sound.py` holds the same rows and *is* the fixture — 15.9's
+  "one place, never derived twice" applies verbatim.
+- `audio.js` is `cue(name, at)` plus `bus_gain(bus, db)`. No timers inside: the AudioContext
+  clock is passed in by the caller, exactly as it is injected into `recogniser.js` — 14.2's
+  reason for that rule holds for audio too — so 14.6's headless tests never touch WebAudio.
+- Levels are dBFS numbers, never 0-1 gains; the mix ceiling (-3.0) and the voice cap (6) are
+  constants in the same file.
+- `sim.js` emits events; `audio.js` maps events to cues. Nothing in the simulation knows sound
+  exists.
+- **Assertion 13 of 14.6** — pure assertions over the table, no browser: every event cue's attack
+  <= 25 ms and every world cue's <= 60; no cue enters a reserved band; every cue pair >= 6.0 dB
+  apart after the 150-6500 Hz band-limit; all 15 ticks peak at -18.0; and the worst legal
+  collision stays under -3.0 dBFS **with** the plate and exceeds it **without** — if that last
+  assertion stops failing, the plate is dead code and gets deleted.
+
+### 16.10 Decisions: what this section left open, and what I chose
+
+Where 16.1-16.8 left a choice, this is what I built. The reasoning that did not appear in the
+first draft — including the measurement that contradicted me — is in `logs/215049_sound.log`.
+
+| # | The open question | Decision | Reopen when |
+|---|---|---|---|
+| s1 | Music, or no music? | **None.** The tick is the rhythm; a fixed tempo under a game about the player's tempo is a contradiction (16.6). | A mode where the world's tempo is the subject (section 3) — then the metronome *is* the music, and it already exists. |
+| s2 | Is the metronome audible by default? | **Yes**, at -18.0 dBFS, trimmable -3 to -12, never auto-muted. 11.1 already makes the meter face always-on; a muted-by-default audio face is a different game. | A playtest where the tick is the first thing players turn off. |
+| s3 | Panning, positional audio? | **None.** Mono. A pan would claim an angle the 270-degree cone does not have (2.4). | A version where the cone stops being the model. |
+| s4 | Synthesised cues or recorded samples? (D7) | **Synthesised, table-driven.** The recipe is the spec and the spec is testable; samples drift, and offline they cannot be fetched at all. | You want a sound designer's palette — the table becomes their parameter file, and every figure here is a target they can measure against. |
+| s5 | How deep is the audio plate? | **Derived: 16.0 dB** = the worst measured collision + the 6 dB floor. Not a taste value, and it re-derives itself whenever a cue changes. | Any cue's band or level changes — `mockups/sound.py` prints the new depth. |
+| s6 | Are verbs as loud as consequences? | **No, never.** Rule 1 reserves 14.0 dB of the level channel. This is the one rule here that a tuning pass will fight. | Telemetry shows players missing their own commit feedback — fix that with the commit flash and the glyph (15.8), not with gain. |
+| s7 | Does Bump stay silent? | **Yes**, and Brace's verb stays silent too. The risk is "did the game hear me"; the answer is the tell 15.8 already draws for Bump — the bar across the chevron — not a click. | Playtesters doubt whether input registered at Bump. Then add a *dull* cue, one band lower than Step, and re-run 16.4 — it would collide with the body band, which is why it is not here now. |
+| s8 | `pivot` is the quietest event cue at -20 dBFS. | **Deliberate.** 13.1's first decision made Pivot free; a cue that sounds like a tax on a free verb is a lie. It survives because it owns the air band (16.4). | Pivot goes unused, or players say they never know it fired — the free-verb rule outranks the level rule, so the fix is the arc glyph, not the gain. |
+| s9 | The closest cue pair is 7.5 dB, 1.5 dB over the floor. | **Accept and monitor.** Most of it is Step and Lunge sharing a family, which is intended; `pivot`/`kill` is the pair to watch. | Any confusion in a playtest — one cue changes, the floor does not. |
+| s10 | How is the noise seeded? | **Per cue name; the 15 ticks share one seed per rung.** They are one voice filtered differently, so a ladder measurement that also redrew the noise would be measuring the draw. This is section 11's seed-only rule applied to a fixture. | Never; a fixture that moves is not a fixture. |
+
