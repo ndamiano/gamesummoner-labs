@@ -466,7 +466,8 @@ localisation, mobile layout polish, the Conductor's press-duration axis.
 
 ```
 index.html              canvas + input glue (~150 lines); only this file may touch the DOM
-src/cfg.js              every tunable from 2.2/2.3 as data; read by game and pause screen
+src/cfg.js              every tunable from 2.2/2.3 and the 10 palette tokens + light-model
+                        formulas from 15.6 as data; read by game, renderer and pause screen
 src/recogniser.js       PURE: (event, t, state) -> {state, verb|null, fx[]}  no DOM, no timers
 src/sim.js              PURE: (state, verb, rng) -> {state, events[]}  grid, LOS, combat, AI
 src/rooms.js            ASCII rooms -> {grid, entities, spawn, facing}
@@ -475,6 +476,9 @@ src/audio.js            WebAudio per-verb cues, parameters from cfg
 src/telemetry.js        section 11 burst log -> localStorage + text histogram
 src/run.js              the loop: input -> recogniser -> sim -> render; owns the clock
 test/recogniser.test.js test/sim.test.js     `node --test`, offline
+mockups/make.py         the reference figures + the contrast/CVD math behind section 15
+mockups/screen.png      play-screen composition (figure for 15.2, 15.3)
+mockups/shapes.png      shape language, tier badges, palette (figure for 15.4-15.6)
 ```
 
 Two rules keep this testable: (1) `recogniser.js` and `sim.js` receive the clock and the
@@ -512,6 +516,11 @@ sequence is reproducible; (2) the renderer reads state and writes nothing.
 9. Metronome (+120 ms commit) turns test 3 into a Strike — proof that a relic really changes the grammar.
 10. Offbeat swaps 1<->2 without disturbing tiering.
 11. Same seed + same scripted input -> byte-identical run transcript.
+12. Renderer guard (15.6, 15.7): every palette entry in `cfg.js` is one of the ten tokens in
+    15.6, no hex literal appears in `render.js`, `TILE >= 20` is asserted rather than
+    assumed, and a ghost drawn over the brightest lit tile measures >= 3:1 through the plate
+    path. Cheap to write, and it is the only way the visual spec stays true after the
+    first person touches the renderer.
 
 **Definition of done for the first build:** `node --test` green; `index.html` opens and
 plays tutorial room 1 with no instructions on screen; the end screen prints my own tier
@@ -523,3 +532,264 @@ histogram; and from the log I can say how many of my own bursts landed Frantic.
 - Whether a stranger clears tutorial room 2 without text (5.1).
 - Whether the rate axis is teachable at all (13.2's kill trigger).
 - Whether the switch-access claim in section 10 holds for an actual switch-access player. I can build Assist; I cannot validate it.
+
+---
+
+## 15. Visual design
+
+**The screen is a torch and a metronome.** Two things are drawn at all times: where you
+are looking, and how fast you are pressing. Everything else on the frame exists to make
+those two readable. There is no art direction in this build beyond that — a *look* is not
+a deliverable of M1/M2, legibility is (12).
+
+This section is written as rules with numbers, because that is the only form of a visual
+spec that can be tested (14.6-12). Every number below is computed by `mockups/make.py`,
+which also draws the two reference figures this section points at; run it and it re-prints
+them. They are reference figures, not game assets.
+
+### 15.1 Five rules
+
+1. **Legibility is measured, not judged.** Any token drawn as a shape must clear 3:1
+   against the surface it is drawn on; any token carrying text must clear 4.5:1 (WCAG
+   relative luminance). Enforced by a test, not by taste.
+2. **Hue means cadence and nothing else.** The three tier colours are the only hues on
+   the frame. `guard` is the one exception (15.6) and it is safe because it never appears
+   on the cadence meter, which is the only place hue is read as information.
+3. **Shape carries identity, hue only reinforces.** Measured, not assumed: under
+   protanopia the linear-RGB distance between Careful and Frantic collapses from **0.620
+   to 0.188** (Frantic simulates to `#7b703c`, Careful to `#747884` — near-identical
+   greys). A red/green argument would have missed this. So no distinction in this game is
+   carried by hue alone, which is what section 10 promised and what this section delivers.
+4. **Nothing the player reads may be ambiguous or moving.** During PENDING the frame is
+   frozen except the intent ghost and the meter. No idle animation, no flicker, no drifting
+   light, no vignette breathing. A player deciding between Step and Strike is entitled to a
+   still image.
+5. **Ten colours, one font, nothing to download.** A scope guard (D6, D7) as much as an
+   aesthetic: with 10 tokens and the system mono stack there is nothing to produce, nothing
+   to fetch, and nothing that can drift between the mockup and the build.
+
+### 15.2 What goes where
+
+Reference surface **960 x 600**, `TILE = 30` -> a 32 x 20 room. The surface is
+integer-scaled to fit the window and letterboxed; the HUD is laid out in reference pixels
+and never reflows. When the window is too small for 1:1 the renderer drops `TILE` to 20
+before it shrinks any HUD text — and **20 px is a hard floor** (15.4).
+
+```
+ (12,10) ROOM 4  BOTTLENECK                      HP ▮▮▮▯▯   GUARD ▮▮▯   (W-176,10)
+ TURN 27
+ ┌────────────────────────────────────────────────────────────────────────────────┐
+ │                                                                              │
+ │                        T H E   R O O M   (full bleed)                        │
+ │        terrain · light model · ghost plates · glyphs · telegraph             │
+ │                                                                              │
+ │ 23 BRACE  +1 guard    [ gap band ][ CADENCE RUNGS ]          MED 120 ms     │
+ │ 25 STEP   ok              tier badge                                  2 TAPS │
+ │ 26 BUMP   blocked                                                          │
+ └────────────────────────────────────────────────────────────────────────────────┘
+ (12,552) last three verbs        (310,528) and (310,542)            (852,542)
+```
+
+| Region | Contents | Rule |
+|---|---|---|
+| Room, full bleed | the whole board; no panel, no frame around it | the room *is* the UI |
+| Top-left | room name, turn count | `dust`, 11-13 px, never `chalk` |
+| Top-right | HP pips, Guard pips | discrete squares, not bars — HP and Guard are integers (14.2-e) and a bar would lie |
+| Bottom-left | the last three verbs, `turn verb outcome` | the section 11 record in human words; it is what the end-of-run histogram is built from, so it should be normal to read |
+| Bottom-centre | the cadence meter (section 5, item 2) | two stacked rows, 420 px wide, centred. **Rungs** at y=542: five blocks of 76 x 26 with an 8 px gap, labelled — this is the *press-count* axis. **Gap band** at y=528: 420 x 6 mapping 0-1200 ms, with 2 px ticks at `TIER_FAST`=260 ms (x=361) and `TIER_SLOW`=700 ms (x=515), filled from 0 to the current median in the tier hue — this is the *rate* axis. Two axes because the recogniser has two axes (2.2); one bar would have to lie about one of them. |
+| Left of the meter | tier badge | shape + word, always both (15.5) |
+| Right of the meter | median gap, tap count | the two numbers the tier was computed from, so the tier is never a mystery |
+
+No minimap, no log panel, no tooltips, no health bar over heads. Everything a player needs
+is either the board or the meter.
+
+### 15.3 The light model — this is what "facing" looks like
+
+13, item 3 settled the camera as fixed north-up with a strong facing arrow. The arrow is 7 px of
+`chalk` on the player's own tile edge, and it is *not* the main device. The light model is,
+because it turns the facing cone into a place you can stand rather than a symbol next to
+you — and it is the only rendering of "forward" that costs nothing per frame.
+
+```
+L(x,y) = max( falloff, cone )
+falloff = 1 - dist((x,y), player) / 6.5                      # radius 6.5 tiles
+cone    = (1 - dist/10) * (1 + (34 - |da|)/34 * 0.6)        # |da| <= 34 degrees
+```
+
+- `L` lerps from `ink0` to three **derived** ceilings — they are not tokens, they are
+  formulas, so the palette stays at ten:
+  `lit_floor = mix(ink0, dust, 0.27)` = `#2a2d31`,
+  `lit_wall = mix(ink0, dust, 0.42)` = `#3b3f44`,
+  `lit_edge = mix(ink0, ghost, 0.55)` = `#6b7177` — the 2 px lip drawn along the bottom
+  edge of a wall that borders a floor tile, which is the only thing that makes a wall read
+  as a wall rather than a hole at 20 px.
+- Unlit floor is `ink0`, the same value as the void. **Deliberate:** an unexplored
+  direction and an unknown one look identical, which is what makes turning the cone worth
+  doing. What has been seen may go dark; it never goes *unseen* — terrain memory is a
+  floor of 8% on `L` for tiles already in the player's known set.
+- Entity glyphs clamp to 32% light, furniture and doors to 45%/60%. A Rat in the dark is
+  faint but never invisible: "you cannot see it clearly" and "it is not there" must not
+  look the same, because the second one is a lie the game never tells.
+- The light model is the **only** place the renderer varies a colour, and nothing animates
+  it. It is a pure function of `(x, y, player.x, player.y, player.face)`, which is why the
+  frame can be frozen during PENDING (rule 4) for free.
+
+### 15.4 Shape language
+
+Figure: `mockups/shapes.png`. One glyph per verb, drawn on the affected tile(s) as the
+intent ghost (section 5, item 1) and stamped at the same place on commit. Ghost and commit share a shape
+so that the preview and the event are the same object — the player learns one vocabulary.
+
+| Verb | Glyph | Drawn on |
+|---|---|---|
+| Brace | four corner brackets, `guard` | your own tile; static (14.2-c arms once, so it must not pulse) |
+| Step | hollow chevron | the tile you would occupy |
+| Strike | filled wedge with a spine | the occupant, or the wall you would hit |
+| Lunge | wedge + a faded chevron one tile beyond | both tiles — it is the only two-tile verb and it should look like it |
+| Guard | double square outline | your own tile |
+| Sprint | three chevrons, fading along the line | each tile of the path, stopping early at the first wall (2.5) |
+| Pivot | open arc with an arrowhead | around your own tile, redrawn at each 90-degree snap (14.2-h) |
+| Bump | chevron with a bar across it | your own tile — the bar is the whole message: no movement, no damage (14.2-d) |
+
+**20 px is a hard floor, and the figure shows why.** Drawn at 30 / 20 / 14 px: at 20 px all
+eight still carry their message, but three get thin — Lunge's two marks nearly touch,
+Sprint's three chevrons merge into one hatched arrow (it still reads as "more than one
+step", which is the message; it no longer reads as *three*, which is fine, because the
+count is printed on the meter), and Bump's chevron goes weak behind its bar. At 14 px Lunge
+collapses into a blob and Pivot loses its arrowhead; both are crossed out in `frantic` in
+that column of the figure, so the failure is on the record rather than in a footnote.
+`render.js` refuses `TILE < 20` and letterboxes instead. The one accepted degradation, at
+16-19 px: Sprint draws one chevron plus an outline on the final tile.
+
+Entities and furniture keep the ASCII glyphs from 14.5 (`@ r s m * + <`) — they are already
+a legible shape set, they need no assets, and the pause screen's poster can print the same
+characters the board uses. Non-ASCII exceptions, and they are the only ones: the relic is
+an outlined diamond, the exit is a filled triangle pointing down, an enemy telegraph is a
+2 px box in the tier hue of the *player* who provoked it (7).
+
+### 15.5 Tier coding — three redundant codes, one channel
+
+| Tier | Hue | Shape | Word | Position |
+|---|---|---|---|---|
+| Careful | `careful` | hollow circle | always printed, 13 px `chalk` | right of the `TIER_SLOW` tick (gap > 700 ms) |
+| Normal | `normal` | hollow square | as above | between the ticks (260-700 ms) |
+| Frantic | `frantic` | **filled** triangle | as above | left of the `TIER_FAST` tick (gap < 260 ms) |
+
+- The badge sits at a fixed x to the left of the meter, so *it* carries two codes only
+  (shape, word). The third code is the band: it is filled from 0 to the current median in
+  the tier hue, and the two ticks are the tier boundaries — **where the fill stops says the
+  tier in greyscale**, which is the only reason the three hues are allowed to be as close
+  together under protanopia as 15.6 shows they are. Pause > Input (section 5, item 5) draws the same
+  bands on the same 0-1200 ms axis and plots your own last 20 bursts into them — one
+  picture, used live and in the pause screen, from the same `cfg.js` numbers.
+- The active rung gets a 2 px `chalk` outline in addition to its tier fill, so "which verb
+  am I about to commit" survives a greyscale screenshot. This is the single most important
+  read on the screen; it must not depend on hue.
+- The three badges are drawn at 22 / 16 / 12 px in the figure. The filled triangle is the
+  only *solid* mark, which is deliberate: Frantic is the tier the game punishes and it
+  should be the loudest mark in all three codes.
+
+### 15.6 Palette — ten tokens, no more
+
+Contrast measured against `ink0` by `mockups/make.py`; the number is printed, not asserted
+by eye.
+
+| Token | Hex | Used for | vs `ink0` |
+|---|---|---|---|
+| `ink0` | `#0b0d10` | field, void, unlit floor | — |
+| `ink1` | `#14171c` | (reserved: panel fills) | 1.08 |
+| `wall` | `#1e232b` | unlit wall face, hairlines, frame | 1.23 |
+| `dust` | `#7d838c` | **all secondary text**, unlit entities | 5.09 |
+| `chalk` | `#e6e4df` | **all primary text**, the player | 15.31 |
+| `careful` | `#6f7883` | tier: Careful | 4.35 |
+| `normal` | `#d8a53f` | tier: Normal, door hardware | 8.69 |
+| `frantic` | `#e0553f` | tier: Frantic, enemy telegraph | 5.13 |
+| `guard` | `#5fa8c7` | Guard pips, Brace corners — never on the meter | 7.33 |
+| `ghost` | `#b9c2cb` | intent ghost glyphs, lit wall lips | 10.79 |
+
+- **Text is only ever `chalk` or `dust`.** Not a preference: `careful` measures 4.35:1,
+  under the 4.5:1 WCAG floor for text, so a tier-coloured word fails the rule that tier is
+  for shapes. It also fails rule 3 — a coloured *word* is the one case where hue alone
+  carries meaning. Hue marks the badge shape; the word beside it is `chalk`.
+- Tier hues drawn on terrain get weaker the brighter the light model gets — measured:
+  `frantic` on `lit_wall` is 2.80:1 and `careful` on `lit_wall` is 2.37:1, both under the
+  3:1 floor. That is not a reason to dim the light; it is the reason for 15.7.
+- No hex literal appears in `render.js`, and no pixel constant that is not in `cfg.js`
+  (D4: one file, read by the game and the pause screen alike). 14.6-12 asserts both.
+- Grey-first check: any two things distinguishable *only* by hue are a bug. The figures are
+  legible converted to greyscale; that is the pass condition, and it is the same condition
+  section 10's colourblind promise reduces to.
+
+### 15.7 The plate rule (found by measuring, not by looking)
+
+The intent ghost is the most important element on the screen (section 5, item 1). Painted straight onto
+the brightest lit floor — i.e. exactly where the player is looking — `ghost` at 45% over
+`lit_floor` measures **2.76:1**, under the 3:1 non-text floor. The two systems that carry
+the design, the light model and the ghost, cancel each other out at the point of maximum
+use.
+
+Rule, shipped: **any glyph drawn in `ghost` or a tier hue over terrain is drawn on a plate
+first** — the tile is re-rendered as `mix(tileColour, ink0, 0.72)`, then the glyph is drawn
+at full token colour. That is **10.05:1**, and more importantly it is *constant*: ghost
+legibility stops depending on where the light model happens to be, so neither system can
+break the other. Cost: one extra filled rectangle per ghost tile. The telegraph and the
+Pause > Input plot use the same code path, which is the only reason it is cheap.
+
+### 15.8 Motion
+
+Every animation is a state transition; none is an idle loop; the total budget is
+`RESOLVE_ANIM = 120 ms` (2.3), which is already the commit window. Input during any of it
+is buffered (14.2-i), so no animation can be interrupted or can eat a press.
+
+| Moment | Duration | What moves |
+|---|---|---|
+| press | 0 ms | a rung lights. No easing — the frame the press lands in is the frame that shows it |
+| escalation | 60 ms | the ghost glyph *swaps*; it does not morph (a morph reads as indecision, and the ladder is not indecision) |
+| commit | 120 ms | per-verb feedback, below |
+| pivot | live | the arc redraws at each 90-degree snap; nothing tweens between snaps |
+| brace | 1 frame | corners appear and stay. No pulse: Brace arms once (14.2-c) and a pulsing mark would imply otherwise |
+| death | 600 ms | the field drops to `ink0` tile by tile, outward from the player, over the run's tier histogram |
+
+Per-verb commit feedback (section 5, item 3 requires each verb to feel different with the audio off):
+
+| Verb | Shake | Flash | Audio (D7, synthesised) |
+|---|---|---|---|
+| Step | 1 px / 40 ms | ghost glyph fades out in place | soft tick, 220 Hz |
+| Strike | 4 px / 80 ms | wedge outline expands one tile then vanishes | short saw burst |
+| Bump | 2 px / 60 ms | the bar across the chevron flashes | **silence** — the whiff is deliberately quiet; it is a correction, not a hit |
+| Lunge | 6 px / 100 ms | wedge, then the chevron lands | two-tone, rising |
+| Guard | 0 px | double ring pulses once | low hum |
+| Sprint | 2 px x 3 | one chevron per tile entered | three ticks at your own cadence |
+| Pivot | 0 px | arc redraws per snap | click per snap, at 90-degree intervals |
+| Brace | 0 px | corners appear | nothing (it is the sound of doing nothing) |
+
+**Reduced motion** is a mode, not a scale factor: shake amplitude 0, every animation
+collapses to a single static frame, flashes become a one-frame outline. Nothing is carried
+by motion alone — the frame after any animation contains everything the animation conveyed.
+
+### 15.9 In the code
+
+- `render.js` (14.4) draws from state only, in a fixed order: terrain -> ghost plates ->
+  ghost glyphs -> entities -> telegraph -> HUD -> meter -> commit flash. It writes nothing
+  to state and holds no per-object visual state; there is nothing to keep in sync.
+- Palette tokens, the light-model formulas, and every pixel constant in 15.2/15.5 live in
+  `cfg.js` as data, beside the tunables (D4).
+- `mockups/make.py` regenerates `screen.png` and `shapes.png` and prints the contrast,
+  greyscale-separation and CVD tables quoted above. It is neither a game asset nor a test —
+  it is the figure and the measurement in one file, so the numbers in 15.1, 15.5, 15.6 and
+  15.7 can be re-derived instead of trusted.
+
+### 15.10 What this section does not settle
+
+- **Whether any of it feels like anything.** Everything above is a floor, not a look. A grey
+  field with one red triangle may read as tense or as clinical, and 14.7's first question is
+  the same question: the commit feedback for Strike is specced to be *different*, not to
+  feel like a sword.
+- **Floor 2-3 theming.** Out of scope (14.3). With ten tokens there is no per-floor palette;
+  if later floors want one it is a second token table read by the same renderer, not a new
+  system. Nothing here has to be reopened to add it.
+- **Sound design**, mentioned only as "distinct per verb" (section 5, item 3). The cues in 15.8 are
+  placeholders for D7's ~60 lines and are unreviewed by an ear.
+- **The light cone at `TILE < 20`** is untested because `TILE < 20` is refused. If a
+  13-inch touchscreen ever needs 14 px tiles, the cone survives and the Lunge and Pivot
+  glyphs do not (15.4) — that is the specific thing to redesign first.
