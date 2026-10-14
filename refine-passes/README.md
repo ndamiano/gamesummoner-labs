@@ -1,6 +1,6 @@
 # refine-passes
 
-Status: single-run
+Status: done
 Control: arm r0 (zero refine passes) of this lab; same seed design, same model, same build prompt.
 
 ## Purpose
@@ -130,3 +130,11 @@ contrast ratios and dBFS; no refine pass played or simulated a pivot. Nick: the 
 feel like it has any teeth".
 
 ## Outcome
+
+Inconclusive on the question, closed 2026-10-13. One game per arm, and the round cap (200 → 2000),
+the prompt wording and the continue driver changed between arms, so r1 being playable where r0
+was not cannot be credited to refinement. Two findings stand. The design refine pass is cheap and
+found contradictions any literal build would ship (unreachable tiers, the Brace farm, undefined
+Guard). The visual and sound refines spend themselves on what the model can measure and miss
+what a player feels (pivot facing). Nothing merged; the follow-up is one design refine pass on
+the prod harness. Written up in `docs/experiments.md`, 2026-10-13.
