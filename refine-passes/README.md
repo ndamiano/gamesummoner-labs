@@ -123,6 +123,10 @@ in an `AudioBuffer` once per cached cue. Its tests never reach `main.js`, the on
 to touch WebAudio. Not in git (untracked `.js`).
 Nick's play verdict on r1: a complete, playable game, where r0 could not be got past its third
 level (consistent with r0's own failing maps test: unreachable stairs in four rooms). r1 is
-weaker in some of the UX.
+weaker in some of the UX. Mainly: hold-to-pivot seems to land on a random facing, where r0 had
+an indicator; the rhythm "sorta" came across but felt inconsistent. The design specified pivot
+feedback in one table row (an arc redrawn per 90° snap) while spending hundreds of lines on
+contrast ratios and dBFS; no refine pass played or simulated a pivot. Nick: the lab "doesn't
+feel like it has any teeth".
 
 ## Outcome
