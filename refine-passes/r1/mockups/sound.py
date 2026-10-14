@@ -484,6 +484,139 @@ def report(BL):
           "consequence and nothing else"
           % (peak_db(BUF["hurt"]), peak_db(BUF["hurt"]) - TICK["lvl_db"]))
 
+def mix(events, duck, mode="max", seconds=0.9):
+    """Render a set of (cue, bus, start_ms) with the plate applied to lower buses.
+    mode="max" ducks a bus by the DEEPEST duck that applies to it; mode="sum" adds them.
+    This is the instrument for 16.12: the plate is one curve per bus, not one per cue."""
+    n = int(seconds * SR)
+    buf = [0.0] * n
+    for k, bus, ms in events:
+        g = 1.0
+        deeper = [duck for h, hbus, hms in events
+                  if hbus < bus and hms <= ms + RESOLVE_ANIM + DUCK_PAD]
+        if deeper:
+            total = max(deeper) if mode == "max" else sum(deeper)
+            g = 10 ** (-total / 20.0)
+        for i, v in enumerate(BUF[k]):
+            j = int(ms * SR / 1000) + i
+            if 0 <= j < n:
+                buf[j] += v * g
+    return buf
+
+
+def peak_db_window(sig, t0_ms, t1_ms):
+    """Peak inside a time window - for measuring one cue's level inside a mix where the
+    other cues have already gone silent."""
+    a, b = int(t0_ms * SR / 1000), int(t1_ms * SR / 1000)
+    return peak_db(sig[a:b])
+
+
+def voices_at(events, buf):
+    at = 0
+    for t in range(0, len(buf), int(0.01 * SR)):
+        ms = 1000.0 * t / SR
+        at = max(at, sum(1 for k, _, s0 in events
+                         if s0 <= ms <= s0 + dur_ms(BUF[k], -30)))
+    return at
+
+
+def wiring_report():
+    """16.10-16.12: what the cue table does NOT say - what triggers a cue, what happens
+    when the same fact lands twice, what happens when two ducks overlap, and which clock
+    `at` is in. Every number here comes off the rendered cues."""
+    LADDER = {1: "step", 2: "strike", 3: "lunge", 4: "guard", 5: "sprint"}
+
+    print("\n-- 16.10 can a verb cue ever be retriggered ONTO ITSELF? The earliest next")
+    print("   commit is set by 2.3's own constants: n presses cannot arrive faster than")
+    print("   n*DEBOUNCE apart, and the burst only commits COMMIT_WINDOW after the last --")
+    margins = []
+    for n_taps in range(1, 6):
+        name = LADDER[n_taps]
+        earliest = n_taps * DEBOUNCE + COMMIT_WINDOW
+        audible = dur_ms(BUF[name], -40.0)          # 16.2's len column, same measure
+        margins.append((earliest - audible, name, earliest, audible))
+        print("   %d taps -> %-6s earliest next commit %4.0f ms, cue audible for %4.0f ms"
+              "  -> clears itself by %3.0f ms" % (n_taps, name, earliest, audible,
+                                                  earliest - audible))
+    tight = min(margins)
+    print("   -> no verb cue can land on itself. The tightest pair the grammar allows is")
+    print("      two Sprints %3.0f ms apart against a cue %3.0f ms long: %3.0f ms of air."
+          % (tight[2], tight[3], tight[0]))
+    two = mix([("sprint", 2, 0.0), ("sprint", 2, tight[2])], 0.0)
+    print("      rendered: peak %6.1f dBFS, one alone %6.1f dBFS -> the ladder's own"
+          % (peak_db(two), peak_db(BUF["sprint"])))
+    print("      timing is the guard; `cue()` needs no self-overlap check, and no cue is")
+    print("      ever heard doubled. Sprint's three internal plosives at 200 ms are the")
+    print("      only repetition inside a cue, and they are the cue (16.2).")
+    assert all(m[0] > 0 for m in margins)
+
+    print("\n-- 16.10 one cue per FACT, not per instance: what a naive per-instance mix")
+    print("   does when two instances of the same fact land in one commit --")
+    ticks = [("tick.t2.r5", 3, DEBOUNCE * (i + 1)) for i in range(int(RESOLVE_ANIM // DEBOUNCE))]
+    base = [("lunge", 2, 0.0), ("hurt", 0, 0.0), ("telegraph", 1, 0.0)] + ticks
+    cases = [
+        ("16.5's worst legal mix, as specified", base),
+        ("+ a second hurt (two enemies hit you)", base + [("hurt", 0, 0.0)]),
+        ("+ a second kill (Twin Cut Strike)", base + [("kill", 1, 0.0), ("kill", 1, 0.0)]),
+        ("no hit: lunge + telegraph + 2 kills + 3 ticks",
+         [("lunge", 2, 0.0), ("telegraph", 1, 0.0), ("kill", 1, 0.0), ("kill", 1, 0.0)] + ticks),
+        ("no hit: lunge + telegraph + 1 kill + 3 ticks",
+         [("lunge", 2, 0.0), ("telegraph", 1, 0.0), ("kill", 1, 0.0)] + ticks),
+    ]
+    for label, ev in cases:
+        b = mix(ev, DUCK_DB)
+        pk = peak_db(b)
+        print("   %-38s voices %d  peak %6.1f dBFS -> %s"
+              % (label, voices_at(ev, b), pk, "ok" if pk <= MIX_CEIL else "CLIPS"))
+    naive = peak_db(mix(cases[1][1], DUCK_DB))
+    print("   -> two co-scheduled `hurt` cues sum in phase: %+.1f dBFS, %.1f dB over the"
+          % (naive, naive - MIX_CEIL))
+    print("      %.1f ceiling, and the plate cannot help because they share a bus."
+          % MIX_CEIL)
+    assert naive > MIX_CEIL, "per-instance stacking is supposed to be the thing that breaks"
+    print("   -> so the rule is not taste: a per-instance mix cannot be built. One event")
+    print("      per fact per commit, `n` carried as data and DRAWN (15.2 pips, 15.8 shake), never")
+    print("      heard: 16.1 rules 1 and 3 forbid carrying magnitude on level or pitch.")
+
+    print("\n-- 16.11 two cues needing the plate at once: one curve per BUS (the deepest")
+    print("   duck that applies), never one per cue (summing them) --")
+    stacked = [("lunge", 2, 0.0), ("telegraph", 1, 0.0), ("hurt", 0, 0.0)] + ticks
+    print("   the collision mix, three ducking cues and three ticks:")
+    for mode in ("max", "sum"):
+        b = mix(stacked, DUCK_DB, mode)
+        print("     duck by %-3s -> mix peak %6.1f dBFS (%s)"
+              % (mode, peak_db(b), "ok" if peak_db(b) <= MIX_CEIL else "CLIPS"))
+    # ... and what it does to the metronome, measured where the ducking cues have already
+    # gone silent, so the peak we read is the tick's own
+    # ... and what it does to the metronome. Measured in a window where the two ducking
+    # cues have gone silent but their duck is still held, so the peak read IS the tick's.
+    quiet = [("lunge", 2, 0.0), ("telegraph", 1, 0.0)] + \
+            [("tick.t2.r5", 3, 300.0 + DEBOUNCE * i) for i in range(3)]
+    bare = peak_db(mix(ticks, 0.0))
+    got = {}
+    for mode in ("max", "sum"):
+        b = mix(quiet, DUCK_DB, mode)
+        got[mode] = peak_db_window(b, 300.0, 300.0 + 3 * DEBOUNCE + 40.0)
+        print("     the tick under those two ducks, duck by %-3s -> %6.1f dBFS (alone: %6.1f)"
+              % (mode, got[mode], bare))
+    print("   -> the ceiling does not discriminate between the two policies; the metronome")
+    print("      does: %.1f dB apart. Summing ducks pumps the only recurring voice in" % (got["max"] - got["sum"]))
+    print("      the game, which 16.1 rule 6 says is ONE voice, and 16.5's voice-drop rule")
+    print("      ('never cut the metronome') is the same promise seen from the other side.")
+    print("      So: bus_gain is a level per bus, held while any higher bus is sounding,")
+    print("      restored over 80 ms (16.7) - not a duck per cue.")
+    assert got["max"] > got["sum"] + 15.0
+
+    print("\n-- 16.12 what is NOT measurable here: the clock seam --")
+    print("   `cue(name, at)` takes `at` in the AudioContext clock while the recogniser runs")
+    print("   on the input clock (2.3, 14.2-i). The two are related by one linear map that")
+    print("   the page samples on first gesture and on every suspend/resume; no cue may call")
+    print("   ctx.currentTime itself (16.9), so the map is one pure function, testable in")
+    print("   14.6 without WebAudio. 16.1 rule 5's 25 ms attack floor is a promise about")
+    print("   landing WITH the commit flash, and a fixed output delay would break it silently")
+    print("   if nothing compensated for it.")
+
+
 def wav(samples):
     data = b"".join(struct.pack("<h", max(-32000, min(32000, int(round(v * 32000)))))
                     for v in samples)
@@ -578,3 +711,4 @@ if __name__ == "__main__":
         fh.write(buf.getvalue())
     print("wrote mockups/sound.png (%dx%d)" % (im.width, im.height))
     report(BL)
+    wiring_report()

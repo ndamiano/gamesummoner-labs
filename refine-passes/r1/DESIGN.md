@@ -229,7 +229,9 @@ in priority order:
    the player's own rhythm, mirrored back — this is the game's signature UI and its
    diegetic "health of your nerve".
 3. **Commit flash + distinct per-verb feedback.** Each verb has its own sound, screen
-   shake and glyph. A strike must *feel* different from a step even with the audio off.
+   shake and glyph. A strike must *feel* different from a step even with the audio off — and
+   the inverse holds too: no fact is carried by sound alone (16.8), and the cue a verb gets is
+   the cue of what actually happened, degraded or not (16.10).
 4. **Turn counter and undo of one verb** in Calm mode (one undo per room, free).
    Learning the grammar should cost nothing.
 5. **No hidden thresholds.** Pause > Input shows a live diagram of your own recent
@@ -393,7 +395,7 @@ in 14.7.
 | D4 | Are the numbers in 2.1-2.3 promises or placeholders? | **Placeholders.** Every constant lives in one file (`src/cfg.js`) that both the game and the Pause > Input diagram read. Nothing is hard-coded twice. Defaults are as printed, with the corrections in 14.2. | You have telemetry to seed them. |
 | D5 | Will a human play this, or am I the only tester? | **Assume I am the only tester**, and compensate: a practice tile, the burst log printed on the end screen, and scripted-input tests (14.6) that pin the grammar. Everything M2 is supposed to answer ("can a stranger clear room 2 without instructions") stays explicitly unverified. | You can put a stranger in front of it — then I add an input-recording file so you can watch a run without being there. |
 | D6 | Art: ASCII glyphs or drawn shapes? | **Glyphs with a shape language.** System monospace only (no downloaded fonts, no network assets), no sprites. Verb identity by shape and position, never hue alone (section 10). | You have a palette or an artist. |
-| D7 | Is sound in scope? | **Yes, synthesised** — WebAudio, no files. Per-verb audio is a section 5 requirement and costs nothing to fake with oscillators and envelopes. Mute toggle. **Specified and measured as section 16** — cue table, band budgets, four mix buses, the audio plate. 14.1's discipline (a table of parameters, no hand-placed instances) turns out to apply to audio unchanged, which is why the cue table is `cfg.js` data. | You want recorded samples (unfetchable offline, and a fixture that drifts silently from the tuning). |
+| D7 | Is sound in scope? | **Yes, synthesised** — WebAudio, no files. Per-verb audio is a section 5 requirement and costs nothing to fake with oscillators and envelopes. Settings are `off` / `world` / `all` plus a metronome trim, not a bare mute toggle (16.8). **Specified and measured as section 16** — cue table, band budgets, four mix buses, the audio plate. 14.1's discipline (a table of parameters, no hand-placed instances) turns out to apply to audio unchanged, which is why the cue table is `cfg.js` data. | You want recorded samples (unfetchable offline, and a fixture that drifts silently from the tuning). |
 | D8 | Which input surfaces must work on day one? | **Pointer (mouse), Space/Enter, and touch** — press on `pointerdown`, but touch commits on `pointerup` per section 9; OS key auto-repeat is never a press. Gamepad polling waits for M3 (it needs a poll loop, not an event). This is the product's central claim ("any single switch"), so it is not deferrable. | You only care about keyboard for now. |
 | D9 | How much run structure to fake? | **One floor, 8 hand-authored rooms**: tutorial 1-3 exactly as 5.1, then corridor, bottleneck, fork, vault, exit. No shop, no meta, no procedural generation, no floor 2. Section 8's 25 rooms / 3 floors is a target, not a deliverable. | You want generation early — the room format (14.5) is already what a generator would emit. |
 | D10 | Difficulty modes now? | **Calm and Standard.** Hard is a flag once 2.5 exists. Live mode (section 3) is out of scope. | — |
@@ -474,15 +476,18 @@ src/recogniser.js       PURE: (event, t, state) -> {state, verb|null, fx[]}  no 
 src/sim.js              PURE: (state, verb, rng) -> {state, events[]}  grid, LOS, combat, AI
 src/rooms.js            ASCII rooms -> {grid, entities, spawn, facing}
 src/render.js           canvas draw from state only; ghost, meter, glyphs, flash
-src/audio.js            WebAudio: the 16.2 cue table as cfg data, four mix buses (16.5),
-                        clock passed in by the caller so 14.6's tests never touch WebAudio (16.9)
+src/audio.js            WebAudio: the 16.2 cue table as cfg data, four mix buses (16.5), the
+                        audio plate as one curve per bus (16.7, 16.11); the clock is passed in
+                        by the caller so 14.6's tests never touch WebAudio (16.9)
 src/telemetry.js        section 11 burst log -> localStorage + text histogram
-src/run.js              the loop: input -> recogniser -> sim -> render; owns the clock
+src/run.js              the loop: input -> recogniser -> sim -> render; owns the clock, and
+                        the one input-clock -> AudioContext map (16.12)
 test/recogniser.test.js test/sim.test.js     `node --test`, offline
 mockups/make.py         the reference figures + the contrast/CVD math behind section 15
 mockups/screen.png      play-screen composition (figure for 15.2, 15.3)
 mockups/shapes.png      shape language, tier badges, palette (figure for 15.4-15.6)
-mockups/sound.py        the 16.2 cue table as synthesis + every figure 16.4-16.7 quotes
+mockups/sound.py        the 16.2 cue table as synthesis + every figure 16.4-16.7 and every
+                        collision in 16.10-16.11 quotes
 mockups/sound.png       cue sheet: envelope, band profile, the rung ladder (16.2-16.4)
 mockups/cues/*.wav      one file per cue + the worst legal mix: the ear test for section 16
 ```
@@ -536,6 +541,15 @@ sequence is reproducible; (2) the renderer reads state and writes nothing.
     -18.0 dBFS; and the worst legal collision exceeds the -3.0 dBFS ceiling *without* the
     audio plate and clears it *with* one — if that last one ever passes without the plate, the
     plate is dead code and gets deleted. `mockups/sound.py` already asserts all of it.
+    Extended by 16.10-16.11: **no verb cue can be retriggered onto itself** at the current
+    `DEBOUNCE`/`COMMIT_WINDOW` — Sprint's 15 ms of margin is asserted, not assumed, and the
+    test re-derives it from the constants so it keeps its meaning after a tuning pass; **two
+    co-scheduled `hurt` cues must exceed the ceiling** — that one is written to fail, because
+    it is the measurement behind one-cue-per-fact, not a preference; and **two cues wanting
+    the plate leave the metronome one duck deep, never two**.
+14. Clock map (16.12): the input-clock -> AudioContext map is monotonic, a commit's scheduled
+    cue time equals `map(t)` for the commit's own timestamp, and no module under `src/`
+    except `run.js` reads a clock at all. Pure functions, no browser, no WebAudio.
 
 **Definition of done for the first build:** `node --test` green; `index.html` opens and
 plays tutorial room 1 with no instructions on screen; the end screen prints my own tier
@@ -547,6 +561,13 @@ histogram; and from the log I can say how many of my own bursts landed Frantic.
 - Whether a stranger clears tutorial room 2 without text (5.1).
 - Whether the rate axis is teachable at all (13.2's kill trigger).
 - Whether the switch-access claim in section 10 holds for an actual switch-access player. I can build Assist; I cannot validate it.
+- **Whether a cue and its commit flash arrive together on a real device.** Every number in
+  section 16 is measured off rendered WAV files, which have no output stage; the output latency
+  a browser adds is tens of milliseconds on a laptop and more over Bluetooth, and 16.1 rule 5's
+  25 ms attack floor is a promise about landing *with* the flash. 16.12 compensates for it with
+  `ctx.outputLatency` rather than ignoring it, but that is an assumption until a
+  Chrome/Safari/Firefox pass with a Bluetooth keyboard or headphones measures it. If they arrive
+  apart, the fix is the map — never the attack floors.
 
 ---
 
@@ -897,10 +918,13 @@ Per-verb commit feedback (section 5, item 3 requires each verb to feel different
 | Lunge | 6 px / 100 ms | wedge, then the chevron lands | `lunge` — one attack, then the hit: the delay is audible |
 | Guard | 0 px | double ring pulses once | `guard` — a soft hum with a sustain |
 | Sprint | 2 px x 3 | one chevron per tile entered | `sprint` — the plosive three times, 200 ms apart |
-| Pivot | 0 px | arc redraws per snap | `pivot` — one air sweep for the whole verb, *not* one per snap: it costs nothing, so it must not sound like it does (13.1, 16.10-s8) |
+| Pivot | 0 px | arc redraws per snap | `pivot` — one air sweep for the whole verb, *not* one per snap: it costs nothing, so it must not sound like it does (13.1, 16.13-s8) |
 | Brace | 0 px | corners appear | **nothing** — doing nothing is silent in both media. What sounds is the world arming its free move (`idlearm`, world bus 1) |
 
-Every row here has an audio twin and the two channels agree by construction. The word *tick*
+Every row here has an audio twin and the two channels agree by construction — including the
+verbs that were *degraded* (2.5, 14.2-d): a Strike that became a Step takes Step's shake,
+Step's flash and Step's cue, because all three describe the outcome and not the press (16.10).
+The word *tick*
 is reserved for the metronome (16.3); a verb cue is never called a tick, because the tick is
 the only steady pulse in the mix and the player's timing is what plays against it (16.1
 rule 4).
@@ -948,7 +972,7 @@ by motion alone — the frame after any animation contains everything the animat
   the tone and not the parameter, and read 558 / 557 / 611 Hz across three rungs that are
   supposed to be a ladder — the 15.3 "flat top" trap in another medium (16.3). Two things it did
   *not* settle. The closest cue pair is 7.5 dB apart against a 6.0 dB floor, 1.5 dB of margin
-  (16.4, 16.10-s9); and **no human ear has heard any of it yet** — every figure in 16 is a
+  (16.4, 16.13-s9); and **no human ear has heard any of it yet** — every figure in 16 is a
   measurement of synthesised cues. `mockups/cues/*.wav` exists precisely so that hearing them is
   the next step rather than an assumption baked into the tuning.
 - **The light cone at `TILE < 20`** is untested because `TILE < 20` is refused. If a
@@ -1027,7 +1051,15 @@ oscillator/biquad/envelope set `src/audio.js` will use, renders the worst legal 
 prints every figure quoted here; run it and the numbers move when the table moves. There is
 also an ear test now: `mockups/cues/*.wav`, one file per cue plus the worst mix, so 16 can be
 checked without a browser or a build. Nothing in this section is an opinion about what a cue
-should sound like; it is a measurement of cues that exist.
+should sound like; it is a measurement of cues that exist — with one declared exception: the
+device latency in 16.12, which is the one number in this document that no fixture in this
+repository can measure.
+
+16.1-16.9 specify sounds. **16.10-16.12 specify what causes one.** A cue table cannot answer
+that about itself — it is a table of sounds, not of causes — and that is exactly where the first
+draft of this section was silent: what fires a cue, what a *degraded* verb sounds like, whether
+the model may ask for two copies of one cue, whether a cue can be laid on top of itself, what
+happens when two cues want the plate at once, and which clock `at` is a time on.
 
 ### 16.1 Three channels, one job each
 
@@ -1040,7 +1072,9 @@ reason, and harder: unlike a glyph, a sound cannot be looked at again.
    -18.0 dBFS; the loudest sound in the game is taking a hit at -4.0 dBFS. **14.0 dB of the
    level channel is reserved for consequence and spent on nothing else** (measured, 16.5). A
    tuning pass will want to raise the verb cues to make the game "feel punchier"; that spends
-   the only audio channel carrying information, so this is a floor, not a taste.
+   the only audio channel carrying information, so this is a floor, not a taste. It also means
+   **two instances of one fact are one cue**: they would be one consequence, and a second copy
+   of a cue is a louder consequence, which is a claim the game is not making (16.10).
 2. **Timbre and attack time carry verb identity.** Pitch is never the only difference between
    two cues. This is 15.1 rule 2 copied, and it fails the same way in both media: a
    pitch-only distinction is useless to an ear and useless over a phone speaker.
@@ -1050,7 +1084,10 @@ reason, and harder: unlike a glyph, a sound cannot be looked at again.
 4. **Rhythm belongs to the game, not the player.** The tick chain is the world's metronome;
    an enemy's scheduled move gets its own cue one turn before it lands — 15.4's telegraph,
    audible. Nothing the player does is quantised, because that is the thesis, so the only
-   steady pulse in the mix has to be the room's. The player's timing is what plays against it.
+   steady pulse in the mix has to be the room's. Read that precisely, because it is the rule
+   16.10 depends on: the tick *fires* once per accepted press, and the room supplies its pitch,
+   brightness and level — the player supplies a rate, never a voice, and nothing is quantised to
+   a grid. The player's timing is what plays against the room's voice.
 5. **Attack time separates "answered your press" from "announcing the game".** A cue that
    answers a press must reach 90% of its peak within **25 ms**, so it lands *with* the 40 ms
    commit flash (15.8) instead of after it; later than that it reads as a reply to something
@@ -1122,6 +1159,10 @@ Section 11.1's meter has a face that is always on. Its audio twin is one 26 ms c
   parameter being driven. Openness measures what the filter actually does.
 - **Band budget.** Measured across all 15 variants the tick's energy spans **240-1210 Hz** and
   never enters either reserved band (16.4).
+- **Fired by.** One per accepted press, in the same frame as the rung lighting — not a
+  free-running grid, not one per key edge, none at all while you idle. That is the whole of
+  what the tick is attached to; it is spelled out in 16.10 because it is a question the cue
+  table cannot answer about itself.
 - **Timing.** Its whole envelope is 21 ms, against `DEBOUNCE = 40 ms` (2.1): the metronome can
   never smear into a double note however fast you press. The debounce is a sound constraint,
   not only an input one.
@@ -1186,7 +1227,7 @@ not.
 | 0 consequence | `hurt`, `die` | -4.0 |
 | 1 the world | `kill`, `telegraph`, `idlearm` | -8.0 to -22.0 |
 | 2 you | every verb cue, `rest` | -10.0 to -20.0 |
-| 3 metronome | the tick, always | -18.0 |
+| 3 metronome | the tick — while you are pressing, never a pulse of the room's own (16.10) | -18.0 |
 
 The split is not mixing preference, it is the address 16.7's plate needs: a cue on a higher
 bus ducks the buses below it while it sounds. Consequence has to survive the player's own
@@ -1226,8 +1267,10 @@ pathological one. Mono output, no panning (16.6); voice cap 6, and `cue()` drops
 ### 16.7 The audio plate (15.7's rule, restated)
 
 **A cue must clear whatever may be playing under it by 6 dB in its own peak band.** Measured in
-the cue's own peak band against the loudest of the 15 ticks — the one sound guaranteed to be
-there:
+the cue's own peak band against the loudest of the 15 ticks. They are the right adversary because
+16.10's trigger rule guarantees them: an event cue fires only on a commit, and every press of the
+burst that made it sounded a tick first. A world cue has no such guarantee and gets no help from
+this table — which is why `telegraph` needs AIR to itself (16.4):
 
 | cue | band Hz | cue dB | tick there | margin, no plate | with plate |
 |---|---|---|---|---|---|
@@ -1240,9 +1283,10 @@ there:
 Four cues fail without help — including `telegraph`, the one cue that has to be heard *before*
 something happens. The fix is the audio plate, and **its depth is derived, not chosen**: duck
 the metronome bus by (worst collision + the 6 dB floor) = **16.0 dB**, for the length of the
-cue plus 60 ms, restored over 80 ms. Every cue then clears 6.0 dB or more. Raising the cues
-instead is not available: that spends the level channel, which rule 1 says belongs to
-consequence.
+cue plus 60 ms, restored over 80 ms. Every cue then clears 6.0 dB or more. That hold is a level
+per **bus**, and when two cues want it at once the deepest one applies (16.11) — 16.7 derives the
+depth, not the collision. Raising the cues instead is not available: that spends the level
+channel, which rule 1 says belongs to consequence.
 
 Like 15.7's plate, this is a constant guarantee rather than a per-case tuning: gain automation
 on a bus, not a compressor — deterministic, not a reaction to what the player did, and
@@ -1284,16 +1328,163 @@ is exactly why 16.5 and this section exist.
 - Levels are dBFS numbers, never 0-1 gains; the mix ceiling (-3.0) and the voice cap (6) are
   constants in the same file.
 - `sim.js` emits events; `audio.js` maps events to cues. Nothing in the simulation knows sound
-  exists.
+  exists. The map is event kind -> cue name and nothing else: one entry per fact per commit, so
+  a degraded verb's cue is its outcome's, and `{kind, n, targets}` carries a count as data that
+  is drawn, never played twice (16.10).
+- The plate is a level per **bus**, held while any higher bus sounds (16.11) — `bus_gain` is
+  the only duck, and there is no per-cue duck to compose. The input->AudioContext map is in
+  `run.js`, the only place a real clock is read anywhere in the audio path (16.12).
 - **Assertion 13 of 14.6** — pure assertions over the table, no browser: every event cue's attack
   <= 25 ms and every world cue's <= 60; no cue enters a reserved band; every cue pair >= 6.0 dB
   apart after the 150-6500 Hz band-limit; all 15 ticks peak at -18.0; and the worst legal
   collision stays under -3.0 dBFS **with** the plate and exceeds it **without** — if that last
-  assertion stops failing, the plate is dead code and gets deleted.
+  assertion stops failing, the plate is dead code and gets deleted. 16.10-16.11 add three more
+  to the same audit, all over the table: no verb cue can be retriggered onto itself at the
+  current `DEBOUNCE`/`COMMIT_WINDOW` (Sprint's 15 ms of margin is asserted, not assumed); two
+  co-scheduled `hurt` cues must **fail** the ceiling — that one is written to fail, and it is
+  what makes the one-cue rule a measurement rather than a preference; and two cues wanting the
+  plate leave the metronome one duck deep, never two.
 
-### 16.10 Decisions: what this section left open, and what I chose
+### 16.10 From cue table to game: what the table does not say
 
-Where 16.1-16.8 left a choice, this is what I built. The reasoning that did not appear in the
+16.2 is a table of sounds and cannot say anything about causes. This is where the causes get
+decided. Everything measured here is measured by `mockups/sound.py` — the same file, the same
+rendered cues — because none of these are assertions about wiring style: they are peaks read off
+the mix.
+
+**Trigger: one cue per fact, and the fact is whatever the model actually did.** The cue table
+is keyed by fact, and `sim.js`'s event list (14.5) is the only thing allowed to ask for a cue.
+Start with the one line 16.1-16.9 never wrote down, because everything else follows it: **the
+tick fires once per accepted press** — not a free-running grid, not one per key edge. It is the
+meter face's audio twin, so it sounds in the same frame as the rung lighting, at the tier and
+rung the recogniser just
+read (16.3, section 5 item 2). A press `DEBOUNCE` rejects gets no click, because the meter does
+not light it either (15.2). Two consequences, both wanted. While you idle, the metronome is
+silent and what you hear is the world arming itself (`idlearm`) — the room speaking, not you.
+And 16.5's "the tick, always" means *always while you play*: the room never keeps a pulse of its
+own, because a pulse you did not cause is a tempo the game has chosen, which is exactly what 16.6
+refuses about music. What the room does supply unprompted is the telegraph — scheduled once, one
+turn before a move lands, because it is a fact. Rule 4's "the only steady pulse in the mix has to
+be the room's" is this decision from the other side: the player supplies a rate; the voice, the
+scale and the level are the model's, and nothing snaps to a grid.
+
+| what happens | cue | when |
+|---|---|---|
+| a press is accepted (passes `DEBOUNCE`) | `tick`: tier pitch x rung brightness | with the rung lighting, same frame |
+| a press is rejected by `DEBOUNCE` | nothing | the meter does not light it either (15.2) |
+| a burst commits | the cue of the **outcome**, degraded or not | with the commit flash (16.1 rule 5) |
+| the model changed the world | the world cue, one per fact | at the model's own time, not the player's |
+| you stopped | nothing, then `idlearm` once, when the world arms | `IDLE_WAIT` after your last press (2.3) |
+
+Two places the rule has to be stated out loud, because both were open:
+
+- **A degraded verb plays the cue of what happened, not of what was pressed.** Strike into
+  empty floor became a Step (14.2-d), so it sounds `step`; Lunge blocked by a wall sounds
+  `strike`; Sprint into a closed door plays Step's plosive once per tile actually entered. A
+  cue is not a receipt for the press — the lit rung and the ghost already say what was
+  pressed (5.1, 15.8) — it is a second copy of the model's outcome. Rule 1 decides this
+  without being restated: a verb that did not happen contains no consequence, so it does not
+  get that verb's sound.
+- **Repetition inside a cue belongs to the cue, not to the caller.** Sprint *is* three
+  plosives 200 ms apart (16.2); Pivot is one sweep for a verb that may snap through three
+  facings (15.8). No caller fires one cue twice for one verb.
+
+**Same fact twice: one cue, and the count is drawn.** Two enemies hit you in one commit;
+Twin Cut Strike kills two. The naive reading — one cue per instance — cannot be built at all:
+
+| the 16.5 collision mix, plus… | voices | peak | vs the -3.0 ceiling |
+|---|---|---|---|
+| as specified: lunge + hurt + telegraph + 3 ticks | 4 | -4.0 | ok |
+| + a second `hurt` | 5 | **+2.0** | **clips by 5.0 dB** |
+| + a second `kill` | 6 | -4.3 | ok |
+| lunge + telegraph + two kills, no hit | 5 | **-1.9** | **clips** |
+| lunge + telegraph + one kill, no hit | 4 | -7.5 | ok |
+
+The plate cannot rescue the `hurt` case either, because two of them share bus 0 and 16.5's
+duck only reaches *lower* buses. So the rule is not taste: **`sim.js` emits one event per
+fact per commit, carrying `{kind, n, targets}`; `audio.js` plays one cue; `n` is drawn.**
+15.2's HP pips and 15.8's per-hit shake already draw a count, which is where one belongs —
+carrying it on level would break rule 1, on pitch would break rule 3. One sound for two hits
+is also the honest reading of the channel: two hits are one consequence, and that channel is
+about consequence, not about counting.
+
+**Can a cue ever be retriggered onto itself?** Nothing said, and it matters more than the
+band budgets, because a doubled cue is the one distortion no plate and no band rule can fix.
+The answer is in 2.3's own constants: `n` presses cannot arrive faster than `n x DEBOUNCE`
+apart, and a burst commits only `COMMIT_WINDOW` after the last one. Earliest next commit
+against the cue's own audible length, both measured:
+
+| verb | earliest next commit | cue audible for | air |
+|---|---|---|---|
+| Step | 300 ms | 41 ms | 259 ms |
+| Strike | 340 ms | 87 ms | 253 ms |
+| Lunge | 380 ms | 151 ms | 229 ms |
+| Guard | 420 ms | 189 ms | 231 ms |
+| Sprint | 460 ms | 445 ms | **15 ms** |
+
+**No verb cue can land on itself, and the ladder's own timing is what guarantees it** — the
+tightest pair the grammar allows leaves 15 ms, all of it Sprint's tail. `cue()` needs no
+self-overlap check and never fades an old copy; the only repetition a player can hear is
+inside a cue, where it is the cue. Two things follow. Sprint has 15 ms of margin and nothing
+else in the game has any, so this table re-runs against `DEBOUNCE`, `COMMIT_WINDOW` and
+Sprint's envelope whenever any of them moves (14.6-13). And a relic that *shortens* the
+commit window — the mirror image of Metronome, 14.6-9 — eats that margin before anything else
+breaks. Kill trigger: any relic touching those constants must clear this table at its own
+values, and if it does not, the cue's envelope is shortened in `cfg.js`; the constant wins,
+because the constant is the grammar.
+
+### 16.11 Two cues wanting the plate at once: the duck is per bus, and it is the deepest one
+
+16.7 derives one number — 16.0 dB off the metronome bus — but not what to do when two cues
+that each earn a duck sound at the same moment. Two readings were legal: duck a target bus
+once, by the deepest value that applies, or once per cue, summed. Measured on the collision
+mix (Lunge + Telegraph + Hurt + 3 ticks), with the metronome read in a window where the two
+ducking cues have already gone silent but their duck is still held:
+
+| policy | mix peak | the tick under both ducks |
+|---|---|---|
+| deepest applicable duck | -4.0 dBFS | -34.0 dBFS |
+| summed per cue | -4.0 dBFS | **-50.0 dBFS** |
+
+The ceiling does not discriminate between the two. The metronome does: **16.0 dB apart.**
+Summing ducks makes the only recurring voice in the game pump by an amount that depends on how
+many cues happen to be sounding — which is what 16.1 rule 6 forbids ("one voice") seen from
+the generator side, and what 16.5's "never cut the metronome" forbids seen from the mixer's.
+So: **`bus_gain(bus, db)` sets a level per bus, held while any higher bus is sounding,
+released over 80 ms. A duck is never addressed to a cue.** Same shape as 15.7's plate: one
+constant guarantee, not a reaction to what the player happened to do.
+
+### 16.12 The clock seam — the one promise in this section that is not measured
+
+Everything above is read off rendered files. One promise cannot be, and it is load-bearing: rule
+5 says an event cue reaches 90% of its peak within 25 ms so that it lands *with* the commit flash
+(15.8). That is a claim about two clocks, and 16.10's trigger table is what makes it one — every
+row of that table says "with the rung lighting" or "with the commit flash", and both of those are
+drawn on a frame clock while a cue is scheduled on an audio clock.
+
+- The recogniser runs on the **input clock** (2.4, 14.2-i). `cue(name, at)` schedules on the
+  **AudioContext clock**. They are not one timeline and will never be.
+- **Decision:** `run.js` owns exactly one pure map, `input_ms -> ctx_seconds`, sampled from
+  `ctx.currentTime` against `performance.now()` at the first user gesture and re-sampled on
+  every suspend/resume and visibility change. No cue may call `ctx.currentTime` itself — 16.9
+  already forbids timers inside `audio.js` — so the map has one function and one caller, and
+  14.6 can assert that it is monotonic and that a commit's scheduled time equals `map(t)`.
+- The browser adds an output latency (tens of milliseconds, more over Bluetooth) that nothing
+  in this project can measure offline, because there is no browser here. It is compensated
+  rather than ignored: the map adds `ctx.outputLatency`, falling back to `ctx.baseLatency`,
+  falling back to 0, so the cue is scheduled *early* and lands with the flash.
+- A backgrounded tab suspends the context. `run.js` resumes it and re-samples the map on the
+  next gesture; **no cue is queued to fire on resume** — a cue carries a fact, and a stale
+  fact is not worth a late sound (16.6).
+- This is the only audio figure in the document that is an assumption rather than a
+  measurement, so it is stated as one, with a test attached. Kill trigger: a playtest over
+  Bluetooth where the click and the flash are heard apart. The fix is the map; the attack
+  floors stay true, because they are a relationship between a cue's own samples and no device
+  can change them.
+
+### 16.13 Decisions: what this section left open, and what I chose
+
+Where 16.1-16.12 left a choice, this is what I built. The reasoning that did not appear in the
 first draft — including the measurement that contradicted me — is in `logs/215049_sound.log`.
 
 | # | The open question | Decision | Reopen when |
@@ -1308,4 +1499,9 @@ first draft — including the measurement that contradicted me — is in `logs/2
 | s8 | `pivot` is the quietest event cue at -20 dBFS. | **Deliberate.** 13.1's first decision made Pivot free; a cue that sounds like a tax on a free verb is a lie. It survives because it owns the air band (16.4). | Pivot goes unused, or players say they never know it fired — the free-verb rule outranks the level rule, so the fix is the arc glyph, not the gain. |
 | s9 | The closest cue pair is 7.5 dB, 1.5 dB over the floor. | **Accept and monitor.** Most of it is Step and Lunge sharing a family, which is intended; `pivot`/`kill` is the pair to watch. | Any confusion in a playtest — one cue changes, the floor does not. |
 | s10 | How is the noise seeded? | **Per cue name; the 15 ticks share one seed per rung.** They are one voice filtered differently, so a ladder measurement that also redrew the noise would be measuring the draw. This is section 11's seed-only rule applied to a fixture. | Never; a fixture that moves is not a fixture. |
+| s11 | What is allowed to ask for a cue, and what does a *degraded* verb sound like? | **`sim.js`'s event list, one cue per fact per commit** (16.10). A degraded verb plays the cue of the outcome — Strike into empty floor sounds `step`, because a Step is what happened. Rule 1 has no exception for a verb that did not occur. | A design that wants to audit the *press* rather than the outcome. It already has the lit rung and the ghost; do not spend the level channel on that too. |
+| s12 | Two enemies hit you in one commit — two `hurt` cues? | **One.** Measured: two co-scheduled `hurt` cues peak at +2.0 dBFS, 5.0 dB over the ceiling, and no plate reaches two cues sharing a bus. `n` is carried as data and drawn — 15.2's pips and 15.8's shake already differ per hit. | Playtesters cannot tell one hit from two. The answer is then more pips and more shake, not a second copy of a cue that would only read as a harder hit. |
+| s13 | Can a cue ever be heard doubled? | **No, and the grammar guarantees it:** the tightest legal pair is two Sprints with 15 ms of air, so `cue()` needs no self-overlap path. | Anything touches `DEBOUNCE`, `COMMIT_WINDOW` or Sprint's envelope — including a relic that shortens the commit window. Then the cue shortens in `cfg.js`: the constant is the grammar and does not move. |
+| s14 | Two cues earn a duck at once — do the ducks stack? | **No: one curve per bus, the deepest that applies.** Summing them changes the mix peak by 0.0 dB and costs the metronome 16.0 dB it never asked for (16.11). | A bus is added to 16.5. The argument is about buses, so it re-derives with the table. |
+| s15 | Which clock is `at`? | **`run.js`'s one map**, input clock -> AudioContext, sampled at the first gesture and re-sampled on suspend/resume, with `outputLatency` compensated so a cue lands with the flash (16.12). | The first Bluetooth playtest — a measurement this sandbox cannot take, which is why 14.7 lists it. |
 
