@@ -121,5 +121,8 @@ r1 hand fix 1 (same under-5 budget): the first cue threw in the browser, because
 assigned `renderCue`'s Float32Array to `AudioBufferSourceNode.buffer`; it now wraps the samples
 in an `AudioBuffer` once per cached cue. Its tests never reach `main.js`, the one file allowed
 to touch WebAudio. Not in git (untracked `.js`).
+Nick's play verdict on r1: a complete, playable game, where r0 could not be got past its third
+level (consistent with r0's own failing maps test: unreachable stairs in four rooms). r1 is
+weaker in some of the UX.
 
 ## Outcome
