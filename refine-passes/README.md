@@ -106,5 +106,8 @@ feels. Off-target for both arms: the visual and sound prompts meant "write that 
 design", and every design pass also built tooling (figure, mock-up and cue scripts). Prompts stay
 as they are for r1 so the arms match; a "design only, no code" wording is a candidate lever for a
 later arm.
+`sound_refine` → 1507 lines, 88 calls: answered three questions the cue table left open and
+extended `sound.py` by 134 lines. It did not catch the 44-byte cue files; they are regenerated
+just as empty. Refinement closes gaps in the prose; it does not check artifacts it never opens.
 
 ## Outcome
