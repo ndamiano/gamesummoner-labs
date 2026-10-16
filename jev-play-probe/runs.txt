@@ -1,0 +1,16 @@
+Ground truth: the 2026-08-22 lib experiment, every build played by hand (docs/experiments.md, "Played").
+run_id        arm      ask         owner's verdict                                                  probe should say
+2a72e5ad505c  control  arcade      plays: aim, shoot, enemies die, pickups score                    started, moves match keys
+5cfe6c7b94c0  control  indoor3d    broken: every direction walks into the screen, nothing visible   moves all "forward", not visible   (or 8b294a0daa68, unconfirmed)
+f40c01533912  control  cards       plays, with bugs                                                 started; moves n/a
+88bb1e96e07c  control  npcs        plays, rough                                                     started, moves match keys
+d492c9d0de39  control  rhythm      plays, badly                                                     started
+1b57ae46e6cb  control  platformer  plays; enemies embedded in platforms                             started, left/right match
+0b0b2ac24e99  lib      arcade      dead: blank page (old canvas.js over the LAUNCH button)          never started
+3a1c40a05150  lib      indoor3d    lit, playable, camera yaw inverted, hero faces backwards         turns inverted
+673b4b9b52cc  lib      cards       dead: a selected creature cannot be placed                       out of the probe's reach
+9c789de05052  lib      npcs        dead: Begin unreachable, no key does anything                    never started, moves "nothing"
+085e8b97077f  lib      rhythm      dead: the title overlay never leaves                             never started
+f78fd2e54349  lib      platformer  plays; reachable platforms, stomps, coins                        started, left/right match
+89b96c6bedf4  lib-fix  arcade      plays, better than control                                       started, moves match keys
+54ae8aa9a571  lib-fix  npcs        spawned on an unwalkable tile                                    moves "nothing"

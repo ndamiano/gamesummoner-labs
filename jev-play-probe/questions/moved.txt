@@ -1,0 +1,12 @@
+The first screenshot is before a key was held for half a second, the second after. What changed?
+
+- the player moved left: the character or ship sits further left on the screen, or the world scrolled right
+- the player moved right: the character or ship sits further right on the screen, or the world scrolled left
+- the player moved up the screen
+- the player moved down the screen
+- the view moved forward into the scene
+- the view moved backward out of the scene
+- the view turned left
+- the view turned right
+- something changed, but not the player's position or the view
+- nothing changed
