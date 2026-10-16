@@ -1,0 +1,1 @@
+Read DESIGN.md. What would make this a better game? Write each idea as a question to QUESTIONS_BETTER.md. Don't answer them, don't change DESIGN.md, and don't write code.

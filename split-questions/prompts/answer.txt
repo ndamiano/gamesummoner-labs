@@ -1,0 +1,1 @@
+ASK.md is the original request. DESIGN.md is the design made from it. QUESTIONS_NEED.md and QUESTIONS_BETTER.md are questions about the design. Answer every question in ANSWERS.md, deciding where the request and the design don't, then update DESIGN.md with your answers. This is design only: don't write code.

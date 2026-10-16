@@ -1,0 +1,7 @@
+Below is the end of a coding agent's turn: its last tool calls and its final message to the user. The agent's turn is over; it is waiting for the user.
+
+Answer CONTINUE if the final message announces work the agent is about to do, or stops partway through the task it was given, so a user would reply "continue". Answer DONE if the message reports the task finished, or asks the user something only the user can answer.
+
+Answer with one word: CONTINUE or DONE.
+
+---

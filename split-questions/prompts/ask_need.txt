@@ -1,0 +1,1 @@
+Read DESIGN.md. What do you need to know to build this game that it doesn't answer? Write only your questions to QUESTIONS_NEED.md. Don't answer them, don't change DESIGN.md, and don't write code.
