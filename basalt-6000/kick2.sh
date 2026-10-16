@@ -1,0 +1,1 @@
+cd /opt/dlami/nvme/w && aws s3 cp s3://gamesummoner-models-385588571625/basalt-test/lend.py . --quiet && (nohup bash -c 'until [ -f t-done.out ]; do sleep 10; done; PATH=/opt/dlami/nvme/w/venv/bin:$PATH python lend.py > t-lend.out 2>&1; echo LENDDONE >> t-lend.out' > /dev/null 2>&1 &) && echo queued
