@@ -1,0 +1,3 @@
+cat frame 4.731873935 mechanics 2.702548859 look 2.062617494
+salvage frame 1.526069530 mechanics 2.761444841 look 2.075893636
+fridge frame 1.540996313 mechanics 2.753052146 look 2.142647722

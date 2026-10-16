@@ -1,0 +1,9 @@
+A game is being designed from a player's prompt. These decisions are already made:
+
+{state}
+
+For each system below, decide whether this game should contain it.
+
+{systems}
+
+Answer with only a JSON object mapping each system name exactly as written to true or false.

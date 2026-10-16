@@ -1,0 +1,10 @@
+A game is being designed from a player's prompt. These decisions are already made:
+
+{state}
+
+List 25 to 40 mechanics this game could have, from the ones it cannot exist without to the ones
+that would only be nice. A separate decision step will choose which to keep, so include anything a
+good designer would consider, but no near-duplicates. A mechanic is one thing the player does or one rule the
+game runs, in one line.
+
+Answer with only a JSON array of objects, each {{"name": "...", "what": "one sentence"}}.
