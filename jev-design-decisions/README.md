@@ -444,3 +444,70 @@ for cat and fridge, cat as 3D third-person, fridge third-person with "no failure
 (27B / mini / flash): cat 26 / 42 / 46, salvage 44 / 36 / 33, fridge 29 / 35 / 35; correlation with the 27B
 0.73-0.87; mini keeps hunger, skill tree and day / night for the cat. d3-mini and d3-flash mostly agree with each
 other. Read: neither is a drop-in for the 27B on the frame; scope calls are the weak part.
+
+2026-10-16, two mainstream asks for a prompt-to-game demo: frog "a platformer where you play as a frog", shooter
+"a space shooter where you fight waves of aliens". Frames: frog 2d side-on, levels, restart the level, silly,
+handful of levels, reach the exit; shooter 2d top-down, levels, lose a life, tense, handful, defeat a final boss.
+Flat mechanics kept 36 (frog) and 34 (shooter), shooter including leaderboard, cutscenes, plot, evolution.
+
+Tuning, decided while Nick was AFK. `centrality.py` asks JEV three centrality questions on the kept mechanics;
+"Must the first playable version of this game have this mechanic" separates cleanly (shooter: 13 at >= 0.6, the
+four oddities <= 0.11; frog: jump, objectives, falling, map / world, bounce). `tiers.py` bands the kept mechanics
+on it (core >= 0.6, supporting >= 0.3, extra below) and replaces the state's mechanics line with the three bands;
+`prompts/write_tiered.txt` makes tier 1 exactly the core, tier 2 supporting, tier 3+ extra, every mechanic a
+concrete on-screen thing with a named input. Nothing is cut: depth stays, order changes.
+
+Frog v1 (`runs/frog/design_v1.md`, 330 s, 63K chars): tiers as intended, concrete numbers (coyote 0.09 s, jump
+buffer 0.10 s, 7-level roster), but art, music, SFX and effects landed in tier 5, which a 200-step build never
+reaches. Added to the tiered prompt: tiers band mechanics, not polish; tier 1 already looks and sounds like the
+game. Shooter v1 write was stopped mid-run for the same reason; both rewritten.
+
+2026-10-16, results. Designs from `prompts/write_tiered.txt` with the polish rule: frog 391 s / 69K chars, shooter
+405 s / 78K chars; both put art, sound and effects in tier 1's definition of done, both tier the mechanics as banded.
+Builds on local quasar (`demo/build_two.sh`), worker with the long-poll fix (pickup median 0.022 s):
+
+| Game | Run | Build | After | Total, prompt to playable |
+|---|---|---|---|---|
+| frog "Brib the Gummy Frog" | 68e135291424 | 200 steps (cap), 1,793 s | fix pass 75 s on a player-style report: canvas double-scaled, the view cropped to its top-left so the frog stood below the screen | 37:58 |
+| shooter "Neon Swarm" | ac747c82b0b9 | done at 139 steps, 1,056 s | play gate found a dead documented input (title screen never shown), auto fix 50 steps; gate + fix 451 s | 32:11 |
+
+Totals are JEV decisions (19 s per game warm, `runs/_t_*`) + write + build + fix. Not counted: JEV load 28 s, model
+swaps between JEV, the writer and the build engine, and the stack boot. The rerun decisions differ near the band
+thresholds (frog: unlocks supporting -> extra, the game over screen dropped), so JEV is not bit-for-bit repeatable
+at these margins.
+
+Shooter is the better demo: neon title with the controls, sector intro text (the cutscenes mechanic working), waves,
+score and combo, hit flash, no page errors. Frog after its fix: title, level 1 clearable (score 750, bronze medal),
+level 2 with water, traps and a scrolling camera; flat pixel art, small sprites. Gameplay in both videos is driven
+by script (`demo/shooter_plan.json`, `demo/frog_bot.js`, which reads the level tiles and uses the air bounce), not a
+person. Videos: `demo/{frog,shooter}.{mp4,gif}`, copied to `~/Videos/gamesummoner/jev-*.{mp4,gif}`. Not yet watched or
+played by Nick.
+
+2026-10-16, frog on the current design chain, same ask, same local quasar, same build path (`prod_design.py`, the
+chain pinned in `chain/` as it shipped before the JEV stage replaced it; `demo/frog_chain.sh`). Design: gameplay
+256 s, visual 255 s, engineering 519 s, integrate 462 s; 1,237 s wall as prod runs it (visual and engineering in
+parallel), 1,492 s of compute, 228.8K completion tokens, 115K chars, all sections. JEV design on the same ask: 19 s
+decisions + 391 s write = 410 s, 60.5K tokens, 70K chars, so 3.0x faster by wall and 3.8x fewer tokens. Build
+40184d98560d hit the 200-step cap at 2,001 s; the frog was never drawn (camera ahead of it), the same class of
+defect the JEV frog had. Fix pass on a player-style report: 705 s, hit the fix cap, frog drawn after. Total 65:43
+against JEV's 37:58. The game: "Frog: Pond to Peak", six levels to a heron boss by the spec; level 1 clears under a
+bot (`demo/chain_bot.js`), level 2's lily pads beat the bot. Video `demo/frog_chain.mp4`, copied to
+`~/Videos/gamesummoner/chain-frog.mp4`. One run each, not judged by Nick. My own run crash (I removed the chain
+prompts from src/ while this was running) cost ~7 min, not counted.
+
+2026-10-16, demo capture: Playwright's recorder writes VP8 at 0.2-0.9 Mbps, which blocked the dark UI gradients.
+`demo/capture.py` records CDP screencast PNG frames with their timestamps and encodes at 30 fps, crf 10; the clock
+card shortened to 2.0 s count + 1.8 s hold, "on one local GPU" removed.
+
+2026-10-16, JEV design stage in src/ end to end (uncommitted): `design.py` sends one `decide` job with the whole
+chain (`prompts/design/decisions.json` + `mechanics.md`), bands on the first-playable probabilities, one write call
+(`prompts/design/write.txt`). Decide box from gamesummoner-images (`local/decide`, SGLang + JEV readout, max running
+requests 1 after the peer found batched reads shift probabilities up to 0.05). Frog ask through the web API, served
+by `scripts/local_gpu.py auto`: game a896dc2202bd. Decide job: pending -> done at 83 s (box cold boot 51 s), 16.1 s
+of exec; write done at 337 s (239 s exec, 53.6K chars); build hit the 200-step cap, last job at 2,230 s (37:10 from
+the click, cold boot and auto's model swaps included). Frame and look decisions match the lab run; the bands moved
+(core jump, falling, objectives, map / world; bounce to supporting; a larger supporting band) because the
+first-playable question now sees the mechanics line, plus the engine config change. The game "Bip the Frog" boots to
+a pixel-font title, level select (6 levels), plays, and a blind run falls into the pond to a game over screen.
+`local_gpu auto` released the llm card whenever a play step left the queue empty past 6 s and reloaded it 7 s later,
+several times a build: a local cost only.

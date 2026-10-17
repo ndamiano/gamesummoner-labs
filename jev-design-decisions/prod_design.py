@@ -1,6 +1,6 @@
 """Run the prompt through the current design chain's four prompts (gameplay, visual, engineering,
 integrate with continuations, one retry on an empty reply), same messages and request body, posted
-straight to llama-swap. Designer docs already written in the run dir are reused."""
+straight to llama-swap. The chain is pinned in chain/ as it shipped before the JEV design stage replaced it. Designer docs already written in the run dir are reused."""
 import json
 import sys
 import time
@@ -10,7 +10,8 @@ sys.path.insert(0, "/home/nick/Documents/ai-agent-test/src")
 sys.path.insert(0, "/home/nick/Documents/decision-model-test")
 import ask
 from config.settings_manager import settings_manager
-from maestro.codegen import design
+sys.path.insert(0, str(Path(__file__).parent / "chain"))
+import chain_design as design
 
 RUN = Path(sys.argv[1])
 OUT = RUN / "prod_design"
