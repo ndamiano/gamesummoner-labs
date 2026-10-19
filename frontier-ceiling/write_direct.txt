@@ -1,0 +1,1 @@
+Write the spec directly as your reply. Plan briefly, then write each section in full in the answer itself; do not draft the document in your reasoning first. Your reply is the only place the spec is kept.

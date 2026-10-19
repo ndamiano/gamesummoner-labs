@@ -1,0 +1,42 @@
+[
+ {
+  "name": "gemini-wizardcat",
+  "ask": "roguelike deckbuilder where you're a wizard cat climbing a tower.",
+  "backend": "http://127.0.0.1:8094"
+ },
+ {
+  "name": "sonnet-wizardcat",
+  "ask": "wizard cat climbing a tower",
+  "backend": "http://127.0.0.1:8092"
+ },
+ {
+  "name": "deepseek-kart",
+  "ask": "3d kart racing on a candy planet",
+  "backend": "http://127.0.0.1:8093"
+ },
+ {
+  "name": "deepseek-farm",
+  "ask": "cozy farming game but the crops are weird alien plants",
+  "backend": "http://127.0.0.1:8093"
+ },
+ {
+  "name": "deepseek-mystery",
+  "ask": "murder mystery visual novel on a night train",
+  "backend": "http://127.0.0.1:8093"
+ },
+ {
+  "name": "deepseek-bullet",
+  "ask": "bullet hell where you're a bee defending the hive",
+  "backend": "http://127.0.0.1:8093"
+ },
+ {
+  "name": "deepseek-zombie",
+  "ask": "zombie game but you're the zombie lol",
+  "backend": "http://127.0.0.1:8093"
+ },
+ {
+  "name": "gate-checks-fallback",
+  "ask": "",
+  "backend": "http://127.0.0.1:8093"
+ }
+]
