@@ -1,6 +1,6 @@
 # launch-battery
 
-Status: battery
+Status: done
 Control: 2026-09-06 "Stage 1 on prod: six one-shot games" (pre design team); 2026-09-14 spec-skeleton
 and 2026-09-15 design-map batteries (design team, local 27B only).
 
@@ -40,3 +40,5 @@ eu-north-1, spot and on-demand) before one RunPod 6000 landed; the six then desi
 Capacity is a launch blocker alongside quality: a Reddit spike during a stock-out builds nothing.
 
 ## Outcome
+
+Closed 2026-10-18 without a write-up here: stale. Any result it reached is in docs/experiments.md.

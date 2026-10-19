@@ -1,6 +1,6 @@
 # tests in files, one in-page runner
 
-Status: single-run
+Status: done
 Control: prove-it run `17c92bff6bda` (station, the branch's design chain + `build.txt` at xhigh,
 2026-09-14: capped 200, 75 plays, wrote tests.js + tests.html and never ran them). Run 1 below used
 the spec-skeleton lab's own prompt and a skeleton-prompt design — not the production harness — and
@@ -261,3 +261,5 @@ Uncommitted working tree (8 files): code_map closure fix + test, design retry + 
 cursor cap + test, build.txt bullet, engineering.txt harness line. 1037 tests pass.
 
 ## Outcome
+
+Closed 2026-10-18 without a write-up here: stale. Any result it reached is in docs/experiments.md.

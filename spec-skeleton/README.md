@@ -1,6 +1,6 @@
 # spec-skeleton — the design stage writes a build spec, not a systems design
 
-Status: single-run
+Status: done
 Control: the prod design prompt (`variants/ctrl.txt`, `src/maestro/codegen/prompts/design.txt`)
 on the same asks and builder. Baseline builds: the 2026-09-06 cost-per-game battery (6/6 delivered,
 $1.81 mean) and the ashworth-street lab's island builds (`labs/ashworth-street/arms.md`).

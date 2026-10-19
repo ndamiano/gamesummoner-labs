@@ -1,6 +1,6 @@
 # DFlash2 drafter on the local 27B
 
-Status: single-run PASSED 2026-09-14 (1.41× token-weighted decode, 1.27–1.62× per call); next = battery on the design chain, then adopt
+Status: done
 Control: prove-it run 17c92bff6bda (2026-09-14): four design calls 472/343/525/426 s = 29.5 min at xhigh; ninfer's own log on the integrator call `decode=112–125 tok/s, running=1` at ~117K context (60K prompt + 57K reply)
 
 ## Purpose

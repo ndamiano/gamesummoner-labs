@@ -1,6 +1,6 @@
 # art, back into the spec-driven build
 
-Status: single-run
+Status: abandoned
 Control: spec-skeleton overnight builds 2026-09-14, all code-drawn (the integrator ruled "all assets generated in code")
 
 ## Purpose
@@ -23,3 +23,5 @@ or the builder burns turns on asset plumbing.
 ## Log
 
 ## Outcome
+
+Abandoned 2026-10-18: never run (the log is empty).

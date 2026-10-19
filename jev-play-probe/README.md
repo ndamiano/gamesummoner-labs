@@ -1,6 +1,6 @@
 # jev-play-probe
 
-Status: single-run
+Status: done
 Control: the owner's hand verdicts on the 2026-08-22 lib experiment builds (`runs.txt`); the
 play gate (`src/maestro/codegen/play_gate.py`) as it ships, on the same builds, if run 1 works.
 
@@ -122,3 +122,5 @@ keys, as a person would; the moves question needs a "no player visible" option; 
 more frames or a different question, or is out of reach.
 
 ## Outcome
+
+Closed 2026-10-18 without a write-up here: stale. Any result it reached is in docs/experiments.md.

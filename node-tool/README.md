@@ -1,6 +1,6 @@
 # a jailed node tool
 
-Status: single-run
+Status: abandoned
 Control: spec-skeleton 2026-09-14: 5/5 engineering docs designed Node test harnesses; 0/6 builds could run one
 
 ## Purpose
@@ -24,3 +24,5 @@ suite once and never again, or the jail blocks something node needs on every run
 ## Log
 
 ## Outcome
+
+Abandoned 2026-10-18: never run (the log is empty).

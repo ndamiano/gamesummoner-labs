@@ -1,6 +1,6 @@
 # jev-design-decisions
 
-Status: single-run
+Status: done
 Control: the LLM design chain as it ships; the 95 real prompts built locally under `~/output/runs`
 and the designs (`spec.json` `request`) it wrote for 50 of them.
 
@@ -511,3 +511,7 @@ first-playable question now sees the mechanics line, plus the engine config chan
 a pixel-font title, level select (6 levels), plays, and a blind run falls into the pond to a game over screen.
 `local_gpu auto` released the llm card whenever a play step left the queue empty past 6 s and reloaded it 7 s later,
 several times a build: a local cost only.
+
+## Outcome
+
+Closed 2026-10-18 without a write-up here: stale. Any result it reached is in docs/experiments.md.

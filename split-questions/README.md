@@ -1,6 +1,6 @@
 # split-questions
 
-Status: single-run
+Status: abandoned
 Control: refine-passes r1's `design_refine` pass (bd4f3bf), one open "what do you need, decide,
 update" pass on the same seed and model.
 
@@ -68,3 +68,5 @@ answers.
 ## Log
 
 ## Outcome
+
+Abandoned 2026-10-18: never run (the log is empty).

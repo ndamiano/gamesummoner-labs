@@ -1,5 +1,7 @@
 # Basalt UD-Q4_K_XL on one RTX PRO 6000
 
+Status: done
+
 Question: is Basalt + the Unsloth UD-Q4_K_XL pack of Qwen3.8-Flash-Next viable on one RTX PRO 6000, and how fast?
 Prod today is Pennyroyal SGLang on the same card (203 tok/s short, ~100 at 54K, 428 aggregate at 4 concurrent
 short-context, conc 4 collapses at warm context).
@@ -139,3 +141,17 @@ the prod tags); the EC2 AMI still carries the old worker. Play: Chromium launch 
 paid the error gate's 3 s settle sleep in `_open`. Prod gap after a play turn: median 6.1 s (Oct 5, 1 build), 5.8 s
 with p90 13.7 s (Oct 7, 5 builds sharing the droplet CPU); 1 kill and 1 crash in 257 calls. Trivial play 3.85 s ->
 0.80 s without the settle; ai-agent-test bddaea6, deployed. Confirm both with the next prod build.
+
+## Outcome
+
+Basalt replaces Pennyroyal on the prod RTX PRO 6000s (Nick, 2026-10-18). At one stream it is faster:
+239–244 tok/s short and 259–282 at 30–92K context (Q4, speculation 7) against Pennyroyal's 203 short
+and ~100 at 54K, and it boots in 267 s from S3 against ~435 s. The weights differ (Unsloth
+UD-Q4_K_XL rebuilt with a BF16 PLE key, against Pennyroyal's NVFP4), and no game has been compared
+across the two in one session. Nick played the fridge build (951113d83730): 4/10, "the same quality
+as games out of pennyroyal"; its faults are the build's (a fridge door in front of the camera,
+yaw-only look), not the quant's. Before cutover: the batch-path fix is a
+local patch (`patch_batch_ar.py`), not upstream; `--parallel` > 1 re-reads the whole conversation
+every turn, so serve `--parallel 1` with conversation parking; set `--max-context 262144` and
+`fit-max-tokens` (Basalt counts ~1.5K tokens more than the harness); the EC2 AMI still carries the
+pre-61d3abb worker.
