@@ -1,19 +1,27 @@
 # deepseek-flash-41
 
 Status: planned
-Control: labs/frontier-ceiling (Opus 5.5 run on the same ask), labs/launch-battery (Flash-Next).
+Control: labs/frontier-ceiling: DeepSeek V4.1 Flash through DeepSeek's API, ~6.25 mean over six
+asks (Nick's scores, 2026-10-18) at ~$0.65 a game; prod Flash-Next on rented PRO 6000s at $1.81 a
+game (2026-09-06).
 
 ## Purpose
 
-DeepSeek 4.1 Flash 1017 (released 2026-10-17, 763B) is an open-weight model we could serve on
-rented cards we control, so prompts and games never leave GameSummoner's servers ("we will not sell
-your data"). If frontier-ceiling shows the model is the gap, this tests whether an open model we
-can host closes part of it. Validate the serving stack (arch in the wheel, card count, host RAM)
-before renting anything, and get a first read through a hosted API with the same engine shim.
+DeepSeek V4.1 Flash 1017 (763B, MIT) builds clearly better games than Flash-Next, measured
+through DeepSeek's hosted API. That API sends every prompt and game to DeepSeek, which breaks the
+promise that nothing leaves GameSummoner's servers or rented GPUs. Serving the same weights on
+cards we rent keeps the promise. The open question is no longer quality but whether we can run it,
+and at what cost per game against $0.65 hosted and $1.81 today.
 
 ## Hypothesis
 
 ## Setup
+
+Validate the serving stack before renting anything: which engine supports the architecture on
+which card (grep the wheel for the arch), how many cards and how much host RAM the weights need at
+a usable quantisation, the cold-load time, and the datacenter's download bandwidth. Then one build
+on the prod harness, costed the way the 2026-09-06 cost-per-game arm was (per-pod billing split
+by exec-seconds).
 
 ## Log
 
