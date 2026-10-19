@@ -135,6 +135,9 @@ Shared on prod for a small hand-picked survey ("worth $0.99? happy at $5?"), not
 staged and shared locally, then the share folder copied into prod's maestro-shares volume
 (https://gamesummoner.com/g/r12ctNpfCeWH, 2026-10-18). Remove with
 `docker compose exec -u 0 app rm -rf /app/runtime/shares/r12ctNpfCeWH`.
+The other wizard-cat builds were shared the same way on 2026-10-19 (Sonnet's broken one left out):
+DeepSeek https://gamesummoner.com/g/jMvHoZ1bCo0h, Gemini Argon
+https://gamesummoner.com/g/96sbF0IP6HI4, local Flash-Next https://gamesummoner.com/g/GZ7rQoheqoE9.
 The planned control does not exist: prod game 3e4f28885cfd never finished (the front door offers
 "build it" / "start from scratch"). A fair control is the same ask built locally with Flash-Next
 on today's code, same design chain and harness.
