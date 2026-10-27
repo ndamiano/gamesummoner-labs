@@ -191,4 +191,8 @@ director and the better-only keep).
 Earlier (queued): `UX_LOOK=auto`. look.py's auto mode runs the build's last play() script again after
 any turn that edits files without playing, and shows that picture, so every visual change is seen.
 
+**2026-10-27, out of the pipeline.** Nick, after playing the eight before/after pairs: "overall
+better, but probably not worth keeping the LLM alive". About 17–22 minutes of LLM per ask for two
+rounds; kept on 8 of 11 asks. `labs/pipeline-v2/run_ask.sh` no longer runs it.
+
 ## Outcome

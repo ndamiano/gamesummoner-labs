@@ -7,7 +7,7 @@
 #      on a copy
 #   3. playtest-refine on the gated copy: three director-v3 rounds with the keep-best progress judge, change builds
 #      seeing their page too
-#   4. vision-ux: two paired rounds (fixed tour replayed, before/after judge) on the refined game.
+#   (vision-ux rounds dropped 2026-10-27: ~20 min of LLM per ask for changes Nick could barely see)
 #   Needs labs/vision-build/serve_v.py as the control plane.
 # Usage: labs/pipeline-v2/run_ask.sh <label> "<ask>"
 set -u
@@ -33,9 +33,7 @@ REFINE_LOOK=auto venv/bin/python labs/playtest-refine/loop.py ${GATED:-$STAGED} 
 REFINED=$(sed -n 's/^loop done [^ ]* \([0-9a-f]*\)$/\1/p' $OUT/refine.log | tail -1)
 stamp "refined $REFINED"
 
-UX_LOOK=auto UX_PAIRED=1 venv/bin/python labs/vision-ux/ux.py ${REFINED:-${GATED:-$STAGED}} pv2-$LABEL-ux 2 > $OUT/ux.log 2>&1
-POLISHED=$(sed -n 's/^ux done [^ ]* \([0-9a-f]*\)$/\1/p' $OUT/ux.log | tail -1)
-stamp "polished $POLISHED"
+POLISHED=""
 
 python3 - "$ROW" "$LABEL" "$ASK" "$DESIGN" "$STAGED" "$GATED" "$REFINED" "$POLISHED" <<'PY'
 import json, sys, time
