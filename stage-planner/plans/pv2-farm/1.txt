@@ -1,0 +1,3 @@
+static home meadow. Create index.html, css/game.css, a canvas, and a render-only fixed-step loop. Load plate 0 Home Meadow as 64×64 tiles and draw it with sx=(x-y)*32, sy=(x+y)*16-z*16. Show pastel sky, grass, bridges, cloud edges, 12 pre-tilled soil plots, 30 gathering nodes split 10 moss_patch, 8 fiber_bush, 7 stone_node, 5 driftwood_pile, and 4 jump gaps. Do not add player, input, movement, gathering, growth, HUD, or audio.
+---
+Opening the page shows a still painterly Home Meadow with visible plots and nodes.

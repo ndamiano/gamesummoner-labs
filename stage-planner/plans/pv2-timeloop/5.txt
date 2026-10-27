@@ -1,0 +1,3 @@
+exit objective path. Add the exit door-shaped arch with cyan outline to Windup Yard and detect overlap with the player. On touch set level.complete true, stop player control, and show a temporary white pixel-font complete banner with a loop-reset button so the core path can be tested. Do not add full title or win screens yet.
+---
+The player can reach the cyan exit arch and complete the current loop.

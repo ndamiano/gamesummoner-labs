@@ -1,0 +1,3 @@
+objectives and rewards (§4.5, §4.3, §4.1 floors, §7). Objectives, exit, reward screen, coins, floor progression, bonus objectives.
+---
+you can clear floor 1, take a reward, and walk on through floors 2, 3 and 4, each with its own objective.

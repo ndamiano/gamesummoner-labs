@@ -1,0 +1,3 @@
+drive and jump. Add remappable named input actions, fixed-step vehicle simulation, and third-person chase camera. Implement Wobble with 25kg mass, 9m/s² acceleration, 12m/s top speed, reverse 6m/s, yaw rate 30+150*clamp(speed/12), jump impulse +7m/s, gravity -20m/s², coyote 0.15s, jump buffer 0.15s, and collision box 1.2x0.9x1.1m. Camera follows at 5.0m behind, 2.5m above, look-ahead 1.2m, FOV 70, smoothing 8.0, with reduced motion disabling smoothing.
+---
+Player can drive Wobble through the static L1, turn, brake, reverse, and hop over 0.8m obstacles while the camera follows.

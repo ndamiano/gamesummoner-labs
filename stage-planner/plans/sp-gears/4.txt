@@ -1,0 +1,3 @@
+power path visuals. Add rules.computePower as a deterministic BFS from source connectors through matching effective connectors, recomputing after every committed rotate or swap. Populate board.power and board.targetPowered, and render powered gears with #F6D89E body, solid centre dot, and solid arms versus unpowered hollow grey-blue shapes. Keep source arms always active and target unlit until power reaches it. Do not complete the level yet.
+---
+A player sees matching gear arms become warm peach with solid centre dots as power propagates from the source, while unpowered gears stay grey-blue and hollow.

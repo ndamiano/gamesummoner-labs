@@ -1,0 +1,3 @@
+play cards and nova. Implement canPlay and playCard for all 16 section 4.1 T1 cards, paying Energy, applying damage/heal/draw/move/energy effects, exhaust, and card-flight/spell-particle events. Add Nine-Lives Nova charge +1 per card played, the Nova meter HUD, and Q firing 6 damage within 3 tiles at charge 6.
+---
+The player can play every T1 card from the hand and fire Nine-Lives Nova when the meter reaches 6.

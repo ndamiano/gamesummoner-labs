@@ -1,0 +1,3 @@
+static market board. Create the page, CSS palette variables, hand-lettered stack, and a static `js/main.js` renderer for `market_01` at `960x540`: `16x9` `60px` grid with floor `#FFE7A0`, path `#243B53` from `(0,4)` to `(8,4)`, spawn crate at `(0,4)`, and teal stall at `(8,4)` with fish icon and health bar placeholder. Draw flat vector shapes only, no simulation, no input, no movement. Keep the page stable so later stages can load into the same world.
+---
+Player sees the fixed top-down market board with path, spawn crate, and central stall, but nothing moves.

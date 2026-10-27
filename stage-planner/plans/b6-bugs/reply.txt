@@ -1,0 +1,121 @@
+```json
+[
+  {
+    "name": "Static Pond Scene",
+    "stage": "Create index.html, styles.css, and a 960×540 canvas. Draw the fixed pond from §3: background #101820, pond rounded rectangle #00A896 with #FFD500 6 px stroke, and reserve 0–64 px for HUD. Add no entities, input, or update logic beyond static rendering.",
+    "done": "A player can load the page and see the flat teal pond, dark border, and empty reserved HUD area at 960×540.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Frog Steering",
+    "stage": "Add a fixed 1/60 s update loop, global context, and default key polling for WASD/arrows. Implement player steering: normalized input, accel 1500 px/s², drag 1200 px/s², max speed 220 px/s, clamp to x 48–912 and y 72–512, and facing from velocity. Render Pip at 480,292 with body #FFD500, belly #FFF3B0, outline #0B132B, eyes/pupils, and idleBob/moveHop.",
+    "done": "The player can move the frog anywhere inside the pond bounds and see its eyes face the movement direction.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.1 Module layout",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "### 4.2.1 Steering — Tier 1",
+      "## 5.1 Player — Pip the Pond Frog"
+    ]
+  },
+  {
+    "name": "Spawn Points and Bugs",
+    "stage": "Add eight visible spawn rings at the exact spawn point coordinates, dashed #34D399 3 px radius 22, pulsing 0.35 s when used. Add fly, mosquito, and wasp records with radii 10, 9, 11 and speeds 70, 110, 90, rendered using the §3 shape recipes. Implement Tier 1 static spawning: start with 4 flies, spawn every 2.2 s up to max 8, choose a safe spawn point at least 140 px from the player, and weight fly 80%, mosquito 15%, wasp 5%.",
+    "done": "The player sees bugs appear at the eight spawn rings and move around the pond without being catchable yet.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "## 4.1 Records and rosters",
+      "### 4.2.4 Spawn points — Tier 1",
+      "## 5.2 Bugs",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Tongue Catch",
+    "stage": "Add tongue firing on X with length 160, width 28, extension time 0.18 s, cooldown 0.35 s, drawn as a thick #FF7AA2 line starting 12 px ahead along facing. During extension, remove fly and mosquito bugs hit by the rectangle and spawn 8 catch particles; leave wasps as hazards without life loss for now.",
+    "done": "The player can press X and see a tongue shoot out, catching flies and mosquitoes with a visible pop-out.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "### 4.2.2 Chase and catch — Tier 1",
+      "## 5.1 Player — Pip the Pond Frog",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Score Counter",
+    "stage": "Add score records and a DOM SCORE display: fly catch awards 10 and mosquito catch awards 25, updating `state.session.score` immediately and showing an integer with thousands separator. Do not add combo multipliers or wasp score, and keep the existing basic game-over behavior unchanged.",
+    "done": "The player sees the SCORE value increase by 10 or 25 immediately after catching a fly or mosquito.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "### 4.2.3 Score — Tier 1",
+      "## 7.3 HUD"
+    ]
+  },
+  {
+    "name": "Wasp Life Loss",
+    "stage": "Add Tier 1 lives: one life, wasp tongue hits or body collisions remove the wasp, set `player.hitFlash = 0.28`, decrement lives, and when lives reach 0 set `phase = game_over`, stop gameplay updates, and show a basic GAME OVER DOM message. Add the white hit flash and hurtSpin visual.",
+    "done": "The player sees a white flash and a GAME OVER screen when touching or tongue-catching a wasp, ending the run.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "### 4.2.5 Life loss and game over — Tier 1",
+      "## 5.1 Player — Pip the Pond Frog",
+      "## 7.1 Screen state machine",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Health HUD",
+    "stage": "Add the exact HUD elements `#hud-health` and `#hud-combo`: health shows filled/empty hearts for current/max lives, Tier 1 uses one heart, combo shows 0, and all HUD elements are hidden on title/settings/high scores/game over. Use the hand-lettered CSS font stack from §7.4 and high-contrast white text.",
+    "done": "The player sees a one-heart health display and a combo counter showing 0 while playing, and both update correctly on game over.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 7.3 HUD",
+      "## 7.4 Typography",
+      "### 4.2.5 Life loss and game over — Tier 1"
+    ]
+  },
+  {
+    "name": "Pause and Settings",
+    "stage": "Implement pause with P/Esc: stop gameplay updates, show pause with resume/settings/quit, and keep run stats available. Add a settings screen that stores difficulty Easy/Normal/Hard, sound, music, reduced motion, colour-safe palette, and remappable key bindings in `settings.keys`, applying settings only outside active play.",
+    "done": "The player can pause the run, open settings, change settings, and quit to a placeholder stop state.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "## 7.1 Screen state machine",
+      "## 7.2 Screens",
+      "## 7.5 Accessibility"
+    ]
+  },
+  {
+    "name": "Title Audio Feel",
+    "stage": "Add the title screen FROG BUG CHOMP with Start, Settings, and High Scores, polish game over and high scores empty states, unlock Web Audio, add chiptune loops and bleeps from §6, and apply reduced-motion fallbacks, particles, hit flash, trails, and HUD gaps.",
+    "done": "A player can start from the title, play a full run with audio and visual feedback, and see polished game over and high scores screens.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 6. AUDIO",
+      "## 4.6 Feel",
+      "## 7.1 Screen state machine",
+      "## 7.2 Screens",
+      "## 7.3 HUD",
+      "## 7.5 Accessibility"
+    ]
+  }
+]
+```

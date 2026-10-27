@@ -1,0 +1,3 @@
+physics score goals. Add physics objects and scoring triggers from 4.5 and 4.8: cans, apples, crates, ice blocks, goal bins, and pressure plates. Use the listed masses/frictions/restitutions and award base score only when a matching object enters a bin or stays on a plate: can bin 50, produce bin 100, crate plate/bin 100, ice plate 120. Mark scored objects so each trigger scores once.
+---
+The player can knock cans, apples, crates, or ice blocks into matching bins or onto plates and see base score increase.

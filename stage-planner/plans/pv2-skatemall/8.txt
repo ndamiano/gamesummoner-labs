@@ -1,0 +1,3 @@
+pause settings. Add the § 7.1 pause and settings screens plus § 0.2 and § 1.2 accessibility controls: Escape pauses and hides HUD, settings can set difficulty Easy `5` lives/damage `0.60`/detection `0.70`/hints on, Normal `3`/`1.00`, Hard `2`/`1.40`/detection `1.40`/hints off, colorblind palette swaps, reduced motion clamps effects, and key remapping for `move`, `jump`, `dash`, `dodge`, `interact`, `throw`, `hide`, `sneak`, `flee`, `pause`. These settings apply to the existing L1 loop and store hint visibility for later.
+---
+A player can pause, change difficulty, colorblind, reduced motion, and key bindings, then resume the same run.

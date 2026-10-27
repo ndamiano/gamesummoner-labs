@@ -1,0 +1,3 @@
+landmarks spawns unlocks. Add 10 landmark discovery within 25m, 8 spawn-point records with E Set Spawn and nearest-discovered respawn, and district unlock flags that remove invisible-wall collision for unlocked districts. Add minimap labels for discovered landmarks, white square spawn markers, and static layout stubs for Neon Row and Sunheart Citadel behind unlock gates. Add no new combat, vehicles, physics objects, or key-item systems.
+---
+A player can discover landmarks, set spawn points, and see unlocked districts become accessible on the minimap and world.

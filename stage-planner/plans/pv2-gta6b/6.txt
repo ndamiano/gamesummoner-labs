@@ -1,0 +1,3 @@
+enemies weapon combat. Add Dusk Pistol and baton combat with thug enemies: thug 40 HP, 0 armor, melee 12, pistol 8, flees at 10 HP; Dusk Pistol 14 damage, 0.22 s interval, 12 mag, 96 reserve; baton combo 14/18/30. Implement LMB hitscan shooting, RMB aim FOV 50, R melee, detection to combat, and kill rewards score 100/currency 15.
+---
+Player can aim, shoot, and melee a thug; after enough hits the thug dies and a reward banner shows +100 score and +15 SolCoins.

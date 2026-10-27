@@ -1,0 +1,121 @@
+```json
+[
+  {
+    "name": "Dusk City Canvas",
+    "stage": "Create index.html, styles.css, and a fixed canvas showing static Solano Bay Harbor Glow at 800 × 600 m within 3200 × 2400 m bounds, with 8-14 m roads, 3 m sidewalks, 2-4 m alleys, and static crates/barrels/chairs. Use warm palette #FFD166, #F4A261, #E76F51, #C1121F, #FFF6E5 and dusk lighting: directional sun elevation 12°, azimuth 255°, color #FFB86B, intensity 3.0, hemisphere fill, fog #FFB07A density 0.0025, long shadows. No player, camera, simulation, or HUD exists yet.",
+    "done": "A player sees a static golden-hour Harbor Glow street grid with warm props and no interactive elements.",
+    "reads": [
+      "## Lighting and atmosphere",
+      "## Space",
+      "## Recipe table",
+      "### 4.3.1 Map / world, districts, unlocks, landmarks, spawn points — Tier 1",
+      "## 1.1 Units, axes, frames"
+    ]
+  },
+  {
+    "name": "Rico Movement Camera",
+    "stage": "Add Rico Vega as a 1.80 m tall, 0.35 m radius capsule with third-person over-shoulder camera at 3.2 m and 70° FOV, smoothed with position lag 0.08s and rotation lag 0.12s. Implement the fixed 1/60s loop, max 5 catch-up steps, named-input actions, W/A/S/D free movement at 360°, walk 4.0 m/s, run 7.0 m/s, facing smoothed 0.12s, and capsule collision against the static world. No combat, health, HUD, or objectives are added.",
+    "done": "A player can walk and run as Rico Vega through Harbor Glow while the camera follows over the shoulder.",
+    "reads": [
+      "### 4.3.4 Free movement, jump, falling, climb, dodge, dash, sneak — Tier 1",
+      "## 1.2 Important conventions",
+      "## Facings",
+      "## Recipe table",
+      "## Accessibility rules"
+    ]
+  },
+  {
+    "name": "Health Lives Respawn",
+    "stage": "Add player.health 100 HP, player.lives Normal 3, a damage function, falling with terminal 35.0 m/s, safe fall ≤3.5 m, then 10 HP per meter above threshold capped at 100. Make health ≤0 trigger loseLife once, then 3s blackout, full HP at a discovered spawn point at Harbor Glow start, and set game.state to gameOver when lives reach 0. Add only a health HUD value and a non-interactive death fade; no title, settings, pause, game-over, or win screens are added.",
+    "done": "A player can take fall damage, lose a life, respawn at the start spawn, and trigger a game-over state when lives reach zero.",
+    "reads": [
+      "### 4.3.3 Player health, lives, enemies, bosses, damage — Tier 1",
+      "### 4.3.1 Map / world, districts, unlocks, landmarks, spawn points — Tier 1",
+      "## 1.2 Important conventions",
+      "## HUD table",
+      "## State machine"
+    ]
+  },
+  {
+    "name": "Weapons Aim Shoot",
+    "stage": "Add weapon slots 1 pistol, 2 SMG, 3 shotgun with pistol 18 damage/0.167s/12 mag/60 reserve/1.2s reload/3° hip/0.6° aim, SMG 11/0.083s/30/180/2.0s/5°/1.2°, shotgun 9×10/0.8s/6/36/2.5s/10°/6°, and melee F 25 damage/1.8m/60° cone/0.45s cooldown. Implement right-mouse aim at 45° FOV and 2.4m camera, left-mouse fire with 80 m/s projectiles max 80m, reload, and combo counter for hits within 3.0s up to 99. Add HUD ammo and combo counter plus debug target boxes that verify spread, damage, and combo counting; no enemy AI, rewards, or SunCoins are added.",
+    "done": "A player can aim and fire at debug target boxes, see ammo decrement, and see the combo counter increment.",
+    "reads": [
+      "### 4.3.5 Aim, weapons, shoot, melee, combo counter — Tier 1",
+      "## HUD table",
+      "## Recipe table"
+    ]
+  },
+  {
+    "name": "Enemies Detection AI",
+    "stage": "Add thug, hitman, and enforcer EnemyRecords with thug 40 HP/5 m/s/10 melee/1.2s/10m/100°, hitman 70 HP/6 m/s/15 pistol/0.8s/18m/120°, enforcer 120 HP/4 m/s/18 shotgun/20m/120° and armor treated as 0 in Tier 1, max 8 active per district, and 30s respawn in 24 spawn zones. Implement line-of-sight vision-cone detection at +25/s normal, +35/s running, thresholds 0-49 hidden, 50-79 suspicious, 80-100 alerted, and enemy attack behavior. Add enemy kill rewards thug 15, hitman 35, enforcer 70 SunCoins, a currency HUD, and minimap triangles.",
+    "done": "A player sees hostile enemies detect, chase, attack, take damage, die, and pay SunCoins while minimap and currency update.",
+    "reads": [
+      "## Records and rosters",
+      "### Records",
+      "### 4.3.3 Player health, lives, enemies, bosses, damage — Tier 1",
+      "### 4.3.6 Detection, sneak, hiding spots — Tier 1",
+      "### 4.3.9 Currency, rewards, key items — Tier 1",
+      "## HUD table",
+      "## Recipe table"
+    ]
+  },
+  {
+    "name": "Quest Objectives Rewards",
+    "stage": "Add data-driven QuestRecord and ObjectiveRecord, one main quest M1 in Harbor Glow with objectives talk quest giver, reach marker, clear three enemies, complete, and reward 100 SunCoins plus a flag. Implement E conversation with quest giver, 1–4 dialogue choices that set flags/affection and pause movement, objective marker on minimap only, and questSystem.complete granting the reward. No district unlock, final boss, or key-item systems are added.",
+    "done": "A player can talk to a quest giver, complete M1 objectives, receive SunCoins, and see the quest state change to complete.",
+    "reads": [
+      "## Records and rosters",
+      "### Records",
+      "### 4.3.2 Objectives, main quests, plot, quest givers, conversations, rewards, key items — Tier 1",
+      "## Recipe table",
+      "## HUD table",
+      "## 1.2 Important conventions"
+    ]
+  },
+  {
+    "name": "Landmarks Spawns Unlocks",
+    "stage": "Add 10 landmark discovery within 25m, 8 spawn-point records with E Set Spawn and nearest-discovered respawn, and district unlock flags that remove invisible-wall collision for unlocked districts. Add minimap labels for discovered landmarks, white square spawn markers, and static layout stubs for Neon Row and Sunheart Citadel behind unlock gates. Add no new combat, vehicles, physics objects, or key-item systems.",
+    "done": "A player can discover landmarks, set spawn points, and see unlocked districts become accessible on the minimap and world.",
+    "reads": [
+      "## Records and rosters",
+      "### Records",
+      "### 4.3.1 Map / world, districts, unlocks, landmarks, spawn points — Tier 1",
+      "## Recipe table",
+      "## HUD table"
+    ]
+  },
+  {
+    "name": "Archon Sol Boss",
+    "stage": "Add a Sunheart Citadel final-boss encounter with Archon Sol, 1800 HP, phases, weak points, and combat behavior, triggered by a final objective marker or debug startBoss. Make Archon Sol death set game.state to win, grant the 1000 SunCoins final reward, and stop further simulation except UI. Keep Bishop and Viper unimplemented; no title, settings, pause, game-over, or win screens are added.",
+    "done": "A player can damage Archon Sol through phases, defeat the final boss, and enter a win state with final reward.",
+    "reads": [
+      "## Records and rosters",
+      "### Records",
+      "### 4.3.3 Player health, lives, enemies, bosses, damage — Tier 1",
+      "### 4.3.2 Objectives, main quests, plot, quest givers, conversations, rewards, key items — Tier 1",
+      "### 4.3.9 Currency, rewards, key items — Tier 1",
+      "## Recipe table",
+      "## State machine",
+      "## 0.2 Decisions"
+    ]
+  },
+  {
+    "name": "Screens Audio Polish",
+    "stage": "Add title, settings, pause, game over, and win screens wired to game.state, with difficulty Story/Easy/Normal/Hard changing lives and damage multipliers, remappable keys, reduced motion disabling screen shake/slow motion/trails, and colour-blind shapes/labels. Add required HUD minimap/currency/health/ammo/combo completeness, pause behavior, audio music layers and SFX IDs, and feel effects: camera lag, hit flash 0.12s, slow motion 0.25s at 0.4x only on final kill/boss phase/combo finisher, screen shake, particles, trails, bloom. Make the full loop playable from title to win or game over.",
+    "done": "A player can start at title, adjust settings, play through the loop, hear and see required effects, and reach win or game-over screens.",
+    "reads": [
+      "## State machine",
+      "## HUD table",
+      "## Accessibility rules",
+      "## Music layers",
+      "## Synthesized sounds",
+      "## Feel",
+      "## Recipe table",
+      "## Lighting and atmosphere",
+      "## 0.2 Decisions",
+      "## 1.2 Important conventions"
+    ]
+  }
+]
+```

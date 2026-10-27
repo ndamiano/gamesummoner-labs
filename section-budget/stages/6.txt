@@ -1,0 +1,3 @@
+the climb. Write the other nine maps in `data/maps.js` (2 per floor, floors 1–5, following the §4.1 map rules; floor 5's have the `V` boss slot) so `validateMaps()` passes on all ten. Add objectives and the exit (§4.5): reach and defeat, the hint bar text, bonus objectives tracked. Floors 1–4 play in order with the §4.1 floor enemies on random `e` slots, HP carries over, and walking into an open exit loads the next floor. Floor 5 can be an empty placeholder until the boss stage.
+---
+you can clear floor 1 and walk on through floors 2, 3 and 4, each with its own objective.

@@ -1,0 +1,3 @@
+physics object scoring. Add fixed-step dynamic boxes and spheres for Cans, Apples, Crates, and Ice blocks with the listed mass, friction, restitution, and sleep rules. Add Goal bins, Pressure plates, and Targets as trigger volumes, and award base score when matching objects enter bins, remain on plates, or hit targets. Add hit flash at impulse greater than 20 N·s, screen shake up to 0.08m, and object scored state.
+---
+Knocking a Can into a can bin awards 50 base score with a visible score popup and object scored state.

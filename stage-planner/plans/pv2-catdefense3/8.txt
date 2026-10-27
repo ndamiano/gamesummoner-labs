@@ -1,0 +1,3 @@
+unlock later markets. Add progression content: load `market_02` through `market_05` paths, spawn points, and waves, unlock each level only after the previous one completes, and show locked cards in a level-select stub. Add `crab_armour` and `tuna_tumbler` to later waves with the level/wave ramp `waveHpMul = 1 + 0.02 * waveIndex` and `waveSpeedMul = 1 + 0.01 * waveIndex`, plus the boss warning 'Big Fish Incoming!' for `2s`. Keep the completed Tier 1 level working unchanged.
+---
+Player sees locked later markets, unlocks Level 2 after Level 1, and fights crabs and a Tuna Tumbler in later markets with scaled HP and speed.

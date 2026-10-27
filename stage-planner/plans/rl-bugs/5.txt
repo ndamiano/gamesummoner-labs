@@ -1,0 +1,3 @@
+score counter. Add score records and a DOM SCORE display: fly catch awards 10 and mosquito catch awards 25, updating `state.session.score` immediately and showing an integer with thousands separator. Do not add combo multipliers or wasp score, and keep the existing basic game-over behavior unchanged.
+---
+The player sees the SCORE value increase by 10 or 25 immediately after catching a fly or mosquito.

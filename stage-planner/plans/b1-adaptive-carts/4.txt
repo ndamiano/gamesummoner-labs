@@ -1,0 +1,3 @@
+objective exit win. Add objective records for 3 Keycards, the L1 score goal 1500, and the Exit Pad. Keycards auto-collect and activate checkpoints; exit stays locked until keysCollected == 3 and baseScore >= 1500, then its icon changes from lock to green check. Holding the 3m wide, 3m deep, 2.4m tall exit pad for 1.5s triggers win state, and R restarts the level while preserving settings.
+---
+Collecting 3 Keycards and reaching 1500 base score opens the Exit Pad, holding it for 1.5s wins the level, and R restarts it.

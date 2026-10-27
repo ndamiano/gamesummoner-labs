@@ -1,0 +1,3 @@
+exit and reward. Add objective state with text “Reach the exit” using §4.7, detect standing on the Level 1 exit tile after pressing Interact from §4.4, set level.cleared and run.status to reward, and show the Reward screen from §4.12 with Add Card, Upgrade Card, and Remove Card choices. Choosing a reward returns to the same level and starts the next player turn, but the deck is unchanged. Add the exit pulse and objective data needed for pause, without adding full pause screens yet.
+---
+The player can reach and interact with the exit, then see a reward screen with the three deckbuilding choices.

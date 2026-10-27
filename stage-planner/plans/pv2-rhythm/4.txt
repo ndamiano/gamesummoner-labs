@@ -1,0 +1,3 @@
+hit detection and matching. Add §4 Hit detection: on queued §4 Input and lanes presses, find the closest note in the same lane within the effective Good window ±120ms, grade Perfect within ±60ms, mark notes as hit or missed, ignore duplicate hits, and auto-miss notes after hit_time + 120ms. Treat wrong-lane or no-note presses as empty press without consuming notes in other lanes. Show only the basic lane hit flash from §3 Visual recipe table.
+---
+Pressing the correct lane at the hit line grades Perfect or Good and makes the note vanish with a brief lane flash.

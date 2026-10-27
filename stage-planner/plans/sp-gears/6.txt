@@ -1,0 +1,3 @@
+title pause settings. Add title, pause, and settings screens with setMode routing from title to level_select, and a pause overlay with Resume, Restart, and Settings. Implement restartLevel to restore the current level's initial cells and reset attempt.moves while preserving unlockedLevel and current hintsUsed if any. Add settings toggles for music, sfx, and reducedMotion that write G.settings and affect animation duration; leave audio silent for now. Ensure no HUD elements appear inside the playing viewport.
+---
+A player can reach the game from a title screen, pause during play, restart without winning or losing, and change Music, SFX, and Reduced Motion settings.

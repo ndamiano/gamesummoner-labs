@@ -1,0 +1,3 @@
+screens feel polish. Add the exact Title, Pause, and Settings state machine, a pause button and Space pause, quit to Title as the session end state, and Settings toggles for mute, reduced motion, and remappable keys. Fill HUD gaps, integrate synthesized audio recipes such as 'ui_click', 'place_thump', 'harvest_pop', 'coin_ding', and 'ready_chime', and tune particles to match the cozy feel. Ensure reduced motion disables nonessential particles and color-safe icons remain readable.
+---
+When it works, the player can start from Title, pause/resume, adjust Settings, hear cozy audio, use reduced-motion and remappable keys, and see a complete cozy turtle-village loop with no failure.

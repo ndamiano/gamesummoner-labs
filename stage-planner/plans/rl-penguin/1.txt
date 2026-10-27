@@ -1,0 +1,3 @@
+static dune steps. Create index.html, css, canvas, and a fixed-step render loop. Build Level 1 Dune Steps as a static 60x40x25 bright pyramid with sand ground, rounded stone walls, invisible walls, a hidden spawn, and a sun-shaped exit at the summit. Use the palette, daylight, and material recipes for sky, sand, stone, and exit. No player, input, or motion.
+---
+A player opens the page and sees the completed static Dune Steps level with its exit visible.

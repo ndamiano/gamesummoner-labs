@@ -1,0 +1,3 @@
+world canvas draw. Add the HTML page, #game-canvas, and #ui-root. Create config.js with the Windup Yard LevelRecord at 1280×540, spawn, exit, tiles, and memoryLedges, then draw the 480×270 logical view with integer scaling, bg_void background, stone tiles, bg_deep and brass_dark parallax gears and clock face, and clamped static camera. No player, physics, movement, or HUD is active yet.
+---
+The player sees the drawn Windup Yard room, clock face, and gears on the canvas without anything moving.

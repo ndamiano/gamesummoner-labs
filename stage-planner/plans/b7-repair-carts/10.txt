@@ -1,0 +1,3 @@
+item interaction loop. Add E pick up/drop, 3-slot inventory, and rules for small objects versus large crates. Add Throw with Q at 18m/s plus 2m/s upward bias, Target hits, thrown tags into bins, and Push/Pull with 120N push, 80N pull, attach radius 1.5m, detach greater than 3m, and crate or ice scoring on plates or bins. Add Item Tag matching: three same kind complete match for 500 base score and 5 Coupon Tokens, with inventory full hints and match meter HUD.
+---
+Player can pick small items, throw them at targets or bins, push crates onto pressure plates, and complete three matching Item Tags for a match reward.

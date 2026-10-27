@@ -1,0 +1,9 @@
+A user asked for: {ask}
+
+Your design team wrote the build spec in `design/design.md`. We are building the game in stages, the way a person would: each stage starts from a game that runs and ends on one that runs with one more thing in it. Read the design sections this stage names, and only as much of the rest as you need.
+{carry}
+The stages: 1 static home meadow · 2 walk and jump · 3 pick up and drop · 4 gather materials · 5 plant and grow crops · 6 harvest and seed yield · 7 minimap and coin hud · 8 pause and accessibility · 9 title and final feel. This is stage {n}.
+
+Stage {n}: {stage}
+
+When it is done: {done} Check that by playing it. Keep everything earlier stages built working. You have {budget} turns for this stage; call done() when the stage plays, with a line on what you built.

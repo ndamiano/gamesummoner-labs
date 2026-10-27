@@ -1,0 +1,3 @@
+quest objectives rewards. Add data-driven QuestRecord and ObjectiveRecord, one main quest M1 in Harbor Glow with objectives talk quest giver, reach marker, clear three enemies, complete, and reward 100 SunCoins plus a flag. Implement E conversation with quest giver, 1–4 dialogue choices that set flags/affection and pause movement, objective marker on minimap only, and questSystem.complete granting the reward. No district unlock, final boss, or key-item systems are added.
+---
+A player can talk to a quest giver, complete M1 objectives, receive SunCoins, and see the quest state change to complete.

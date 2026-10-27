@@ -1,0 +1,3 @@
+cards. Add the starter deck and the hand from §4.3: a 10-card deck, draw 5 each turn, 3 Energy, discard and reshuffle, exhaust. Cards are picked with keys 1–5, Tab cycles in-range enemies with a range preview, Enter or the same key again plays it. All five starter cards (§4.1) work, so the Dust Bunny can now be killed. The hand is HTML cards over the canvas (§7), and Energy and the pile counts show on the HUD.
+---
+you can Zap the bunny to death, Pounce across a gap and Scramble up a ledge, and the piles cycle right over several turns.

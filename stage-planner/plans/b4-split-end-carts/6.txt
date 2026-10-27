@@ -1,0 +1,3 @@
+objectives and round end. Add L1 objectives: 3 auto-collected Keycards, score goal 1500, exit open only when keysCollected == 3 and baseScore >= scoreGoal, and exit hold 1.5s to win; add level timer 5:00 with MM:SS display, expiry fail, R restart, and key/exit HUD counters. Keep guard strikes off.
+---
+The player can complete a full L1 round by getting keys and score, holding the exit to win, or letting the clock expire and restarting.

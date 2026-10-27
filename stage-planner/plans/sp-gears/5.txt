@@ -1,0 +1,3 @@
+lamp completion return. Add rules.isSatisfied and progress.completeLevel so when every target connector has a matching powered adjacent gear, attempt.completed becomes true and the game returns to a minimal level_select mode. Build a simple Level Select list with Level 1 enabled and loadLevel(1) restoring the scrambled initial state; completion must not show win or lose screens. Keep the existing rotate and swap flow unchanged. This gives one full round: load Level 1, power the lamp, and return to Level Select.
+---
+A player can complete Level 1 by powering the lamp, then see the game return to a Level Select that can start Level 1 again.

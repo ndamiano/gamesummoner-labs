@@ -1,0 +1,3 @@
+physics object bodies. Add dynamic AABB/sphere bodies for cans (0.4kg), apples (0.2kg), crates (25kg), and ice blocks (10kg) with the listed sizes, friction, and restitution, plus static shelves, displays, and trigger helpers. Support impulses and sleep at speed <0.05 for 1.0s.
+---
+The player can shove, bounce, and knock over store objects with the cart.

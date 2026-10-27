@@ -1,0 +1,3 @@
+timer fail restart. Add the level timer and fail path. Start L1 at 5:00 Normal, support Easy 6:15 and Hard 3:45, display MM:SS, pulse a clock icon at 30s, and trigger a fail state when it expires. Add R restart and ensure restart clears level state while preserving unlocks and settings.
+---
+The player sees a countdown, can win before it expires, or sees a fail state and can restart L1 when it expires.

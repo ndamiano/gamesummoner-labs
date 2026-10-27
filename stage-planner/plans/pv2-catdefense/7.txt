@@ -1,0 +1,3 @@
+wave loop complete. Implement waves.js for Level 0: 3 wave records, phase countdown/spawning/clear, first 5.0 s countdown, spawn groups with delay and interval, wave index HUD, wave_start and wave_clear, clearBonusCoins 30 + 20 * waveIndex, and waveScore. Add minimal HUD fields health, score, wave number, coins, and wave countdown. When all waves complete, set transition_next with 1.2 s bright fade Market saved! and return to a minimal level select state with Level 0 marked complete and Level 1 locked.
+---
+The player plays Level 0 from a wave countdown through three waves, earns wave-clear coins, and sees Market saved! followed by a minimal level select with Level 1 locked.

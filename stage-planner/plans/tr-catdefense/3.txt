@@ -1,0 +1,3 @@
+place alley cat. Add a minimal shop button for Alley Cat and shop.js selectPiece, cancelSelection, and canPlace. Implement placement rules: valid only on Level 0 buildable tiles, not market, spawn, occupied, outside, or during the 0.15 s placement cooldown, with green/red ghost and Alley Cat range preview. Start Level 0 with 180 coins, spend 50 on placement, and add a Tower record; right click cancels.
+---
+The player clicks the Alley Cat button, sees a green or red ghost with range, and places an Alley Cat on a yellow paw tile for 50 coins.

@@ -1,0 +1,3 @@
+wait gather ready. Add a fixed-step gameplay tick with DT=1/60 and add gathering state to placed core gathering spots using roster intervals and maxReady values: 'driftwood_sprout' 25s/max3, 'algae_patch' 18s/max4, 'shell_barnacle' 35s/max2, 'pearl_oyster' 70s/max1, and 'shell_coin_barnacle' 55s/max2. Advance growth only when not paused, increment readyCount when interval completes, and pause when readyCount reaches maxReady. Draw growth stages and a yellow pulse/sparkle ready indicator, without collecting yet.
+---
+When it works, placed gathering spots show growth stages, accumulate ready items up to maxReady, pause at max, and pulse with sparkles.

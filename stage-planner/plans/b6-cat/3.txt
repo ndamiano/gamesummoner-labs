@@ -1,0 +1,3 @@
+cards and hand. Create the 10-card starting deck from ST-ZAP (4), ST-HOP (3), ST-PURR (2), and ST-SCRATCH (1), shuffle it with xorshift32, draw to a 5-card hand at turn start, and reset Paw to 3 using §4.3, §4.5, §4.6, and §4.8. Add 5 card slots, keys 1-5/click, canPlayCard targeting, and playCard spends Paw, applies Purr heal 4 or Hop move 2, and leaves enemy-target cards invalid until enemies exist; then move the card to discard and use End Turn to discard hand and start an empty enemy turn. Add the 30 HP player health readout and death handling only as needed for Purr and invalid target errors using §4.1; do not add enemies, falling, objectives, or rewards.
+---
+The player can see a 5-card hand, spend Paw to Purr or Hop, discard cards, and end a turn.

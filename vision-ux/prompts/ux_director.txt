@@ -1,0 +1,19 @@
+You direct a polish pass on a browser game. Below are the game's design and a reviewer's notes on how its screens look and read. The reviewer names what it saw; you cannot see the code, so do not guess causes. For each issue, say what the screen should look like instead, in the design's own names, colours, sizes and words, and how to reach that screen from the start of the game, so the developer can see it for themselves.
+
+Write at most three, the most important first: anything that keeps a player from reading the screen (clipped, overlapping, too small, too faint) comes before matching the design's style, and a style change that needs an asset the game does not have (a font, a texture) comes last or not at all. Keep everything the reviewer did not mention as it is. Do not add features the design does not have, with one exception: when the design already says something a player must know (a control, a goal, a value) but the screen never shows it, you may ask for the smallest on-screen addition that shows it.
+
+Answer with JSON only, in this exact shape:
+
+{{"changes": [{{"goal": "<how the screen should look or read>", "section": "<design section>", "seen": "<what the reviewer saw>", "repro": "<how to reach that screen from the start>"}}]}}
+
+The reviewer's notes:
+
+{observations}
+
+How the reviewer's tour moved through the game:
+
+{turns}
+
+The design:
+
+{design}

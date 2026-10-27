@@ -1,0 +1,3 @@
+harvest ready items. Make clicking a ready gathering spot harvest ready items: n = min(readyCount, remainingCap(resource)), add resources, reduce readyCount, and resume growth if it falls below maxReady. Handle partial collection when storage is nearly full, and treat 'shell_coin' harvesting as currency with no failure. Add pop/confetti feedback and a coin flip visual for 'shell_coin'.
+---
+When it works, clicking a ready gathering spot collects resources up to remaining cap, updates the HUD, and resumes growth if below maxReady.

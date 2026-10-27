@@ -1,0 +1,3 @@
+grow harvest crops. Add `systems/grow.js` and crop harvest completion. From § 4.2 Grow (T1) and Crop roster, advance fields only on unpaused fixed 1/60s updates: `seed_radish` 180s, `seed_carrot` 360s, `seed_berry` 540s plus 600s regrow, `seed_flower` 480s; base growth multiplier 1.0 and crops never die. Render stage visuals: tiny dot, sprout, leafy plant, mature unique silhouette. From § 4.2 Harvest (T1), `E` on a mature crop within 1.2 world units for 0.25s yields 1-2 `radish`, 1 `carrot`, 2-3 `berry`, or 1 `flower`.
+---
+A planted radish visibly grows through four stages and can be harvested into radish items.

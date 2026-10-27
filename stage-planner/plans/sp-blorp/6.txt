@@ -1,0 +1,3 @@
+add bounce traps. Implement src/traps/traps.js and add Bounce Pad traps in Zone 1. Use TrapRecord with enabled, cooldown, impulse, and state; on contact apply impulse +11, no damage, and a 0.5 second cooldown, and ensure the landing does not apply fall damage. Place only a few pads in a safe bonus path so the core exit route is unchanged.
+---
+Touching a bounce pad launches Blorp upward with a +11 impulse, and the pad cannot fire again for 0.5 seconds.

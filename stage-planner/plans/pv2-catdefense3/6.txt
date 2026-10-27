@@ -1,0 +1,3 @@
+cat fire and coins. Implement tower targeting and projectiles: cats find the enemy with highest path progress inside ranges `120`, `150`, or `260`, fire after cooldowns `0.55`, `1.4`, or `2.2`, and launch projectiles at `420`, `280`, or `1000` px/s with damage `10`, `18` splash `45`, or `50`. Apply physical damage, remove enemies at HP <= 0, award `reward` `6` or `12`, and create a coin pickup visual.
+---
+Placed cats automatically shoot and kill path enemies, and the coin counter rises when an enemy dies.

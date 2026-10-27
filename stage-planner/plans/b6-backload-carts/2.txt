@@ -1,0 +1,3 @@
+steering and chase camera. Add named input actions and remapping for W/A/S/D, arrows, Esc, and R. Drive Wobble with 9 m/s² acceleration, 12 m/s top speed, 6 m/s reverse, and yaw rate 30 + 150 * clamp(speed/12,0,1) deg/s. Convert the static L1 props into axis-aligned collision boxes and add the §4.42 chase camera at -5.0m Z, +2.5m Y, look-ahead 1.2m, smoothing 8.0.
+---
+The player steers Wobble through L1 aisles, brakes, reverses, and the camera follows.

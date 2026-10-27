@@ -1,0 +1,3 @@
+core hud display. Build the DOM/CSS core HUD from §7. Show score.current, score.goal progress, key counter, timer.remaining, and exit.open using ARIA live regions and icons/patterns rather than color alone. Disable HUD animations under reduced motion and keep the HUD hidden outside playing.
+---
+During play the player sees score, keys, timer, and exit status, and the HUD stays accessible with icons and live text.

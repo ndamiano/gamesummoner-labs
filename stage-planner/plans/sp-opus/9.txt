@@ -1,0 +1,3 @@
+finish screens and feel. Add the screen state machine and final overlays: title, pause with deck view, settings with volumes/reduced motion/palette/key remap/difficulty, game over, win, and high scores. Fill remaining HUD gaps and add all section 6 SFX/music plus section 4.9 shake, particles, hit flash, damage numbers, hitstop, and reduced-motion behavior. Do not add Tier 2 or Tier 3 systems.
+---
+The player can start from the title, pause, adjust settings, win or die and view the matching end screen, while every action has final audio and feel.

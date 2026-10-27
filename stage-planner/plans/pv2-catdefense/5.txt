@@ -1,0 +1,3 @@
+market damage restart. Add market.js with maxMarketHP 100, marketHP, and a visible health bar above the red stall. When the Fish Thief reaches the final waypoint, deal marketDamage 5, play market_hit, flash the market white, spawn 6 red particles, and remove the enemy. If marketHP reaches 0, set level.status transition_restart, show a 1.2 s dark fade with Oh no! static text, and reload Level 0 without a defeat screen.
+---
+The player sees the market health drop when Fish Thieves reach it, and the level silently restarts after the market is destroyed.

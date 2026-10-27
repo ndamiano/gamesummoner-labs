@@ -1,0 +1,3 @@
+walking fish thieves. Implement spawn and path runtime for `market_01`: convert path `A` `(0,4)` to `(8,4)` into pixel centers, create `ctx.paths`, spawn `gull_snatcher` at the first waypoint, and update its position at `70` px/s along the polyline. Draw the triangular wing silhouette and waddle animation, and remove the enemy when it reaches the defend point without health damage yet.
+---
+Player sees a `gull_snatcher` appear at the spawn crate and walk along the path to the market stall.

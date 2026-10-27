@@ -1,0 +1,115 @@
+```json
+[
+  {
+    "name": "Static L1 World",
+    "stage": "Create the browser page and canvas, then load only `l1` as a frozen renderable scene from § 4.1 and § 4.4: bounds `x -30..30`, `z -20..20`, `killY -12`, spawn ring at `(0,0,0)`, exit door at `(28,-18,0)`, and the neon look from § 3: black `#050608`, floor `#101318`, cyan/amber/magenta emissive accents, bloom. Draw a fixed camera at the spawn but do not add player input, movement, jumping, or interaction. The app runs by rendering this frozen Food Court Atrium scene.",
+    "done": "A player sees the frozen Food Court Atrium level with the spawn ring and exit door visible in the neon style.",
+    "reads": [
+      "# 3. VISUAL SPEC",
+      "## Space",
+      "## Recipe table",
+      "## Color palette",
+      "## 4.1 Gameplay records and rosters",
+      "## 4.4 Map / World — Tier 1",
+      "## 1.1 Units, axes, frames"
+    ]
+  },
+  {
+    "name": "Player Skate Movement",
+    "stage": "Add the player capsule from § 4.1 and § 5.1, then implement § 4.2 free movement: WASD/arrows relative to camera yaw, max speed `5.5 m/s`, acceleration `18 m/s²`, ground friction `12 m/s²`, turn rate `240°/s`, and third-person camera follow at distance `6.2 m`, height offset `2.4 m`. Render the player as a dark capsule with cyan deck edge and a cyan trail, and keep L1 geometry as collision. The player can now roll through the world.",
+    "done": "A player controls a skater in third person and can roll through the static mall.",
+    "reads": [
+      "## 4.2 Player and free movement — Tier 1",
+      "## 4.1 Gameplay records and rosters",
+      "## 5.1 Player",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## Recipe table"
+    ]
+  },
+  {
+    "name": "Core Jump",
+    "stage": "Implement § 4.3 jump: `Space` from grounded with `jumpCooldown <= 0`, initial `7.2 m/s`, hold up to `0.12 s` adds `1.0 m/s` to max `8.2 m/s`, air control `0.55`, gravity `24 m/s²`, max height `1.40 m`, landing cooldown `0.15 s`. Add cyan spark ring max 8 and continue the trail. Keep the world static and do not add falling damage, enemies, or objectives yet.",
+    "done": "A player can press Space to reach about `1.40 m` and land safely on platforms.",
+    "reads": [
+      "## 4.3 Jump — Tier 1",
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC",
+      "## Lighting and atmosphere"
+    ]
+  },
+  {
+    "name": "Falling Death Loop",
+    "stage": "Add § 4.6 falling and the failure loop from § 4.1 and § 0.2: gravity `24 m/s²`, terminal `28 m/s`, fall damage at impact vertical speed `10 m/s` using `(impact - 10) * 3.5` capped `35`, and below `l1` `killY -12` lose a life. Track `100 HP` and `3` Normal lives, respawn at `(0,0,0)` with `2.0 s` invulnerability, and show hit flash, screen shake, and slow motion on hit. This makes the first death end state visible.",
+    "done": "A player can fall into the kill plane or survive fall damage, lose a life, and respawn at the spawn ring.",
+    "reads": [
+      "## 4.6 Falling — Tier 1",
+      "## 4.1 Gameplay records and rosters",
+      "## 0.2 Decisions",
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC",
+      "## Lighting and atmosphere"
+    ]
+  },
+  {
+    "name": "Core Enemy Contact",
+    "stage": "Add Tier 1 § 4.7 enemies using § 4.1 rosters and § 5.2: two Mannequin Walkers (box `0.8 × 1.9 × 0.6`, patrol `1.8 m/s`, contact damage `12`) and one Floor Shade (capsule radius `0.5`, height `0.9`, patrol `2.5 m/s`, contact damage `10`) following hand-authored waypoint loops. Contact calls `player.damage`, enforces `0.8 s` per-enemy cooldown, and gives `0.5 s` player invulnerability with magenta flash and small shake. Core enemies are not removed.",
+    "done": "A player can bump into patrolling mall enemies and take damage or die from contact.",
+    "reads": [
+      "## 4.7 Enemies — Tier 1",
+      "## 4.1 Gameplay records and rosters",
+      "## 5.2 Core enemies",
+      "# 3. VISUAL SPEC",
+      "## Recipe table"
+    ]
+  },
+  {
+    "name": "Exit Win State",
+    "stage": "Implement § 4.5 main objective and exit trigger: a cylinder radius `1.2 m`, height `3.0 m` at L1 exit `(28,-18,0)`, with cyan pulsing exit door from § 3. When the player enters it, call `objectives.completeMain()`, set objective state `done`, and show a clear temporary win overlay. With lives already reaching zero, the game can now go from L1 spawn to either win or lose.",
+    "done": "A player can reach the exit trigger and the game stops with a win end state.",
+    "reads": [
+      "## 4.5 Objectives — Tier 1",
+      "## 4.1 Gameplay records and rosters",
+      "# 3. VISUAL SPEC",
+      "## Recipe table"
+    ]
+  },
+  {
+    "name": "HUD Minimap",
+    "stage": "Add § 7.2 HUD and § 4.4 minimap: health bar top-left `220 px × 14 px` with life pips inside, score top-center showing `0`, combo counter under score showing zero, and bottom-right minimap `220 × 220 px` radius `45 m` with cyan player triangle, cyan exit arrow, and magenta enemy X markers when active and within range. Bind only `player.hp`, `player.lives`, `score.total`, `combo`, and minimap data. Keep HUD hidden outside game later.",
+    "done": "A player sees health, zero score, zero combo, and a live minimap with player and exit markers while playing.",
+    "reads": [
+      "## 7.2 HUD",
+      "## 4.4 Map / World — Tier 1",
+      "# 3. VISUAL SPEC",
+      "## Recipe table",
+      "## Color palette"
+    ]
+  },
+  {
+    "name": "Pause Settings",
+    "stage": "Add the § 7.1 pause and settings screens plus § 0.2 and § 1.2 accessibility controls: Escape pauses and hides HUD, settings can set difficulty Easy `5` lives/damage `0.60`/detection `0.70`/hints on, Normal `3`/`1.00`, Hard `2`/`1.40`/detection `1.40`/hints off, colorblind palette swaps, reduced motion clamps effects, and key remapping for `move`, `jump`, `dash`, `dodge`, `interact`, `throw`, `hide`, `sneak`, `flee`, `pause`. These settings apply to the existing L1 loop and store hint visibility for later.",
+    "done": "A player can pause, change difficulty, colorblind, reduced motion, and key bindings, then resume the same run.",
+    "reads": [
+      "## 7.1 Screens state machine",
+      "## 7.2 HUD",
+      "## 0.2 Decisions",
+      "## 1.2 Important conventions",
+      "## 4.44 Progression and difficulty"
+    ]
+  },
+  {
+    "name": "Title End Audio Feel",
+    "stage": "Add the remaining § 7.1 screens around the existing L1 loop: title, level select with only `l1` unlocked, win, game over, and empty high scores, replacing temporary win/game-over overlays and wiring only the allowed transitions. Initialize § 6 audio: `music_loop` at `104 BPM` and bleeps for `jump`, `land`, `hit`, `death`, `respawn`, `win`, `game_over`, `ui_move`, `ui_confirm`, `ui_back`. Apply final § 4.45 feel and § 3 effects: bloom threshold `0.72` intensity `0.34`, trails `1.8 m`, hit flash alpha `0.32` for `0.08 s`, screen shake max `0.22 m`, slow motion `0.55` for `0.12 s`, and reduced-motion clamps.",
+    "done": "A player can start from a title screen, select L1, pause, win or game over, hear synth music and bleeps, and feel the neon hit feedback.",
+    "reads": [
+      "## 7.1 Screens state machine",
+      "## 7.2 HUD",
+      "# 6. AUDIO",
+      "## 4.45 Feel",
+      "# 3. VISUAL SPEC",
+      "## Lighting and atmosphere"
+    ]
+  }
+]
+```

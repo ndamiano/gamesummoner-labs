@@ -1,0 +1,3 @@
+neon feedback fallbacks. Add remaining Tier 1 presentation from §3 Visual recipe table: particles 12-24 for 300ms, lane hit flashes 80ms with Perfect larger, note trails 120px, bloom glow, and beat-pulse accents. Add §1.2 reduced-motion fallback that disables particles, trails, bloom, and fog drift while keeping notes, lane glyphs, hit line, and a 20ms flash readable. Keep colour meaning paired with shapes and luminance differences.
+---
+Hits produce particle blooms, lane flashes, trails, and bloom, while reduced motion removes decorative effects but keeps timing cues readable.

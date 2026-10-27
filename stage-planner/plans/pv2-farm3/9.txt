@@ -1,0 +1,3 @@
+title pause settings. Add `ui/screens.js`, `ui/hud.js`, `ui/settings.js`, and `audio/audioEngine.js`. From § 7 UX, implement BOOT->TITLE->PLAYING, PLAYING->PAUSE->SETTINGS, and Title buttons Start World, Settings, Accessibility, Credits. Pause shows current day, season, zone, collected count, and currency; Settings include volume, music, reduced motion, colour-blind profile, key remapping, camera zoom, and bloom. Add persistent minimap and `breeze_coin` currency HUD, visible as 0, and no game-over screen because there is no ending. Add soft audio recipes from § 6 AUDIO and hand-lettered UI from § 3 VISUAL SPEC and § 4.6 Feel.
+---
+The player starts at a hand-lettered title, starts Hollowroot, sees minimap and 0 currency, can pause/settings, and hears soft SFX/music.

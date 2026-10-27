@@ -1,0 +1,3 @@
+health hud respawn. Add health, armor, and lives to Mara: health 100, max 180, armor 0, max 100, 3 lives, 10 HP/s safe regen after 10 s, death loses a life, drops 10% SolCoins max $500, respawns after 3 s at 50 health/0 armor. Render only the health element with three life pips and an inner gray armor fill.
+---
+The health element shows 100 health and three life pips; health 0 loses a life and respawns at 50 health after 3 s.

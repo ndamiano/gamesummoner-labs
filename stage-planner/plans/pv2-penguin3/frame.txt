@@ -1,0 +1,9 @@
+A user asked for: {ask}
+
+Your design team wrote the build spec in `design/design.md`. We are building the game in stages, the way a person would: each stage starts from a game that runs and ends on one that runs with one more thing in it. Read the design sections this stage names, and only as much of the rest as you need.
+{carry}
+The stages: 1 static l1 world · 2 penguin run · 3 penguin jump · 4 climb wall jump · 5 failure restart · 6 objective exit gate · 7 core level progression · 8 hud score timer · 9 level select unlock · 10 title end screens. This is stage {n}.
+
+Stage {n}: {stage}
+
+When it is done: {done} Check that by playing it. Keep everything earlier stages built working. You have {budget} turns for this stage; call done() when the stage plays, with a line on what you built.

@@ -1,0 +1,3 @@
+five level ramp. Add Level 1-4 records from the difficulty ramp: Opening Day, Crab Caper, Seagull Snack, Market Maze, and Festival Fiasco with startCoins 240, 260, 300, and 340 and wave counts 4, 5, 6, and 7. Add Seagull Raider, Crab Thief, Big Crab, Octopus Boss, enemy armour, Fish Barricade chewing, Tuna Cannon, Laser Pointer, Fish Barricade, unlock progression, and best score display. Do not add title, pause, settings, audio, or Tier 3 extras.
+---
+The player can unlock and play Level 1 through Level 4, face the new enemies, use the new buildable pieces, and see best score slots on level select.

@@ -1,0 +1,3 @@
+title and final feel. Add the title screen with startNewRun and connect the existing pause/settings flow; the design has no ending, so keep endless play. Fill remaining HUD gaps such as the inventory overlay and disabled hint/placement slots. Wire title_music, day_music, footstep_grass, footstep_wood, jump, land, pickup, drop, gather_leaf, gather_stone, plant, harvest, ui_move, ui_select, and ui_back with realistic foley recipes and volume controls. Add particles, bloom threshold luminance >0.78, squash/stretch, and soft landing feel while respecting reduced motion and no failure.
+---
+From title the player can start an endless run, open inventory, see all HUD pieces, hear audio, and feel responsive cozy interactions.

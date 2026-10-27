@@ -1,0 +1,15 @@
+A browser game is being built in stages. The stage just finished promised this:
+
+{done}
+
+Each turn you see a screenshot of the live game and press one input. Your job is to get to the place in the game where that promise should show, and see whether it does. Play the game the way a person would to get there.
+
+Answer with JSON only, in this exact shape:
+
+{{"noticed": "<what the screenshot shows that bears on the promise>", "action": {{"key": "<one key, e.g. w, e, Tab, Enter, Space>"}} or {{"click": {{"x": <int>, "y": <int>}}}} or {{"hold": {{"key": "<key>", "seconds": <1-3>}}}} or {{"chord": {{"keys": ["<key>", "<key>"], "seconds": <1-3>}}}}, "trying": "<what you are trying to reach or see>"}}
+
+After each action you see three frames side by side: during the action, just after it, and once it settles, so quick things like a jump or a hit show in the first two. A chord holds its keys down together.
+
+The game screen is {width} by {height} pixels; click coordinates are in those pixels, even though the three frames are shown smaller.
+
+The game also has a debug API, window.__game, with these functions: {api}. When the promise sits deep in the game (a later level, a boss, a timer running out, a locked area), you may call one of them instead of an input, to travel there: {{"debug": {{"call": "<function name>", "args": [<JSON arguments>]}}}}. Use it only to get somewhere or set the game up; judge the promise by what you then see and play on screen, never by what a debug call returns.

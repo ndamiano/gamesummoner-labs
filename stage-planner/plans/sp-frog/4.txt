@@ -1,0 +1,3 @@
+pit fail retry. Add pit fail and level restart using §4.2, §4.5, and §4.25. Place a kill line below Lily Lesson; falling below it subtracts 1 health from a starting max health of 3, restarts the level, and when health reaches 0 enters a minimal GAME_OVER state whose Retry reloads the level with full health and resets spawn points.
+---
+Falling into a pit costs health, restarts the level, and Game Over/Retry works when health is gone.

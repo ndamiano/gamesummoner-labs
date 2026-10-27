@@ -1,0 +1,3 @@
+static market board. Create index.html with the #app DOM shell and a 960 × 480 #play-area canvas, plus styles.css for flat UI. Render Level 0's 20 × 10 48 px grid, blue #2779BD paths with chevrons, yellow #FFD60A paw tiles, brown spawn crates, and red #E63946 market stall at marketCell gx 18 gy 5. Do not add input, enemies, waves, or HUD yet.
+---
+The player sees a static Whisker Market Level 0 board in the flat vector style, with no moving objects.

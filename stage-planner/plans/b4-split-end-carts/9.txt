@@ -1,0 +1,3 @@
+audio and juice. Add synthesized music_loop at 110 BPM, core SFX recipes for jump, land, object_score, hit, win, fail, and ui_click, plus juice: screen shake max 0.08m, hit flash 0.2s, landing dust 6 particles, confetti/stars/bubbles/rings, trails, bloom threshold 0.7 intensity 0.3, and reduced motion disables shake/particles/trails/bloom/camera smoothing.
+---
+Playing L1/L2 has synth music, cartoony sounds, and visible feedback for jumps, collisions, scores, and wins without breaking gameplay.

@@ -1,0 +1,3 @@
+pip movement camera. Add remappable logical input actions and third-person camera orbit/zoom with distance 6.5, height 2.5, FOV 60, and zoom range 4.0-12.0. Add Pip as a capsule radius 0.4, height 1.2 with camera-relative movement at 4.5 m/s, acceleration 18, braking 22, air control 65%, and max slope 45. Place the player at level.spawn inside the existing static Dune Steps level.
+---
+The player can move Pip through Dune Steps and orbit/zoom the camera.

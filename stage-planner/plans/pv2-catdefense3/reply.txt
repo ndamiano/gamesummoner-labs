@@ -1,0 +1,142 @@
+```json
+[
+  {
+    "name": "Static Market Board",
+    "stage": "Create the page, CSS palette variables, hand-lettered stack, and a static `js/main.js` renderer for `market_01` at `960x540`: `16x9` `60px` grid with floor `#FFE7A0`, path `#243B53` from `(0,4)` to `(8,4)`, spawn crate at `(0,4)`, and teal stall at `(8,4)` with fish icon and health bar placeholder. Draw flat vector shapes only, no simulation, no input, no movement. Keep the page stable so later stages can load into the same world.",
+    "done": "Player sees the fixed top-down market board with path, spawn crate, and central stall, but nothing moves.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC",
+      "## Space",
+      "## Palette",
+      "## Typography",
+      "## 4.3 Level, Objective, Defend Point [Core]",
+      "### Level 1 paths and waves"
+    ]
+  },
+  {
+    "name": "Cursor Build Preview",
+    "stage": "Add mouse-only cursor input and a build palette for `tabby_scratcher`, `calico_lobber`, and `siamese_sniper`: pointer movement sets `ctx.input.hoverCell`, left click on a cat button sets `ctx.input.buildSelection`, hover shows the selected range as a dashed `#2F80ED` circle plus check/X validity, and right click clears the selection. Do not place towers or change currency yet. Keep the static world running.",
+    "done": "Player clicks a cat button, moves over the board, and sees a valid or invalid build ghost; right-click cancels it.",
+    "reads": [
+      "## 4.1 Input & Cursor [Core]",
+      "## 4.4 Grid, Placement [Core]",
+      "# 7. UX",
+      "## HUD",
+      "## Space",
+      "## Palette"
+    ]
+  },
+  {
+    "name": "Place Cats Spend Coins",
+    "stage": "Implement placement and base currency: valid clicks spend the hard-coded costs `40`, `80`, or `120`, mark the cell occupied, create a `TowerRuntime` from the core tower roster, and keep `ctx.currency` from `market_01.startCurrency = 130` non-negative. Invalid clicks keep the selection and spend nothing. Place the cat at the cell center and update the HUD currency field.",
+    "done": "Player places a `tabby_scratcher` on a legal cell for 40 coins, sees the cat occupy the cell, and sees the coin counter drop.",
+    "reads": [
+      "## 4.1 Input & Cursor [Core]",
+      "## 4.4 Grid, Placement [Core]",
+      "## 4.9 Currency [Core]",
+      "### TowerDef",
+      "#### Core tower roster",
+      "# 5. CHARACTERS",
+      "## Silhouettes"
+    ]
+  },
+  {
+    "name": "Walking Fish Thieves",
+    "stage": "Implement spawn and path runtime for `market_01`: convert path `A` `(0,4)` to `(8,4)` into pixel centers, create `ctx.paths`, spawn `gull_snatcher` at the first waypoint, and update its position at `70` px/s along the polyline. Draw the triangular wing silhouette and waddle animation, and remove the enemy when it reaches the defend point without health damage yet.",
+    "done": "Player sees a `gull_snatcher` appear at the spawn crate and walk along the path to the market stall.",
+    "reads": [
+      "## 4.5 Spawn Points and Paths [Core]",
+      "## 4.7 Enemies [Core, Tier 2 for crab/boss]",
+      "### EnemyDef",
+      "#### Core enemy roster",
+      "# 5. CHARACTERS",
+      "## Silhouettes",
+      "## Animations by name",
+      "## Facings"
+    ]
+  },
+  {
+    "name": "Wave Market Rush",
+    "stage": "Implement the wave state machine for `market_01`: start in `preparing` for `20s`, then run wave 1 Gull x4 interval `2.0` reward `35`, wave 2 Gull x8 interval `1.6` reward `50`, and wave 3 Gull x12 interval `1.2` reward `80`. Track `ctx.waveIndex`, `ctx.waveState`, group delays, and after a completed wave start the next `preparing` after `nextWaveDelay = 15`; show `waveIndex + 1` of total waves in the HUD.",
+    "done": "Player watches a wave countdown, sees Gull waves spawn on schedule, and sees the wave counter and coin total increase after a wave clears.",
+    "reads": [
+      "## 4.6 Waves [Core]",
+      "## 4.9 Currency [Core]",
+      "# 7. UX",
+      "## HUD",
+      "### WaveDef / WaveGroup",
+      "### Level 1 paths and waves"
+    ]
+  },
+  {
+    "name": "Cat Fire and Coins",
+    "stage": "Implement tower targeting and projectiles: cats find the enemy with highest path progress inside ranges `120`, `150`, or `260`, fire after cooldowns `0.55`, `1.4`, or `2.2`, and launch projectiles at `420`, `280`, or `1000` px/s with damage `10`, `18` splash `45`, or `50`. Apply physical damage, remove enemies at HP <= 0, award `reward` `6` or `12`, and create a coin pickup visual.",
+    "done": "Placed cats automatically shoot and kill path enemies, and the coin counter rises when an enemy dies.",
+    "reads": [
+      "## 4.8 Towers/Cats [Core]",
+      "## 4.7 Enemies [Core, Tier 2 for crab/boss]",
+      "## 4.9 Currency [Core]",
+      "### TowerDef",
+      "#### Core tower roster",
+      "#### Core enemy roster",
+      "# 5. CHARACTERS",
+      "## Facings",
+      "## States required by gameplay",
+      "## 1.2 Important conventions"
+    ]
+  },
+  {
+    "name": "Defend Point Outcome",
+    "stage": "Implement the defend-point objective and level outcome: subtract `leakDamage` (`5` for `gull_snatcher`, `10` for `raccoon_bandit`) when enemies reach `(8,4)` against base health `100`, set `ctx.mode = 'restartBanner'` and show 'Market Flopped! Restarting...' for `2.5s` when health <= 0, then call `restartLevel()`; when all waves are complete, enemies are empty, and health > 0, set `completeBanner`, show 'Market Closed Safely' for `2.5s`, then exit to a temporary level-select stub.",
+    "done": "If fish thieves leak enough, the player sees the restart banner and the level resets; clearing all three waves shows the complete banner and exits the level.",
+    "reads": [
+      "## 4.2 Time, Pause, Restart [Core]",
+      "## 4.3 Level, Objective, Defend Point [Core]",
+      "# 7. UX",
+      "## State machine",
+      "## Screen rules",
+      "#### Core enemy roster"
+    ]
+  },
+  {
+    "name": "Unlock Later Markets",
+    "stage": "Add progression content: load `market_02` through `market_05` paths, spawn points, and waves, unlock each level only after the previous one completes, and show locked cards in a level-select stub. Add `crab_armour` and `tuna_tumbler` to later waves with the level/wave ramp `waveHpMul = 1 + 0.02 * waveIndex` and `waveSpeedMul = 1 + 0.01 * waveIndex`, plus the boss warning 'Big Fish Incoming!' for `2s`. Keep the completed Tier 1 level working unchanged.",
+    "done": "Player sees locked later markets, unlocks Level 2 after Level 1, and fights crabs and a Tuna Tumbler in later markets with scaled HP and speed.",
+    "reads": [
+      "### Level roster",
+      "### Level 2 paths and waves",
+      "### Level 3 paths and waves",
+      "### Level 4 paths and waves",
+      "### Level 5 paths and waves",
+      "## 4.14 Unlocks [Tier 2]",
+      "## 4.12 Difficulty Ramp and Difficulty Options [Tier 1 options, Tier 2 ramp]",
+      "#### Supporting enemy roster [Tier 2]",
+      "## 4.20 Bosses [Tier 2]",
+      "# 5. CHARACTERS",
+      "## Silhouettes"
+    ]
+  },
+  {
+    "name": "Title Screens Feel",
+    "stage": "Finish the shell: build title, level select, settings, and pause overlays; add HUD gaps, icons, and screen state transitions. Add Web Audio chiptune `music_market` and core SFX from §6, hit flash, death burst, coin flight, reduced motion, Easy/Normal/Hard difficulty options, and the required banners without any global win or lose state. Make the whole loop feel immediate and silly: clear valid/invalid feedback, pause-safe UI, and no forced precise aiming.",
+    "done": "Player starts from the title, changes settings, pauses and resumes, hears bleeps and chiptune, sees clear feedback, and finishes a level without any final win or lose screen.",
+    "reads": [
+      "# 7. UX",
+      "## State machine",
+      "## HUD",
+      "## Screen rules",
+      "# 6. AUDIO",
+      "## 4.29 Feel",
+      "## 4.2 Time, Pause, Restart [Core]",
+      "## 4.12 Difficulty Ramp and Difficulty Options [Tier 1 options, Tier 2 ramp]",
+      "## 1.2 Important conventions",
+      "# 5. CHARACTERS",
+      "## Animations by name",
+      "# 3. VISUAL SPEC",
+      "## Visual recipe table"
+    ]
+  }
+]
+```

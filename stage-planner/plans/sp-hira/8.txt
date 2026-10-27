@@ -1,0 +1,3 @@
+unlock kana progress. From § 4.6 and § 4.8, add unlocks.js and win integration: winning Level N marks progress.completedLevels, unlocks Level N+1, adds Level N kana to progress.kanaBank, and shows a reward banner. Render #level-select with paper locks and disabled buttons for locked levels, and use the § 4.6 table for Level 1 through Level 5 progression. Keep all previously built required-only paths playable without optional systems.
+---
+Player can clear Level 1, see Level 2 unlocked with its kana bank available, and locked later levels shown with paper locks.

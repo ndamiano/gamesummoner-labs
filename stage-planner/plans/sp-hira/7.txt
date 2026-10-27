@@ -1,0 +1,3 @@
+accessibility settings. From § 2.2 and § 2.3, implement settings.js and a #settings screen reachable from the level-select menu. Store difficulty, reducedMotion, sound, music, typeInput, and colorBlindShapes, and apply § 4.4 option counts 3/4 and wrong-answer thresholds from the chosen difficulty. Disable idle_bob, walk_step, and typewriter-style motion when reducedMotion is true, and ensure correct, wrong, locked, and open states use text or shape cues from § 3.
+---
+Player can open settings, choose Easy/Normal/Hard, toggle reduced motion and colorblind shapes, and see those choices affect option counts and static cues.

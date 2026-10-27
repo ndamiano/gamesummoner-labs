@@ -1,0 +1,3 @@
+rico movement camera. Add Rico Vega as a 1.80 m tall, 0.35 m radius capsule with third-person over-shoulder camera at 3.2 m and 70° FOV, smoothed with position lag 0.08s and rotation lag 0.12s. Implement the fixed 1/60s loop, max 5 catch-up steps, named-input actions, W/A/S/D free movement at 360°, walk 4.0 m/s, run 7.0 m/s, facing smoothed 0.12s, and capsule collision against the static world. No combat, health, HUD, or objectives are added.
+---
+A player can walk and run as Rico Vega through Harbor Glow while the camera follows over the shoulder.

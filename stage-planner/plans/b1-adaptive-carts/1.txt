@@ -1,0 +1,3 @@
+static grocery scene. Create /index.html, /style.css, and a canvas page shell. Build L1 Aisle Warm-Up as a static 50x30m toy diorama with floor at y = 0, 6m walls, 2.2m aisles, 2.4m doorways, 1.6m shelves, and 0.8m low obstacles. Place the bright toon palette, start spawn, exit gate, two landmarks, and 80 decoration props, but no player, input, or simulation.
+---
+Opening the page shows a still, readable L1 grocery-store scene with no moving objects.

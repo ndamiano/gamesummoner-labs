@@ -1,0 +1,3 @@
+next level loop. Implement currentLevelIndex and progress.levelsCleared in save.js and main.completeExit. After the exit is touched, fade for 1.2s, load the next LevelRecord from config.js using its exact width, height, spawn, exit, tiles, and memoryLedges, and reset player, camera, and timers. Do not add Tier2 health, switches, keys, enemies, countdowns, or hazards; later levels may be incomplete but the game must run.
+---
+The player can complete the first loop and load the next clock-tower loop layout.

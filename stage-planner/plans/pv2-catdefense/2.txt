@@ -1,0 +1,3 @@
+paw cursor control. Add js/input.js so pointer movement updates input.pointerX/Y, input.pointerGX/GY, input.inPlayArea, and left/right just-pressed flags. Draw the Paw Cursor and white aim reticle from the visual recipe, with idle and over-UI states. Right click clears selectedPiece and selectedHandItem even when nothing is selected; no placement is enabled yet.
+---
+The player moves a black paw cursor and white reticle around the static market, and left/right clicks update input state.

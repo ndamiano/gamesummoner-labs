@@ -1,0 +1,3 @@
+turns and a first enemy. Add the turn loop from §4.2: 2 Move points a turn, shown on the HUD, and E ends the turn. Put one Dust Bunny (§4.1 enemies) on an `e` slot of floor 1. On the enemy phase it walks toward Mittens along platforms and ladders and hits for 3 when in range (§4.6, without intents yet). HP 0 goes to a plain game over, and any key starts a new run.
+---
+moves run out after 2 steps, E hands the turn over, the bunny chases and hits, and dying restarts the run.

@@ -1,0 +1,3 @@
+archon sol boss. Add a Sunheart Citadel final-boss encounter with Archon Sol, 1800 HP, phases, weak points, and combat behavior, triggered by a final objective marker or debug startBoss. Make Archon Sol death set game.state to win, grant the 1000 SunCoins final reward, and stop further simulation except UI. Keep Bishop and Viper unimplemented; no title, settings, pause, game-over, or win screens are added.
+---
+A player can damage Archon Sol through phases, defeat the final boss, and enter a win state with final reward.

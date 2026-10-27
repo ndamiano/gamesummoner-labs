@@ -1,0 +1,3 @@
+move blorp camera. Add src/main.js, fixedLoop, rng, inputMap, camera, playerCore, and movement modules. Run fixed timestep dt = 1/60 with max 5 catch-up steps, seed ctx.rng, define abstract input actions with default move keys W A S D/arrows, and store settings.inputMap. Spawn Blorp at the Zone 1 start with capsule radius 0.45 and height 1.2, allow camera-relative free movement at speed 6 with acceleration 45 and air control 0.6, collide with the static Zone 1 world, and make a third-person follow camera with distance 8, height offset 2.5, and minimum distance 2. Leave Space disabled.
+---
+Blorp walks through the static Zone 1 with W/A/S/D while the third-person camera follows, and Space still does nothing.

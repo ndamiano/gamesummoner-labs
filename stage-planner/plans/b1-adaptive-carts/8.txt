@@ -1,0 +1,3 @@
+progression and collectibles. Add L2 Produce Panic, L3 Frozen Maze, and L4 Checkout Chaos using the 4.1 rosters, with L2 70x45 score goal 3000, L3 80x55 goal 5500, L4 90x60 goal 8000. Add level unlock chain, level-select cards with locked state and best score, landmarks, checkpoints, and spawn activation from keys or landmarks. Add Coins, Item Tags, Keycards, and Secret Tokens with auto or manual collection, Coupon Tokens banking, rewards, and two optional side quests per level.
+---
+Completing L1 unlocks L2, the level-select screen shows unlocked levels, and each new level contains its roster of keys, coins, tags, secrets, landmarks, checkpoints, and side quests.

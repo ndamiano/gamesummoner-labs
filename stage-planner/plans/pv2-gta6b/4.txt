@@ -1,0 +1,3 @@
+objectives conversations. Add a Dockside quest giver with a diamond marker and an E conversation flow for M1 Arrive at Dockside: start the objective chain, advance dialogue with E, and show active talk/follow markers on the minimap. Keep rewards and combat incomplete; only the quest state and markers update.
+---
+A Dockside quest giver shows a diamond marker, E opens M1 dialogue, and the active talk/follow objective marker appears on the minimap.

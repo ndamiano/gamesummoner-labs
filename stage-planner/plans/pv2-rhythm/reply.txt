@@ -1,0 +1,108 @@
+```json
+[
+  {
+    "name": "Static Ghost Deck Layout",
+    "stage": "Create index.html, styles.css, and a fixed 1280x720 canvas scaled to fit the viewport. From §1.1 draw the static §3 Space: background #050508, floor grid #12121A, four 120px lane corridors centered at x [320, 512, 704, 896], hit line at y=560, and lane glyphs triangle/diamond/square/circle in cyan/yellow/magenta/violet. Draw the bottom-center DJ console 360x120 and static ambient ghost silhouettes in the outer margins. No notes, input, motion, scoring, or HUD.",
+    "done": "A player sees the empty top-down ghost deck with four colour- and shape-identified lanes and a clear hit line.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC",
+      "## Space",
+      "## Visual recipe table"
+    ]
+  },
+  {
+    "name": "Lane Input and Presses",
+    "stage": "Add §4 Input and lanes handling for default keys D, F, J, and K, queue lane presses, and map them to lane indices 0,1,2,3. From §5 Player: DJ Echo trigger press_lane0 through press_lane3 for 120ms, scaling the matching deck pad 1.0 to 1.12 to 1.0. Do not spawn notes, score, or end the level yet.",
+    "done": "Pressing D, F, J, or K visibly pulses the matching deck pad and lane glyph.",
+    "reads": [
+      "## Input and lanes",
+      "## Player: DJ Echo"
+    ]
+  },
+  {
+    "name": "Level One Note Motion",
+    "stage": "Implement §4 Note charts and matches for level_01 Warm-Up Séance: seed crc32(level_01), generate 72 normal notes after the 4-beat count-in, compute hit_time from levelStartAudioTime + countInSeconds + beat * beatInterval, spawn at hit_time - 1200ms, and move notes down their lanes at 533.33 px/s toward the §1.1 hit line. Use the fixed 120Hz simulation and audio clock from §1.2. Do not add hit evaluation, scoring, or miss counting.",
+    "done": "The player sees level_01 notes appear above the canvas and slide down their matching lanes to the hit line.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## Note charts and matches",
+      "## Level roster",
+      "## Ghost note entities",
+      "## Visual recipe table"
+    ]
+  },
+  {
+    "name": "Hit Detection and Matching",
+    "stage": "Add §4 Hit detection: on queued §4 Input and lanes presses, find the closest note in the same lane within the effective Good window ±120ms, grade Perfect within ±60ms, mark notes as hit or missed, ignore duplicate hits, and auto-miss notes after hit_time + 120ms. Treat wrong-lane or no-note presses as empty press without consuming notes in other lanes. Show only the basic lane hit flash from §3 Visual recipe table.",
+    "done": "Pressing the correct lane at the hit line grades Perfect or Good and makes the note vanish with a brief lane flash.",
+    "reads": [
+      "## Input and lanes",
+      "## Hit detection",
+      "## Note charts and matches",
+      "## Ghost note entities",
+      "## Visual recipe table"
+    ]
+  },
+  {
+    "name": "Scoring Targets and Restart",
+    "stage": "Add §4 Scoring and §4 Level win and failure: Perfect +100, Good +50, Miss 0, Empty press -10, score floor 0, and tracking of totalScore and missCount against level_01 target_score 4200 and max_misses 12. End the level into an internal win or game_over state, fail immediately when miss_count exceeds max_misses, and implement restart resetting notes, score, misses, and effects. Add §7 HUD table score display and a combo element that stays 0.",
+    "done": "The player can play level_01 from start to a win or game-over state, see score update, and restart resets the level.",
+    "reads": [
+      "## Scoring",
+      "## Level win and failure",
+      "## Level roster",
+      "## Input and lanes",
+      "## HUD table"
+    ]
+  },
+  {
+    "name": "Neon Feedback Fallbacks",
+    "stage": "Add remaining Tier 1 presentation from §3 Visual recipe table: particles 12-24 for 300ms, lane hit flashes 80ms with Perfect larger, note trails 120px, bloom glow, and beat-pulse accents. Add §1.2 reduced-motion fallback that disables particles, trails, bloom, and fog drift while keeping notes, lane glyphs, hit line, and a 20ms flash readable. Keep colour meaning paired with shapes and luminance differences.",
+    "done": "Hits produce particle blooms, lane flashes, trails, and bloom, while reduced motion removes decorative effects but keeps timing cues readable.",
+    "reads": [
+      "# 3. VISUAL SPEC",
+      "## Visual recipe table",
+      "## Lighting and atmosphere",
+      "## 1.2 Important conventions",
+      "## Feel"
+    ]
+  },
+  {
+    "name": "Five-Level Session Progression",
+    "stage": "Add §4 Level roster definitions for level_01 through level_05 with exact BPM, duration, note_count, target_score, max_misses, and ambient ghost counts. Add §4 Objectives primary objectives, §4 Unlocks rules, and a minimal level_select screen showing locked and unlocked levels. On primary win, unlock the next level ID, record completion, and save a high score entry using the levelId:difficulty:memory key with default normal settings and false memory challenge.",
+    "done": "After winning level_01, the player can open level select, see level_02 unlocked with its target and miss cap, and start it.",
+    "reads": [
+      "## Level roster",
+      "## Objectives",
+      "## Unlocks",
+      "## High scores",
+      "## Screen state machine",
+      "## Progression and difficulty summary"
+    ]
+  },
+  {
+    "name": "Combo Scoring Multiplier",
+    "stage": "Add §4 Combos: increment combo on Perfect or Good, break on Miss, Empty press, or wrong lane, track maxCombo, and apply multipliers 1.00, 1.10, 1.20, 1.30, 1.40, and 1.50 at combo thresholds 10, 20, 30, 40, and 50. Use score formula round(baseScore * comboMultiplier), leave empty penalty unmultiplied, and update the existing §7 HUD combo counter with pulses at 10, 20, 30, 40, and 50.",
+    "done": "The combo counter increments with consecutive hits, multiplies note score up to 1.5x, and pulses when combo crosses 10, 20, 30, 40, or 50.",
+    "reads": [
+      "## Combos",
+      "## HUD table",
+      "## Scoring",
+      "## Hit detection"
+    ]
+  },
+  {
+    "name": "Title Results Audio Polish",
+    "stage": "Finish the game around the loop by replacing internal end states with §7 Screen state machine title, game_over, win, and settings screens, filling §7 HUD gaps, and adding §6 AUDIO: 4-bar music_loop, count_in_tick, hit_perfect, hit_good, hit_miss, empty_press, combo arpeggios, menu, unlock, win, and fail sounds. Implement §4 Feel: same-frame hit feedback, subtle beat pulse, reduced-motion-safe cues, and result screens showing reason, score, restart, and next-level actions.",
+    "done": "The player can use a title screen, see proper win and game-over screens, hear the synth loop and retro bleeps, and feel consistent beat feedback.",
+    "reads": [
+      "# 7. UX",
+      "## Screen state machine",
+      "## HUD table",
+      "# 6. AUDIO",
+      "## Feel"
+    ]
+  }
+]
+```

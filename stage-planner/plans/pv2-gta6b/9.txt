@@ -1,0 +1,3 @@
+title end polish. Replace placeholder states with the real Title, Pause tabs, Settings, Game Over, and Win screens; complete the HUD table for health, score, minimap, ammo, combo, and currency. Add synthesized audio recipes, title/music/sfx volumes, and feel effects such as screen shake, hit flash, slow motion, particles, trails, and bloom, reduced by reduced-motion.
+---
+Title starts a session, Settings/pause work, Game Over and Win screens appear, HUD is complete, and audio/feel react to hits, movement, and boss states.

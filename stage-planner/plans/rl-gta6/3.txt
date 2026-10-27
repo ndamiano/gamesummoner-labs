@@ -1,0 +1,3 @@
+health lives respawn. Add player.health 100 HP, player.lives Normal 3, a damage function, falling with terminal 35.0 m/s, safe fall ≤3.5 m, then 10 HP per meter above threshold capped at 100. Make health ≤0 trigger loseLife once, then 3s blackout, full HP at a discovered spawn point at Harbor Glow start, and set game.state to gameOver when lives reach 0. Add only a health HUD value and a non-interactive death fade; no title, settings, pause, game-over, or win screens are added.
+---
+A player can take fall damage, lose a life, respawn at the start spawn, and trigger a game-over state when lives reach zero.

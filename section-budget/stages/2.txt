@@ -1,0 +1,3 @@
+Mittens. Put Professor Mittens on the `P` tile with the sprite from §5. Arrow keys move Mittens one tile, ladders work, and gravity and fall damage follow §4.4. Show the HP on screen.
+---
+you can walk, climb a ladder, and fall off a ledge taking the damage §4.4 says.

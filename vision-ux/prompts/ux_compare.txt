@@ -1,0 +1,13 @@
+Two reviews of how the screens of two builds of the same browser game look and read.
+
+First build's issues:
+{before}
+
+Second build's issues:
+{after}
+
+Weigh what the second build fixed against what it newly broke. Answer with JSON only, in this exact shape:
+
+{{"verdict": "better" | "same" | "worse", "why": "<one sentence naming what was fixed and what is new>"}}
+
+"better" means it fixed more, or more important, problems than it introduced. "worse" means what it newly broke outweighs what it fixed. Issues present in both builds count for neither.

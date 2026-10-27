@@ -1,0 +1,3 @@
+scoring targets and restart. Add §4 Scoring and §4 Level win and failure: Perfect +100, Good +50, Miss 0, Empty press -10, score floor 0, and tracking of totalScore and missCount against level_01 target_score 4200 and max_misses 12. End the level into an internal win or game_over state, fail immediately when miss_count exceeds max_misses, and implement restart resetting notes, score, misses, and effects. Add §7 HUD table score display and a combo element that stays 0.
+---
+The player can play level_01 from start to a win or game-over state, see score update, and restart resets the level.

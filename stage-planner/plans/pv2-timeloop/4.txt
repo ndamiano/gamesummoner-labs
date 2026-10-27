@@ -1,0 +1,3 @@
+memory ledges. Add memory.js and Windup Yard memoryLedges records. At level load call startPreview with normal previewDuration 8s, draw ledges visible with cyan outline, then make them invisible but keep isLedgeSolid true so landing still works. Add debug memory preview and reveal helpers and ensure reset restores previewEnd and solid state.
+---
+The player sees hidden ledges briefly, then can land on them after they vanish if they remember the path.

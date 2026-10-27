@@ -1,0 +1,3 @@
+l2 progression flow. Add L2 Produce Panic as a data-driven level from the roster: 70x45m map, 3 Keycards, score goal 3000, time limit 5:30, and Produce/Bakery landmark visuals using existing physics objects. After L1 win persist unlock in cartracer.unlocks.v1 and automatically load L2 using the same core systems; do not add coin collectibles, rivals, Item Tags, matches, guards, or new inputs.
+---
+Winning L1 leads to playable Produce Panic with a new store layout and higher score goal.

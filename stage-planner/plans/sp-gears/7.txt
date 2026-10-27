@@ -1,0 +1,3 @@
+levels two three. Author Level 2 and Level 3 in src/levels.js from §4.1 solved layouts and scrambles: Level 2 source 0,1:[1], target 2,0:[2], cells 1,1:L2@1 and 2,1:E2@3 scrambled by S(1,1,2,1); Level 3 uses its listed 4×2 layout and scramble. Add both to Level Select as enabled Tier 1 entries. Verify each initial state is unsolved and each solved layout yields targetPowered true by applying the inverse scramble. Do not add sequential unlocks, hints, or Tier 2 levels.
+---
+A player can open Level Select, choose Level 2 or Level 3, and complete those short Tier 1 puzzles using rotate and swap.

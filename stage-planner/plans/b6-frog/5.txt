@@ -1,0 +1,3 @@
+side scroll camera. Implement src/camera.js as a side-on follow camera that tracks Pip with a 24px horizontal and 18px vertical deadzone, 0.12 smoothing, and clamps to the L1 bounds from §4.4. Add the §3 parallax layers at 0.1x, 0.4x, and 0.8x while keeping the gameplay layer 1.0x, and disable smoothing when reduced motion is on.
+---
+The swamp world scrolls smoothly as Pip moves and stops correctly at level edges.

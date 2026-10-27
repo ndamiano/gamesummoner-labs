@@ -1,0 +1,3 @@
+enemy turns and attacks. Spawn Level 1's two EN-MOUSE Mouselings (6 HP, Attack 3, Move 1) at their spawn tiles using §4.2 and the Roster: enemies, and extend the existing End Turn to run enemyTurn: adjacent enemies attack and subtract from the 30 HP player using §4.1, otherwise ground AI BFS one step toward the player using safe steps, then control returns to the player. Existing ST-ZAP and ST-SCRATCH can now damage and kill enemies, and enemy death plays hit flash, particles, and removal. Do not add falling, objectives, reward mutation, or new levels.
+---
+The player can play cards against Mouselings, end the turn, see enemies chase and damage the cat, and kill an enemy.

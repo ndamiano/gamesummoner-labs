@@ -1,0 +1,3 @@
+health hud. Add the exact HUD elements `#hud-health` and `#hud-combo`: health shows filled/empty hearts for current/max lives, Tier 1 uses one heart, combo shows 0, and all HUD elements are hidden on title/settings/high scores/game over. Use the hand-lettered CSS font stack from §7.4 and high-contrast white text.
+---
+The player sees a one-heart health display and a combo counter showing 0 while playing, and both update correctly on game over.

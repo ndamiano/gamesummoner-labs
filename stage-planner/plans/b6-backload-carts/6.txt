@@ -1,0 +1,3 @@
+timer and restart fail. Add the §4.28 L1 normal timer 5:00, start it when playing, stop it on pause, and display remaining time as MM:SS in a temporary readout. When it expires, set GameOver with fail reason and make R restart the level while preserving settings and unlocks. Leave a guard-strike hook for 3 catches later.
+---
+The player sees a 5:00 countdown, and when it reaches 0 the game enters a fail/restart state.

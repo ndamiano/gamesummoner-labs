@@ -1,0 +1,3 @@
+frog movement controls. Add src/input.js and src/player.js. Sample input once per fixed 60Hz step with remappable move, jump, and pause actions, and implement horizontal movement at max 180 px/s, acceleration 1400 px/s², friction 1800 px/s², jump velocity -430 px/s, coyote time 0.10s, jump buffer 0.12s, variable jump cut, gravity 1500 px/s², terminal velocity 620 px/s, and AABB tile collision. Draw Pip as a 12×16 sprite with a 10×14 hitbox and left/right facing.
+---
+The player can run, jump, land, and fall on the static Lily Lesson without passing through solid tiles.

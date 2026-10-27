@@ -1,0 +1,3 @@
+draw level 1 board. Create index.html, css/reset.css, css/ui.css, css/board.css, src/main.js, src/state.js, src/levels.js, and src/render.js. Draw the cream paper viewport and a static SVG board for Level 1 using §4.1: source at 0,1:[1], target at 2,1:[3], and one L2 gear at 1,1 with rot after scramble R(1,1,+1). Paint unpowered gear body #C7CDD6, stroke #4A5568, hollow centre, dashed arm outline, source #D8E3D8, and target unlit #C2C9D8. Do not attach pointer handlers, actions, power, or HUD.
+---
+A player sees a static cream-paper Level 1 board with source, target, and one unpowered L2 gear, and no interaction.

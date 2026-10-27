@@ -1,0 +1,3 @@
+unlock switch steps. After Level 1 completion, mark Level 2 unlocked and load Switch Steps as a static 70x50x30 bright pyramid with its own spawn and exit. Use the level roster and par 5:00, but add no interactive systems yet. Keep the temporary win path automatically entering Level 2 until the final screens are added.
+---
+After winning Dune Steps, the player is placed at the Switch Steps spawn and can traverse the new static level.

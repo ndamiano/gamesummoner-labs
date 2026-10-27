@@ -1,0 +1,3 @@
+player movement walk. Add player.js and input.js so Tock uses abstract move_left and move_right actions with default A/D or arrows. Draw the 12×16 sprite and 10×14 hitbox, apply horizontal acceleration 2200px/s² to max 150px/s, air control 140px/s, facing, and static tile AABB collision so Tock can walk on Windup Yard ground. Keep gravity disabled or use fixed ground contact only; jump and falling come next.
+---
+The player can move Tock left and right through the drawn level and stop against walls.

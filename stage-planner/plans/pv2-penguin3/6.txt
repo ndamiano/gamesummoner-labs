@@ -1,0 +1,3 @@
+objective exit gate. Add `Objectives.update`, a required `Objective Fish` with radius `18`, and collection feedback with particles. Keep the `Exit` hitbox `40 x 64` locked solid while `remaining > 0`, bounce the player back `80` px, show remaining pips, then open it when all required objectives are collected; touching the open exit enters a minimal `win` overlay and returns to L1 on Enter.
+---
+The player collects the one required Objective Fish, sees the exit core change to `#21D4B4` and open, and reaching it shows an L1 complete overlay.

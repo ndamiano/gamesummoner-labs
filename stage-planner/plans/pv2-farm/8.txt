@@ -1,0 +1,3 @@
+pause and accessibility. Add pause and settings from the state machine. Pause must stop simulation, growth, and physics; settings must provide remappable keys, reduced motion that disables particles, bloom, screen shake, and fades, colour-blind safe palette with icons/patterns, and sound sliders. Keep all future shop, talk, journal, map, and inventory interactions as overlays, not new screens.
+---
+The player can pause, remap inputs, enable reduced motion and colour-blind icons, and adjust volumes without breaking the run.

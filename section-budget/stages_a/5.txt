@@ -1,0 +1,3 @@
+enemies (§4.1 enemies, §4.6, §4.4, §4.9, §5). 4 types, intents and icons, the enemy phase, damage, death, stomp, hit flash, damage numbers, shake, particles.
+---
+all four enemy types stand on the floor showing intents, act in the enemy phase, take damage from cards and stomps, die, and every hit shows.

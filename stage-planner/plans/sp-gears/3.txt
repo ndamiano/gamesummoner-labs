@@ -1,0 +1,3 @@
+adjacent gear swap. Extend input and rules with canSwap and swap so dragging from one gear to an adjacent gear and releasing exchanges the gear objects while fixed connectors stay fixed. Reject diagonal, distance > 1, source, target, and wall targets without incrementing attempt.moves. Queue swap animations for 220 ms or 0 ms under reduced motion, and show the drag ghost and invalid target short thick line from §3. Do not compute power or objective yet.
+---
+A player can drag one gear onto an adjacent gear and see the two gear objects exchange, while invalid drops show a short thick invalid-target line and no state change.

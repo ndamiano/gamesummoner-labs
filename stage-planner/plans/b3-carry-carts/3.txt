@@ -1,0 +1,3 @@
+jump and landing squash. Add Space jump with +7 m/s impulse, gravity -20 m/s², 0.15s coyote time, 0.15s jump buffer, and 0.35 air control. Add Wobble jump and land animation states, 0.15s landing squash, and 6 dust particles, while keeping the existing steering and camera.
+---
+The player jumps over 0.8m low obstacles but cannot clear 1.6m shelves, and sees squashy jump/land feedback.

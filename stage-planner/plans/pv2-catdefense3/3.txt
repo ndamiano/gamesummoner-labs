@@ -1,0 +1,3 @@
+place cats spend coins. Implement placement and base currency: valid clicks spend the hard-coded costs `40`, `80`, or `120`, mark the cell occupied, create a `TowerRuntime` from the core tower roster, and keep `ctx.currency` from `market_01.startCurrency = 130` non-negative. Invalid clicks keep the selection and spend nothing. Place the cat at the cell center and update the HUD currency field.
+---
+Player places a `tabby_scratcher` on a legal cell for 40 coins, sees the cat occupy the cell, and sees the coin counter drop.

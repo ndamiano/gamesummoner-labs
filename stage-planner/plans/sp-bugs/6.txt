@@ -1,0 +1,3 @@
+wasp life loss. Add Tier 1 lives: one life, wasp tongue hits or body collisions remove the wasp, set `player.hitFlash = 0.28`, decrement lives, and when lives reach 0 set `phase = game_over`, stop gameplay updates, and show a basic GAME OVER DOM message. Add the white hit flash and hurtSpin visual.
+---
+The player sees a white flash and a GAME OVER screen when touching or tongue-catching a wasp, ending the run.

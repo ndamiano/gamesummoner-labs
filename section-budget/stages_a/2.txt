@@ -1,0 +1,3 @@
+grid and maps (§4.1, §4.4, §3). Data/maps.js (all 10 maps), grid.js (tile, standable, gravity+stomp, BFS), `validateMaps`. Render tiles in pixel art.
+---
+all 10 maps load, `validateMaps()` returns `[]`, and floor 1 is drawn in pixel art.

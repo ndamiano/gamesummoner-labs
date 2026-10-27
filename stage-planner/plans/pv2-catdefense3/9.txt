@@ -1,0 +1,3 @@
+title screens feel. Finish the shell: build title, level select, settings, and pause overlays; add HUD gaps, icons, and screen state transitions. Add Web Audio chiptune `music_market` and core SFX from §6, hit flash, death burst, coin flight, reduced motion, Easy/Normal/Hard difficulty options, and the required banners without any global win or lose state. Make the whole loop feel immediate and silly: clear valid/invalid feedback, pause-safe UI, and no forced precise aiming.
+---
+Player starts from the title, changes settings, pauses and resumes, hears bleeps and chiptune, sees clear feedback, and finishes a level without any final win or lose screen.

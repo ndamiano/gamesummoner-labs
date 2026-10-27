@@ -1,0 +1,3 @@
+core jump. Implement § 4.3 jump: `Space` from grounded with `jumpCooldown <= 0`, initial `7.2 m/s`, hold up to `0.12 s` adds `1.0 m/s` to max `8.2 m/s`, air control `0.55`, gravity `24 m/s²`, max height `1.40 m`, landing cooldown `0.15 s`. Add cyan spark ring max 8 and continue the trail. Keep the world static and do not add falling damage, enemies, or objectives yet.
+---
+A player can press Space to reach about `1.40 m` and land safely on platforms.

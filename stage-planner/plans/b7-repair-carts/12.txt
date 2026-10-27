@@ -1,0 +1,3 @@
+final screens feel. Add title, polished level-select, win, game-over, high-scores, and leaderboard screens with initials, top 10, and rank reveal. Fill HUD gaps for combo, currency, inventory, match meter, hints, prices, medal preview, and strike counter. Add synth music loop at 110 BPM and all synthesized SFX, plus screen shake, particles, hit flash, trails, bloom, color-blind icons and patterns, reduced motion, remappable keys, difficulty QA, and remaining score-structure systems such as combo, hints, prices, and medals.
+---
+Player can start from title, play any unlocked level, see rank and leaderboard after win or fail, hear music and SFX, and use accessibility options without breaking the loop.

@@ -1,0 +1,19 @@
+Two sessions of a first-time player on two builds of the same browser game. Say whether the second build let the player get further into the game, or with fewer problems in the way, than the first.
+
+First build, how far the player got:
+{before_reached}
+
+First build, what got in the way:
+{before_observations}
+
+Second build, how far the player got:
+{after_reached}
+
+Second build, what got in the way:
+{after_observations}
+
+Answer with JSON only, in this exact shape:
+
+{{"verdict": "further" | "same" | "worse", "why": "<one sentence>"}}
+
+"worse" means the second build stopped the player earlier or put a new problem in the way that the first did not have, one that blocks playing.

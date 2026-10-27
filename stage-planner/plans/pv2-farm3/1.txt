@@ -1,0 +1,3 @@
+static hollowroot render. Build `index.html`, `style.css`, `main.js`, `core/loop.js`, `core/render.js`, `core/camera.js`, and `systems/mapWorld.js`. From § 4.2 Map / World (T1), load `hollowroot` as a 64x64 tile map with `ground`, `path`, `soil`, `water`, `bridge`, `platform`, `blocked`, and `door` tiles. Draw 64x32 px isometric diamonds using the § 3 VISUAL SPEC palette, paper background `#F7F3E8`, and brush/paper texture. Set a fixed camera at `x=32.5,y=32.5`, zoom 1.0, with no follow and no moving entities.
+---
+The page shows a static pastel isometric Hollowroot meadow centered at 32,32.

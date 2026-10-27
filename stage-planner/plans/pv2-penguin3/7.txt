@@ -1,0 +1,3 @@
+core level progression. Add level data for `L2 Climbing Shelf` (`2200 x 800`, 1 objective) and `L3 Falling Ice` (`2600 x 1100`, 2 objectives) using the same records, solids, climbables, spawnStart, exit, and bottom kill. On open-exit completion, unlock the next core level in `unlockedLevels` and load it from a debug route; keep failure restart isolated per level.
+---
+The player can complete L1, then play L2 and L3, collect their required objectives, and reach their open exits.

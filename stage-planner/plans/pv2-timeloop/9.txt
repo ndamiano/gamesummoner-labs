@@ -1,0 +1,3 @@
+title end hud. Add title, gameover, and win screens with only the allowed state transitions, replace temporary banners, wire start, continue, retry, quit, and again, and add the normal ending when the final exit is reached. Add HUD one cyan heart and MM:SS timer, synthesized ambient_clock, ambient_loop, ui_click, ui_back, jump, land, death, loop_reset, and timer_low, plus hit flash, reduced-motion outline pulse, and optional dust when reduced motion is off.
+---
+The player can start from title, play and finish the loop with HUD, hear audio, and see the final win or gameover screens.

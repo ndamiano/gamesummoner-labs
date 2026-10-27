@@ -1,0 +1,3 @@
+penguin jump. Add the `jump` action and jump state: initial velocity `-620`, jump cut if released while `vy < -150` then `vy *= 0.5`, coyote `0.12`, jump buffer `0.16`, no double jump, and air control using air acceleration `900`. Draw jump stretch and relax states from `5.1`.
+---
+The player can jump from ground or a ledge, short-hop by releasing early, and land with fall animation.

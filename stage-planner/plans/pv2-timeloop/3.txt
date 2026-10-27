@@ -1,0 +1,3 @@
+jump fall physics. Implement fixed-step gravity 1250px/s², max fall 800px/s, jump action Space, coyote 0.08s, jump buffer 0.08s, initial velocity -430px/s, variable jump cut to max(vy, -160) if released before 0.12s, and no double or wall jump. Add jump, fall, and land animation states and camera follow/clamp so Tock can cross Windup Yard gaps.
+---
+The player can jump with variable height, land, and cross gaps without double jumping.

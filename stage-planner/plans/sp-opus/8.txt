@@ -1,0 +1,3 @@
+grand vacuum boss. Add floor 5 with the 2x2 Grand Vacuum, Suck/Slam/Spawn intent cycle, red/black striped Slam telegraph, enrage at HP <= 30, minions vanishing when the boss dies, and the boss objective opening the exit. Keep final title/pause/settings/end screens and audio pass inactive.
+---
+The player can fight the Grand Vacuum, defeat it, see the exit open, and enter it to reach the win state.

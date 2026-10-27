@@ -1,0 +1,3 @@
+switch door puzzles. Add switch/door puzzle logic to Switch Steps: three wall levers activated with interact for 0.3s, linked unlocked doors that slide open over 1.2s when all linked switches are active, and an activate_switch objective required for exit. Reset doors closed and switch active states on level restart.
+---
+The player can activate three Switch Steps levers and open the linked door to reach the exit.

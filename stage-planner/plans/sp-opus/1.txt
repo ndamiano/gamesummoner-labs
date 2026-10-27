@@ -1,0 +1,3 @@
+draw tower floor. Create index.html, style.css, src/config.js, src/rng.js, a fixed-step loop, an integer-scaled 256x160 canvas, a pixel font, and the Okabe-Ito palette. Draw one static floor-1 map from data/maps.js on the 16x10 grid, including bricks, ladders, exit, sky, and the faded floor numeral. No player, enemies, cards, or input actions are active yet.
+---
+The player opens the page and sees the full first tower screen drawn in the game's pixel-art look, with nothing moving.

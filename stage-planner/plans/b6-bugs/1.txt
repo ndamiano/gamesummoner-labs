@@ -1,0 +1,3 @@
+static pond scene. Create index.html, styles.css, and a 960×540 canvas. Draw the fixed pond from §3: background #101820, pond rounded rectangle #00A896 with #FFD500 6 px stroke, and reserve 0–64 px for HUD. Add no entities, input, or update logic beyond static rendering.
+---
+A player can load the page and see the flat teal pond, dark border, and empty reserved HUD area at 960×540.

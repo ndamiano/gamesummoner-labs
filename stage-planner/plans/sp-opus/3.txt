@@ -1,0 +1,3 @@
+place enemy targets. Load floor-1 e slots and spawn two Dust Bunnys with their sprites, HP, facing, and blocked-tile behavior. Apply stomp when the player falls onto an enemy, dealing 2 * fallen damage, playing hit flash, damage numbers, death particles, and score for the kill. Keep enemy AI, intents, cards, and the turn loop inactive.
+---
+The player sees Dust Bunnys in the level and can stomp one to damage and kill it.

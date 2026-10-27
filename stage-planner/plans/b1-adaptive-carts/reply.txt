@@ -1,0 +1,236 @@
+```json
+[
+  {
+    "name": "Static Grocery Scene",
+    "stage": "Create /index.html, /style.css, and a canvas page shell. Build L1 Aisle Warm-Up as a static 50x30m toy diorama with floor at y = 0, 6m walls, 2.2m aisles, 2.4m doorways, 1.6m shelves, and 0.8m low obstacles. Place the bright toon palette, start spawn, exit gate, two landmarks, and 80 decoration props, but no player, input, or simulation.",
+    "done": "Opening the page shows a still, readable L1 grocery-store scene with no moving objects.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "# 2. CONTRACTS",
+      "## 2.1 Module layout",
+      "## 2.2 Global context",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.1 Records and Rosters",
+      "## 4.6 Map / World [Tier 1]",
+      "## 4.32 Decoration [Tier 3]"
+    ]
+  },
+  {
+    "name": "Drive and Jump",
+    "stage": "Add remappable named input actions, fixed-step vehicle simulation, and third-person chase camera. Implement Wobble with 25kg mass, 9m/s² acceleration, 12m/s top speed, reverse 6m/s, yaw rate 30+150*clamp(speed/12), jump impulse +7m/s, gravity -20m/s², coyote 0.15s, jump buffer 0.15s, and collision box 1.2x0.9x1.1m. Camera follows at 5.0m behind, 2.5m above, look-ahead 1.2m, FOV 70, smoothing 8.0, with reduced motion disabling smoothing.",
+    "done": "Player can drive Wobble through the static L1, turn, brake, reverse, and hop over 0.8m obstacles while the camera follows.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "# 2. CONTRACTS",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.2 Vehicle [Tier 1]",
+      "## 4.3 Input and Steering [Tier 1]",
+      "## 4.4 Jump [Tier 1]",
+      "## 4.42 Camera [Tier 1]",
+      "# 5. CHARACTERS",
+      "## Wobble Player Cart"
+    ]
+  },
+  {
+    "name": "Physics Object Scoring",
+    "stage": "Add fixed-step dynamic boxes and spheres for Cans, Apples, Crates, and Ice blocks with the listed mass, friction, restitution, and sleep rules. Add Goal bins, Pressure plates, and Targets as trigger volumes, and award base score when matching objects enter bins, remain on plates, or hit targets. Add hit flash at impulse greater than 20 N·s, screen shake up to 0.08m, and object scored state.",
+    "done": "Knocking a Can into a can bin awards 50 base score with a visible score popup and object scored state.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "# 2. CONTRACTS",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.5 Physics Objects [Tier 1]",
+      "## 4.8 Score [Tier 1]"
+    ]
+  },
+  {
+    "name": "Objective Exit Win",
+    "stage": "Add objective records for 3 Keycards, the L1 score goal 1500, and the Exit Pad. Keycards auto-collect and activate checkpoints; exit stays locked until keysCollected == 3 and baseScore >= 1500, then its icon changes from lock to green check. Holding the 3m wide, 3m deep, 2.4m tall exit pad for 1.5s triggers win state, and R restarts the level while preserving settings.",
+    "done": "Collecting 3 Keycards and reaching 1500 base score opens the Exit Pad, holding it for 1.5s wins the level, and R restarts it.",
+    "reads": [
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.1 Records and Rosters",
+      "## 4.3 Input and Steering [Tier 1]",
+      "## 4.6 Map / World [Tier 1]",
+      "## 4.7 Objectives [Tier 1]",
+      "## 4.8 Score [Tier 1]",
+      "## 4.21 Spawn Points [Tier 2]"
+    ]
+  },
+  {
+    "name": "Core HUD Debug",
+    "stage": "Add DOM/CSS HUD overlays driven only by global state: current score, keycard counter, score goal progress, exit open status, and debug state functions for vehicle, physics, objectives, score. Use ARIA live regions for score and keys, hand-lettered SVG headings for panel titles, and visible focus states. Wire debug API so each visible mechanic can be inspected.",
+    "done": "While playing, the HUD shows live score, 0/3 keys, score goal progress, and whether the exit is open.",
+    "reads": [
+      "# 2. CONTRACTS",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.7 Objectives [Tier 1]",
+      "## 4.8 Score [Tier 1]",
+      "# 7. UX",
+      "## HUD",
+      "## HTML/CSS rules",
+      "# 8. DEBUG API"
+    ]
+  },
+  {
+    "name": "Pause Settings Flow",
+    "stage": "Add pause, settings, and restart flow for the current level: Esc/P opens pause, Resume/Restart/Settings/Quit to Level Select are reachable, settings expose difficulty, remappable keys, reduced motion, colorblind mode, and volume sliders. Pause stops simulation and input except UI navigation; reduced motion disables shake, particles, trails, and bloom. Keep title and win/end screens for final stage but allow in-level navigation.",
+    "done": "Pressing Esc pauses the game, settings can remap controls and toggle accessibility, and Restart returns to a fresh level attempt.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.2 Important conventions",
+      "# 2. CONTRACTS",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 7. UX",
+      "## Screens state machine",
+      "## HTML/CSS rules",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.3 Input and Steering [Tier 1]",
+      "## 4.42 Camera [Tier 1]"
+    ]
+  },
+  {
+    "name": "Timer and Difficulty",
+    "stage": "Add level timers that start when playing, pause with simulation, display MM:SS, warn at 30s with a HUD pulse hook, and trigger GameOver on expiry. Implement L1 Normal 5:00, Easy 6:15, Hard 3:45, and difficulty modifiers: Easy -25% score goal +25% time -50% guard detection -25% rival speed, Normal 0, Hard +25% score goal -25% time +25% guard detection +25% rival speed. Add fail reason and R/pause restart.",
+    "done": "The L1 timer counts down, warns at 30s, and ends the level if time expires; difficulty choices change the timer and score goal.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.2 Important conventions",
+      "# 2. CONTRACTS",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.28 Timers [Tier 3]",
+      "## 4.30 Difficulty Ramp [Tier 3]",
+      "# 7. UX",
+      "## Screens state machine",
+      "## HUD"
+    ]
+  },
+  {
+    "name": "Progression and Collectibles",
+    "stage": "Add L2 Produce Panic, L3 Frozen Maze, and L4 Checkout Chaos using the 4.1 rosters, with L2 70x45 score goal 3000, L3 80x55 goal 5500, L4 90x60 goal 8000. Add level unlock chain, level-select cards with locked state and best score, landmarks, checkpoints, and spawn activation from keys or landmarks. Add Coins, Item Tags, Keycards, and Secret Tokens with auto or manual collection, Coupon Tokens banking, rewards, and two optional side quests per level.",
+    "done": "Completing L1 unlocks L2, the level-select screen shows unlocked levels, and each new level contains its roster of keys, coins, tags, secrets, landmarks, checkpoints, and side quests.",
+    "reads": [
+      "# 2. CONTRACTS",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.1 Records and Rosters",
+      "## 4.6 Map / World [Tier 1]",
+      "## 4.11 Collectibles [Tier 2]",
+      "## 4.12 Rewards [Tier 2]",
+      "## 4.15 Landmarks [Tier 2]",
+      "## 4.20 High Scores [Tier 2]",
+      "## 4.21 Spawn Points [Tier 2]",
+      "## 4.22 Unlocks [Tier 2]",
+      "## 4.26 Currency [Tier 2]",
+      "## 4.29 Secrets [Tier 3]",
+      "## 4.39 Side Quests [Tier 3]",
+      "## 4.40 Progression and Difficulty",
+      "# 7. UX",
+      "## Screens state machine"
+    ]
+  },
+  {
+    "name": "Movement Upgrades",
+    "stage": "Add Dash with Shift, 1.2s cooldown, 10m/s impulse, 0.35s duration, blue trail, and 0.02m shake; add Boost pads, dash-through boost pad scoring, Air Flip, and Coupon Magnet as special moves. Add Bounce pads with 8m/s impulse, object bounce restitution 0.5, and bounce trick score 75. Add traps: spills, falling signs, conveyors, ice floors, and tip shelves using the per-level counts and effects.",
+    "done": "Player can dash through boost pads for extra speed and score, use magnet and air flip, bounce on pads, and feel the effects of spills, signs, conveyors, ice, and tip shelves.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "## 4.2 Vehicle [Tier 1]",
+      "## 4.9 Dash [Tier 2]",
+      "## 4.14 Boosts [Tier 2]",
+      "## 4.17 Abilities / Special Moves [Tier 2]",
+      "## 4.18 Traps [Tier 2]",
+      "## 4.19 Bounce [Tier 2]",
+      "# 3. VISUAL SPEC",
+      "# 7. UX",
+      "## HUD"
+    ]
+  },
+  {
+    "name": "Item Interaction Loop",
+    "stage": "Add E pick up/drop, 3-slot inventory, and rules for small objects versus large crates. Add Throw with Q at 18m/s plus 2m/s upward bias, Target hits, thrown tags into bins, and Push/Pull with 120N push, 80N pull, attach radius 1.5m, detach greater than 3m, and crate or ice scoring on plates or bins. Add Item Tag matching: three same kind complete match for 500 base score and 5 Coupon Tokens, with inventory full hints and match meter HUD.",
+    "done": "Player can pick small items, throw them at targets or bins, push crates onto pressure plates, and complete three matching Item Tags for a match reward.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "## 4.5 Physics Objects [Tier 1]",
+      "## 4.10 Pick Up and Drop [Tier 2]",
+      "## 4.13 Matches [Tier 2]",
+      "## 4.16 Throw [Tier 2]",
+      "## 4.23 Push and Pull [Tier 2]",
+      "## 4.25 Inventory Limit [Tier 2]",
+      "# 3. VISUAL SPEC",
+      "# 7. UX",
+      "## HUD"
+    ]
+  },
+  {
+    "name": "Pressure and Enemies",
+    "stage": "Add opponent AI for Rival carts and Security Guard carts using patrol waypoints, no jumping, and collision. Add Guard detection cone 90 degrees 15m, aggro 10s, chase 9.5m/s, catch within 1.2m for 0.5s, 3 strikes fail, 10% currency penalty, combo reset, respawn, and safe-zone escape. Add Rival race when exit opens, finish times, +500 rank adjustment for beating all rivals, -1000 if any rival finishes first, and knocking rivals into bins for 150 score and 12 tokens.",
+    "done": "Guards can detect, chase, catch, and fail the player, while rivals race to the exit and can be beaten or knocked into bins.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "## 4.12 Rewards [Tier 2]",
+      "## 4.15 Landmarks [Tier 2]",
+      "## 4.21 Spawn Points [Tier 2]",
+      "## 4.24 Opponents [Tier 2]",
+      "## 4.34 Guards [Tier 3]",
+      "## 4.35 Flee [Tier 3]",
+      "## 4.36 Rivals [Tier 3]",
+      "# 5. CHARACTERS",
+      "## Rival Cart",
+      "## Security Guard Cart",
+      "# 7. UX",
+      "## HUD"
+    ]
+  },
+  {
+    "name": "Final Screens Feel",
+    "stage": "Add title, polished level-select, win, game-over, high-scores, and leaderboard screens with initials, top 10, and rank reveal. Fill HUD gaps for combo, currency, inventory, match meter, hints, prices, medal preview, and strike counter. Add synth music loop at 110 BPM and all synthesized SFX, plus screen shake, particles, hit flash, trails, bloom, color-blind icons and patterns, reduced motion, remappable keys, difficulty QA, and remaining score-structure systems such as combo, hints, prices, and medals.",
+    "done": "Player can start from title, play any unlocked level, see rank and leaderboard after win or fail, hear music and SFX, and use accessibility options without breaking the loop.",
+    "reads": [
+      "# 0. SCOPE",
+      "## 0.3 Tiers",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.27 Prices [Tier 3]",
+      "## 4.31 Hints [Tier 3]",
+      "## 4.33 Combos [Tier 3]",
+      "## 4.37 Medals / Ranks [Tier 3]",
+      "## 4.38 Leaderboard [Tier 3]",
+      "## 4.41 Feel",
+      "# 5. CHARACTERS",
+      "## Wobble Player Cart",
+      "## Rival Cart",
+      "## Security Guard Cart",
+      "# 6. AUDIO",
+      "# 7. UX",
+      "## Screens state machine",
+      "## HUD",
+      "# 9. TESTS",
+      "# 11. DEFINITION OF DONE",
+      "## Tier 4 Definition of Done"
+    ]
+  }
+]
+```

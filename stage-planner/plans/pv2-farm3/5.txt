@@ -1,0 +1,3 @@
+seed placement planting. Add `systems/placement.js` and `systems/crops.js` planting. From § 4.2 Placement (T1) and Crops (T1), add a minimal build panel opened by `B` with the four T1 seeds and loose `wood`, `stone`, and `fiber` objects. Show a dashed ghost outline, allow `R` rotate when applicable, cancel with `Q`, and place with `E` within 1.5 world units. Create 20 soil tiles near home; reject water, path, blocked, and occupied tiles. Placing a seed creates a `world.fields` entry at stage 0; placed loose objects are small colliders and can be picked up again.
+---
+The player enters build mode, places a seed on soil as a tiny dot, and can place/pick up loose material objects.

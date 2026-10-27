@@ -1,0 +1,13 @@
+Above are pairs of screenshots of a browser game, before and after a polish pass. Each pair is the same screen reached by the same inputs: first the earlier build, then the new one. Below are the design's visual spec and UX sections, which say how the game should look and read.
+
+A replay can drift: if the two screenshots of a pair show different screens (one the title, the other gameplay), the inputs landed differently, not the build; skip that pair. Two gameplay frames are the same screen even when the camera, the player or moving things are in different places: compare those. For each pair, judge what a player sees: can they read it (size, contrast, nothing clipped or overlapping), does it say what matters (HUD, goal, the important thing standing out), does it look like one finished game in the design's style.
+
+Then answer with JSON only, in this exact shape:
+
+{{"verdict": "better" | "same" | "worse", "why": "<one sentence naming what improved and what got worse>", "issues": [{{"screen": "<which screen>", "problem": "<what is still wrong or newly wrong in the new build, concretely>", "evidence": "<what its screenshot shows>"}}]}}
+
+"better" means the new build reads and looks better overall across these screens; "worse" means it is worse overall. "issues" lists at most five problems in the new build, the one that hurts a player most first.
+
+The design's visual spec and UX sections:
+
+{design}

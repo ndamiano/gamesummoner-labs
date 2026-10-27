@@ -1,0 +1,3 @@
+level select unlock. Add a `level_select` state with keyboard left/right selection and Enter load for L1-L3, showing lock icons for locked levels. On level completion, call `Unlocks.unlockLevel(nextId)` and persist unlocked level IDs in `localStorage`; show only unlocked levels as playable in the core slice.
+---
+After completing L1, the player can choose L2 from the level select, and after L2 can choose L3.

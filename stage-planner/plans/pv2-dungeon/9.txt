@@ -1,0 +1,3 @@
+title screens polish. From §7.1, §7.2, §7.3, §7.4, §6, §3, and §1.2, add the title, settings, pause, and win screens; fill HUD gaps with #hud-currency showing integer coins gray at 0; add Web Audio chiptune recipes for jump, attack, hit, death, coin, checkpoint, door, boss, and win; add screen shake max 0.08 m, particles, trails, and full hit-flash polish; and implement difficulty, remappable keys, reduced motion, and colorblind palette.
+---
+A player starts on a title screen, can pause and change settings, hears chiptune feedback, sees the full HUD, and reaches a complete win screen.

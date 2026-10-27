@@ -1,0 +1,3 @@
+static dockside world. Create index.html, css/main.css, and a canvas #game showing a static Dockside layout: 500 × 500 m docks, shipping crates, warehouses, streetbike spawns, 2 hiding spots, 6 climbables, 1 shop, 1 landmark. Draw the warm dusk look with sun #FFB347 to #FF7B00, sky #FFD166/#B3261E/#3B1F0B, long shadows, warm haze, and no player or HUD.
+---
+The browser shows a still Dockside street with warm haze and long shadows, no controls or player.

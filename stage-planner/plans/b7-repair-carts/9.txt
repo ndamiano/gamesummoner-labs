@@ -1,0 +1,3 @@
+movement upgrades. Add Dash with Shift, 1.2s cooldown, 10m/s impulse, 0.35s duration, blue trail, and 0.02m shake; add Boost pads, dash-through boost pad scoring, Air Flip, and Coupon Magnet as special moves. Add Bounce pads with 8m/s impulse, object bounce restitution 0.5, and bounce trick score 75. Add traps: spills, falling signs, conveyors, ice floors, and tip shelves using the per-level counts and effects.
+---
+Player can dash through boost pads for extra speed and score, use magnet and air flip, bounce on pads, and feel the effects of spills, signs, conveyors, ice, and tip shelves.

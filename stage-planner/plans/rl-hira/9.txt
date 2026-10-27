@@ -1,0 +1,3 @@
+title hud audio. From § 7.1 and § 7.2, add BOOT -> TITLE, title buttons for start, settings, and level select, and a pause overlay with resume, restart, settings, and level select. Bind #hud-score from § 7.3 to GameState.score.current as a hand-lettered number in the top-right, visible only in playing, question, pause, win, and fail modes. Add audio.js from § 6 with the soft Web Audio recipes for ui_click, move, blocked, interact, question_open, option_select, correct, wrong, fail, win, music_title, and music_gameplay, keeping all frames reduced-motion-safe.
+---
+Player can title-start into Level 1, pause, fail or win with calm screens, see only the score HUD, and hear soft tones and folk loops.

@@ -1,0 +1,122 @@
+```json
+[
+  {
+    "name": "Draw Tower Floor",
+    "stage": "Create index.html, style.css, src/config.js, src/rng.js, a fixed-step loop, an integer-scaled 256x160 canvas, a pixel font, and the Okabe-Ito palette. Draw one static floor-1 map from data/maps.js on the 16x10 grid, including bricks, ladders, exit, sky, and the faded floor numeral. No player, enemies, cards, or input actions are active yet.",
+    "done": "The player opens the page and sees the full first tower screen drawn in the game's pixel-art look, with nothing moving.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.1 Module layout",
+      "# 3. VISUAL SPEC",
+      "## 4.1 Records and rosters",
+      "### Maps (data/maps.js)."
+    ]
+  },
+  {
+    "name": "Move Professor Mittens",
+    "stage": "Add Professor Mittens at P with idle, walk, climb, fall, land, and hurt sprites. Implement Left/Right/Up/Down movement with 2 Move points, facing, ladder rules, standable checks, gravity, fall damage max(0, fallen - 2), and a simple Move pips HUD. Do not add enemies, cards, or End Turn yet.",
+    "done": "The player can control Mittens with arrows, spend 2 Move points, climb ladders, and feel fall damage while the Move pips decrease.",
+    "reads": [
+      "## 4.4 Movement, climbing, falling (T1)",
+      "## 1.1 Units, axes, frames",
+      "## 2.3 Module specifics",
+      "# 5. CHARACTERS",
+      "# 7. UX"
+    ]
+  },
+  {
+    "name": "Place Enemy Targets",
+    "stage": "Load floor-1 e slots and spawn two Dust Bunnys with their sprites, HP, facing, and blocked-tile behavior. Apply stomp when the player falls onto an enemy, dealing 2 * fallen damage, playing hit flash, damage numbers, death particles, and score for the kill. Keep enemy AI, intents, cards, and the turn loop inactive.",
+    "done": "The player sees Dust Bunnys in the level and can stomp one to damage and kill it.",
+    "reads": [
+      "## 4.1 Records and rosters",
+      "## 4.4 Movement, climbing, falling (T1)",
+      "## 4.6 Enemies, health, damage, run structure (T1)",
+      "# 3. VISUAL SPEC",
+      "# 5. CHARACTERS",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Draw Hand and Energy",
+    "stage": "Build the deck piles and starter deck, reset draw/hand/discard/exhaust each floor, draw 5 at turn start, enforce the 10-card hand cap, and shuffle discard into draw with G.rng. Add the HTML hand, energy gems, card selection, Tab target cycling, and range preview UI, but do not apply card effects yet.",
+    "done": "The player sees a five-card hand, three Energy gems, and can select a card to preview its range.",
+    "reads": [
+      "## 4.3 Deck, hand, draw/discard, deck building (T1)",
+      "## 4.1 Records and rosters",
+      "# 3. VISUAL SPEC",
+      "# 7. UX",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Play Cards and Nova",
+    "stage": "Implement canPlay and playCard for all 16 section 4.1 T1 cards, paying Energy, applying damage/heal/draw/move/energy effects, exhaust, and card-flight/spell-particle events. Add Nine-Lives Nova charge +1 per card played, the Nova meter HUD, and Q firing 6 damage within 3 tiles at charge 6.",
+    "done": "The player can play every T1 card from the hand and fire Nine-Lives Nova when the meter reaches 6.",
+    "reads": [
+      "## 4.1 Records and rosters",
+      "## 4.3 Deck, hand, draw/discard, deck building (T1)",
+      "## 4.8 Special move and difficulty (T1)",
+      "# 3. VISUAL SPEC",
+      "# 5. CHARACTERS",
+      "# 7. UX",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Enemy Phase Loop",
+    "stage": "Implement the player/enemy turn loop: start-of-turn energy/moves/draw/planIntents, E to discard the hand, enemy actions in uid order with intent icons, BFS movement, attacks that whiff if the player left range, stun, player damage/death, combo and score updates, and the HP/turn/end-turn HUD. Use the existing event hooks for hurt flash, damage numbers, shake, and particles, while keeping objectives, rewards, floors, boss, and final screens inactive.",
+    "done": "Pressing E resolves the enemy phase, updates HP and turn count, and starts the next player turn with a fresh hand.",
+    "reads": [
+      "## 4.2 Turn loop (T1)",
+      "## 4.6 Enemies, health, damage, run structure (T1)",
+      "## 4.1 Records and rosters",
+      "# 3. VISUAL SPEC",
+      "# 5. CHARACTERS",
+      "# 7. UX",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Floor Reward Loop",
+    "stage": "Add floor objectives for reach/defeat, exit opening, hint text, bonus objective tracking, walking into X to enterExit, the reward screen with 3 distinct non-starter card offers or skip for +15 coins, coins 10 + 5 * floor, heal 3, and loadFloor progression through floors 1-4 with seeded map variants. Keep the boss, title/pause/settings/end screens, and audio pass inactive.",
+    "done": "The player meets a floor objective, walks into the opened exit, picks a reward or skip, and continues to the next floor.",
+    "reads": [
+      "## 4.5 Objectives and the exit (T1)",
+      "## 4.3 Deck, hand, draw/discard, deck building (T1)",
+      "## 4.1 Records and rosters",
+      "## 4.6 Enemies, health, damage, run structure (T1)",
+      "# 3. VISUAL SPEC",
+      "# 7. UX",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Grand Vacuum Boss",
+    "stage": "Add floor 5 with the 2x2 Grand Vacuum, Suck/Slam/Spawn intent cycle, red/black striped Slam telegraph, enrage at HP <= 30, minions vanishing when the boss dies, and the boss objective opening the exit. Keep final title/pause/settings/end screens and audio pass inactive.",
+    "done": "The player can fight the Grand Vacuum, defeat it, see the exit open, and enter it to reach the win state.",
+    "reads": [
+      "## 4.7 Boss: Grand Vacuum (T1)",
+      "## 4.1 Records and rosters",
+      "# 3. VISUAL SPEC",
+      "# 5. CHARACTERS",
+      "# 7. UX",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Finish Screens and Feel",
+    "stage": "Add the screen state machine and final overlays: title, pause with deck view, settings with volumes/reduced motion/palette/key remap/difficulty, game over, win, and high scores. Fill remaining HUD gaps and add all section 6 SFX/music plus section 4.9 shake, particles, hit flash, damage numbers, hitstop, and reduced-motion behavior. Do not add Tier 2 or Tier 3 systems.",
+    "done": "The player can start from the title, pause, adjust settings, win or die and view the matching end screen, while every action has final audio and feel.",
+    "reads": [
+      "# 7. UX",
+      "# 6. AUDIO",
+      "## 4.9 Feel (T1)",
+      "# 3. VISUAL SPEC",
+      "# 5. CHARACTERS",
+      "## 4.8 Special move and difficulty (T1)"
+    ]
+  }
+]
+```

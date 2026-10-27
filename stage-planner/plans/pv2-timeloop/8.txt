@@ -1,0 +1,3 @@
+pause settings access. Add the paused state and settings screen: Esc freezes fixed-step updates and shows a pause overlay with Resume, Settings, and Quit. Implement settings for difficulty easy/normal/hard, remappable actions, reduced motion, colorblind symbols, and volume placeholders, then apply settings before rendering and store them only in memory. Wire settings to memory preview times and colorblind symbol overlays.
+---
+The player can pause, adjust settings, and return to the running loop with accessibility and difficulty choices applied.

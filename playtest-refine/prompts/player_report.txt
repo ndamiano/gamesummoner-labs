@@ -1,0 +1,8 @@
+The session is over. Report what a player runs into in this game, as JSON only, in this exact shape:
+
+{"observations": [{"moment": "<what you were doing>", "problem": "<what got in the way of playing: what you could not see, could not tell, could not do, or did not understand>", "evidence": "<what the screenshots showed>"}], "reached": "<how far into the game you got>"}
+
+Rules:
+- At most five observations, the one that hurt playing most first.
+- Each is something you saw happen in this session, not a guess about the code and not a rating.
+- If nothing got in the way, an empty list is the answer.

@@ -1,0 +1,9 @@
+A user asked for: {ask}
+
+Your design team wrote the build spec in `design/design.md`. We are building the game in stages, the way a person would: each stage starts from a game that runs and ends on one that runs with one more thing in it. Read the design sections this stage names, and only as much of the rest as you need.
+{carry}
+The stages: 1 the floor · 2 Mittens · 3 turns and a first enemy · 4 cards · 5 every enemy · 6 the climb · 7 rewards · 8 the boss · 9 the finish. This is stage {n}.
+
+Stage {n}: {stage}
+
+When it is done: {done} Check that by playing it. Keep everything earlier stages built working. You have {budget} turns for this stage; call done() when the stage plays, with a line on what you built.

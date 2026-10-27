@@ -1,0 +1,3 @@
+wobble cart controls. Map all named input actions from 4.3 through a remappable action layer, implement Wobble player record, fixed-step vehicle step with 25kg mass, 9 m/s2 acceleration, 12 m/s top speed, 6 m/s reverse, speed-scaled yaw 30 + 150 * clamp(speed / 12, 0, 1) deg/s, and a third-person chase camera offset -5.0m Z +2.5m Y FOV 70 smoothing 8.0. Do not add jump or scoring.
+---
+The player drives the cart freely through the static L1 aisles and the camera follows it.

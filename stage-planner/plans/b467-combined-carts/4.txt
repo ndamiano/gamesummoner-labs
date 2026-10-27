@@ -1,0 +1,3 @@
+keycards exit win. Add L1 objectives: 3 auto-collected Keycards, a Key counter, and Exit Pad logic. Open the exit only when keysCollected==3 and baseScore>=1500, change the gate from gray lock to green check, and make holding the Exit Pad for 1.5s win the level. Place 3 Keycards in L1 and show minimal objective counters so the loop can be checked.
+---
+The player can collect 3 Keycards, reach 1500 base score, see the exit open, hold the Exit Pad for 1.5s, and win L1.

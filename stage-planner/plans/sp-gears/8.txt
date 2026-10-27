@@ -1,0 +1,3 @@
+progression hints. Add Levels 4-7 from the Level roster and solved layouts, including their cellsCount, gearCounts, optimal, silverMax, hints, and estMin fields. Implement sequential unlock: completing Level N sets progress.unlockedLevel = max(current, N+1), and Level Select shows locked levels dimmed with a hand-drawn padlock glyph. Add hint steps in Pause with openHint, nextHint, and closeHint, capped at index 2 and incrementing attempt.hintsUsed for each opened step. Respect the difficulty ramp table for Cells, Optimal, Silver max, and Est. min.
+---
+A player can complete sequential Levels 4-7, see later levels unlock with padlocks, and receive up to three text hints from Pause without board highlights.

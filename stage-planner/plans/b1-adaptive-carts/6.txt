@@ -1,0 +1,3 @@
+pause settings flow. Add pause, settings, and restart flow for the current level: Esc/P opens pause, Resume/Restart/Settings/Quit to Level Select are reachable, settings expose difficulty, remappable keys, reduced motion, colorblind mode, and volume sliders. Pause stops simulation and input except UI navigation; reduced motion disables shake, particles, trails, and bloom. Keep title and win/end screens for final stage but allow in-level navigation.
+---
+Pressing Esc pauses the game, settings can remap controls and toggle accessibility, and Restart returns to a fresh level attempt.

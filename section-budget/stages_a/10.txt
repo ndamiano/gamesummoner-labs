@@ -1,0 +1,3 @@
+audio pass (§6). Every §6 SFX and the 5 music tracks.
+---
+every sound effect and music track of §6 plays at its moment, through `lib/audio.js`.

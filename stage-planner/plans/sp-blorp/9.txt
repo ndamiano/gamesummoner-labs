@@ -1,0 +1,3 @@
+title end feel. Replace placeholder overlays with src/ui/screens.js, src/ui/settings.js, src/ui/hud.js, and src/audio/audio.js. Add title, pause, settings, game over, and win screens following the state machine, complete HUD visibility for #health, #score, #ammo, and #combo, and add settings for difficulty, reduced motion, and remappable keys. Add chiptune music and cartoon SFX from the audio table, plus screen shake, hit flash, particles, trails, squash, and colour-blind patterns; reduced motion must disable non-essential juice. Keep the final exit reachable from title to win or game over.
+---
+Player can start from a title screen, play with full HUD, audio, and accessibility options, pause/settings, and finish at win or game over.

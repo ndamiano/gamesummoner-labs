@@ -1,0 +1,3 @@
+physics vehicle driving. Add physics objects and a streetbike: F picks/drops any object with mass ≤ 120 kg, and V enters/exits a streetbike with 22 m/s speed, 6 m/s² acceleration, 0.9 handling, and A/D steering. Show crate pickup prompts and vehicle interaction only in the world canvas.
+---
+Player can pick/drop a crate and enter/drive a streetbike, steering with A/D and stopping with S.

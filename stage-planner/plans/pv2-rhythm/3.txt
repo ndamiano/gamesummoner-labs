@@ -1,0 +1,3 @@
+level one note motion. Implement §4 Note charts and matches for level_01 Warm-Up Séance: seed crc32(level_01), generate 72 normal notes after the 4-beat count-in, compute hit_time from levelStartAudioTime + countInSeconds + beat * beatInterval, spawn at hit_time - 1200ms, and move notes down their lanes at 533.33 px/s toward the §1.1 hit line. Use the fixed 120Hz simulation and audio clock from §1.2. Do not add hit evaluation, scoring, or miss counting.
+---
+The player sees level_01 notes appear above the canvas and slide down their matching lanes to the hit line.

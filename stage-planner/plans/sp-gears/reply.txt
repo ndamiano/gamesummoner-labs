@@ -1,0 +1,165 @@
+```json
+[
+  {
+    "name": "Draw Level 1 Board",
+    "stage": "Create index.html, css/reset.css, css/ui.css, css/board.css, src/main.js, src/state.js, src/levels.js, and src/render.js. Draw the cream paper viewport and a static SVG board for Level 1 using §4.1: source at 0,1:[1], target at 2,1:[3], and one L2 gear at 1,1 with rot after scramble R(1,1,+1). Paint unpowered gear body #C7CDD6, stroke #4A5568, hollow centre, dashed arm outline, source #D8E3D8, and target unlit #C2C9D8. Do not attach pointer handlers, actions, power, or HUD.",
+    "done": "A player sees a static cream-paper Level 1 board with source, target, and one unpowered L2 gear, and no interaction.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "# 2. CONTRACTS",
+      "## 2.1 Module layout",
+      "## 2.2 Global context",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.1 Records and rosters",
+      "### Entities",
+      "### Gear roster",
+      "### Level roster overview",
+      "### Level solved layouts and scrambles",
+      "# 5. CHARACTERS",
+      "## 7.3 HUD"
+    ]
+  },
+  {
+    "name": "Cursor Rotate Actions",
+    "stage": "Add src/input.js and src/rules.js rotate logic so pointer hover sets input.hovered, left pointer down sets input.selected, and dashed selection ring/hover ring appear from §3. Left pointer up on same gear commits clockwise rotate with rot = (rot + 1) % 4; right pointer down commits counter-clockwise with rot = (rot + 3) % 4. Queue rotate animations for 180 ms, or 0 ms when settings.reducedMotion is true, while keeping power unchanged. Invalid targets such as source, target, and walls must not change state.",
+    "done": "A player can hover and select a gear, left-click to rotate it clockwise, right-click to rotate counter-clockwise, and see 180 ms or 0 ms rotation animation.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.2 Core systems",
+      "### Input and Action — Tier 1",
+      "### Rotate — Tier 1",
+      "# 5. CHARACTERS"
+    ]
+  },
+  {
+    "name": "Adjacent Gear Swap",
+    "stage": "Extend input and rules with canSwap and swap so dragging from one gear to an adjacent gear and releasing exchanges the gear objects while fixed connectors stay fixed. Reject diagonal, distance > 1, source, target, and wall targets without incrementing attempt.moves. Queue swap animations for 220 ms or 0 ms under reduced motion, and show the drag ghost and invalid target short thick line from §3. Do not compute power or objective yet.",
+    "done": "A player can drag one gear onto an adjacent gear and see the two gear objects exchange, while invalid drops show a short thick invalid-target line and no state change.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.2 Core systems",
+      "### Input and Action — Tier 1",
+      "### Swap — Tier 1",
+      "# 5. CHARACTERS"
+    ]
+  },
+  {
+    "name": "Power Path Visuals",
+    "stage": "Add rules.computePower as a deterministic BFS from source connectors through matching effective connectors, recomputing after every committed rotate or swap. Populate board.power and board.targetPowered, and render powered gears with #F6D89E body, solid centre dot, and solid arms versus unpowered hollow grey-blue shapes. Keep source arms always active and target unlit until power reaches it. Do not complete the level yet.",
+    "done": "A player sees matching gear arms become warm peach with solid centre dots as power propagates from the source, while unpowered gears stay grey-blue and hollow.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.2 Core systems",
+      "### Power / Objective — Tier 1",
+      "# 5. CHARACTERS"
+    ]
+  },
+  {
+    "name": "Lamp Completion Return",
+    "stage": "Add rules.isSatisfied and progress.completeLevel so when every target connector has a matching powered adjacent gear, attempt.completed becomes true and the game returns to a minimal level_select mode. Build a simple Level Select list with Level 1 enabled and loadLevel(1) restoring the scrambled initial state; completion must not show win or lose screens. Keep the existing rotate and swap flow unchanged. This gives one full round: load Level 1, power the lamp, and return to Level Select.",
+    "done": "A player can complete Level 1 by powering the lamp, then see the game return to a Level Select that can start Level 1 again.",
+    "reads": [
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.2 Core systems",
+      "### Power / Objective — Tier 1",
+      "## 4.5 Progression and difficulty",
+      "# 7. UX",
+      "## 7.1 State machine",
+      "## 7.2 Screens",
+      "## 7.3 HUD"
+    ]
+  },
+  {
+    "name": "Title Pause Settings",
+    "stage": "Add title, pause, and settings screens with setMode routing from title to level_select, and a pause overlay with Resume, Restart, and Settings. Implement restartLevel to restore the current level's initial cells and reset attempt.moves while preserving unlockedLevel and current hintsUsed if any. Add settings toggles for music, sfx, and reducedMotion that write G.settings and affect animation duration; leave audio silent for now. Ensure no HUD elements appear inside the playing viewport.",
+    "done": "A player can reach the game from a title screen, pause during play, restart without winning or losing, and change Music, SFX, and Reduced Motion settings.",
+    "reads": [
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 7. UX",
+      "## 7.1 State machine",
+      "## 7.2 Screens",
+      "## 7.3 HUD"
+    ]
+  },
+  {
+    "name": "Levels Two Three",
+    "stage": "Author Level 2 and Level 3 in src/levels.js from §4.1 solved layouts and scrambles: Level 2 source 0,1:[1], target 2,0:[2], cells 1,1:L2@1 and 2,1:E2@3 scrambled by S(1,1,2,1); Level 3 uses its listed 4×2 layout and scramble. Add both to Level Select as enabled Tier 1 entries. Verify each initial state is unsolved and each solved layout yields targetPowered true by applying the inverse scramble. Do not add sequential unlocks, hints, or Tier 2 levels.",
+    "done": "A player can open Level Select, choose Level 2 or Level 3, and complete those short Tier 1 puzzles using rotate and swap.",
+    "reads": [
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.1 Records and rosters",
+      "### Level roster overview",
+      "### Level solved layouts and scrambles",
+      "## 4.2 Core systems",
+      "### Puzzle Types — Tier 1 system, Tier 2 expanded content",
+      "## 4.5 Progression and difficulty"
+    ]
+  },
+  {
+    "name": "Progression Hints",
+    "stage": "Add Levels 4-7 from the Level roster and solved layouts, including their cellsCount, gearCounts, optimal, silverMax, hints, and estMin fields. Implement sequential unlock: completing Level N sets progress.unlockedLevel = max(current, N+1), and Level Select shows locked levels dimmed with a hand-drawn padlock glyph. Add hint steps in Pause with openHint, nextHint, and closeHint, capped at index 2 and incrementing attempt.hintsUsed for each opened step. Respect the difficulty ramp table for Cells, Optimal, Silver max, and Est. min.",
+    "done": "A player can complete sequential Levels 4-7, see later levels unlock with padlocks, and receive up to three text hints from Pause without board highlights.",
+    "reads": [
+      "# 2. CONTRACTS",
+      "## 2.3 Module specifics",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.1 Records and rosters",
+      "### Level roster overview",
+      "### Level solved layouts and scrambles",
+      "## 4.2 Core systems",
+      "### Puzzle Types — Tier 1 system, Tier 2 expanded content",
+      "## 4.3 Supporting systems",
+      "### Unlocks — Tier 2",
+      "### Hints — Tier 2",
+      "### Difficulty Ramp — Tier 2",
+      "## 4.5 Progression and difficulty",
+      "# 7. UX",
+      "## 7.1 State machine",
+      "## 7.2 Screens"
+    ]
+  },
+  {
+    "name": "Rewards Audio Polish",
+    "stage": "Add medals evaluation for Bronze, Silver with moves <= silverMax and hintsUsed <= 1, Gold with moves <= optimal and hintsUsed == 0, and rank thresholds for novice, assistant, keeper, and lighthouse_keeper. Add decoration unlocks and apply functions for paper_cream, paper_fog, paper_seafoam, ink_dusk, and ink_ember, plus the three cutscenes cut_l2, cut_l5, and cut_l7 with immediate skip under reduced motion. Implement WebAudio music_loop and the listed soft SFX recipes, wiring them to hover, select, rotate, swap, invalid, hint, complete, button, and toggle events. Verify no HUD, no particles, no win/lose state, reduced motion duration 0, and audio respects settings, then finish hand-lettered title, end panels, and cozy feel without changing core rules.",
+    "done": "A player sees medals, ranks, decorations, skippable static cutscenes, and hears the cozy music and soft action tones, with no HUD or particles.",
+    "reads": [
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.4 Extra systems",
+      "### Medals / Ranks — Tier 3",
+      "### Decoration — Tier 3",
+      "### Cutscenes — Tier 3",
+      "## 4.6 Feel",
+      "# 6. AUDIO",
+      "# 7. UX",
+      "## 7.1 State machine",
+      "## 7.2 Screens",
+      "## 7.3 HUD"
+    ]
+  }
+]
+```

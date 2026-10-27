@@ -1,0 +1,3 @@
+materials currency hud. Implement resource records for 'driftwood', 'algae', 'shell_shard', 'pearl', and 'shell_coin' with material caps 120 each and Shell Coin cap 30. Initialize state with 20 Driftwood, 12 Algae, 4 Shell Shard, 0 Pearl, and 0 Shell Coin, and clamp additions to caps. Add HUD pills with icons and labels for materials and currency.
+---
+When it works, the HUD shows current materials and Shell Coin with caps 120/30 and initial 20/12/4/0/0.

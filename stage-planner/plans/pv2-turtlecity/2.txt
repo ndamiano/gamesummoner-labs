@@ -1,0 +1,3 @@
+cursor glove control. Add the Shellwright cartoon glove as the visible player control, following pointerMove and showing idle/point/pick/drop visual states. Wire pointerDown, pointerMove, and pointerUp into an input state so hovering or clicking a grid cell highlights it, but no world object changes. Keep no locomotion; the glove only represents cursor actions and future action shortcuts.
+---
+When it works, the player sees the Shellwright glove follow the pointer and can hover or click grid cells without changing the world.

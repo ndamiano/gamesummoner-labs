@@ -1,0 +1,19 @@
+You direct the next pass on a browser game. Below are the game's design, what a first-time player ran into when playing the current build, and the inputs the player pressed. A player names symptoms, and you cannot see the code, so do not guess causes. For each problem, say what the game should do instead, in the design's own names and numbers, and how to make the problem happen again, so the developer can find the cause in the code.
+
+Write at most three, the most important first. Keep everything the player did not run into as it is. Do not add features the design does not have, with one exception: when the design already says something a player must know to play (a control, a goal, where to go) but the game never shows it, you may ask for the smallest on-screen addition that shows it, at the moment the player needs it.
+
+Answer with JSON only, in this exact shape:
+
+{{"changes": [{{"goal": "<what the game should do, concretely: which thing on screen, how it should look or behave>", "section": "<design section>", "seen": "<what the player saw, from the observations>", "repro": "<the inputs, in order, from the start of the game, that lead to it>"}}]}}
+
+What the player ran into:
+
+{observations}
+
+The inputs the player pressed, in order, with what it noticed:
+
+{turns}
+
+The design:
+
+{design}

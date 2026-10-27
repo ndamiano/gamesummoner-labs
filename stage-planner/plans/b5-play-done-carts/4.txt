@@ -1,0 +1,3 @@
+physics goals and score. Add dynamic ItemRecords for §4.5 physics objects using L1 counts: 12 cans, 10 apples, and 4 crates. Add goal bins and pressure plates, then score Can into can bin for 50 base/2 Coupon Tokens, Apple into produce bin for 100/4, and Crate on plate for 100/8, setting scored=true and using enter-once triggers. Show a small floating score/currency number for each scored event.
+---
+The player knocks a can into a can bin or pushes a crate onto a plate and sees the score/currency increase by the design values.

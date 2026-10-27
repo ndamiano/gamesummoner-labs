@@ -1,0 +1,3 @@
+defend point outcome. Implement the defend-point objective and level outcome: subtract `leakDamage` (`5` for `gull_snatcher`, `10` for `raccoon_bandit`) when enemies reach `(8,4)` against base health `100`, set `ctx.mode = 'restartBanner'` and show 'Market Flopped! Restarting...' for `2.5s` when health <= 0, then call `restartLevel()`; when all waves are complete, enemies are empty, and health > 0, set `completeBanner`, show 'Market Closed Safely' for `2.5s`, then exit to a temporary level-select stub.
+---
+If fish thieves leak enough, the player sees the restart banner and the level resets; clearing all three waves shows the complete banner and exits the level.

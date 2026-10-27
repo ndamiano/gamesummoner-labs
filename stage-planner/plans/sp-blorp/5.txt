@@ -1,0 +1,3 @@
+exit win objective. Implement src/objectives/objectives.js and the Zone 1 exit trigger. Keep zone1.reach_exit active, detect the 3 x 3 exit pad, require 2.0 seconds standing on it to set win, and set game over if lives reach 0. Add a temporary win/game-over overlay and a minimal screen state for PLAY, WIN, and GAME_OVER; full screens come later.
+---
+Standing on the green exit pad for 2 seconds shows a win state, and running out of lives shows a game-over state, so one full run can be completed.

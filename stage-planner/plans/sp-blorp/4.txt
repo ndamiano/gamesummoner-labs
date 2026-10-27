@@ -1,0 +1,3 @@
+falling health lives. Implement src/player/falling.js plus applyDamage and killPlayer. Start a fall when grounded is false and vel.y < 0, track fallStartY - currentY, apply 10 * (fallHeight - 8) damage above safe height 8, cap damage at health, treat y < -15 or impact height >= 18 as life loss, use max health 100 and Normal lives 5, and respawn at Zone 1 start after 1.5 seconds when lives remain. Add the #health HUD bar and lives inside that element, and show a simple game-over stop when lives reach 0.
+---
+Blorp takes fall damage, the health and lives bar updates, lethal falls or void deaths respawn Blorp at the start after 1.5 seconds, and zero lives stops the run.

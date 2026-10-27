@@ -1,0 +1,3 @@
+jump and fall. From §4.1.1 and §4.1.10, add jump/fall to the existing capsule: Space sets vertical velocity 9.5 m/s, releasing while vy > 3.0 sets vy = 3.0, coyote time 0.12 s, jump buffer 0.25 s, air control 12 m/s² with max horizontal 6.0, gravity 20.0 m/s², and terminal velocity 30.0 m/s. Add room.killY = room.floorY - 15 and respawn at the starting spawn when touched; leave fall HP damage until the health stage.
+---
+A player can jump, air-control, fall, and be caught by the room kill plane.

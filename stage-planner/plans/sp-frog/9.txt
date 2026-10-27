@@ -1,0 +1,3 @@
+title end polish. Add the Title screen and final Win/Game Over screens from §7.1, then close HUD gaps and pixel-font panels from §7.2 and §7.3. Add §6 chiptune and bleeps for jump, land, win, game over, UI, and pause, plus §4.44 squash, hit flash, screen shake, and particles with reduced motion fallbacks.
+---
+The game can be started from Title, played through to a final Win or Game Over, and paused with audio and feel active.

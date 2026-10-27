@@ -1,0 +1,3 @@
+cursor rotate actions. Add src/input.js and src/rules.js rotate logic so pointer hover sets input.hovered, left pointer down sets input.selected, and dashed selection ring/hover ring appear from §3. Left pointer up on same gear commits clockwise rotate with rot = (rot + 1) % 4; right pointer down commits counter-clockwise with rot = (rot + 3) % 4. Queue rotate animations for 180 ms, or 0 ms when settings.reducedMotion is true, while keeping power unchanged. Invalid targets such as source, target, and walls must not change state.
+---
+A player can hover and select a gear, left-click to rotate it clockwise, right-click to rotate counter-clockwise, and see 180 ms or 0 ms rotation animation.

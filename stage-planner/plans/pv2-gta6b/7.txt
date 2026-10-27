@@ -1,0 +1,3 @@
+main quest progression. Add data-driven main-quest progression for M2 through M13: quest-giver offers, objective chains, reward grants, unlock flags, key items such as ledger, chain_key, route_token, wetland_beacon, casino_debt, citadel_pass, and mini-boss spawns including Rustjaw, Warden, Twins, Mudback, Vice Baron. Add district bounds, gates, landmarks, spawn points, minimap markers, and a placeholder M map with fast travel.
+---
+Completing M2 grants the ledger and opens the Old Market gate, and the minimap shows discovered landmarks and spawn points.

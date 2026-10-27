@@ -1,0 +1,3 @@
+static lily lesson. Create index.html with #game-canvas, #ui-root, and #hud-root, then render a static 320×180 logical canvas at integer scale. Draw Lily Lesson using 16×16 solid tiles, the §3 palette, and the §4.4 L1 160×32 tile size, with the exit tile and decorative swamp props visible. Do not create player input, physics, entities, or movement.
+---
+Opening the page shows a still, readable first swamp level with platforms, exit, and Froggy Fen art but no moving player.

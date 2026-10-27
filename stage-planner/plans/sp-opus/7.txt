@@ -1,0 +1,3 @@
+floor reward loop. Add floor objectives for reach/defeat, exit opening, hint text, bonus objective tracking, walking into X to enterExit, the reward screen with 3 distinct non-starter card offers or skip for +15 coins, coins 10 + 5 * floor, heal 3, and loadFloor progression through floors 1-4 with seeded map variants. Keep the boss, title/pause/settings/end screens, and audio pass inactive.
+---
+The player meets a floor objective, walks into the opened exit, picks a reward or skip, and continues to the next floor.

@@ -1,0 +1,3 @@
+deckbuilding rewards. Implement chooseReward and applyReward from §4.9 and §4.12 for Add Card, Upgrade Card, and Remove Card: add weighted common 60/uncommon 30/rare 10 from the Roster: reward card pool, upgrade reduces cost by 1 to minimum 0 or increases effect by +1, remove deletes a card from deck, and minimum deck size 0. Make the reward screen mutate ctx.deck and then continue the run, while keeping all existing level, cards, enemies, and falling behavior intact.
+---
+The player can choose a reward after clearing Level 1 and see the chosen card added, upgraded, or removed in the next draw cycle.

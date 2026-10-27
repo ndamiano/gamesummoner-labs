@@ -1,0 +1,3 @@
+place build pieces. Add the Build panel and placement flow for exactly the Tier 1 pieces: 'driftwood_sprout', 'algae_patch', 'shell_barnacle', 'pearl_oyster', 'shell_coin_barnacle', 'storage_room', and 'growth_post'. Show a ghost footprint under the cursor, validate x=1..9,y=1..9, occupancy, cost, and max count, then place instantly on pointer release and deduct cost. Use green check/red slash ghost feedback and tooltips with cost, yield, timer, maxReady, and effect. At play start, pre-place 2 'driftwood_sprout', 2 'algae_patch', and 1 'shell_barnacle' without charging cost.
+---
+When it works, the player can open Build, select a Tier 1 piece, see a valid green or invalid red ghost, and place it while the cost is deducted.

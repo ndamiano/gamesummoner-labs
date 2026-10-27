@@ -1,0 +1,3 @@
+harvest and seed yield. Implement harvest with interact on mature plots: remove the crop, add sunleaf 3, cloudberry 2, or skyroot 2, and roll seed chance 50% for sunleaf, 75% for cloudberry, or 60% for skyroot to return one matching seed. Keep the plot plantable, prevent overripening, and never fail. Use the deterministic RNG for seed rolls and update inventory through the existing add/remove pair.
+---
+The player can harvest mature crops, receive fixed yields plus possible seeds, and replant the plot.

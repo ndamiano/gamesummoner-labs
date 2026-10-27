@@ -1,0 +1,3 @@
+rooms growth posts. Add room and structure effects: 'storage_room' increases material caps by 120, Shell Coin cap by 40, and max gathering spots by 6 while placed; 'growth_post' multiplies adjacent gathering intervals by 0.9 with a floor of 0.7 of base. Apply effects on placement and prepare removal hooks for later pick-up, with max 3 storage rooms and 3 growth posts. Update HUD caps and gathering timers when effects change.
+---
+When it works, placing 'storage_room' raises caps and max gathering, and placing 'growth_post' visibly speeds adjacent gathering intervals.

@@ -1,0 +1,3 @@
+the boss. Floor 5 holds the Grand Vacuum (§4.7): a 2×2 boss on the `V` slot with the Suck, Slam and Spawn cycle, striped warnings on the Slam columns, and enrage at 30 HP or below. Killing it opens the exit, and walking into it shows a win screen.
+---
+a full run from floor 1 through the Vacuum to the win screen can be played.

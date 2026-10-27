@@ -1,0 +1,3 @@
+enemy phase loop. Implement the player/enemy turn loop: start-of-turn energy/moves/draw/planIntents, E to discard the hand, enemy actions in uid order with intent icons, BFS movement, attacks that whiff if the player left range, stun, player damage/death, combo and score updates, and the HP/turn/end-turn HUD. Use the existing event hooks for hurt flash, damage numbers, shake, and particles, while keeping objectives, rewards, floors, boss, and final screens inactive.
+---
+Pressing E resolves the enemy phase, updates HP and turn count, and starts the next player turn with a fresh hand.

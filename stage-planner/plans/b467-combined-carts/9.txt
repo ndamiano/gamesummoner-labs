@@ -1,0 +1,3 @@
+audio juice. Add synthesized audio and feel. Start the 110 BPM synth loop with square bass root 110Hz, triangle arps 220-660Hz, and noise hats, and implement the 6 AUDIO recipes for coin, tag, match, keycard, secret, jump, land, dash, boost, bounce, throw, hit, score, target, guard, caught, fail, win, rank, magnet, and air flip. Add screen shake max 0.08m, particles, hit flash, trails, bloom threshold 0.7 intensity 0.3, and reduced motion that disables shake, particles, trails, bloom, and camera smoothing while keeping gameplay readable.
+---
+The player hears the synth loop and cartoony SFX, and sees shake, particles, flash, trails, and bloom during play, with reduced motion preserving readable gameplay.

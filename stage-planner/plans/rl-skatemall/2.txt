@@ -1,0 +1,3 @@
+player skate movement. Add the player capsule from § 4.1 and § 5.1, then implement § 4.2 free movement: WASD/arrows relative to camera yaw, max speed `5.5 m/s`, acceleration `18 m/s²`, ground friction `12 m/s²`, turn rate `240°/s`, and third-person camera follow at distance `6.2 m`, height offset `2.4 m`. Render the player as a dark capsule with cyan deck edge and a cyan trail, and keep L1 geometry as collision. The player can now roll through the world.
+---
+A player controls a skater in third person and can roll through the static mall.

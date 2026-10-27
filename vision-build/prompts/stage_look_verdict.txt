@@ -1,0 +1,5 @@
+The look is over. Did the game show what the stage promised? Answer with JSON only, in this exact shape:
+
+{"verdict": "shown" | "missing" | "unclear", "why": "<one or two sentences on what you saw, naming what was there and what was not>"}
+
+"missing" means the main thing the stage promised is not there or does not work: you got to where it should be and it was absent or broken. If the main thing works and only a smaller touch is absent (an effect, a sound, a particle, a polish detail), say "shown" and name what was absent in "why". If you could not get there, or are not sure, say "unclear", not "missing".

@@ -1,0 +1,3 @@
+loop fail reset. Implement failLevel and restartLevel: falling out of bounds y > level.height + 64 sets player.dead, shows a temporary gameover banner with Retry and Quit, and Retry reloads the same level with deterministic seed levelIndex * 10000 + attemptIndex. Reset player, camera, timers, memory ledges, and exit state to spawn records.
+---
+The player can fall off the level, see the loop reset prompt, and retry the same loop from the start.

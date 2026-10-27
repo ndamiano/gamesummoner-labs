@@ -1,0 +1,3 @@
+exit win state. Implement § 4.5 main objective and exit trigger: a cylinder radius `1.2 m`, height `3.0 m` at L1 exit `(28,-18,0)`, with cyan pulsing exit door from § 3. When the player enters it, call `objectives.completeMain()`, set objective state `done`, and show a clear temporary win overlay. With lives already reaching zero, the game can now go from L1 spawn to either win or lose.
+---
+A player can reach the exit trigger and the game stops with a win end state.

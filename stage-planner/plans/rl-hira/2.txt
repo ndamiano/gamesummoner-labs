@@ -1,0 +1,3 @@
+turn-based movement. From § 2.2 and § 2.3, add Player fields x, y, facing, state, and modules input.js, loop.js, grid.js, movement.js. Bind ArrowUp, ArrowDown, ArrowLeft, ArrowRight, and WASD as edge-based input on a fixed 60Hz accumulator, with no held-key auto-repeat. Apply one CELL movement per processed turn, block walls, snap the camera centered with no smoothing, and draw Sumi's facing silhouette from § 5.1 with static frames.
+---
+Player can move Sumi one grid cell per arrow or WASD press and cannot pass through walls.

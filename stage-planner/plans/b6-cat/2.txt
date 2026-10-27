@@ -1,0 +1,3 @@
+basic grid movement. Add input handling for moveUp, moveDown, moveLeft, and moveRight from §7 Input map default keys, and implement movePlayer(dx,dy) from §4.8 so the player moves one orthogonal tile per basic move, cannot enter solid tiles, and sets facing left or right. Use the 0.12s per tile walk animation and idle bob while keeping the camera following the player and clamping to the 24×14 Level 1 bounds. No enemy turns, cards, falling, or objectives are enabled yet.
+---
+The player can move Wizard Whiskers around the first level with the camera following, without using cards or ending a turn.

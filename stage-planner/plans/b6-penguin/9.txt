@@ -1,0 +1,3 @@
+finish game feel. Replace temporary win/fail handling with the full state machine screens: title, level select, pause, settings, game over, win, and high scores. Add #hud-score visible during play and pause, synth music loop, required SFX, screen shake, particles, trails, colorblind-safe UI patterns, reduced-motion handling, and hand-lettered UI panels.
+---
+The player can navigate title, level select, pause, settings, game over, win, and high scores while seeing the score HUD, hearing audio, and getting cartoon feedback.

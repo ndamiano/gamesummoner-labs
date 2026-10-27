@@ -1,0 +1,3 @@
+tower progression bosses. Implement run.levelIndex progression from Level 1 through Level 6 using §4.4 and the Roster: levels sizes and objectives, loading tiles/enemies/exits for each level after each reward. Add Level 3 Yarn Golem with 50 HP and phase spawn at HP <=25 of 1 EN-BAT, and Level 6 Lord Whiskertron with 120 HP, phases at HP <=80 spawning 2 EN-MOUSE and at HP <=40 spawning 2 EN-BAT plus move +1 from §4.10; boss death opens the exit and win. Use simple test rooms for Levels 2, 4, and 5 with their listed enemy counts so a full run can reach the win state.
+---
+The player can clear multiple tower levels, defeat Yarn Golem and Lord Whiskertron, reach the final exit, and see the run end in a win.

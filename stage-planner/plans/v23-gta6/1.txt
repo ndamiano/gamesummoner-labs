@@ -1,0 +1,3 @@
+dusk city canvas. Create index.html, styles.css, and a fixed canvas showing static Solano Bay Harbor Glow at 800 × 600 m within 3200 × 2400 m bounds, with 8-14 m roads, 3 m sidewalks, 2-4 m alleys, and static crates/barrels/chairs. Use warm palette #FFD166, #F4A261, #E76F51, #C1121F, #FFF6E5 and dusk lighting: directional sun elevation 12°, azimuth 255°, color #FFB86B, intensity 3.0, hemisphere fill, fog #FFB07A density 0.0025, long shadows. No player, camera, simulation, or HUD exists yet.
+---
+A player sees a static golden-hour Harbor Glow street grid with warm props and no interactive elements.

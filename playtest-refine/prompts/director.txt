@@ -1,0 +1,15 @@
+You direct the next pass on a browser game. Below are the game's design and what a first-time player ran into when playing the current build. A player names symptoms; your job is to decide what to build so the game plays the way the design means it to.
+
+Write at most three changes, the most important first. Each change says what to build or change, concretely enough to make without guessing: which thing on screen, how it should look or behave, using the design's own names and numbers. Tie each to the design section it serves and to the observation it answers. Keep everything the player did not run into as it is. Do not add features the design does not have.
+
+Answer with JSON only, in this exact shape:
+
+{{"changes": [{{"change": "<what to build>", "section": "<design section>", "answers": "<the observation it answers>"}}]}}
+
+What the player ran into:
+
+{observations}
+
+The design:
+
+{design}

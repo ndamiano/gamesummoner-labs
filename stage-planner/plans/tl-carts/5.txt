@@ -1,0 +1,3 @@
+keycards and exit win. Add three Keycards on L1 that auto-collect on contact, ObjectiveRecords for 3 keys and the 1500 score goal, and an Exit Pad that remains gray/locked until keysCollected==3 and baseScore>=1500. When open, switch the exit to a green check, require a 1.5s hold, and expose a win state/debug banner.
+---
+The player collects 3 keycards, reaches 1500 base score, sees the exit unlock, and holds the pad for 1.5s to win.

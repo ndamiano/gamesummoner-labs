@@ -1,0 +1,3 @@
+pause and settings. Implement pause with P/Esc: stop gameplay updates, show pause with resume/settings/quit, and keep run stats available. Add a settings screen that stores difficulty Easy/Normal/Hard, sound, music, reduced motion, colour-safe palette, and remappable key bindings in `settings.keys`, applying settings only outside active play.
+---
+The player can pause the run, open settings, change settings, and quit to a placeholder stop state.

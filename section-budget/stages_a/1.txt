@@ -1,0 +1,3 @@
+scaffold (§1, §2, §3). Index.html, style.css, config.js, rng.js, the fixed-step loop, canvas scaling, the pixel font, the palette and the event queue.
+---
+the page opens on a crisp integer-scaled canvas in the §3 palette, the pixel font draws text, and the loop runs with no page error.

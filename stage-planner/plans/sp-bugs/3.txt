@@ -1,0 +1,3 @@
+spawn points and bugs. Add eight visible spawn rings at the exact spawn point coordinates, dashed #34D399 3 px radius 22, pulsing 0.35 s when used. Add fly, mosquito, and wasp records with radii 10, 9, 11 and speeds 70, 110, 90, rendered using the §3 shape recipes. Implement Tier 1 static spawning: start with 4 flies, spawn every 2.2 s up to max 8, choose a safe spawn point at least 140 px from the player, and weight fly 80%, mosquito 15%, wasp 5%.
+---
+The player sees bugs appear at the eight spawn rings and move around the pond without being catchable yet.

@@ -1,0 +1,3 @@
+screens audio polish. Add title, settings, pause, game over, and win screens wired to game.state, with difficulty Story/Easy/Normal/Hard changing lives and damage multipliers, remappable keys, reduced motion disabling screen shake/slow motion/trails, and colour-blind shapes/labels. Add required HUD minimap/currency/health/ammo/combo completeness, pause behavior, audio music layers and SFX IDs, and feel effects: camera lag, hit flash 0.12s, slow motion 0.25s at 0.4x only on final kill/boss phase/combo finisher, screen shake, particles, trails, bloom. Make the full loop playable from title to win or game over.
+---
+A player can start at title, adjust settings, play through the loop, hear and see required effects, and reach win or game-over screens.

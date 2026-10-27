@@ -1,0 +1,3 @@
+exit win score. Add reach_exit objective only, exit trigger sphere radius 1.2, required-objective completion check, 0.25s celebration, and WIN state. Add base exit score +1000 and time bonus max(0, floor((parSeconds - elapsedSeconds) * 20)) using Level 1 par 3:00.
+---
+The player can reach the Dune Steps exit, see a basic win celebration, and have the level record a +1000 win score.

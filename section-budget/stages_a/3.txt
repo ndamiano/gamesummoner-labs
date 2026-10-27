@@ -1,0 +1,3 @@
+player (§5, §4.4, §4.2, §6). Sprite with all animations, arrow movement, ladders, falling and fall damage, Move points. step/climb/fall/land SFX.
+---
+Professor Mittens stands on the `P` tile in his §5 sprite; you can walk, climb a ladder, and fall off a ledge taking the damage §4.4 says, and the moves are counted.

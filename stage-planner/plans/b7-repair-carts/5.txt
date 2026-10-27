@@ -1,0 +1,3 @@
+core hud debug. Add DOM/CSS HUD overlays driven only by global state: current score, keycard counter, score goal progress, exit open status, and debug state functions for vehicle, physics, objectives, score. Use ARIA live regions for score and keys, hand-lettered SVG headings for panel titles, and visible focus states. Wire debug API so each visible mechanic can be inspected.
+---
+While playing, the HUD shows live score, 0/3 keys, score goal progress, and whether the exit is open.

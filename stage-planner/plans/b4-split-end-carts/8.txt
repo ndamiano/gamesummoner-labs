@@ -1,0 +1,3 @@
+menus and hud gaps. Add boot/title/level select/pause/settings/win/game over screens using mode transitions, level cards with L1 unlocked and L2 unlocked only after win, settings for key remap, reduced motion, colorblind, and volumes, and complete HUD fields for score, timer, key counter, score goal, exit status, and placeholder combo/currency slots. Use hand-lettered SVG headings and DOM overlays, not canvas text.
+---
+The player can start from title, choose an unlocked level, pause, see win or game over screens, and read the full L1/L2 HUD.

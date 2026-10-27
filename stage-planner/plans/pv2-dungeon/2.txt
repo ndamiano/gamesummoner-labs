@@ -1,0 +1,3 @@
+move sir ribbit. From §0.2, §1.1, §1.2, and §5.1, add Sir Ribbit as a 1.60 m tall, 0.40 m radius capsule. Implement named input actions for W A S D, world-relative movement with 40 m/s² ground acceleration and 6.0 m/s max speed, yaw from velocity, and a third-person camera at 6.0 m distance and 2.5 m height with mouse orbit and pitch clamp -1.22 to 0.52 rad. Sample input once per fixed 60 Hz step and render by interpolation.
+---
+A player controls Sir Ribbit with WASD and moves around the static courtyard while the camera follows.

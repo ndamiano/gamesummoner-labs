@@ -1,0 +1,3 @@
+timer and difficulty. Add level timers that start when playing, pause with simulation, display MM:SS, warn at 30s with a HUD pulse hook, and trigger GameOver on expiry. Implement L1 Normal 5:00, Easy 6:15, Hard 3:45, and difficulty modifiers: Easy -25% score goal +25% time -50% guard detection -25% rival speed, Normal 0, Hard +25% score goal -25% time +25% guard detection +25% rival speed. Add fail reason and R/pause restart.
+---
+The L1 timer counts down, warns at 30s, and ends the level if time expires; difficulty choices change the timer and score goal.

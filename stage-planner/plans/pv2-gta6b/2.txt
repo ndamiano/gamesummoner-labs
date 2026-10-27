@@ -1,0 +1,3 @@
+mara movement camera. Add Mara Vega as a player-controlled entity at a Dockside start with a third-person shoulder camera at 4.2 m, offset right 1.2 m/up 1.4 m, FOV 70°. Implement remappable logical input, WASD camera-relative movement at 4.8 m/s, mouse look, Space jump impulse 9.5 m/s, gravity 20 m/s², and fixed-step motion.
+---
+WASD moves Mara, mouse looks, Space jumps, and the camera follows at 4.2 m.

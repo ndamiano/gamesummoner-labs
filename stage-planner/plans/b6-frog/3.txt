@@ -1,0 +1,3 @@
+exit win state. Add src/objectives.js and a 24×32 exit hitbox in Lily Lesson. Per §4.3, touching the exit stops player control and enters a minimal WIN state with a retry/continue placeholder. Do not add full title, level select, score, or audio.
+---
+Pip reaches the exit and the game enters a win/end state.

@@ -1,0 +1,3 @@
+static l1 diorama. Create index.html, style.css, canvas, and a static L1 Aisle Warm-Up scene at 50x30 with floor y=0, 6m walls, 6.0m ceiling, 2.2m aisles, 1.6m shelves, 0.8m low obstacles, and a gray locked Exit Pad 3m wide, 3m deep, 2.4m tall. Draw the toon grocery-store look: glossy #F7F7F7 tile with #4CC9F0 guide lines, shelf colors #FFD166/#06D6A0/#118AB2/#EF476F, and hand-lettered signage. Do not add player, camera follow, movement, or simulation.
+---
+The player can load the page and see a bright, static L1 grocery-store diorama with the exit gate visible but locked.

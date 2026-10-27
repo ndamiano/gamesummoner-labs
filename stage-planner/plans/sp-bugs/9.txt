@@ -1,0 +1,3 @@
+title audio feel. Add the title screen FROG BUG CHOMP with Start, Settings, and High Scores, polish game over and high scores empty states, unlock Web Audio, add chiptune loops and bleeps from §6, and apply reduced-motion fallbacks, particles, hit flash, trails, and HUD gaps.
+---
+A player can start from the title, play a full run with audio and visual feedback, and see polished game over and high scores screens.

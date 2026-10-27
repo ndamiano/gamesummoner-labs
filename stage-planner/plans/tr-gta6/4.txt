@@ -1,0 +1,3 @@
+weapons aim shoot. Add weapon slots 1 pistol, 2 SMG, 3 shotgun with pistol 18 damage/0.167s/12 mag/60 reserve/1.2s reload/3° hip/0.6° aim, SMG 11/0.083s/30/180/2.0s/5°/1.2°, shotgun 9×10/0.8s/6/36/2.5s/10°/6°, and melee F 25 damage/1.8m/60° cone/0.45s cooldown. Implement right-mouse aim at 45° FOV and 2.4m camera, left-mouse fire with 80 m/s projectiles max 80m, reload, and combo counter for hits within 3.0s up to 99. Add HUD ammo and combo counter plus debug target boxes that verify spread, damage, and combo counting; no enemy AI, rewards, or SunCoins are added.
+---
+A player can aim and fire at debug target boxes, see ammo decrement, and see the combo counter increment.

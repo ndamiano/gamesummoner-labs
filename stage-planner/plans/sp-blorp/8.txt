@@ -1,0 +1,3 @@
+collect zingle bolts. Implement src/collectibles/collectibles.js and add 5 Zingle Bolts in Zone 1. Use CollectibleRecord, draw yellow #FFD700 star shapes with black outlines, auto-collect within radius 1.0, set collected true, play a star pop, and add 25 to ctx.score.total so the value is ready for the final score HUD. Do not add the score HUD, combo, or high scores screen yet.
+---
+Walking into a yellow star bolt makes it disappear with a star pop and it does not come back.

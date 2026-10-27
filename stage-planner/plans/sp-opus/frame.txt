@@ -1,0 +1,9 @@
+A user asked for: {ask}
+
+Your design team wrote the build spec in `design/design.md`. We are building the game in stages, the way a person would: each stage starts from a game that runs and ends on one that runs with one more thing in it. Read the design sections this stage names, and only as much of the rest as you need.
+{carry}
+The stages: 1 draw tower floor · 2 move professor mittens · 3 place enemy targets · 4 draw hand and energy · 5 play cards and nova · 6 enemy phase loop · 7 floor reward loop · 8 grand vacuum boss · 9 finish screens and feel. This is stage {n}.
+
+Stage {n}: {stage}
+
+When it is done: {done} Check that by playing it. Keep everything earlier stages built working. You have {budget} turns for this stage; call done() when the stage plays, with a line on what you built.

@@ -1,0 +1,3 @@
+title end screens. Replace debug routes and overlays with the full screen state machine: `title`, `level_select`, `settings`, `play`, `pause`, `game_over`, `win`, and `high_scores`, all keyboard-navigable, with a high-scores stub. Add settings stubs for remappable input, `reducedMotion`, and volume; add synthesized `music_loop` at 92 BPM and the Tier1 SFX recipes, plus win/hit particle/flash polish, reduced-motion particle multiplier `0.25`, and color-blind shape cues.
+---
+The player can start from title, select a core level, pause/settings, finish a level into the win screen, and see polished audio, particles, and accessible motion settings.

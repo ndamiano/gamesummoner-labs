@@ -1,0 +1,3 @@
+debug API and tests (§8, §9, §11). DBG API and the T1 tests. Play a full run on each difficulty and tune within the §4 numbers if a run takes more than 30 minutes.
+---
+the §11 T1 definition of done holds and the T1 tests pass.

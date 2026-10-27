@@ -1,0 +1,3 @@
+cart jump system. Add Space jump with +7 m/s impulse, gravity -20 m/s2, coyote 0.15s, jump buffer 0.15s, air control 0.35, and landing squash 0.15s. Keep air drive disabled and allow clearing 0.8m low obstacles but not 1.6m shelves.
+---
+The player can press Space to hop over low obstacles and land with a brief squash.

@@ -1,0 +1,3 @@
+minimap and coin hud. Add an HTML/CSS HUD shell always visible in play with slots for minimap, currency, context prompt, and inventory overlay. Implement the painted parchment minimap for the current 64×64 plate at 1 tile=1 pixel with a 10-tile reveal radius, and the Aurora Coins display capped at 99999 that shows 0 grayed in Tier 1. Leave hint, placement, shop, talk, journal, and map slots empty or disabled because those systems come later.
+---
+The player sees a minimap reveal explored tiles and a grayed 0 coin counter while playing.

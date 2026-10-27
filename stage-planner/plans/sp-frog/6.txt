@@ -1,0 +1,3 @@
+hud pause shell. Add the HUD from §7.2: health hearts, levelScore placeholder, and combo counter showing x1. Add a PAUSED screen from §7.1 that stops the fixed-step loop, resumes, and exposes a Settings button placeholder. Use §4.5 maxHealth values only for display, not difficulty changes yet.
+---
+During play the HUD shows health, score, and combo, and Esc pauses/resumes the running game.

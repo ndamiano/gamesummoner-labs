@@ -1,0 +1,3 @@
+add penguin jump. Add jump impulse 9.0, gravity 22, max height 1.84, variable jump with minimum height 0.80, coyote time 0.12, input buffer 0.12, no double jump, and jump-off-climb impulse 8.0 plus 1.5 away from wall normal. Add squash/stretch takeoff and placeholder dust particles.
+---
+The player can press jump and Pip jumps with visible squash and dust.

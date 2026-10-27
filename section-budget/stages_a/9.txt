@@ -1,0 +1,3 @@
+screens (§7, §4.8). Screens: title, pause (with deck view), settings (volumes, reduced motion, palette, remap, difficulty), game over, win, high scores. Difficulty numbers.
+---
+every screen is reachable with working transitions, and the settings and difficulty change the game.

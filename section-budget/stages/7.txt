@@ -1,0 +1,3 @@
+rewards. After each floor, the reward screen (§4.3, §7): 3 card offers from the 11 reward cards in §4.1, or skip for coins; coins and the heal are applied; a met bonus gives the rare slot. All 11 reward cards work. Add the Nine-Lives Nova on Q (§4.8), and score and combo (§4.6) on the HUD.
+---
+you can clear a floor, take a new card, see it in your hand on the next floor, and fire a Nova.

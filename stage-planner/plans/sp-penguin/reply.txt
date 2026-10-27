@@ -1,0 +1,105 @@
+```json
+[
+  {
+    "name": "Static Dune Steps",
+    "stage": "Create index.html, css, canvas, and a fixed-step render loop. Build Level 1 Dune Steps as a static 60x40x25 bright pyramid with sand ground, rounded stone walls, invisible walls, a hidden spawn, and a sun-shaped exit at the summit. Use the palette, daylight, and material recipes for sky, sand, stone, and exit. No player, input, or motion.",
+    "done": "A player opens the page and sees the completed static Dune Steps level with its exit visible.",
+    "reads": [
+      "## 2.1 Module layout",
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC",
+      "## 4.6 Map / world [Tier 1]"
+    ]
+  },
+  {
+    "name": "Pip Movement Camera",
+    "stage": "Add remappable logical input actions and third-person camera orbit/zoom with distance 6.5, height 2.5, FOV 60, and zoom range 4.0-12.0. Add Pip as a capsule radius 0.4, height 1.2 with camera-relative movement at 4.5 m/s, acceleration 18, braking 22, air control 65%, and max slope 45. Place the player at level.spawn inside the existing static Dune Steps level.",
+    "done": "The player can move Pip through Dune Steps and orbit/zoom the camera.",
+    "reads": [
+      "## 4.1 Player movement [Tier 1]",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "## Player: Pip"
+    ]
+  },
+  {
+    "name": "Add Penguin Jump",
+    "stage": "Add jump impulse 9.0, gravity 22, max height 1.84, variable jump with minimum height 0.80, coyote time 0.12, input buffer 0.12, no double jump, and jump-off-climb impulse 8.0 plus 1.5 away from wall normal. Add squash/stretch takeoff and placeholder dust particles.",
+    "done": "The player can press jump and Pip jumps with visible squash and dust.",
+    "reads": [
+      "## 4.2 Jump [Tier 1]",
+      "## 1.1 Units, axes, frames",
+      "## Player: Pip"
+    ]
+  },
+  {
+    "name": "Climb Grip Walls",
+    "stage": "Add hold-climb grab within 0.6 of climbable surfaces, climb speed 2.0, down movement, release drop, and jump-off-climb integration. Mark vertical panels in Dune Steps as climbable with grip dots and pulse, and add grip highlights and dust.",
+    "done": "The player can hold climb on marked grip panels and move Pip up or down.",
+    "reads": [
+      "## 4.3 Climb [Tier 1]",
+      "## 4.6 Map / world [Tier 1]",
+      "# 3. VISUAL SPEC",
+      "## Player: Pip"
+    ]
+  },
+  {
+    "name": "Fall Fail Restart",
+    "stage": "Add falling state when vertical velocity is below -12, sand puffs after 0.4s, kill plane at level minimum Y minus 15.0, and failure below kill plane. On failure, tumble Pip, reset to level.spawn, zero velocity, and clear player states.",
+    "done": "The player can fall below the kill plane, see Pip fail, and immediately restart Dune Steps.",
+    "reads": [
+      "## 4.4 Falling [Tier 1]",
+      "## 1.2 Important conventions",
+      "## Player: Pip"
+    ]
+  },
+  {
+    "name": "Exit Win Score",
+    "stage": "Add reach_exit objective only, exit trigger sphere radius 1.2, required-objective completion check, 0.25s celebration, and WIN state. Add base exit score +1000 and time bonus max(0, floor((parSeconds - elapsedSeconds) * 20)) using Level 1 par 3:00.",
+    "done": "The player can reach the Dune Steps exit, see a basic win celebration, and have the level record a +1000 win score.",
+    "reads": [
+      "## 4.5 Objectives [Tier 1]",
+      "## 4.6 Map / world [Tier 1]",
+      "## 4.21 Score [Tier 3 extended; base exit score Tier 1]",
+      "## Progression and difficulty"
+    ]
+  },
+  {
+    "name": "Unlock Switch Steps",
+    "stage": "After Level 1 completion, mark Level 2 unlocked and load Switch Steps as a static 70x50x30 bright pyramid with its own spawn and exit. Use the level roster and par 5:00, but add no interactive systems yet. Keep the temporary win path automatically entering Level 2 until the final screens are added.",
+    "done": "After winning Dune Steps, the player is placed at the Switch Steps spawn and can traverse the new static level.",
+    "reads": [
+      "## 4.7 Unlocks [Tier 2]",
+      "## 4.6 Map / world [Tier 1]",
+      "## Progression and difficulty",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Switch Door Puzzles",
+    "stage": "Add switch/door puzzle logic to Switch Steps: three wall levers activated with interact for 0.3s, linked unlocked doors that slide open over 1.2s when all linked switches are active, and an activate_switch objective required for exit. Reset doors closed and switch active states on level restart.",
+    "done": "The player can activate three Switch Steps levers and open the linked door to reach the exit.",
+    "reads": [
+      "## 4.13 Puzzle types [Tier 2]",
+      "## 4.14 Switches and doors [Tier 2]",
+      "## 4.5 Objectives [Tier 1]",
+      "## Progression and difficulty",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Finish Game Feel",
+    "stage": "Replace temporary win/fail handling with the full state machine screens: title, level select, pause, settings, game over, win, and high scores. Add #hud-score visible during play and pause, synth music loop, required SFX, screen shake, particles, trails, colorblind-safe UI patterns, reduced-motion handling, and hand-lettered UI panels.",
+    "done": "The player can navigate title, level select, pause, settings, game over, win, and high scores while seeing the score HUD, hearing audio, and getting cartoon feedback.",
+    "reads": [
+      "# 7. UX",
+      "# 6. AUDIO",
+      "# 3. VISUAL SPEC",
+      "## 1.2 Important conventions",
+      "## Feel",
+      "## 2.3 Module specifics"
+    ]
+  }
+]
+```

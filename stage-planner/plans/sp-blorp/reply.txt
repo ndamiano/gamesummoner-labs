@@ -1,0 +1,115 @@
+```json
+[
+  {
+    "name": "Static Zone1 Scene",
+    "stage": "Create index.html, styles.css, and a static renderer stub that paints Zone 1 Bouncy Bootyard: 120 x 120 bounds, striped barriers, green circle-pattern safe paths, orange zigzag hazard patches, a blue star spawn pad, a 3 x 3 green arrow exit pad, and a giant bouncing boot silhouette. Use the bright daylight saturated toon look from the visual spec. Do not add player, input, fixed loop, camera movement, or gameplay updates.",
+    "done": "Loading the page shows the static Zone 1 Bouncy Bootyard layout with exit pad, spawn pad, barriers, and hazard/safe patterns, and nothing moves.",
+    "reads": [
+      "# 3. VISUAL SPEC",
+      "## 1.1 Units, axes, frames",
+      "### 4.2.1 Map / World [T1]"
+    ]
+  },
+  {
+    "name": "Move Blorp Camera",
+    "stage": "Add src/main.js, fixedLoop, rng, inputMap, camera, playerCore, and movement modules. Run fixed timestep dt = 1/60 with max 5 catch-up steps, seed ctx.rng, define abstract input actions with default move keys W A S D/arrows, and store settings.inputMap. Spawn Blorp at the Zone 1 start with capsule radius 0.45 and height 1.2, allow camera-relative free movement at speed 6 with acceleration 45 and air control 0.6, collide with the static Zone 1 world, and make a third-person follow camera with distance 8, height offset 2.5, and minimum distance 2. Leave Space disabled.",
+    "done": "Blorp walks through the static Zone 1 with W/A/S/D while the third-person camera follows, and Space still does nothing.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.1 Module layout",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "### 4.2.1 Map / World [T1]"
+    ]
+  },
+  {
+    "name": "Add Jump Physics",
+    "stage": "Implement src/player/jump.js with tryJump, endJump, and isJumpAvailable. Bind Space to jump, apply impulse +8.5 when grounded, allow coyote time 0.12 and jump buffer 0.16, multiply velocity.y by 0.45 if jump is released while rising, and forbid double jumps. Keep horizontal max 6 and air control 0.6, and add a tiny dust puff hook for later reduced-motion handling.",
+    "done": "Pressing Space launches Blorp about 3 units high and lets the player jump shortly after leaving a ledge or shortly before landing.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "### 4.2.2 Jump [T1]"
+    ]
+  },
+  {
+    "name": "Falling Health Lives",
+    "stage": "Implement src/player/falling.js plus applyDamage and killPlayer. Start a fall when grounded is false and vel.y < 0, track fallStartY - currentY, apply 10 * (fallHeight - 8) damage above safe height 8, cap damage at health, treat y < -15 or impact height >= 18 as life loss, use max health 100 and Normal lives 5, and respawn at Zone 1 start after 1.5 seconds when lives remain. Add the #health HUD bar and lives inside that element, and show a simple game-over stop when lives reach 0.",
+    "done": "Blorp takes fall damage, the health and lives bar updates, lethal falls or void deaths respawn Blorp at the start after 1.5 seconds, and zero lives stops the run.",
+    "reads": [
+      "## 0.2 Decisions",
+      "## 1.1 Units, axes, frames",
+      "## 4.1 Records and rosters",
+      "### Core records",
+      "## 2.3 Module specifics",
+      "### 4.2.4 Falling [T1]",
+      "## 7.2 HUD elements"
+    ]
+  },
+  {
+    "name": "Exit Win Objective",
+    "stage": "Implement src/objectives/objectives.js and the Zone 1 exit trigger. Keep zone1.reach_exit active, detect the 3 x 3 exit pad, require 2.0 seconds standing on it to set win, and set game over if lives reach 0. Add a temporary win/game-over overlay and a minimal screen state for PLAY, WIN, and GAME_OVER; full screens come later.",
+    "done": "Standing on the green exit pad for 2 seconds shows a win state, and running out of lives shows a game-over state, so one full run can be completed.",
+    "reads": [
+      "## 4.1 Records and rosters",
+      "### Core records",
+      "## 2.3 Module specifics",
+      "### 4.2.3 Objectives [T1]",
+      "## 7.1 Screens state machine"
+    ]
+  },
+  {
+    "name": "Add Bounce Traps",
+    "stage": "Implement src/traps/traps.js and add Bounce Pad traps in Zone 1. Use TrapRecord with enabled, cooldown, impulse, and state; on contact apply impulse +11, no damage, and a 0.5 second cooldown, and ensure the landing does not apply fall damage. Place only a few pads in a safe bonus path so the core exit route is unchanged.",
+    "done": "Touching a bounce pad launches Blorp upward with a +11 impulse, and the pad cannot fire again for 0.5 seconds.",
+    "reads": [
+      "## 4.1 Records and rosters",
+      "### Supporting records",
+      "### Trap roster",
+      "## 2.3 Module specifics",
+      "### 4.3.12 Traps [T2]"
+    ]
+  },
+  {
+    "name": "Switch Door Path",
+    "stage": "Implement src/interaction/switchesDoors.js and add one magenta star-outlined switch and one door in Zone 1. Use SwitchRecord and DoorRecord; allow interact within radius 2.0, require 0.5 seconds to press the switch, open the door by sliding for 1.5 seconds, and make the switch depress and the door record its open state. The door opens a small bonus area, not the exit.",
+    "done": "Blorp presses E at the switch for 0.5 seconds and sees the door slide open for 1.5 seconds.",
+    "reads": [
+      "## 4.1 Records and rosters",
+      "### Supporting records",
+      "## 2.3 Module specifics",
+      "### 4.3.18 Switches and Doors [T2]"
+    ]
+  },
+  {
+    "name": "Collect Zingle Bolts",
+    "stage": "Implement src/collectibles/collectibles.js and add 5 Zingle Bolts in Zone 1. Use CollectibleRecord, draw yellow #FFD700 star shapes with black outlines, auto-collect within radius 1.0, set collected true, play a star pop, and add 25 to ctx.score.total so the value is ready for the final score HUD. Do not add the score HUD, combo, or high scores screen yet.",
+    "done": "Walking into a yellow star bolt makes it disappear with a star pop and it does not come back.",
+    "reads": [
+      "## 4.1 Records and rosters",
+      "### Supporting records",
+      "### Collectible and pickup roster",
+      "## 2.3 Module specifics",
+      "### 4.3.9 Collectibles [T2]",
+      "### 4.4.1 Score [T3]"
+    ]
+  },
+  {
+    "name": "Title End Feel",
+    "stage": "Replace placeholder overlays with src/ui/screens.js, src/ui/settings.js, src/ui/hud.js, and src/audio/audio.js. Add title, pause, settings, game over, and win screens following the state machine, complete HUD visibility for #health, #score, #ammo, and #combo, and add settings for difficulty, reduced motion, and remappable keys. Add chiptune music and cartoon SFX from the audio table, plus screen shake, hit flash, particles, trails, squash, and colour-blind patterns; reduced motion must disable non-essential juice. Keep the final exit reachable from title to win or game over.",
+    "done": "Player can start from a title screen, play with full HUD, audio, and accessibility options, pause/settings, and finish at win or game over.",
+    "reads": [
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "# 6. AUDIO",
+      "## 4.4 Feel",
+      "## 7.1 Screens state machine",
+      "## 7.2 HUD elements",
+      "## 7.3 Settings",
+      "## 7.4 CSS conventions"
+    ]
+  }
+]
+```

@@ -1,0 +1,3 @@
+jump gap cross. Add `systems/jump.js`. From § 4.2 Jump (T1), pressing `Space` while grounded applies a 4.2 world units/s upward visual impulse against gravity 12.0, max visual height 0.735 world units, and cooldown 0.20s. Allow crossing gaps and ledges up to 1 tile by updating `z` and collision only when grounded. If landing is invalid, return the player to the last safe tile; no fall damage.
+---
+The player jumps over one-tile gaps and ledges without damage.

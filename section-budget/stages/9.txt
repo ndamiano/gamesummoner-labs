@@ -1,0 +1,3 @@
+the finish. Add the screens from §7: title, pause with a deck view, settings, game over, win, high scores, with working transitions. The difficulty options and accessibility settings of §4.8 and §7 (colour-blind palette, reduced motion, key remap that persists). Every sound effect and music track of §6, through `lib/audio.js`.
+---
+the §11 T1 definition of done holds.

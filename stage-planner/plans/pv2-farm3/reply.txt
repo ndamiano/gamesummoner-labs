@@ -1,0 +1,133 @@
+```json
+[
+  {
+    "name": "Static Hollowroot Render",
+    "stage": "Build `index.html`, `style.css`, `main.js`, `core/loop.js`, `core/render.js`, `core/camera.js`, and `systems/mapWorld.js`. From § 4.2 Map / World (T1), load `hollowroot` as a 64x64 tile map with `ground`, `path`, `soil`, `water`, `bridge`, `platform`, `blocked`, and `door` tiles. Draw 64x32 px isometric diamonds using the § 3 VISUAL SPEC palette, paper background `#F7F3E8`, and brush/paper texture. Set a fixed camera at `x=32.5,y=32.5`, zoom 1.0, with no follow and no moving entities.",
+    "done": "The page shows a static pastel isometric Hollowroot meadow centered at 32,32.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "# 2. CONTRACTS",
+      "## 2.1 Module layout",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "## 4.2 Core systems, Tier 1",
+      "### Map / World (T1)"
+    ]
+  },
+  {
+    "name": "Caretaker Free Movement",
+    "stage": "Add player Moss with hitbox 0.70x0.50 and starting `pos {x:32.5,y:32.5}`. From § 4.2 Map / World (T1), bind named movement actions and move continuously at 2.8 world units/s only on walkable tiles; update facing 4-way. Make `core/camera.js` follow with lerp 0.12 and deadzone 0.20. At the zone edge, reverse velocity 0.5 and return to last safe tile with no damage. Draw the 48x64 px wide-brimmed hat caretaker using § 3 VISUAL SPEC.",
+    "done": "The caretaker walks through Hollowroot and gently bounces at cloud edges.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "### Map / World (T1)",
+      "# 3. VISUAL SPEC",
+      "# 5. CHARACTERS",
+      "## Player",
+      "## 7.4 HTML/CSS notes"
+    ]
+  },
+  {
+    "name": "Items Pickup Drop",
+    "stage": "Add `systems/resourceTypes.js`, `systems/pickupDrop.js`, and a minimal `Tab` inventory panel. From § 4.2 Resource Types (T1), register T1 records for `seed_radish`, `seed_carrot`, `seed_berry`, `seed_flower`, `radish`, `carrot`, `berry`, `flower`, `wood`, `stone`, and `fiber`, using categories `seed`, `produce`, `material`, and `object`, stack max 99, and unlimited T1 slots. Start inventory with 10 radish, 5 carrot, 5 berry, and 5 flower. Spawn visible ground stacks; `E` within 0.7 world units picks up a stack, `Q` drops one selected stack, and ground items do not despawn.",
+    "done": "The player opens Tab, picks up ground stacks, and drops one selected stack back into the world.",
+    "reads": [
+      "### Item categories",
+      "### Crop roster",
+      "### Material roster",
+      "### Resource Types (T1)",
+      "### Pick Up and Drop (T1)",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "## 7.4 HTML/CSS notes"
+    ]
+  },
+  {
+    "name": "Gathering Spot Harvest",
+    "stage": "Add `systems/gatheringSpots.js` and `systems/harvest.js` for finite-use gathering. From § 4.2 Gathering Spots (T1), spawn 12 `bush_fiber`, 10 `rock_stone`, and 8 `log_wood` in Hollowroot. Each spot has 5 uses; pressing `E` within 1.2 world units for 0.25s consumes one use and yields 2 `fiber`, 2 `stone`, or 2 `wood`. Spots with 0 uses remain visible but disabled; no tools and no respawn in T1.",
+    "done": "The player presses E at bushes, rocks, and logs to gather fiber, stone, or wood until each spot's 5 uses are spent.",
+    "reads": [
+      "### Material roster",
+      "### Gathering spot roster",
+      "### Harvest (T1)",
+      "### Gathering Spots (T1)",
+      "### Materials (T1)",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Seed Placement Planting",
+    "stage": "Add `systems/placement.js` and `systems/crops.js` planting. From § 4.2 Placement (T1) and Crops (T1), add a minimal build panel opened by `B` with the four T1 seeds and loose `wood`, `stone`, and `fiber` objects. Show a dashed ghost outline, allow `R` rotate when applicable, cancel with `Q`, and place with `E` within 1.5 world units. Create 20 soil tiles near home; reject water, path, blocked, and occupied tiles. Placing a seed creates a `world.fields` entry at stage 0; placed loose objects are small colliders and can be picked up again.",
+    "done": "The player enters build mode, places a seed on soil as a tiny dot, and can place/pick up loose material objects.",
+    "reads": [
+      "### Crop roster",
+      "### Crops (T1)",
+      "### Materials (T1)",
+      "### Placement (T1)",
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Grow Harvest Crops",
+    "stage": "Add `systems/grow.js` and crop harvest completion. From § 4.2 Grow (T1) and Crop roster, advance fields only on unpaused fixed 1/60s updates: `seed_radish` 180s, `seed_carrot` 360s, `seed_berry` 540s plus 600s regrow, `seed_flower` 480s; base growth multiplier 1.0 and crops never die. Render stage visuals: tiny dot, sprout, leafy plant, mature unique silhouette. From § 4.2 Harvest (T1), `E` on a mature crop within 1.2 world units for 0.25s yields 1-2 `radish`, 1 `carrot`, 2-3 `berry`, or 1 `flower`.",
+    "done": "A planted radish visibly grows through four stages and can be harvested into radish items.",
+    "reads": [
+      "### Crop roster",
+      "### Grow (T1)",
+      "### Crops (T1)",
+      "### Harvest (T1)",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Jump Gap Cross",
+    "stage": "Add `systems/jump.js`. From § 4.2 Jump (T1), pressing `Space` while grounded applies a 4.2 world units/s upward visual impulse against gravity 12.0, max visual height 0.735 world units, and cooldown 0.20s. Allow crossing gaps and ledges up to 1 tile by updating `z` and collision only when grounded. If landing is invalid, return the player to the last safe tile; no fall damage.",
+    "done": "The player jumps over one-tile gaps and ledges without damage.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 2.3 Module specifics",
+      "### Jump (T1)",
+      "# 3. VISUAL SPEC",
+      "# 5. CHARACTERS",
+      "## Player"
+    ]
+  },
+  {
+    "name": "Day Night Cycle",
+    "stage": "Add `systems/dayNight.js` and a minimal pause flag. From § 4.3 Day / Night (T2), advance `time.secondOfDay` only on unpaused fixed updates; day length 900s, day 0-540s, night 540-900s, increment `time.day` at dawn. Pressing `P` stops simulation, timers, growth, respawn, weather, and any audio scheduling when added. Draw the night overlay `rgba(90,80,140,0.22)` and show a debug day/phase value; no prices or shops yet.",
+    "done": "The island shifts from warm day to lavender night every 900s, and pressing P freezes all timers.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "### Day / Night (T2)",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Title Pause Settings",
+    "stage": "Add `ui/screens.js`, `ui/hud.js`, `ui/settings.js`, and `audio/audioEngine.js`. From § 7 UX, implement BOOT->TITLE->PLAYING, PLAYING->PAUSE->SETTINGS, and Title buttons Start World, Settings, Accessibility, Credits. Pause shows current day, season, zone, collected count, and currency; Settings include volume, music, reduced motion, colour-blind profile, key remapping, camera zoom, and bloom. Add persistent minimap and `breeze_coin` currency HUD, visible as 0, and no game-over screen because there is no ending. Add soft audio recipes from § 6 AUDIO and hand-lettered UI from § 3 VISUAL SPEC and § 4.6 Feel.",
+    "done": "The player starts at a hand-lettered title, starts Hollowroot, sees minimap and 0 currency, can pause/settings, and hears soft SFX/music.",
+    "reads": [
+      "# 7. UX",
+      "## 7.1 State machine",
+      "## 7.2 Screens",
+      "### Title",
+      "### Pause",
+      "### Settings",
+      "## 7.3 HUD",
+      "## 7.4 HTML/CSS notes",
+      "# 6. AUDIO",
+      "## 4.6 Feel",
+      "# 3. VISUAL SPEC"
+    ]
+  }
+]
+```

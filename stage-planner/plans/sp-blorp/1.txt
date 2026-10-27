@@ -1,0 +1,3 @@
+static zone1 scene. Create index.html, styles.css, and a static renderer stub that paints Zone 1 Bouncy Bootyard: 120 x 120 bounds, striped barriers, green circle-pattern safe paths, orange zigzag hazard patches, a blue star spawn pad, a 3 x 3 green arrow exit pad, and a giant bouncing boot silhouette. Use the bright daylight saturated toon look from the visual spec. Do not add player, input, fixed loop, camera movement, or gameplay updates.
+---
+Loading the page shows the static Zone 1 Bouncy Bootyard layout with exit pad, spawn pad, barriers, and hazard/safe patterns, and nothing moves.

@@ -1,0 +1,3 @@
+fish thief path. Load Level 0 spawnPoints and paths, and draw brown spawn crates with pulsing arrows. Implement enemies.js spawn and update for Fish Thief with 30 HP, 0.80 tiles/s speed, waypoint following, facing, and a placeholder for future barricade stopping. Spawn one test Fish Thief from spawn point 0 and move it along the path; do not add shooting, market damage, or waves yet.
+---
+The player sees a Fish Thief spawn from a brown crate and walk along the blue fish-gut path toward the market.

@@ -1,0 +1,3 @@
+title end audio feel. Add the remaining § 7.1 screens around the existing L1 loop: title, level select with only `l1` unlocked, win, game over, and empty high scores, replacing temporary win/game-over overlays and wiring only the allowed transitions. Initialize § 6 audio: `music_loop` at `104 BPM` and bleeps for `jump`, `land`, `hit`, `death`, `respawn`, `win`, `game_over`, `ui_move`, `ui_confirm`, `ui_back`. Apply final § 4.45 feel and § 3 effects: bloom threshold `0.72` intensity `0.34`, trails `1.8 m`, hit flash alpha `0.32` for `0.08 s`, screen shake max `0.22 m`, slow motion `0.55` for `0.12 s`, and reduced-motion clamps.
+---
+A player can start from a title screen, select L1, pause, win or game over, hear synth music and bleeps, and feel the neon hit feedback.

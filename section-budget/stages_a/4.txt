@@ -1,0 +1,3 @@
+deck (§4.3, §4.1 cards, §7). Deck.js piles, hand UI (HTML cards), card selection, Tab targeting, range preview, all 16 T1 cards, Energy, exhaust.
+---
+a hand of HTML cards shows, a card is picked by key, Tab cycles targets with a range preview, playing a card spends Energy, and the piles draw, discard, exhaust and reshuffle.

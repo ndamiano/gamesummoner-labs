@@ -1,0 +1,3 @@
+toad emperor win. From §4.1.8, §4.1.5, §4.1.7, and §3, place toad_emperor in L1R3 with 900 HP and Tier 1 simplified phases: Phase 1 tongue slam and leap slam, then Phase 3 shockwave and faster attacks; add 0.8-1.2 s orange telegraph rings, 0.35 s invulnerability after phase transition, and weak point on extended tongue for 0.6 s. On death, open the cyan/gold exit portal and set a win trigger so the run can end; keep the proper win screen for the finish stage.
+---
+A player can defeat a simplified Toad Emperor, touch the exit portal, and trigger the end-of-run state.

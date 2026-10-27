@@ -1,0 +1,3 @@
+core enemy contact. Add Tier 1 § 4.7 enemies using § 4.1 rosters and § 5.2: two Mannequin Walkers (box `0.8 × 1.9 × 0.6`, patrol `1.8 m/s`, contact damage `12`) and one Floor Shade (capsule radius `0.5`, height `0.9`, patrol `2.5 m/s`, contact damage `10`) following hand-authored waypoint loops. Contact calls `player.damage`, enforces `0.8 s` per-enemy cooldown, and gives `0.5 s` player invulnerability with magenta flash and small shake. Core enemies are not removed.
+---
+A player can bump into patrolling mall enemies and take damage or die from contact.

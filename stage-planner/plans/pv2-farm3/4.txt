@@ -1,0 +1,3 @@
+gathering spot harvest. Add `systems/gatheringSpots.js` and `systems/harvest.js` for finite-use gathering. From § 4.2 Gathering Spots (T1), spawn 12 `bush_fiber`, 10 `rock_stone`, and 8 `log_wood` in Hollowroot. Each spot has 5 uses; pressing `E` within 1.2 world units for 0.25s consumes one use and yields 2 `fiber`, 2 `stone`, or 2 `wood`. Spots with 0 uses remain visible but disabled; no tools and no respawn in T1.
+---
+The player presses E at bushes, rocks, and logs to gather fiber, stone, or wood until each spot's 5 uses are spent.

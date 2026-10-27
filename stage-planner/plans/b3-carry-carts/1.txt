@@ -1,0 +1,3 @@
+static l1 diorama. Create index.html, style.css, and a WebGL canvas that shows L1 Aisle Warm-Up as a static 50x30m toy grocery diorama. Build walls at y=6.0, floor y=0, 1.6m shelves, 0.8m low obstacles, 2.2m aisles, 2.4m doorways, and a static Wobble cart at the start spawn using the §4.1 L1 decoration count. Use the §3 palette and indoor artificial lighting with no simulation or input.
+---
+The page loads and shows a still L1 store with Wobble, shelves, and exit gate visible, but nothing moves.

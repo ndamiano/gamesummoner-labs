@@ -1,0 +1,3 @@
+scoring bins and plates. Add goal bins, pressure plates, and scoring triggers for can bin 50 base, produce bin 100 base, crate bin or pressure plate 100 base after 2.0s, and ice plate 120 base. Implement score base/current, setGoal, and a temporary score readout; set scored = true and trigger once per object, without Coupon Tokens yet.
+---
+Knocking the right object into the right bin or holding a crate on a plate increases a visible score.

@@ -1,0 +1,133 @@
+```json
+[
+  {
+    "name": "World Canvas Draw",
+    "stage": "Add the HTML page, #game-canvas, and #ui-root. Create config.js with the Windup Yard LevelRecord at 1280×540, spawn, exit, tiles, and memoryLedges, then draw the 480×270 logical view with integer scaling, bg_void background, stone tiles, bg_deep and brass_dark parallax gears and clock face, and clamped static camera. No player, physics, movement, or HUD is active yet.",
+    "done": "The player sees the drawn Windup Yard room, clock face, and gears on the canvas without anything moving.",
+    "reads": [
+      "# 1. CONVENTIONS",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "# 2. CONTRACTS",
+      "## 2.1 Module layout",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "# 7. UX",
+      "## 7.3 HTML/CSS requirements",
+      "# 4. GAMEPLAY SPEC",
+      "## 4.1 Records and rosters"
+    ]
+  },
+  {
+    "name": "Player Movement Walk",
+    "stage": "Add player.js and input.js so Tock uses abstract move_left and move_right actions with default A/D or arrows. Draw the 12×16 sprite and 10×14 hitbox, apply horizontal acceleration 2200px/s² to max 150px/s, air control 140px/s, facing, and static tile AABB collision so Tock can walk on Windup Yard ground. Keep gravity disabled or use fixed ground contact only; jump and falling come next.",
+    "done": "The player can move Tock left and right through the drawn level and stop against walls.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "### 4.2.1 Movement",
+      "# 5. CHARACTERS",
+      "## 5.1 Player silhouette",
+      "## 2.3 Module specifics",
+      "## 2.2 Global context",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions"
+    ]
+  },
+  {
+    "name": "Jump Fall Physics",
+    "stage": "Implement fixed-step gravity 1250px/s², max fall 800px/s, jump action Space, coyote 0.08s, jump buffer 0.08s, initial velocity -430px/s, variable jump cut to max(vy, -160) if released before 0.12s, and no double or wall jump. Add jump, fall, and land animation states and camera follow/clamp so Tock can cross Windup Yard gaps.",
+    "done": "The player can jump with variable height, land, and cross gaps without double jumping.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "### 4.2.2 Jump",
+      "### 4.2.3 Falling",
+      "## 5.1 Player silhouette",
+      "## 1.1 Units, axes, frames",
+      "## 2.3 Module specifics",
+      "## 1.2 Important conventions"
+    ]
+  },
+  {
+    "name": "Memory Ledges",
+    "stage": "Add memory.js and Windup Yard memoryLedges records. At level load call startPreview with normal previewDuration 8s, draw ledges visible with cyan outline, then make them invisible but keep isLedgeSolid true so landing still works. Add debug memory preview and reveal helpers and ensure reset restores previewEnd and solid state.",
+    "done": "The player sees hidden ledges briefly, then can land on them after they vanish if they remember the path.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "### 4.2.6 Memorize",
+      "## 4.1 Records and rosters",
+      "# 3. VISUAL SPEC",
+      "## 2.3 Module specifics",
+      "## 8. DEBUG API"
+    ]
+  },
+  {
+    "name": "Exit Objective Path",
+    "stage": "Add the exit door-shaped arch with cyan outline to Windup Yard and detect overlap with the player. On touch set level.complete true, stop player control, and show a temporary white pixel-font complete banner with a loop-reset button so the core path can be tested. Do not add full title or win screens yet.",
+    "done": "The player can reach the cyan exit arch and complete the current loop.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "### 4.2.4 Objectives",
+      "### 4.2.5 Puzzle Types",
+      "# 3. VISUAL SPEC",
+      "## 2.3 Module specifics",
+      "## 7.3 HTML/CSS requirements"
+    ]
+  },
+  {
+    "name": "Loop Fail Reset",
+    "stage": "Implement failLevel and restartLevel: falling out of bounds y > level.height + 64 sets player.dead, shows a temporary gameover banner with Retry and Quit, and Retry reloads the same level with deterministic seed levelIndex * 10000 + attemptIndex. Reset player, camera, timers, memory ledges, and exit state to spawn records.",
+    "done": "The player can fall off the level, see the loop reset prompt, and retry the same loop from the start.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "### 4.2.7 Level Flow",
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "# 9. TESTS"
+    ]
+  },
+  {
+    "name": "Next Level Loop",
+    "stage": "Implement currentLevelIndex and progress.levelsCleared in save.js and main.completeExit. After the exit is touched, fade for 1.2s, load the next LevelRecord from config.js using its exact width, height, spawn, exit, tiles, and memoryLedges, and reset player, camera, and timers. Do not add Tier2 health, switches, keys, enemies, countdowns, or hazards; later levels may be incomplete but the game must run.",
+    "done": "The player can complete the first loop and load the next clock-tower loop layout.",
+    "reads": [
+      "# 4. GAMEPLAY SPEC",
+      "## 4.5 Progression and difficulty",
+      "## 4.1 Records and rosters",
+      "# 7. UX",
+      "## 7.1 Screen state machine",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Pause Settings Access",
+    "stage": "Add the paused state and settings screen: Esc freezes fixed-step updates and shows a pause overlay with Resume, Settings, and Quit. Implement settings for difficulty easy/normal/hard, remappable actions, reduced motion, colorblind symbols, and volume placeholders, then apply settings before rendering and store them only in memory. Wire settings to memory preview times and colorblind symbol overlays.",
+    "done": "The player can pause, adjust settings, and return to the running loop with accessibility and difficulty choices applied.",
+    "reads": [
+      "# 7. UX",
+      "## 7.1 Screen state machine",
+      "## 7.3 HTML/CSS requirements",
+      "# 0.2 Decisions",
+      "# 4. GAMEPLAY SPEC",
+      "### 4.3.15 Difficulty Ramp and Difficulty Options",
+      "## 2.3 Module specifics"
+    ]
+  },
+  {
+    "name": "Title End HUD",
+    "stage": "Add title, gameover, and win screens with only the allowed state transitions, replace temporary banners, wire start, continue, retry, quit, and again, and add the normal ending when the final exit is reached. Add HUD one cyan heart and MM:SS timer, synthesized ambient_clock, ambient_loop, ui_click, ui_back, jump, land, death, loop_reset, and timer_low, plus hit flash, reduced-motion outline pulse, and optional dust when reduced motion is off.",
+    "done": "The player can start from title, play and finish the loop with HUD, hear audio, and see the final win or gameover screens.",
+    "reads": [
+      "# 7. UX",
+      "## 7.1 Screen state machine",
+      "## 7.2 HUD table",
+      "## 7.3 HTML/CSS requirements",
+      "# 6. AUDIO",
+      "## 4.6 Feel",
+      "# 3. VISUAL SPEC",
+      "# 4. GAMEPLAY SPEC",
+      "### 4.2.7 Level Flow"
+    ]
+  }
+]
+```

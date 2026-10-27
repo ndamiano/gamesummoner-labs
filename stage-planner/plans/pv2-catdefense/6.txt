@@ -1,0 +1,3 @@
+cat aim shooting. Add tower targeting and shooting: default target is highest path progress in range, and if the cursor is inside range switch aimMode cursor and target nearest to cursor. Make Alley Cat fire projectiles at 1.0/s, 8 tiles/s, 10 damage when cooldown is ready, with muzzle flash and target line. Implement projectile collision, 0.08 s hit flash, particles, Fish Thief death, 5 coin reward, and score/coin updates; use debug spawning to test.
+---
+The player can move the cursor to change an Alley Cat target, watch it fire, and see Fish Thieves flash, die into particles, and add coins and score.

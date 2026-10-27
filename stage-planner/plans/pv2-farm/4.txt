@@ -1,0 +1,3 @@
+gather materials. Place the 30 plate-0 nodes from the roster: 10 moss_patch, 8 fiber_bush, 7 stone_node, 5 driftwood_pile. Implement gathering with interact at 1.25 tiles, no tool requirement, deterministic RNG yields moss 1-3, fiber 1-2, stone 1-2, or driftwood 1-2, and set a 60s node cooldown before respawn. Classify gathered outputs as core materials and show the node cooldown state.
+---
+The player can gather each node type, get stackable materials, and see nodes locked for 60s.

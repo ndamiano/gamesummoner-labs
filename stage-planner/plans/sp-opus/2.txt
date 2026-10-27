@@ -1,0 +1,3 @@
+move professor mittens. Add Professor Mittens at P with idle, walk, climb, fall, land, and hurt sprites. Implement Left/Right/Up/Down movement with 2 Move points, facing, ladder rules, standable checks, gravity, fall damage max(0, fallen - 2), and a simple Move pips HUD. Do not add enemies, cards, or End Turn yet.
+---
+The player can control Mittens with arrows, spend 2 Move points, climb ladders, and feel fall damage while the Move pips decrease.

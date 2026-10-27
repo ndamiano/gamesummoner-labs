@@ -1,0 +1,17 @@
+You are reviewing the look and the user experience of a browser game. Above are screenshots of its screens, each labelled with the screen it shows. Below are the design's visual spec and UX sections, which say how the game should look and read.
+
+Judge what a player sees, screen by screen:
+- Can a player read it: text size and contrast, nothing clipped, overlapping or off-screen.
+- Does it say what matters: the HUD shows what the player needs, the current goal is clear, the important thing on each screen stands out.
+- Does it look like one game: the screens share the design's palette, type and style, and match its art direction.
+- Does it look finished: no placeholder boxes, debug text, empty areas, or default browser styling where the design asks for something.
+
+Report at most five issues, the one that hurts a player most first. Each is something visible in these screenshots, not a guess about the code and not a score. If nothing is wrong, an empty list is the answer.
+
+Answer with JSON only, in this exact shape:
+
+{{"issues": [{{"screen": "<which screen>", "problem": "<what is wrong, concretely>", "evidence": "<what the screenshot shows>"}}]}}
+
+The design's visual spec and UX sections:
+
+{design}

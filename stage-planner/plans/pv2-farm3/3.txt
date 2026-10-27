@@ -1,0 +1,3 @@
+items pickup drop. Add `systems/resourceTypes.js`, `systems/pickupDrop.js`, and a minimal `Tab` inventory panel. From § 4.2 Resource Types (T1), register T1 records for `seed_radish`, `seed_carrot`, `seed_berry`, `seed_flower`, `radish`, `carrot`, `berry`, `flower`, `wood`, `stone`, and `fiber`, using categories `seed`, `produce`, `material`, and `object`, stack max 99, and unlimited T1 slots. Start inventory with 10 radish, 5 carrot, 5 berry, and 5 flower. Spawn visible ground stacks; `E` within 0.7 world units picks up a stack, `Q` drops one selected stack, and ground items do not despawn.
+---
+The player opens Tab, picks up ground stacks, and drops one selected stack back into the world.

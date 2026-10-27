@@ -1,0 +1,3 @@
+shell world board. Create one HTML page and canvas that renders Shelly's shell as an 11×11 fixed isometric board, with buildable cells x=1..9,y=1..9 and rim water. Use Shell base #F7F0E8, Shell scute #EFE2D4, and Water #A8DCE0 to draw static scutes and water. Do not add pieces, timers, input, or UI yet.
+---
+When it works, the browser shows a static pastel 11×11 turtle-shell board with water rim and no moving elements.

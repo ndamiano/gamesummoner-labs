@@ -1,0 +1,3 @@
+draw lily courtyard. From §3 and §4.1.7, build a static browser page and Three.js-style perspective canvas that draws L1R1 in the toon diorama look: pale blue stone, yellow lily pads, teal water, bright flower beds, daylight sun #FFF6CC at 55°, hemisphere #BDE3FF to #FFF7D6, 3-band toon material, and soft contact shadows. Place a room sign and an exit beacon as static props. Do not add player, enemies, doors, or gameplay updates.
+---
+A player sees a bright, toon-shaded Lily Courtyard room on screen and nothing moves.

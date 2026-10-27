@@ -1,0 +1,3 @@
+gate question overlay. From § 4.3 and § 4.4, make Level 1 gates interactable: facing a locked gate and pressing Enter, Space, or E sets mode question and opens a RECOGNITION_GATE or PRODUCTION_GATE question from the Level 1 kana bank. Generate 4 options with no duplicates using seeded mulberry32 and the § 4.4 option rules, and render the question modal with prompt and option cards. On correct answer, mark the question answered, set gate.open true, make the tile walkable, and return to playing; leave wrong-answer failure for § 4.4 policy in the next stage.
+---
+Player can face a Level 1 gate, answer its 4-option question, and the correct choice opens the gate.

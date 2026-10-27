@@ -1,0 +1,3 @@
+fall fail restart. Add falling state when vertical velocity is below -12, sand puffs after 0.4s, kill plane at level minimum Y minus 15.0, and failure below kill plane. On failure, tumble Pip, reset to level.spawn, zero velocity, and clear player states.
+---
+The player can fall below the kill plane, see Pip fail, and immediately restart Dune Steps.

@@ -1,0 +1,3 @@
+pick drop pieces. Add pointer-down for 150ms on a placed piece to lift it, clear its original footprint, pause its growth or structure effects, and show a held ghost. Preserve growth progress, readyCount, color, and level when dropping on a valid cell; if the drop is invalid or held for 10 seconds, cancel and return it to the original cell. Charge no move cost and never fail.
+---
+When it works, holding a placed piece for 150ms lifts it, dragging preserves its state, and invalid or timed-out drops return it to the original cell.

@@ -1,0 +1,3 @@
+finish screens feel. Build the final DOM state machine for title, level select, pause, settings, transition, and cutscene placeholder without win or lose screens. Fill HUD gaps, add chiptune music and retro bleep SFX, volume controls, Easy/Normal/Hard settings, colour-blind patterns, reduced motion, and the feel polish. Keep Level completion as transition.next and failure as transition.restart.
+---
+The player can navigate title, level select, settings, and pause, hear chiptune music and bleeps, and use reduced motion, colour-blind, and difficulty options.

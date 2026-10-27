@@ -1,0 +1,3 @@
+paper study board. From § 0.2 and § 1.1, create index.html, css/tokens.css, css/screens.css, and a 640x416 logical canvas with a 20x13 max viewport using CELL 32px. From § 4.1 and § 4.2, draw Level 1 as a 12x9 grid centered in paper margins with the § 3 pastel palette, ink lines, one SPAWN_POINT, one EXIT, and three locked paper-screen gates. Load LevelRecord fields id, name, grid, spawnPoints, exit, and gates statically, with no player, input, movement, or overlay.
+---
+Player sees the Level 1 study-room board on a static canvas: a 12x9 pastel grid with one spawn, one exit, and three locked gates.

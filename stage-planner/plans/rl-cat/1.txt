@@ -1,0 +1,3 @@
+render static level one. Create the index.html/style.css shell with #game-root, #scene canvas at 960×576, CSS responsive scaling, and pixelated rendering. Implement a 60Hz render loop that only draws Level 1 Tutorial Tower as a 24×14 grid using §1.1 16px logical tiles at 3x, with §3 colors #0b132b, #ffd23f, and #2fbf71, plus a static Wizard Whiskers sprite. No input, movement, falling, enemies, or HUD updates are enabled yet.
+---
+The player sees the first tower board on the page with the cat and exit drawn, but cannot control anything.

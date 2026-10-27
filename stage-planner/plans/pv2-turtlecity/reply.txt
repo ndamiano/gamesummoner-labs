@@ -1,0 +1,107 @@
+```json
+[
+  {
+    "name": "Shell World Board",
+    "stage": "Create one HTML page and canvas that renders Shelly's shell as an 11×11 fixed isometric board, with buildable cells x=1..9,y=1..9 and rim water. Use Shell base #F7F0E8, Shell scute #EFE2D4, and Water #A8DCE0 to draw static scutes and water. Do not add pieces, timers, input, or UI yet.",
+    "done": "When it works, the browser shows a static pastel 11×11 turtle-shell board with water rim and no moving elements.",
+    "reads": [
+      "## 0.2 Decisions",
+      "# 3. VISUAL SPEC",
+      "## 1.1 Units, axes, frames"
+    ]
+  },
+  {
+    "name": "Cursor Glove Control",
+    "stage": "Add the Shellwright cartoon glove as the visible player control, following pointerMove and showing idle/point/pick/drop visual states. Wire pointerDown, pointerMove, and pointerUp into an input state so hovering or clicking a grid cell highlights it, but no world object changes. Keep no locomotion; the glove only represents cursor actions and future action shortcuts.",
+    "done": "When it works, the player sees the Shellwright glove follow the pointer and can hover or click grid cells without changing the world.",
+    "reads": [
+      "## 5.1 Player: Shellwright Cursor",
+      "## 0.2 Decisions"
+    ]
+  },
+  {
+    "name": "Materials Currency HUD",
+    "stage": "Implement resource records for 'driftwood', 'algae', 'shell_shard', 'pearl', and 'shell_coin' with material caps 120 each and Shell Coin cap 30. Initialize state with 20 Driftwood, 12 Algae, 4 Shell Shard, 0 Pearl, and 0 Shell Coin, and clamp additions to caps. Add HUD pills with icons and labels for materials and currency.",
+    "done": "When it works, the HUD shows current materials and Shell Coin with caps 120/30 and initial 20/12/4/0/0.",
+    "reads": [
+      "### 4.2.4 Resource Types, Materials, Currency — Tier 1",
+      "### 4.1.1 Resource records",
+      "## 7.2 HUD table",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Place Build Pieces",
+    "stage": "Add the Build panel and placement flow for exactly the Tier 1 pieces: 'driftwood_sprout', 'algae_patch', 'shell_barnacle', 'pearl_oyster', 'shell_coin_barnacle', 'storage_room', and 'growth_post'. Show a ghost footprint under the cursor, validate x=1..9,y=1..9, occupancy, cost, and max count, then place instantly on pointer release and deduct cost. Use green check/red slash ghost feedback and tooltips with cost, yield, timer, maxReady, and effect. At play start, pre-place 2 'driftwood_sprout', 2 'algae_patch', and 1 'shell_barnacle' without charging cost.",
+    "done": "When it works, the player can open Build, select a Tier 1 piece, see a valid green or invalid red ghost, and place it while the cost is deducted.",
+    "reads": [
+      "### 4.2.1 Place and Placement — Tier 1",
+      "### 4.2.2 Buildable Pieces — Tier 1",
+      "### 4.1.2 Buildable piece roster",
+      "## 0.2 Decisions",
+      "# 3. VISUAL SPEC",
+      "## 7.2 HUD table",
+      "## 7.3 Remappable keys"
+    ]
+  },
+  {
+    "name": "Wait Gather Ready",
+    "stage": "Add a fixed-step gameplay tick with DT=1/60 and add gathering state to placed core gathering spots using roster intervals and maxReady values: 'driftwood_sprout' 25s/max3, 'algae_patch' 18s/max4, 'shell_barnacle' 35s/max2, 'pearl_oyster' 70s/max1, and 'shell_coin_barnacle' 55s/max2. Advance growth only when not paused, increment readyCount when interval completes, and pause when readyCount reaches maxReady. Draw growth stages and a yellow pulse/sparkle ready indicator, without collecting yet.",
+    "done": "When it works, placed gathering spots show growth stages, accumulate ready items up to maxReady, pause at max, and pulse with sparkles.",
+    "reads": [
+      "### 4.2.6 Gathering Spots and Wait and Collect — Tier 1",
+      "### 4.1.2 Buildable piece roster",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Harvest Ready Items",
+    "stage": "Make clicking a ready gathering spot harvest ready items: n = min(readyCount, remainingCap(resource)), add resources, reduce readyCount, and resume growth if it falls below maxReady. Handle partial collection when storage is nearly full, and treat 'shell_coin' harvesting as currency with no failure. Add pop/confetti feedback and a coin flip visual for 'shell_coin'.",
+    "done": "When it works, clicking a ready gathering spot collects resources up to remaining cap, updates the HUD, and resumes growth if below maxReady.",
+    "reads": [
+      "### 4.2.7 Harvest — Tier 1",
+      "## 7.3 Remappable keys",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Rooms Growth Posts",
+    "stage": "Add room and structure effects: 'storage_room' increases material caps by 120, Shell Coin cap by 40, and max gathering spots by 6 while placed; 'growth_post' multiplies adjacent gathering intervals by 0.9 with a floor of 0.7 of base. Apply effects on placement and prepare removal hooks for later pick-up, with max 3 storage rooms and 3 growth posts. Update HUD caps and gathering timers when effects change.",
+    "done": "When it works, placing 'storage_room' raises caps and max gathering, and placing 'growth_post' visibly speeds adjacent gathering intervals.",
+    "reads": [
+      "### 4.2.5 Rooms and Structures — Tier 1",
+      "### 4.1.2 Buildable piece roster",
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Pick Drop Pieces",
+    "stage": "Add pointer-down for 150ms on a placed piece to lift it, clear its original footprint, pause its growth or structure effects, and show a held ghost. Preserve growth progress, readyCount, color, and level when dropping on a valid cell; if the drop is invalid or held for 10 seconds, cancel and return it to the original cell. Charge no move cost and never fail.",
+    "done": "When it works, holding a placed piece for 150ms lifts it, dragging preserves its state, and invalid or timed-out drops return it to the original cell.",
+    "reads": [
+      "### 4.2.3 Pick Up and Drop — Tier 1",
+      "## 5.1 Player: Shellwright Cursor",
+      "# 3. VISUAL SPEC",
+      "## 7.3 Remappable keys"
+    ]
+  },
+  {
+    "name": "Screens Feel Polish",
+    "stage": "Add the exact Title, Pause, and Settings state machine, a pause button and Space pause, quit to Title as the session end state, and Settings toggles for mute, reduced motion, and remappable keys. Fill HUD gaps, integrate synthesized audio recipes such as 'ui_click', 'place_thump', 'harvest_pop', 'coin_ding', and 'ready_chime', and tune particles to match the cozy feel. Ensure reduced motion disables nonessential particles and color-safe icons remain readable.",
+    "done": "When it works, the player can start from Title, pause/resume, adjust Settings, hear cozy audio, use reduced-motion and remappable keys, and see a complete cozy turtle-village loop with no failure.",
+    "reads": [
+      "## 7.1 State machine — HTML/CSS only",
+      "## 7.2 HUD table",
+      "## 7.3 Remappable keys",
+      "## 7.4 Accessibility",
+      "# 6. AUDIO",
+      "# 3. VISUAL SPEC",
+      "## 4.6 Feel",
+      "## Tier 1 Definition of Done"
+    ]
+  }
+]
+```

@@ -1,0 +1,3 @@
+climb grip walls. Add hold-climb grab within 0.6 of climbable surfaces, climb speed 2.0, down movement, release drop, and jump-off-climb integration. Mark vertical panels in Dune Steps as climbable with grip dots and pulse, and add grip highlights and dust.
+---
+The player can hold climb on marked grip panels and move Pip up or down.

@@ -1,0 +1,3 @@
+add jump physics. Implement src/player/jump.js with tryJump, endJump, and isJumpAvailable. Bind Space to jump, apply impulse +8.5 when grounded, allow coyote time 0.12 and jump buffer 0.16, multiply velocity.y by 0.45 if jump is released while rising, and forbid double jumps. Keep horizontal max 6 and air control 0.6, and add a tiny dust puff hook for later reduced-motion handling.
+---
+Pressing Space launches Blorp about 3 units high and lets the player jump shortly after leaving a ledge or shortly before landing.

@@ -1,0 +1,3 @@
+five-level session progression. Add §4 Level roster definitions for level_01 through level_05 with exact BPM, duration, note_count, target_score, max_misses, and ambient ghost counts. Add §4 Objectives primary objectives, §4 Unlocks rules, and a minimal level_select screen showing locked and unlocked levels. On primary win, unlock the next level ID, record completion, and save a high score entry using the levelId:difficulty:memory key with default normal settings and false memory challenge.
+---
+After winning level_01, the player can open level select, see level_02 unlocked with its target and miss cap, and start it.

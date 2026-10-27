@@ -1,0 +1,3 @@
+cursor build preview. Add mouse-only cursor input and a build palette for `tabby_scratcher`, `calico_lobber`, and `siamese_sniper`: pointer movement sets `ctx.input.hoverCell`, left click on a cat button sets `ctx.input.buildSelection`, hover shows the selected range as a dashed `#2F80ED` circle plus check/X validity, and right click clears the selection. Do not place towers or change currency yet. Keep the static world running.
+---
+Player clicks a cat button, moves over the board, and sees a valid or invalid build ghost; right-click cancels it.

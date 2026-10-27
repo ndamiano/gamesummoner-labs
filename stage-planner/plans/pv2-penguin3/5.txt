@@ -1,0 +1,3 @@
+failure restart. Add `Failure.trigger(reason)` and `restart()` for bottom kill when `player.y > level.height + 240`, plus a stub damage hook for future hazards. On failure, show the `#FF6B35` 0.35 alpha full-screen hit flash for `0.15` s, death particles, increment `attemptCount`, wait `0.45` s, then reset player to `spawnStart` and reset all non-persistent level state.
+---
+Falling below the level causes a quick orange flash and particles, then the same L1 resets after 0.45 seconds.

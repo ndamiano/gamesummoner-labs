@@ -1,0 +1,3 @@
+frog steering. Add a fixed 1/60 s update loop, global context, and default key polling for WASD/arrows. Implement player steering: normalized input, accel 1500 px/s², drag 1200 px/s², max speed 220 px/s, clamp to x 48–912 and y 72–512, and facing from velocity. Render Pip at 480,292 with body #FFD500, belly #FFF3B0, outline #0B132B, eyes/pupils, and idleBob/moveHop.
+---
+The player can move the frog anywhere inside the pond bounds and see its eyes face the movement direction.

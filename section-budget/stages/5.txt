@@ -1,0 +1,3 @@
+every enemy. Add all four enemy types from §4.1 with their sprites (§5). Each shows its intent above its head at the start of the player turn (§4.6): an attack only lands if Mittens is still in range, so stepping out makes it miss, and Laser Pointer's stun skips an action. Landing on an enemy stomps it (§4.4). Add the feel of §4.9 and §3: hit flash, damage numbers, shake, particles, hit-stop. Put a mix of all four on floor 1 to test with.
+---
+a floor with all four types can be fought by reading their intents and stepping aside, and every hit shows.

@@ -1,0 +1,3 @@
+falling resolution. Implement falling resolution using §4.11 after player movement, after forced movement from cards, after enemy movement, and after level load: isSupported checks the tile below or flying, resolveFalling moves down one tile every 0.08s, and applyFallDamage uses max(0, tilesFallen - 1) against the 30 HP player or enemy HP from §4.1. Ground EN-MOUSE falls when unsupported; flying behavior is not present yet. Death from fall damage uses the existing death handling.
+---
+The player can step off an edge, fall, take fall damage, and die, and Mouselings can also fall into gaps.

@@ -1,0 +1,3 @@
+plant and grow crops. Use the 12 pre-tilled plots and seed records to implement planting with interact while holding sunleaf_seed, cloudberry_seed, or skyroot_seed. Start growth stages exactly: sunleaf 45s with stage 1 at 22s, cloudberry 90s with stage 1 at 45s, skyroot 120s with stage 1 at 60s. Advance growth only in play and stop it in pause; draw distinct seed, sprout, and mature silhouettes without tools or watering.
+---
+The player can plant seeds and watch each crop reach mature stage at the design's exact timers.

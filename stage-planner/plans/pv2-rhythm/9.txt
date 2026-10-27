@@ -1,0 +1,3 @@
+title results audio polish. Finish the game around the loop by replacing internal end states with §7 Screen state machine title, game_over, win, and settings screens, filling §7 HUD gaps, and adding §6 AUDIO: 4-bar music_loop, count_in_tick, hit_perfect, hit_good, hit_miss, empty_press, combo arpeggios, menu, unlock, win, and fail sounds. Implement §4 Feel: same-frame hit feedback, subtle beat pulse, reduced-motion-safe cues, and result screens showing reason, score, restart, and next-level actions.
+---
+The player can use a title screen, see proper win and game-over screens, hear the synth loop and retro bleeps, and feel consistent beat feedback.

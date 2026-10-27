@@ -1,0 +1,138 @@
+```json
+[
+  {
+    "name": "Static Market Board",
+    "stage": "Create index.html with the #app DOM shell and a 960 × 480 #play-area canvas, plus styles.css for flat UI. Render Level 0's 20 × 10 48 px grid, blue #2779BD paths with chevrons, yellow #FFD60A paw tiles, brown spawn crates, and red #E63946 market stall at marketCell gx 18 gy 5. Do not add input, enemies, waves, or HUD yet.",
+    "done": "The player sees a static Whisker Market Level 0 board in the flat vector style, with no moving objects.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "# 3. VISUAL SPEC",
+      "## Space",
+      "## Visual recipe",
+      "# 7. UX",
+      "## DOM structure"
+    ]
+  },
+  {
+    "name": "Paw Cursor Control",
+    "stage": "Add js/input.js so pointer movement updates input.pointerX/Y, input.pointerGX/GY, input.inPlayArea, and left/right just-pressed flags. Draw the Paw Cursor and white aim reticle from the visual recipe, with idle and over-UI states. Right click clears selectedPiece and selectedHandItem even when nothing is selected; no placement is enabled yet.",
+    "done": "The player moves a black paw cursor and white reticle around the static market, and left/right clicks update input state.",
+    "reads": [
+      "## 4.1 Input and aim",
+      "## Player cursor",
+      "## 1.2 Important conventions"
+    ]
+  },
+  {
+    "name": "Place Alley Cat",
+    "stage": "Add a minimal shop button for Alley Cat and shop.js selectPiece, cancelSelection, and canPlace. Implement placement rules: valid only on Level 0 buildable tiles, not market, spawn, occupied, outside, or during the 0.15 s placement cooldown, with green/red ghost and Alley Cat range preview. Start Level 0 with 180 coins, spend 50 on placement, and add a Tower record; right click cancels.",
+    "done": "The player clicks the Alley Cat button, sees a green or red ghost with range, and places an Alley Cat on a yellow paw tile for 50 coins.",
+    "reads": [
+      "## 4.3 Placement",
+      "## 4.9 Currency",
+      "## 4.11 Shop and buildable pieces",
+      "## 4.7 Towers and shooting",
+      "### Tower record",
+      "## Alley Cat",
+      "## Visual recipe"
+    ]
+  },
+  {
+    "name": "Fish Thief Path",
+    "stage": "Load Level 0 spawnPoints and paths, and draw brown spawn crates with pulsing arrows. Implement enemies.js spawn and update for Fish Thief with 30 HP, 0.80 tiles/s speed, waypoint following, facing, and a placeholder for future barricade stopping. Spawn one test Fish Thief from spawn point 0 and move it along the path; do not add shooting, market damage, or waves yet.",
+    "done": "The player sees a Fish Thief spawn from a brown crate and walk along the blue fish-gut path toward the market.",
+    "reads": [
+      "## 4.4 Spawn points",
+      "## 4.6 Enemies",
+      "### Enemy record",
+      "## Fish Thief",
+      "## Visual recipe"
+    ]
+  },
+  {
+    "name": "Market Damage Restart",
+    "stage": "Add market.js with maxMarketHP 100, marketHP, and a visible health bar above the red stall. When the Fish Thief reaches the final waypoint, deal marketDamage 5, play market_hit, flash the market white, spawn 6 red particles, and remove the enemy. If marketHP reaches 0, set level.status transition_restart, show a 1.2 s dark fade with Oh no! static text, and reload Level 0 without a defeat screen.",
+    "done": "The player sees the market health drop when Fish Thieves reach it, and the level silently restarts after the market is destroyed.",
+    "reads": [
+      "## 4.2 Market defense",
+      "## 1.2 Important conventions",
+      "## Screen state machine",
+      "## 4.24 Cutscenes",
+      "## Visual recipe"
+    ]
+  },
+  {
+    "name": "Cat Aim Shooting",
+    "stage": "Add tower targeting and shooting: default target is highest path progress in range, and if the cursor is inside range switch aimMode cursor and target nearest to cursor. Make Alley Cat fire projectiles at 1.0/s, 8 tiles/s, 10 damage when cooldown is ready, with muzzle flash and target line. Implement projectile collision, 0.08 s hit flash, particles, Fish Thief death, 5 coin reward, and score/coin updates; use debug spawning to test.",
+    "done": "The player can move the cursor to change an Alley Cat target, watch it fire, and see Fish Thieves flash, die into particles, and add coins and score.",
+    "reads": [
+      "## 4.1 Input and aim",
+      "## 4.7 Towers and shooting",
+      "## 4.8 Projectiles, hit flash, and particles",
+      "## 4.6 Enemies",
+      "## 4.9 Currency",
+      "### Projectile record",
+      "### Particle record",
+      "## Alley Cat",
+      "## Fish Thief"
+    ]
+  },
+  {
+    "name": "Wave Loop Complete",
+    "stage": "Implement waves.js for Level 0: 3 wave records, phase countdown/spawning/clear, first 5.0 s countdown, spawn groups with delay and interval, wave index HUD, wave_start and wave_clear, clearBonusCoins 30 + 20 * waveIndex, and waveScore. Add minimal HUD fields health, score, wave number, coins, and wave countdown. When all waves complete, set transition_next with 1.2 s bright fade Market saved! and return to a minimal level select state with Level 0 marked complete and Level 1 locked.",
+    "done": "The player plays Level 0 from a wave countdown through three waves, earns wave-clear coins, and sees Market saved! followed by a minimal level select with Level 1 locked.",
+    "reads": [
+      "## 4.5 Waves",
+      "### Wave record",
+      "## 4.9 Currency",
+      "## 4.12 Prices and rewards",
+      "## 4.10 Objectives",
+      "## HUD table",
+      "## Screen state machine",
+      "## 4.24 Cutscenes"
+    ]
+  },
+  {
+    "name": "Five Level Ramp",
+    "stage": "Add Level 1-4 records from the difficulty ramp: Opening Day, Crab Caper, Seagull Snack, Market Maze, and Festival Fiasco with startCoins 240, 260, 300, and 340 and wave counts 4, 5, 6, and 7. Add Seagull Raider, Crab Thief, Big Crab, Octopus Boss, enemy armour, Fish Barricade chewing, Tuna Cannon, Laser Pointer, Fish Barricade, unlock progression, and best score display. Do not add title, pause, settings, audio, or Tier 3 extras.",
+    "done": "The player can unlock and play Level 1 through Level 4, face the new enemies, use the new buildable pieces, and see best score slots on level select.",
+    "reads": [
+      "### Level record",
+      "### Wave record",
+      "## 4.13 Unlocks",
+      "## 4.14 Score",
+      "## 4.15 Armour and defence",
+      "## 4.16 Difficulty ramp and difficulty options",
+      "## 4.17 Bosses",
+      "## 4.25 Progression and difficulty",
+      "## 4.6 Enemies",
+      "## 4.7 Towers and shooting",
+      "## Seagull Raider",
+      "## Crab Thief",
+      "## Big Crab",
+      "## Octopus Boss",
+      "## Tuna Cannon",
+      "## Laser Pointer Cat",
+      "## Fish Barricade",
+      "## HUD table",
+      "## Screen state machine"
+    ]
+  },
+  {
+    "name": "Finish Screens Feel",
+    "stage": "Build the final DOM state machine for title, level select, pause, settings, transition, and cutscene placeholder without win or lose screens. Fill HUD gaps, add chiptune music and retro bleep SFX, volume controls, Easy/Normal/Hard settings, colour-blind patterns, reduced motion, and the feel polish. Keep Level completion as transition.next and failure as transition.restart.",
+    "done": "The player can navigate title, level select, settings, and pause, hear chiptune music and bleeps, and use reduced motion, colour-blind, and difficulty options.",
+    "reads": [
+      "# 7. UX",
+      "## Screen state machine",
+      "## HUD table",
+      "# 6. AUDIO",
+      "## 4.26 Feel",
+      "## 1.2 Important conventions",
+      "## Visual recipe",
+      "## 4.16 Difficulty ramp and difficulty options",
+      "## 4.24 Cutscenes"
+    ]
+  }
+]
+```

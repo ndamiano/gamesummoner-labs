@@ -1,0 +1,3 @@
+turn loop and HUD (§4.2, §4.8, §4.6, §7 HUD). Turn loop, Nova, combo, score, HUD (all T1 elements).
+---
+E ends the turn and the enemies act, Move points and Energy refill, the Nova charges and fires on Q, and every T1 HUD element is on screen.

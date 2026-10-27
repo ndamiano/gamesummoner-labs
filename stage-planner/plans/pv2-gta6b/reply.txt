@@ -1,0 +1,109 @@
+```json
+[
+  {
+    "name": "Static Dockside World",
+    "stage": "Create index.html, css/main.css, and a canvas #game showing a static Dockside layout: 500 × 500 m docks, shipping crates, warehouses, streetbike spawns, 2 hiding spots, 6 climbables, 1 shop, 1 landmark. Draw the warm dusk look with sun #FFB347 to #FF7B00, sky #FFD166/#B3261E/#3B1F0B, long shadows, warm haze, and no player or HUD.",
+    "done": "The browser shows a still Dockside street with warm haze and long shadows, no controls or player.",
+    "reads": [
+      "# 3. VISUAL SPEC",
+      "## Lighting and atmosphere",
+      "## Space",
+      "## Visual recipe table",
+      "## 7.2 HTML/CSS structure"
+    ]
+  },
+  {
+    "name": "Mara Movement Camera",
+    "stage": "Add Mara Vega as a player-controlled entity at a Dockside start with a third-person shoulder camera at 4.2 m, offset right 1.2 m/up 1.4 m, FOV 70°. Implement remappable logical input, WASD camera-relative movement at 4.8 m/s, mouse look, Space jump impulse 9.5 m/s, gravity 20 m/s², and fixed-step motion.",
+    "done": "WASD moves Mara, mouse looks, Space jumps, and the camera follows at 4.2 m.",
+    "reads": [
+      "## 4.4 System: input / camera / controls",
+      "## 4.5 System: movement / jump / falling / climb / swim / dash / dodge / grapple and swing",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions"
+    ]
+  },
+  {
+    "name": "Health HUD Respawn",
+    "stage": "Add health, armor, and lives to Mara: health 100, max 180, armor 0, max 100, 3 lives, 10 HP/s safe regen after 10 s, death loses a life, drops 10% SolCoins max $500, respawns after 3 s at 50 health/0 armor. Render only the health element with three life pips and an inner gray armor fill.",
+    "done": "The health element shows 100 health and three life pips; health 0 loses a life and respawns at 50 health after 3 s.",
+    "reads": [
+      "## 4.3 System: player health / lives / respawn / environmental damage",
+      "## 7.3 HUD table"
+    ]
+  },
+  {
+    "name": "Objectives Conversations",
+    "stage": "Add a Dockside quest giver with a diamond marker and an E conversation flow for M1 Arrive at Dockside: start the objective chain, advance dialogue with E, and show active talk/follow markers on the minimap. Keep rewards and combat incomplete; only the quest state and markers update.",
+    "done": "A Dockside quest giver shows a diamond marker, E opens M1 dialogue, and the active talk/follow objective marker appears on the minimap.",
+    "reads": [
+      "## 4.9 System: objectives / main quests / side quests / quest givers / conversations / choices / plot / cutscenes / endings / hints",
+      "### Main quest roster",
+      "## Visual recipe table"
+    ]
+  },
+  {
+    "name": "Physics Vehicle Driving",
+    "stage": "Add physics objects and a streetbike: F picks/drops any object with mass ≤ 120 kg, and V enters/exits a streetbike with 22 m/s speed, 6 m/s² acceleration, 0.9 handling, and A/D steering. Show crate pickup prompts and vehicle interaction only in the world canvas.",
+    "done": "Player can pick/drop a crate and enter/drive a streetbike, steering with A/D and stopping with S.",
+    "reads": [
+      "## 4.8 System: vehicles / steer / chase and catch / carry and tow / physics objects",
+      "## 4.11 System: key items / pick up and drop / inventory limit / equipment / consumables / gathering spots / collectibles / secrets / lore"
+    ]
+  },
+  {
+    "name": "Enemies Weapon Combat",
+    "stage": "Add Dusk Pistol and baton combat with thug enemies: thug 40 HP, 0 armor, melee 12, pistol 8, flees at 10 HP; Dusk Pistol 14 damage, 0.22 s interval, 12 mag, 96 reserve; baton combo 14/18/30. Implement LMB hitscan shooting, RMB aim FOV 50, R melee, detection to combat, and kill rewards score 100/currency 15.",
+    "done": "Player can aim, shoot, and melee a thug; after enough hits the thug dies and a reward banner shows +100 score and +15 SolCoins.",
+    "reads": [
+      "## 4.6 System: weapons / aim / shoot / melee / throw / combos",
+      "## 4.7 System: enemies / bosses / guards / townsfolk / allies / companions / rivals / opponents",
+      "### Enemy roster",
+      "### Weapon roster",
+      "### Melee roster"
+    ]
+  },
+  {
+    "name": "Main Quest Progression",
+    "stage": "Add data-driven main-quest progression for M2 through M13: quest-giver offers, objective chains, reward grants, unlock flags, key items such as ledger, chain_key, route_token, wetland_beacon, casino_debt, citadel_pass, and mini-boss spawns including Rustjaw, Warden, Twins, Mudback, Vice Baron. Add district bounds, gates, landmarks, spawn points, minimap markers, and a placeholder M map with fast travel.",
+    "done": "Completing M2 grants the ledger and opens the Old Market gate, and the minimap shows discovered landmarks and spawn points.",
+    "reads": [
+      "## 4.2 System: map / world / landmarks / spawn points / fast travel",
+      "## 4.9 System: objectives / main quests / side quests / quest givers / conversations / choices / plot / cutscenes / endings / hints",
+      "## 4.10 System: rewards / unlocks / progression / stats / skill tree / boosts / score / relationships / affection",
+      "## 4.11 System: key items / pick up and drop / inventory limit / equipment / consumables / gathering spots / collectibles / secrets / lore",
+      "## 4.7 System: enemies / bosses / guards / townsfolk / allies / companions / rivals / opponents",
+      "### Main quest roster",
+      "### Key item roster",
+      "### Boss roster",
+      "### World content counts"
+    ]
+  },
+  {
+    "name": "Final Boss Win",
+    "stage": "Add M14 and Solaris as a final-boss encounter: 5,000 HP, phase 1 ranged 22, phase 2 melee 35 plus 2 enforcers, phase 3 core beam 50 with a 2.0 s weak point. Defeat sets session.win and shows a placeholder Win message.",
+    "done": "Solaris appears with 5,000 HP and three visible phases, and defeating it shows a placeholder Win message.",
+    "reads": [
+      "## 4.7 System: enemies / bosses / guards / townsfolk / allies / companions / rivals / opponents",
+      "## 4.9 System: objectives / main quests / side quests / quest givers / conversations / choices / plot / cutscenes / endings / hints",
+      "## 4.3 System: player health / lives / respawn / environmental damage",
+      "### Boss roster",
+      "### Main quest roster"
+    ]
+  },
+  {
+    "name": "Title End Polish",
+    "stage": "Replace placeholder states with the real Title, Pause tabs, Settings, Game Over, and Win screens; complete the HUD table for health, score, minimap, ammo, combo, and currency. Add synthesized audio recipes, title/music/sfx volumes, and feel effects such as screen shake, hit flash, slow motion, particles, trails, and bloom, reduced by reduced-motion.",
+    "done": "Title starts a session, Settings/pause work, Game Over and Win screens appear, HUD is complete, and audio/feel react to hits, movement, and boss states.",
+    "reads": [
+      "## 7.1 Screens state machine",
+      "## 7.2 HTML/CSS structure",
+      "## 7.3 HUD table",
+      "## 7.4 Pause tabs",
+      "## 7.5 Settings screen",
+      "# 6. AUDIO",
+      "## 4.19 Feel"
+    ]
+  }
+]
+```

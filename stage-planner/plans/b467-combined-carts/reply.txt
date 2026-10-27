@@ -1,0 +1,112 @@
+```json
+[
+  {
+    "name": "Static L1 Diorama",
+    "stage": "Create index.html, style.css, canvas, and a static L1 Aisle Warm-Up scene at 50x30 with floor y=0, 6m walls, 6.0m ceiling, 2.2m aisles, 1.6m shelves, 0.8m low obstacles, and a gray locked Exit Pad 3m wide, 3m deep, 2.4m tall. Draw the toon grocery-store look: glossy #F7F7F7 tile with #4CC9F0 guide lines, shelf colors #FFD166/#06D6A0/#118AB2/#EF476F, and hand-lettered signage. Do not add player, camera follow, movement, or simulation.",
+    "done": "The player can load the page and see a bright, static L1 grocery-store diorama with the exit gate visible but locked.",
+    "reads": [
+      "# 3. VISUAL SPEC",
+      "## 4.6 Map / World [Tier 1]",
+      "## 1.1 Units, axes, frames",
+      "## 2.1 Module layout"
+    ]
+  },
+  {
+    "name": "Wobble Controls",
+    "stage": "Add Wobble Player Cart and third-person chase camera. Implement W/A/S/D/arrows, Wobble collision box 1.2 x 0.9 x 1.1, forward acceleration 9, top speed 12, reverse 6, brake 12, yaw 30 + 150 * clamp(speed / 12) deg/s, jump impulse +7, gravity -20, coyote 0.15, jump buffer 0.15, and camera offset -5.0m Z +2.5m Y FOV 70. Keep L1 static geometry as the playable space.",
+    "done": "The player can drive, turn, reverse, jump, and see the cart from behind while the static L1 remains visible.",
+    "reads": [
+      "## 4.2 Vehicle [Tier 1]",
+      "## 4.3 Input and Steering [Tier 1]",
+      "## 4.4 Jump [Tier 1]",
+      "## 4.42 Camera [Tier 1]",
+      "## 1.2 Important conventions",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Physics Score Goals",
+    "stage": "Add physics objects and scoring triggers from 4.5 and 4.8: cans, apples, crates, ice blocks, goal bins, and pressure plates. Use the listed masses/frictions/restitutions and award base score only when a matching object enters a bin or stays on a plate: can bin 50, produce bin 100, crate plate/bin 100, ice plate 120. Mark scored objects so each trigger scores once.",
+    "done": "The player can knock cans, apples, crates, or ice blocks into matching bins or onto plates and see base score increase.",
+    "reads": [
+      "## 4.5 Physics Objects [Tier 1]",
+      "## 4.8 Score [Tier 1]",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Keycards Exit Win",
+    "stage": "Add L1 objectives: 3 auto-collected Keycards, a Key counter, and Exit Pad logic. Open the exit only when keysCollected==3 and baseScore>=1500, change the gate from gray lock to green check, and make holding the Exit Pad for 1.5s win the level. Place 3 Keycards in L1 and show minimal objective counters so the loop can be checked.",
+    "done": "The player can collect 3 Keycards, reach 1500 base score, see the exit open, hold the Exit Pad for 1.5s, and win L1.",
+    "reads": [
+      "## 4.7 Objectives [Tier 1]",
+      "## 4.11 Collectibles [Tier 2]",
+      "## 4.6 Map / World [Tier 1]",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Timer Fail Restart",
+    "stage": "Add the level timer and fail path. Start L1 at 5:00 Normal, support Easy 6:15 and Hard 3:45, display MM:SS, pulse a clock icon at 30s, and trigger a fail state when it expires. Add R restart and ensure restart clears level state while preserving unlocks and settings.",
+    "done": "The player sees a countdown, can win before it expires, or sees a fail state and can restart L1 when it expires.",
+    "reads": [
+      "## 4.28 Timers [Tier 3]",
+      "## 4.3 Input and Steering [Tier 1]",
+      "## 4.7 Objectives [Tier 1]",
+      "## 1.2 Important conventions"
+    ]
+  },
+  {
+    "name": "Four Level Progression",
+    "stage": "Add L2 Produce Panic 70x45 with 5:30/3000, L3 Frozen Maze 80x55 with 6:00/5500, and L4 Checkout Chaos 90x60 with 7:30/8000 using the Level roster counts for keys, coins, tags, secrets, side quests, objects, traps, landmarks, and spawns. Add the unlock chain: complete L1 to unlock L2, L2 to unlock L3, and L3 to unlock L4. Route the post-win Continue path to the next unlocked level so progression can be checked before the full level select exists.",
+    "done": "After winning L1, the player can continue into L2, then L3 and L4, with each level's roster and higher score goal/timer visible.",
+    "reads": [
+      "## 4.1 Records and Rosters",
+      "## 4.40 Progression and Difficulty",
+      "## 4.22 Unlocks [Tier 2]",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Rival Guard AI",
+    "stage": "Add one opponent AI system. Rival carts patrol at 6 m/s, switch to 9 m/s when the exit opens, race to the Exit Pad, and store +500 if the player finishes before all rivals or -1000 if any rival finishes first. Security Guard carts patrol at 5 m/s, detect in a 90-degree 15m cone, chase at 9.5 m/s, catch within 1.2m for 0.5s, increment guard strikes, record the 10% currency penalty and combo reset as pending penalties, and respawn the player at the nearest active spawn; entering a 5m safe zone or increasing distance 10m in 5s ends the chase. Use L2 2 rivals, L3 3 rivals/1 guard, and L4 4 rivals/2 guards.",
+    "done": "The player sees rival carts racing after the exit and guard carts chasing, can flee or be caught, and sees strikes increase toward a 3-strike fail.",
+    "reads": [
+      "## 4.24 Opponents [Tier 2]",
+      "## 4.34 Guards [Tier 3]",
+      "## 4.35 Flee [Tier 3]",
+      "## 4.36 Rivals [Tier 3]",
+      "## 4.21 Spawn Points [Tier 2]",
+      "## 4.15 Landmarks [Tier 2]",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Screens HUD Finish",
+    "stage": "Add the full UI state machine from 7: boot, title, settings, level select, playing, paused, win, game over, high scores, and leaderboard, with ARIA roles, visible focus, and hand-lettered SVG headings. Implement settings for difficulty, key remap, reduced motion, colorblind mode, and volume; level cards with lock state; pause that stops simulation; win screen that evaluates Bronze/Silver/Gold/Platinum from finalScore = baseScore + currencyTokens * 10 + timeBonus + rankAdjustment and saves cartracer.highscores.v1; and game over/high-score/leaderboard flows using cartracer.leaderboard.v1. Fill HUD fields for score, timer, combo, currency, key counter, exit status, inventory slots, match meter, landmark markers, guard/flee, rival status, side quests, hints, special cost, strikes, and rank preview.",
+    "done": "The player can start from title, adjust settings, choose unlocked levels, pause, see win/game over/high scores/leaderboard, and see the complete in-level HUD.",
+    "reads": [
+      "# 7. UX",
+      "## Screens state machine",
+      "## HTML/CSS rules",
+      "## HUD",
+      "## 4.20 High Scores [Tier 2]",
+      "## 4.38 Leaderboard [Tier 3]",
+      "## 4.37 Medals / Ranks [Tier 3]",
+      "## 4.30 Difficulty Ramp [Tier 3]",
+      "## 4.22 Unlocks [Tier 2]"
+    ]
+  },
+  {
+    "name": "Audio Juice",
+    "stage": "Add synthesized audio and feel. Start the 110 BPM synth loop with square bass root 110Hz, triangle arps 220-660Hz, and noise hats, and implement the 6 AUDIO recipes for coin, tag, match, keycard, secret, jump, land, dash, boost, bounce, throw, hit, score, target, guard, caught, fail, win, rank, magnet, and air flip. Add screen shake max 0.08m, particles, hit flash, trails, bloom threshold 0.7 intensity 0.3, and reduced motion that disables shake, particles, trails, bloom, and camera smoothing while keeping gameplay readable.",
+    "done": "The player hears the synth loop and cartoony SFX, and sees shake, particles, flash, trails, and bloom during play, with reduced motion preserving readable gameplay.",
+    "reads": [
+      "# 6. AUDIO",
+      "## 4.41 Feel",
+      "# 3. VISUAL SPEC",
+      "## 1.2 Important conventions"
+    ]
+  }
+]
+```

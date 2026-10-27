@@ -1,0 +1,15 @@
+design = open("design/design.md").read()
+
+def section(start):
+    i = design.index(start)
+    if start.startswith("#"):
+        level = len(start) - len(start.lstrip("#"))
+        ends = [design.find("\n" + "#" * n + " ", i + 1) for n in range(1, level + 1)]
+    else:
+        ends = [design.find("\n**", i + 1), design.find("\n#", i + 1)]
+    ends = [e for e in ends if e > 0]
+    return design[i:min(ends) if ends else len(design)].rstrip()
+
+for start in {starts}:
+    print(section(start))
+    print()

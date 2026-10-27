@@ -1,0 +1,26 @@
+load 11.1 s, chain 4.8 s, 202 questions in 20 reads
+dimension            = qev 2d (0.74) | jev 2d / 2d / 2d
+camera               = qev top-down (0.36) | jev top-down / top-down / top-down
+time model           x qev turn-based (0.39) | jev real-time / real-time / real-time
+movement model       x qev grid-based (0.42) | jev free movement / free movement / free movement
+session shape        x qev single screen (0.34) | jev endless / endless / endless
+failure              x qev restart the level (0.44) | jev lose a life / lose a life / lose a life
+tone                 = qev silly (0.62) | jev silly / silly / silly
+size                 = qev one screen, a few minutes (0.43) | jev one screen, a few minutes / one screen, a few minutes / one screen, a few minutes
+win/lose             qev 1 kept | jev [3, 3, 3] kept | overlap [0, 0, 0]
+mechanics            qev 2 kept | jev [20, 20, 21] kept | overlap [1, 1, 1]
+first playable       qev top [('waves', 0.9), ('hunger', 0.77)]
+                     jev top [('chase and catch', 0.76), ('score', 0.7), ('spawn points', 0.62), ('steer', 0.58), ('respawn', 0.5)]
+                     jev top [('chase and catch', 0.77), ('steer', 0.71), ('score', 0.69), ('spawn points', 0.62), ('respawn', 0.48)]
+                     jev top [('chase and catch', 0.76), ('steer', 0.7), ('score', 0.69), ('spawn points', 0.62), ('melee attack', 0.55)]
+art style            = qev flat vector: clean flat shapes, solid co (0.42) | jev flat vector: clean flat shapes, solid co / flat vector: clean flat shapes, solid co / flat vector: clean flat shapes, solid co
+art style            qev skipped | jev flat vector: clean flat shapes / flat vector: clean flat shapes / flat vector: clean flat shapes
+palette              = qev saturated: bright, strong colours (0.49) | jev saturated: bright, strong colours / saturated: bright, strong colours / saturated: bright, strong colours
+lighting             qev skipped | jev skipped / skipped / skipped
+typography           x qev clean sans: plain modern letters (0.79) | jev hand-lettered: drawn, irregular letters / hand-lettered: drawn, irregular letters / hand-lettered: drawn, irregular letters
+music                x qev none: no music (0.43) | jev chiptune: retro console bleeps / chiptune: retro console bleeps / chiptune: retro console bleeps
+sound effects style  x qev cartoony: exaggerated boings and pops (0.47) | jev retro bleeps: synthesized chip sounds / retro bleeps: synthesized chip sounds / retro bleeps: synthesized chip sounds
+screens              qev 1 kept | jev [5, 5, 5] kept | overlap [0, 0, 0]
+hud                  qev 1 kept | jev [3, 3, 3] kept | overlap [0, 0, 0]
+effects              qev 1 kept | jev [3, 3, 3] kept | overlap [0, 0, 0]
+accessibility        qev 1 kept | jev [4, 4, 4] kept | overlap [0, 0, 0]

@@ -1,0 +1,3 @@
+wave market rush. Implement the wave state machine for `market_01`: start in `preparing` for `20s`, then run wave 1 Gull x4 interval `2.0` reward `35`, wave 2 Gull x8 interval `1.6` reward `50`, and wave 3 Gull x12 interval `1.2` reward `80`. Track `ctx.waveIndex`, `ctx.waveState`, group delays, and after a completed wave start the next `preparing` after `nextWaveDelay = 15`; show `waveIndex + 1` of total waves in the HUD.
+---
+Player watches a wave countdown, sees Gull waves spawn on schedule, and sees the wave counter and coin total increase after a wave clears.
