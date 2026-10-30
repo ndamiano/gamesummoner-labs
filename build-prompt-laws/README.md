@@ -1,6 +1,6 @@
 # build-prompt-laws
 
-Status: single-run (queued 2026-10-28 01:00 EDT)
+Status: single-run done 2026-10-28, awaiting Nick's play and grade
 Control: pipeline-v2's farm3 (design c1dad551e950; gated 3f28dc497d54, polished 33cb8b33fc46),
 same design, chain, opts and refine loop, with the prod build prompt. Nick graded both 7.
 
@@ -53,5 +53,32 @@ Differences from the control besides the laws: prod `play_gate.py` now settles f
 and the llm entries are named (BYOK), which routes the same calls to the same model.
 
 ## Log
+
+**2026-10-28 01:00–03:05 EDT, farm3l** (design c1dad551e950, laws prompt).
+- **Plan:** 9 stages, re-planned this run, so the order differs from farm3: jump is stage 3 (farm3:
+  7), and day/night is gone in favour of "Finish Screens Audio".
+- **Staged chain:** 83 min, final 4f9bcbaaf95f (farm3: 87 min).
+  - 16 attempts across the 9 stages, against farm3's 12. The model said done on 9 of the 16;
+    farm3 said done on 1 of 12, so the laws did not spend the budgets on tests.
+  - Looks: 8 of 16 attempts missing (farm3: 3 of 12, all on stage 8). After retries, stages 1–6, 8
+    and 9 ended shown, and stage 7 (grow and harvest) ended missing after three tries.
+  - The misses are the classes the laws target: P pause dead (stage 2), Space hop never fires
+    (3), E pickup removes the stack but the satchel never updates (5, twice), planting does
+    nothing on E and sown beds never draw growth (7, three times), and E gathers nothing from
+    bushes and rocks (8).
+- **Gates** (copy e71d428f9275): 0 error rounds, 0 play rounds, nothing broken.
+- **Refine**, 3 rounds of 40 steps, about 40 min:
+  - Round 0, on the gated copy: the player gathered fiber and wood but never planted. farm3's
+    round 0 collected 50 crops.
+  - Round 1 (3eb753f38aac), judged further: planting works through B, then E, which contradicts
+    the on-screen hint. Kept.
+  - Rounds 2 (ba7fb0c670d9) and 3 (be7294a335c1), judged worse: the arch/gate into the next zone
+    never triggers, crops never grow, and there is no goal shown.
+  - Final: 3eb753f38aac. farm3's final was its gated copy, after three rounds all judged worse.
+- **Served:** refined 3eb753f38aac on :9024, gated e71d428f9275 on :9025, farm3 gated
+  3f28dc497d54 on :9021.
+
+Read so far: the laws did not cut these misses. Same classes, more of them, though the stage
+plans differ, so the counts are not like-for-like. Nick's play decides.
 
 ## Outcome

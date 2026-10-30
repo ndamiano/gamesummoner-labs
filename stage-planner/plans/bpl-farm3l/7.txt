@@ -1,0 +1,3 @@
+grow harvest crops. Implement systems/grow.js and systems/harvest.js so planted crops tick through stages 0 seed, 1 sprout, 2 leafy, and 3 mature using real growth seconds from § 4.1: radish 180, carrot 360, berry 540 then regrow 600, flower 480. Use base multiplier 1.0, no crop death, and pause growth when meta.paused is true. Bind E within 1.2 world units to harvest mature crops for 0.25s, produce yield from the crop table, and make berry regrow after 600s; do not add moisture, tools, or prices.
+---
+A player can plant a seed, wait for its visual growth stages, then harvest it with E and receive the listed produce.

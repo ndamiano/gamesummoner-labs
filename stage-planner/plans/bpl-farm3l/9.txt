@@ -1,0 +1,3 @@
+finish screens audio. Add ui/screens.js with BOOT -> TITLE -> PLAYING and Pause/Settings screens from § 7.1, making Pause stop simulation, timers, growth, movement, and audio scheduling. Add ui/hud.js persistent minimap and currency display only, keeping breeze_coin at 0 because T1 has no selling. Add audio/audioEngine.js, sfx, and music for title, day, pickup, drop, place, harvest, gather, jump, and UI clicks from § 6, plus hand-lettered pastel UI, reduced-motion, colour-blind, and key-remapping settings; do not add Tier 2 systems.
+---
+A player can start from a title screen, play the full Hollowroot loop with minimap and currency visible, pause safely, and adjust settings without breaking the game.

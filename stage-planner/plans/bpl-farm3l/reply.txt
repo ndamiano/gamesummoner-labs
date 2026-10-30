@@ -1,0 +1,145 @@
+```json
+[
+  {
+    "name": "Render Hollowroot Island",
+    "stage": "Create index.html, style.css, main.js, core/loop.js, core/engine.js, core/render.js, core/camera.js, and systems/mapWorld.js with a fixed 1/60s simulation and 60 Hz render. Draw the 64x64 Hollowroot zone with its starting tile 32,32 and camera centered near player.pos 32.5,32.5 using 64x32 px isometric tiles from § 1.1 and the pastel palette in § 3. Render ground, path, soil, water, bridge, platform, blocked, and door tiles, including 20 soil tiles near the starting tile, but do not add player, movement, or interaction yet.",
+    "done": "A player sees a static, hand-drawn pastel Hollowroot Meadow on the page with the camera centered near 32.5,32.5.",
+    "reads": [
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.1 Module layout",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC",
+      "### Map / World (T1)",
+      "## 7.4 HTML/CSS notes"
+    ]
+  },
+  {
+    "name": "Control Moss Movement",
+    "stage": "Add input actions and named actions from § 0.2, then add Moss as a 0.70x0.50 world-unit hitbox at player.pos 32.5,32.5. Implement free movement at 2.8 world units/s, isometric camera follow with lerp 0.12, deadzone 0.20, zoom 1.0, tile collision via isWalkable, and soft boundary that reverses velocity 0.5 and returns to last safe tile. Bind P to meta.paused so movement and timers stop, and draw/animate the caretaker sprite at 48x64 px, but keep the world static except player motion.",
+    "done": "A player can use the keyboard to walk Moss around Hollowroot, collide with blocked tiles, pause with P, and be gently returned from cloud-edge boundaries.",
+    "reads": [
+      "## 0.2 Decisions",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "### Map / World (T1)",
+      "## Player"
+    ]
+  },
+  {
+    "name": "Jump Over Gaps",
+    "stage": "Implement systems/jump.js and bind Space to tryJump when grounded, using jump impulse 4.2 world units/s, gravity 12.0 world units/s², max visual height 0.735, and cooldown 0.20s. Allow crossing 1-tile gaps and ledges; if landing is invalid, return Moss to last safe tile with no fall damage. Add the 3-frame jump animation and a soft jump tone placeholder, but keep no fall damage.",
+    "done": "A player can press Space to hop over one-tile gaps or ledges and land safely without penalties.",
+    "reads": [
+      "## 0.2 Decisions",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "### Jump (T1)",
+      "## Player"
+    ]
+  },
+  {
+    "name": "Define Item Inventory",
+    "stage": "Implement systems/resourceTypes.js and player.inventory records for T1 seed, produce, material, and object categories, registering seed_radish, seed_carrot, seed_berry, seed_flower, radish, carrot, berry, flower, wood, stone, and fiber. Initialize player inventory with 10 seed_radish, 5 seed_carrot, 5 seed_berry, and 5 seed_flower, with max stack 99 and unlimited T1 slots. Add a minimal Tab inventory panel that lists item names and counts using the panel style in § 7.4, but do not enforce 24 slots, add shops, or add crafting.",
+    "done": "A player can press Tab to see an inventory panel with registered seed, produce, and material records and their counts.",
+    "reads": [
+      "## 0.2 Decisions",
+      "## 1.2 Important conventions",
+      "### Resource Types (T1)",
+      "### Item categories",
+      "### Crop roster",
+      "### Material roster",
+      "### Crops (T1)",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "## 7.4 HTML/CSS notes"
+    ]
+  },
+  {
+    "name": "Pick Up Drop Items",
+    "stage": "Implement systems/pickupDrop.js and ground item stacks with 0.7 world-unit pickup radius. Bind E to pick up a ground stack within radius and Q to drop one selected stack, using inventory records from § 4.2. Render ground stacks as small item glyphs and never despawn them; in T1 do not block pickup when inventory is full.",
+    "done": "A player can pick up a radish or wood stack with E and drop a selected stack with Q, seeing the item leave the ground and inventory update.",
+    "reads": [
+      "## 0.2 Decisions",
+      "### Pick Up and Drop (T1)",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Place Seed Rows",
+    "stage": "Implement systems/placement.js and Crops planting: press B to enter placement mode, show a dashed ghost at place reach 1.5, R to rotate, Q to cancel, and E to place. Allow seeds seed_radish, seed_carrot, seed_berry, and seed_flower only on empty soil tiles, and allow loose wood, stone, and fiber objects with small colliders; reject water, path, blocked, and occupied tiles. Use the 20 starting soil tiles near the starting tile and the starting seed counts from § 4.2, without adding growth or harvest.",
+    "done": "A player can enter build mode, place seed dots on soil or loose material objects, rotate or cancel the ghost, and see the placed item appear.",
+    "reads": [
+      "## 0.2 Decisions",
+      "### Placement (T1)",
+      "### Crops (T1)",
+      "### Crop roster",
+      "### Map / World (T1)",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Grow Harvest Crops",
+    "stage": "Implement systems/grow.js and systems/harvest.js so planted crops tick through stages 0 seed, 1 sprout, 2 leafy, and 3 mature using real growth seconds from § 4.1: radish 180, carrot 360, berry 540 then regrow 600, flower 480. Use base multiplier 1.0, no crop death, and pause growth when meta.paused is true. Bind E within 1.2 world units to harvest mature crops for 0.25s, produce yield from the crop table, and make berry regrow after 600s; do not add moisture, tools, or prices.",
+    "done": "A player can plant a seed, wait for its visual growth stages, then harvest it with E and receive the listed produce.",
+    "reads": [
+      "## 0.2 Decisions",
+      "### Grow (T1)",
+      "### Harvest (T1)",
+      "### Crop roster",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Gather From Spots",
+    "stage": "Implement systems/gatheringSpots.js and systems/materials.js, spawning 12 bush_fiber, 10 rock_stone, and 8 log_wood in Hollowroot with 5 uses each. Bind E within 1.2 world units to consume one use and yield 2 fiber, 2 stone, or 2 wood, then leave the spot visible but disabled when uses reach 0, with no respawn in T1. Add small colliders and dashed interactable ring visuals, but no tools, respawn, currency, or selling.",
+    "done": "A player can gather materials from finite bushes, rocks, and logs until those spots are visibly disabled.",
+    "reads": [
+      "## 0.2 Decisions",
+      "### Gathering Spots (T1)",
+      "### Materials (T1)",
+      "### Material roster",
+      "### Gathering spot roster",
+      "## 1.1 Units, axes, frames",
+      "## 1.2 Important conventions",
+      "## 2.3 Module specifics",
+      "# 3. VISUAL SPEC"
+    ]
+  },
+  {
+    "name": "Finish Screens Audio",
+    "stage": "Add ui/screens.js with BOOT -> TITLE -> PLAYING and Pause/Settings screens from § 7.1, making Pause stop simulation, timers, growth, movement, and audio scheduling. Add ui/hud.js persistent minimap and currency display only, keeping breeze_coin at 0 because T1 has no selling. Add audio/audioEngine.js, sfx, and music for title, day, pickup, drop, place, harvest, gather, jump, and UI clicks from § 6, plus hand-lettered pastel UI, reduced-motion, colour-blind, and key-remapping settings; do not add Tier 2 systems.",
+    "done": "A player can start from a title screen, play the full Hollowroot loop with minimap and currency visible, pause safely, and adjust settings without breaking the game.",
+    "reads": [
+      "## 0.2 Decisions",
+      "## 1.2 Important conventions",
+      "# 3. VISUAL SPEC",
+      "# 6. AUDIO",
+      "## 2.2 Global context",
+      "## 2.3 Module specifics",
+      "## 7.1 State machine",
+      "## 7.2 Screens",
+      "### Title",
+      "### Pause",
+      "### Settings",
+      "## 7.3 HUD",
+      "## 7.4 HTML/CSS notes"
+    ]
+  }
+]
+```

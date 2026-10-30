@@ -1,0 +1,3 @@
+pick up drop items. Implement systems/pickupDrop.js and ground item stacks with 0.7 world-unit pickup radius. Bind E to pick up a ground stack within radius and Q to drop one selected stack, using inventory records from § 4.2. Render ground stacks as small item glyphs and never despawn them; in T1 do not block pickup when inventory is full.
+---
+A player can pick up a radish or wood stack with E and drop a selected stack with Q, seeing the item leave the ground and inventory update.

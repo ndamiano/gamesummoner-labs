@@ -1,0 +1,3 @@
+define item inventory. Implement systems/resourceTypes.js and player.inventory records for T1 seed, produce, material, and object categories, registering seed_radish, seed_carrot, seed_berry, seed_flower, radish, carrot, berry, flower, wood, stone, and fiber. Initialize player inventory with 10 seed_radish, 5 seed_carrot, 5 seed_berry, and 5 seed_flower, with max stack 99 and unlimited T1 slots. Add a minimal Tab inventory panel that lists item names and counts using the panel style in § 7.4, but do not enforce 24 slots, add shops, or add crafting.
+---
+A player can press Tab to see an inventory panel with registered seed, produce, and material records and their counts.

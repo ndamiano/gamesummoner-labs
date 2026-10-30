@@ -1,0 +1,3 @@
+place seed rows. Implement systems/placement.js and Crops planting: press B to enter placement mode, show a dashed ghost at place reach 1.5, R to rotate, Q to cancel, and E to place. Allow seeds seed_radish, seed_carrot, seed_berry, and seed_flower only on empty soil tiles, and allow loose wood, stone, and fiber objects with small colliders; reject water, path, blocked, and occupied tiles. Use the 20 starting soil tiles near the starting tile and the starting seed counts from § 4.2, without adding growth or harvest.
+---
+A player can enter build mode, place seed dots on soil or loose material objects, rotate or cancel the ghost, and see the placed item appear.

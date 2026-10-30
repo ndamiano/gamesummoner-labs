@@ -1,0 +1,3 @@
+gather from spots. Implement systems/gatheringSpots.js and systems/materials.js, spawning 12 bush_fiber, 10 rock_stone, and 8 log_wood in Hollowroot with 5 uses each. Bind E within 1.2 world units to consume one use and yield 2 fiber, 2 stone, or 2 wood, then leave the spot visible but disabled when uses reach 0, with no respawn in T1. Add small colliders and dashed interactable ring visuals, but no tools, respawn, currency, or selling.
+---
+A player can gather materials from finite bushes, rocks, and logs until those spots are visibly disabled.

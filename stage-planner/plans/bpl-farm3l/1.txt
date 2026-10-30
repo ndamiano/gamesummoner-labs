@@ -1,0 +1,3 @@
+render hollowroot island. Create index.html, style.css, main.js, core/loop.js, core/engine.js, core/render.js, core/camera.js, and systems/mapWorld.js with a fixed 1/60s simulation and 60 Hz render. Draw the 64x64 Hollowroot zone with its starting tile 32,32 and camera centered near player.pos 32.5,32.5 using 64x32 px isometric tiles from § 1.1 and the pastel palette in § 3. Render ground, path, soil, water, bridge, platform, blocked, and door tiles, including 20 soil tiles near the starting tile, but do not add player, movement, or interaction yet.
+---
+A player sees a static, hand-drawn pastel Hollowroot Meadow on the page with the camera centered near 32.5,32.5.

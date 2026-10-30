@@ -1,0 +1,3 @@
+jump over gaps. Implement systems/jump.js and bind Space to tryJump when grounded, using jump impulse 4.2 world units/s, gravity 12.0 world units/s², max visual height 0.735, and cooldown 0.20s. Allow crossing 1-tile gaps and ledges; if landing is invalid, return Moss to last safe tile with no fall damage. Add the 3-frame jump animation and a soft jump tone placeholder, but keep no fall damage.
+---
+A player can press Space to hop over one-tile gaps or ledges and land safely without penalties.
