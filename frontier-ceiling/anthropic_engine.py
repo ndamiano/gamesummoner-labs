@@ -242,7 +242,10 @@ class Engine:
                 request["output_config"] = {"effort": self.toolless_effort}
             if self.toolless_note:
                 request["messages"] = messages + [{"role": "system", "content": self.toolless_note}]
-            if self.agentic_note:
+            first = (body.get("messages") or [{}])[0]
+            designing = first.get("role") == "system" and \
+                str(first.get("content") or "").startswith("You design browser games.")
+            if self.agentic_note and designing:
                 return self.agentic_write(request)
         try:
             msg, seconds = self.stream_call(request)

@@ -109,3 +109,20 @@ retries. The prod gates rescued it, which the one-conversation build did not nee
 shuffled. Key: /var/tmp/odd/blind_key.txt.
 
 ## Outcome
+
+**2026-10-31 00:20 EDT, run 3 planned: the Opus ghost-bakery design on the mainline staged chain,
+DeepSeek building.** Question: is Opus design + DeepSeek build close to an all-Opus game? If it is,
+a two-step Quality tier (Opus design, DeepSeek build) is the product; if not, Quality is DeepSeek
+alone. Source 4d1aa7d6046c (Opus design + Opus build, Nick 8); same-ask controls 6382ea1e857f
+(DeepSeek design + build, 7) and e30b96b10489 (Flash-Next, 4). `staged.sh` copies design.md and
+the Opus stage plan (attempts reset) into a new Quality game; local seats list `deepseek-4.1` first
+for build, gate, assets and worldgen, so the control plane's own API worker serves every llm call
+(the privacy branch, uncommitted). Measured: stages passed first try, gate fixes, minutes, cost
+from the game's billed micros (priced at peak), Nick's blind grade against 8 and 7.
+
+**2026-10-31 00:50–01:25 EDT, run 30cadd885d3a.** All 9 stages booted clean on the first try
+(no retries), then error gate 0 rounds and play gate 0 rounds. ~35 min. 245 llm jobs, every one
+`deepseek-4.1` through the control plane's API worker, so build and gate calls followed the game's
+Quality choice. Billed $0.656 at the entry's peak prices; it ran off-peak, so DeepSeek's charge is
+about half, ~$0.33, and ~$1.59 a game with the $1.26 Opus design. Served on
+http://127.0.0.1:9027. Awaiting Nick's blind grade against 4d1aa7d6046c (8) and 6382ea1e857f (7).

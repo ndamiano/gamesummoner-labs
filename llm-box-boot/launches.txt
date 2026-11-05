@@ -1,0 +1,4 @@
+i-0a3740eaa55b0f4f2 2026-11-05T02:43:39Z us-west-2 ami-0fd3668cab20dc240 spot
+i-09500b8fedd5b963d 2026-11-05T02:58:36Z us-west-2 ami-0fd3668cab20dc240 spot
+i-0d9536fd30e03ece0 2026-11-05T03:14:22Z us-west-2 ami-0fd3668cab20dc240 spot
+i-0a45ab790aee085d5 2026-11-05T03:38:21Z us-west-2 ami-0fd3668cab20dc240 spot

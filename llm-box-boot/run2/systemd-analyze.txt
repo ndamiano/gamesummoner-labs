@@ -1,0 +1,28 @@
+Bootup is not yet finished (org.freedesktop.systemd1.Manager.FinishTimestampMonotonic=0).
+Please try again later.
+Hint: Use 'systemctl list-jobs' to see active jobs
+3.871s dlami-nvme.service
+2.955s dev-nvme0n1p1.device
+1.470s systemd-journal-flush.service
+1.126s systemd-remount-fs.service
+1.086s apparmor.service
+ 964ms systemd-modules-load.service
+ 901ms systemd-tmpfiles-setup.service
+ 812ms systemd-resolved.service
+ 690ms dev-loop0.device
+ 684ms dev-loop2.device
+ 637ms snapd.apparmor.service
+ 620ms dev-loop1.device
+ 430ms polkit.service
+ 421ms logrotate.service
+ 400ms systemd-fsck-root.service
+ 391ms snap-core22-2955.mount
+ 346ms systemd-udevd.service
+ 335ms snap-snapd-27738.mount
+ 332ms snap-amazon\x2dssm\x2dagent-13349.mount
+ 321ms rsyslog.service
+ 293ms chrony.service
+ 291ms boot-efi.mount
+ 250ms systemd-fsck@dev-disk-by\x2dlabel-BOOT.service
+ 208ms keyboard-setup.service
+ 207ms systemd-networkd.service

@@ -7,5 +7,6 @@ cd "$REPO"
 exec labs/rig-lab/safe -m 45G venv/bin/python -c '
 import sys; sys.path.insert(0, "scripts")
 import local_gpu
-local_gpu.QUEUES.remove("llm")
+pools = local_gpu._pools
+local_gpu._pools = lambda: [p for p in pools() if p[0] != "llm"]
 local_gpu.auto(None, 600)' >> "$LOGS/frontier-auto.log" 2>&1

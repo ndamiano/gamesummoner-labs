@@ -11,18 +11,19 @@ MODEL=${MODEL:-claude-opus-5-5}
 BUDGET=${BUDGET:-40}
 mkdir -p "$LOGS"
 
-alias=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["llm"]["model"])' \
-    "$REPO/src/config/settings.json")
+ENTRY=${ENTRY:-qwen-flash-next}
+alias=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["llm"][sys.argv[2]]["model"])' \
+    "$REPO/src/config/settings.json" "$ENTRY")
 
 pids=()
 trap 'kill "${pids[@]}" 2>/dev/null; wait' EXIT INT TERM
 
 if [ "${ENGINE:-anthropic}" = deepseek ]; then
     "$LAB/venv/bin/python" "$LAB/openai_engine.py" --alias "$alias" --budget-usd "$BUDGET" \
-        --port 8091 >> "$LAB/deepseek_engine.log" 2>&1 &
+        --port 8091 ${LEDGER:+--ledger "$LEDGER"} >> "$LAB/deepseek_engine.log" 2>&1 &
 else
     "$LAB/venv/bin/python" "$LAB/anthropic_engine.py" --model "$MODEL" --alias "$alias" \
-        --budget-usd "$BUDGET" --port 8091 ${TOOLLESS_EFFORT:+--toolless-effort "$TOOLLESS_EFFORT"} ${TOOLLESS_NOTE:+--toolless-note "$TOOLLESS_NOTE"} ${AGENTIC_WRITE:+--agentic-write "$AGENTIC_WRITE"} ${WRITE_BUDGET:+--write-budget "$WRITE_BUDGET"} >> "$LAB/engine.log" 2>&1 &
+        --budget-usd "$BUDGET" --port 8091 ${LEDGER:+--ledger "$LEDGER"} ${TOOLLESS_EFFORT:+--toolless-effort "$TOOLLESS_EFFORT"} ${TOOLLESS_NOTE:+--toolless-note "$TOOLLESS_NOTE"} ${AGENTIC_WRITE:+--agentic-write "$AGENTIC_WRITE"} ${WRITE_BUDGET:+--write-budget "$WRITE_BUDGET"} >> "$LAB/engine.log" 2>&1 &
 fi
 pids+=($!)
 
@@ -34,7 +35,7 @@ pids+=($!)
 env_file=$(cd "$REPO" && venv/bin/python -c '
 import sys; sys.path.insert(0, "scripts")
 import local_gpu
-print(local_gpu._worker_env("llm"))')
+print(local_gpu._worker_env(("llm", "'"$ENTRY"'")))')
 PYTHONPATH="$WORKERS/src" "$REPO/venv/bin/python" -m gamesummoner_worker \
     --env-file "$env_file" --image http://127.0.0.1:8701 >> "$LOGS/frontier-worker.log" 2>&1 &
 pids+=($!)
