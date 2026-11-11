@@ -209,5 +209,5 @@ provided the text beside it is short and says the picture is the inventory; a lo
 it clutters the screen and the rules slip, and the same table with no picture is "awful". The
 picture also got the builder to use the art tool unprompted. Rendering assets by hand and having
 the model wire them in was a detour from Nick's question and was stopped. Continued as
-`labs/mockup-first` (the chain with nobody in it, on the bakery ghost ask). Experiments.md entry
-pending with that lab.
+`labs/mockup-first` (the chain with nobody in it, on the bakery ghost ask). Section:
+`docs/experiments.md` 2026-11-09.

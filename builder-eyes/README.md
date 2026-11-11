@@ -1,6 +1,6 @@
 # builder-eyes
 
-Status: single-run
+Status: done
 
 Control: `labs/tier-chain` run ac23f047b078, the four-tier zombie game. Its change build "can you
 make the art a bit better?" (60 steps, 2026-11-06) and Nick's review of the result the same day.
@@ -167,3 +167,11 @@ great. Okay, this has gone on long enough." No further run is planned here; the 
 "undefined" tabs, the zombie and the Free Donuts sign as they were.
 
 ## Outcome
+
+Works for layout and text, idea failure for looks while the fixer is blind. Shown four
+screenshots, Flash-Next named six of the ten defects written beforehand outright and two partly,
+with 2 of its 22 findings wrong. A blind fix build from that list cleared 13 of the 20 real
+problems and none of Nick's four, hit the 200-turn cap and left the game dead until the play
+gate rescued it. Nick: "I would lean towards it improved, but still not great. Okay, this has
+gone on long enough." The work moved to `labs/pitch-interrogate`. Section:
+`docs/experiments.md` 2026-11-06, "Flash-Next looks at screenshots of its own game".

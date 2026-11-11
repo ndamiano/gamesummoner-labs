@@ -1,6 +1,6 @@
 # skeleton-first — the genre's crappy framework first, the concept's things replace its placeholders
 
-Status: single-run
+Status: done
 Control: the cats ask's two builds of 2026-11-07 in `labs/pitch-interrogate`: the mechanics-curation
 control `d2321b3512ff` (Nick: "functions, and is fine. It's not good, it's not bad") and the ninth
 arm `b8351a8361eb` (Nick: "I have no fucking clue what's going on. The screen is a huge fucking
@@ -136,3 +136,10 @@ concept was Nick's own paragraph; the next run has the model write it from the a
 decisions, since prod has no Nick.
 
 ## Outcome
+
+Works. Nick's concept paragraph and a process plan (framework in placeholder shapes, then the
+replacements, then the UI, then the game; 23 steps) built in 64 minutes with every stage clean
+and no fix build, and the replacements changed no rule. Nick: "probably the best version of this
+game that we've got. By like a lot. It's *actually* the game I wanted". One run, one ask, and
+the concept was Nick's own. Led to `labs/bible-first`, where the model writes the concept.
+Section: `docs/experiments.md` 2026-11-07, "the genre's framework in placeholders first".

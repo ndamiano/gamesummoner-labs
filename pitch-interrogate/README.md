@@ -913,3 +913,12 @@ the look: JEV said `session shape: a sequence of levels`, `size: a handful of le
 has no line for it, and the design wrote one endless run on one graph.
 
 ## Outcome
+
+Character, at the cost of play. A pitcher's page questioned once for its cracks gives a design
+that is plainly its own game, and the two cracks builds were "mechanically a giant mess". With
+JEV deciding the systems first (the ninth arm) the frog ask came out "almost exactly what I
+expect. It's a bit bland, but it feels right"; on the cats ask the same arm was "a huge fucking
+mess" that cannot be won and the mechanics-curation control "functions, and is fine". Nick's
+call: the control won the cats ask heavily, the ninth arm won the frog ask handily. The tenth
+arm, written to carry JEV's whole decided state through the sheet, has no run. Led to
+`labs/skeleton-first`. Section: `docs/experiments.md` 2026-11-06 to 11-07.

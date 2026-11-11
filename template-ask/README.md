@@ -84,4 +84,5 @@ Clean and shallow. The concrete paragraph makes the build reliable (58 steps, 0 
 min, $0.28) and puts a template's loop where the ask's loop should be; it scored 6 where the
 chain scored 7 and Opus 8, and it produced nothing of what the ask is about. Not adopted. Led to
 `labs/bible-first` (the why first) and then `labs/genre-first` (the generic genre game first,
-theme applied after). Experiments.md entry pending with those two.
+theme applied after). Section: `docs/experiments.md`
+2026-11-08, "the design stage as one paragraph".

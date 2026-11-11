@@ -515,3 +515,14 @@ Read: a second design from the short list built to the end, cleaner than the fir
 works; Nick has not played it.
 
 ## Outcome
+
+Works as a decide step, on the systems probes and two builds of one ask. A list of defined
+systems kept over 0.7 covers the same share of what a game needs as the 157-row catalogue in
+about a sixth of the words (30 of 36 predicted core systems, 58 systems against 378 words), the
+definition is what keeps a row from matching on its name, and the row's wording sets the scope
+of the game once the designer is handed it. The frog platformer built to the end twice on the
+staged chain; Nick on the first: "the first game platformer that was actually completable". He
+has not played the second, and the play does not separate the list from the staged chain. The
+two measures in the Hypothesis (Nick's read of `asks.md`, the JEV grade) have no run in the log.
+The designs are plain, which led to `labs/pitch-interrogate`. Section: `docs/experiments.md`
+2026-11-05.

@@ -1,6 +1,6 @@
 # bible-first — the game we want, then the minimum that is a game, then the skeleton-first build
 
-Status: single-run
+Status: done
 Control: the bakery ghost ask on the staged chain, `docs/experiments.md` 2026-10-30 (Flash-Next
 e30b96b10489 = 4, "I can get a single cookie, but do nothing with it"; DeepSeek 6.6–7; Opus 8) and
 `labs/template-ask` 2997d5c16447 (a 99-word shape-plus-nouns paragraph, naked, DeepSeek: 6,
@@ -219,3 +219,10 @@ is on the page and absent from the game: pastries lie on the ground and scaring 
 the fiction's causal loop was not carried into the minimum's one verb.
 
 ## Outcome
+
+Two of five at the floor. Every ask got a bible with a why, every build booted clean with every
+stage check green, and Nick found cats "an actual game from an amateur", bakery "a game" barely,
+and zombie, wizardcat and alienfarm not games. The misses are framework defects the gates cannot
+see (an HUD font that never loaded, no title screen, a dead Quit, a loop planned with no end),
+and the bakery bible's own loop did not reach the game. Led to `labs/genre-first`.
+Section: `docs/experiments.md` 2026-11-08, "a story bible, then the minimum that is a game".

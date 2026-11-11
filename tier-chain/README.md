@@ -1,6 +1,6 @@
 # tier-chain
 
-Status: single-run
+Status: done
 
 Control: `labs/pitch-interrogate` run 26d2aeb66c16. The by-hand zombie design (51 KB, four
 tiers, 15 buildables) on prod's staged chain: nine stages, all tier 1, all passed first time;
@@ -112,3 +112,10 @@ intervention; Nick has not played it.
 **2026-11-06, Nick's verdict on `ac23f047b078` after the art change.** "Overall, I lean towards this being a solid 7/10 for a first draft." "It seems to work properly, which is a good thing!" What he named as wrong: "we have a zombie that looks... not zombie... and the traps and what not don't really show off what they are"; "the build menu has a bunch of \"undefined\" in it"; "free donuts extending past the sign". On the art change: "the improvements they're fine, but they missed all the actual issues". On the builder not seeing the screen: "The fact that it's blind is definitely part of the problems." On a refine pass: "It desperately needs a refine pass, not just for graphics", and of an art refine pass, "I'm not sold on it right this moment". Checked after: the "undefined" is the three tab labels of the build menu. `panelLayout` in `src/render.js` builds each tab rectangle as `{id, x, y, w, h}` without the name, and `drawBuildPanel` prints `tab.name`. The same menu stacks each row's cost letters into the name above it and runs long names and the hint line off the right edge of the screen. None of this throws, fails the boot check or fails a probe check: every defect he named can only be found by looking. Cost, corrected for him the same day: the 84 minutes was tiers 2 to 4; the whole game was about 118 minutes of wall time and 95.5 minutes of GPU job time over 1,061 llm jobs, roughly $3 to $4 at the 6000 Pro rates on record against a $5 game (an estimate from local minutes, not measured on prod).
 
 ## Outcome
+
+Works, on one run with one hand intervention. Planned a tier at a time, all four tiers of the
+zombie design were built on prod's chain (17 more stages in 84 minutes) and no tier 1 check
+broke; the tier 3 plan was split by hand, so it does not measure the planner's cut. Nick: "a
+solid 7/10 for a first draft", with every defect he named one that can only be found by looking.
+Led to `labs/builder-eyes`. Section: `docs/experiments.md` 2026-11-06, "the
+stage plan made one tier at a time".
