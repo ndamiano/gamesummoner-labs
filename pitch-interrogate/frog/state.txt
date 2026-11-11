@@ -1,0 +1,67 @@
+Game prompt: a platformer where you play as a frog
+
+the game: Mire is a mud-stained tree frog trying to get home to the hidden marsh after the town drains the ponds. The whole game is a linear route home through town, made of single crossings: Mire starts on a safe wet perch, moves through a human-sized world of backyards, rooftops, flooded gutters, drains, buckets, and other ordinary household spaces, and tries to reach another safe wet perch. She runs, leaps, clings, and uses her tongue to swing from wires, snag keys, pull loose planks, nudge objects, and operate latches. The tongue is the core traversal tool, limited by reach, line of sight, barriers, and whether an anchor is something a real frog could stick to. There is no fighting, no shiny collectibles, no health bars, no lives, no upgrades, no hub, and no permanent puzzle changes. Hazards are ordinary human-scale dangers with behavior: people, cats, lawnmowers, sprinklers, traffic, open drains, buckets, and other things that move when Mire enters their space. Being caught is not death; it fails the current crossing and returns Mire to the last safe perch. Falling off a normal ledge only changes where she lands unless that landing place is part of an active hazard. The game becomes harder by making routes more exposed, more timed by hazard schedules, and more dependent on precise tongue-based interactions such as swinging, pulling, releasing, and choosing anchors correctly.
+
+view: side-on 2D platformer view, with the camera low to the ground and close to Mire, keeping horizontal routes, hazards, and tongue anchors readable.
+
+time: real-time.
+
+a run: Each run is a single crossing. It starts from a safe wet perch and ends when Mire reaches the next safe wet perch. If Mire is caught by a hazard, the crossing fails and she is returned to the last safe perch. If she falls into a spot with no recoverable route, the crossing fails for being lost and she is returned to the last safe perch. The punishment is lost progress and lost time, not lives. The crossing resets all puzzle state beyond the last safe perch: pulled planks snap back, keys return to their latches, opened gates close, and anything shifted through the tongue returns to where it began. The game gets harder by making routes more exposed, more timed by hazard behavior, and more dependent on tongue-based interactions like swing, pull, release, and anchor placement.
+
+tone: “This isn’t a frog that fights or collects shiny things; it’s a small animal moving through a human-sized world, and every crossing is about how to get across without being caught.”
+
+look and sound: readable low-scale household and outdoor spaces, with hazards announced through visible motion and diegetic sound rather than UI meters or bars.
+
+core mechanics:
+- run: the player moves Mire across safe ground and ledges; running is traversal only and never attacks.
+- leap: the player makes Mire jump between ledges and over small obstacles; falling to safe ground only changes where she lands, and falling into a lower area still part of the crossing can continue if it leads onward.
+- cling: Mire can attach to visibly damp, mossy, rough, or otherwise sticky surfaces to hold still, shimmy under ledges, and reposition; she cannot climb smooth glass or painted siding, and clinging to a moving or hazardous surface can still get her caught.
+- tongue: the tongue is the main traversal tool, used for tongue grab, tongue swing, and tongue pull; it is limited by reach, line of sight, barriers such as walls, glass, and mesh, and whether an anchor is something a real frog could stick to; there is no stamina meter or cooldown; weak anchors can slip if grabbed at the wrong angle or with too much momentum; a bad grab does not trigger a separate punishment and simply leaves Mire hanging, slipping, or exposed; the tongue only affects environmental objects and cannot alter hazards.
+- hazards and being caught: hazards are ordinary human-scale dangers with behavior, not enemies with health bars or combat rules; they announce themselves through the world and capture Mire when she enters their active path or timing; being caught fails the crossing and returns Mire to the last safe perch; falling off a normal ledge is not caught by itself, but if the landing place is part of an active hazard, the hazard catches her.
+- crossing: each level is a single crossing from a safe wet perch to another safe wet perch; if Mire reaches the end, the next crossing begins; if she is caught or lost, the crossing fails and resets puzzle state beyond the last safe perch, making it a clean repeatable puzzle rather than a sequence of permanent changes.
+
+supporting mechanics:
+- keys: latch objects that can be snagged and pulled out or pushed into a gate catch to open a way; they are not collectible items.
+- loose planks: physical objects that can be pulled, nudged, or used to form temporary bridges; they are not collectible items.
+- intermediate safe perches: rare, deliberate, visibly wet or hidden safety islands that are not ordinary ledges or cover points; if they appear, they become the last safe perch Mire returns to if caught later, and resetting starts there and resets everything beyond it.
+
+extra mechanics:
+none
+
+content:
+- Mire: “a mud-stained tree frog trying to get home to the hidden marsh after the town drains the ponds”; the playable frog.
+- hidden marsh: “the hidden marsh”; the final crossing reaches the hidden marsh and ends the game.
+- town drains the ponds: the inciting event that makes Mire need to get home.
+- linear route home through town: “one crossing advancing to the next”; the game’s overall structure.
+- safe wet perch: the start of each crossing; “the start perch is the only guaranteed safe place.”
+- next safe wet perch: the end of each crossing; reaching it advances the route home.
+- backyards, rooftops, and flooded gutters: “run, leap, and cling through backyards, rooftops, and flooded gutters”; crossing spaces.
+- wires: “anchor points for tongue-swinging”; used by tongue swing.
+- keys: “latch objects that can be snagged and pulled out or pushed into a gate catch to open a way”; used by tongue pull and latch interaction.
+- loose planks: “physical objects that can be pulled, nudged, or used to form temporary bridges”; used by tongue pull and temporary bridging.
+- latches: objects that keys can be pulled out of or pushed into to open a way.
+- gate catch: the latch target that a key can be pushed into to open a way.
+- people: “ordinary human-scale dangers”; can catch Mire when they reach in or move through the space.
+- hand: “a hand closes over her”; a capture hazard.
+- dog: “herded by a dog”; a capture hazard that can drive Mire into a bucket.
+- bucket: “penned into a bucket”; a capture hazard that can trap Mire.
+- open drains: “open drains”; hazards that can flush or pull Mire down.
+- drain current: “a drain current pulls her down”; capture behavior.
+- drain gurgles before the current rises: warning behavior for drain hazards.
+- sprinklers: “sprinklers”; hazards with moving arcs.
+- sprinkler sweeps in a clean arc: warning and movement behavior for sprinkler hazards.
+- sprinkler sweeps her into a wall: capture behavior.
+- lawnmowers: “lawnmowers”; hazards that move along fixed paths.
+- mower drones closer along a fixed path: warning and movement behavior for mower hazards.
+- mower pushes her into a grate: capture behavior.
+- traffic: “ordinary human-scale dangers”; hazards that move through the space.
+- cat: “a cat crouches and fixes its eyes before pouncing”; warning behavior for cat hazards.
+- damp pot: a rare intermediate safe perch.
+- rain trap in a gutter: a rare intermediate safe perch.
+- shaded underside of a planter: a rare intermediate safe perch that hazards cannot reach.
+- visibly damp, mossy, rough, or otherwise sticky surfaces: surfaces Mire can cling to.
+- smooth glass or painted siding: surfaces Mire cannot cling to.
+- walls, glass, and other barriers: barriers the tongue cannot pass through.
+- weak anchors: anchors that can slip if grabbed at the wrong angle or with too much momentum.
+
+left out: fighting, collecting shiny things, combat rules, enemies with health bars, death states, lives, stamina meters, tongue cooldowns, stealth meters, detection bars, per-crossing clocks, countdowns, literal timers, hubs, upgrades, collectible items, persistent unlocks, permanent puzzle changes across crossings, ordinary ledges or cover points as safe perches, climbing smooth glass or painted siding, and using the tongue to grab a cat, push a person, stop a mower, or otherwise alter a hazard itself.

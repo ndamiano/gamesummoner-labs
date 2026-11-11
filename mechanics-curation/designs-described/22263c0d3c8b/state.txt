@@ -1,0 +1,26 @@
+Game prompt: a platformer where you play as a frog
+dimension: 2d
+camera: side-on
+time model: real-time
+movement model: free movement
+session shape: a sequence of levels
+failure: restart the level
+tone: silly
+size: a handful of levels, under 30 minutes
+win/lose: reach the exit
+core mechanics:
+- platforming: A system for moving through a space by running, jumping and climbing between surfaces under gravity.
+- physics: A system where objects fall, roll, bounce and collide under simulated physics, and the player uses that to reach a goal.
+- hazards: A system of dangers in the environment that hurt the player, such as spikes, lava or falling.
+supporting mechanics: none
+extra mechanics:
+- collectibles: A system for hiding things around the game for the player to find and collect as a set.
+art style: pixel art: low-resolution sprites with visible square pixels and a limited palette
+palette: saturated: bright, strong colours
+typography: pixel font: blocky bitmap letters
+music: chiptune: retro console bleeps
+sound effects style: retro bleeps: synthesized chip sounds
+screens: title, pause, settings, win, level select
+hud: score
+effects: particles, hit flash
+accessibility: colour-blind safe palette, reduced motion, remappable keys

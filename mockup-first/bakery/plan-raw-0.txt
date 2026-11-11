@@ -1,0 +1,148 @@
+```json
+[
+  {
+    "name": "Side View Room",
+    "stage": "Create a fixed side-view screen with a plain background, one rectangular room, walls, floor, and a few rectangular obstacles. Put generic text labels on the shapes, such as Room and Obstacle. Do not add the player yet.",
+    "done": "A player sees a plain side-view room with labeled obstacles.",
+    "reads": ["# 0. CONCEPT", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Player Controls",
+    "stage": "Add one plain rectangle labeled Player. Make keyboard left, right, and crouch move or change its pose. Add an interact action that currently does nothing until a target exists.",
+    "done": "A player can move and crouch the plain player shape.",
+    "reads": ["# 0. CONCEPT", "# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Object And Person",
+    "stage": "Add one plain object rectangle labeled Object and one plain person rectangle labeled Person. Draw a triangular sight cone from the person and show a simple state label such as Calm. Make the object become targetable when the player is close.",
+    "done": "A player sees an object, a person, and a sight cone.",
+    "reads": ["# 0. CONCEPT", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Core Loop",
+    "stage": "Add a basic scare action that makes the person briefly stop watching, a grab action that takes a nearby object, a required-item counter, and a simple countdown. Add plain win and loss behavior when the count is met or time reaches zero.",
+    "done": "A player can scare, grab, see the count and timer, and reach a win or loss.",
+    "reads": ["# 0. CONCEPT", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Title Screen",
+    "stage": "Add a title screen that appears before play. It must have plain buttons labeled Start, How to Play, and Quit, plus a visible control map text block. Start enters the current playable test room.",
+    "done": "A player sees a title screen with Start, How to Play, Quit, and a control map.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "How To Play",
+    "stage": "Add a single-screen how-to-play page. It must show plain text and simple diagrams for move, hide, scare, grab, and timer. Return to the title screen from this page.",
+    "done": "A player can open and read a one-screen how-to-play page.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Level Start Session",
+    "stage": "Add a level-start screen that states the required object count and countdown length. Add a plain session mode that can start one level or three levels, using simple placeholder level settings.",
+    "done": "A player sees the required count and countdown before starting a one-level or three-level session.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Controls And Layout",
+    "stage": "Extend the player controls to mouse and stick input for left, right, crouch, and interact. Expand the test room into fixed rooms with obstacles, hiding spaces, and sight-blocking cover labeled generically.",
+    "done": "A player can use mouse or stick controls and see rooms with cover and hiding spaces.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Objects And People",
+    "stage": "Add one generic object kind and place 3 to 10 copies in a level. Add people that can stand, patrol, or wander, and let them detect the player by sight or by noise.",
+    "done": "A player sees multiple generic objects and multiple people with different behavior.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Detection Feedback",
+    "stage": "Add clear detection feedback: sight cones, eye icons, alert meters, and visible labels for calm, suspicious, and searching states. Tie these visuals to whether the player is seen.",
+    "done": "A player can tell when a person is calm, suspicious, searching, or looking at them.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Scare Action Uses",
+    "stage": "Add a scare action that startles nearby people, makes them stop watching, or makes them move away. Add a simple cooldown or a plain limit of 1 to 3 uses per level, with uses shown on screen.",
+    "done": "A player can scare nearby people and see scare uses or cooldown.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Grab And Counter",
+    "stage": "Add a grab action that works only when the player is close to an object. Add an objective counter that shows required objects, collected objects, and remaining time.",
+    "done": "A player can grab a nearby object and see the required counter update.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Countdown Timer",
+    "stage": "Make the countdown start when the level starts and run while the level is active. Add a plain warning when the timer is low.",
+    "done": "A player sees a level timer that starts immediately and warns when low.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Detection Meter Penalty",
+    "stage": "Add a detection meter or caught state that rises when people see the player. When it fills, end the attempt. Add a penalty for being seen, such as resetting the player to a hidden start position or forcing lost time while people search.",
+    "done": "A player sees detection rise, suffers a visible penalty, and fails when detection fills.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Route Choice",
+    "stage": "Build level layouts with safe routes and risky routes. Make some routes shorter but more exposed, and other routes longer but safer, while still giving access to objects.",
+    "done": "A player can choose between clearly shorter risky routes and longer safe routes.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Progression Unlock",
+    "stage": "Add a progression track where winning a level unlocks the next level. Make later levels use more people, tighter sight, or shorter timers as plain difficulty changes.",
+    "done": "A player wins one level and sees the next level unlocked with harder plain settings.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Feedback Cues",
+    "stage": "Add plain feedback for success and failure: simple sound cues, a screen flash, an item pickup effect, and a timer warning. Keep all visuals generic and unthemed.",
+    "done": "A player sees or hears clear feedback when taking items, being seen, winning, losing, or nearing timer end.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Pause Restart",
+    "stage": "Add a pause menu with options to resume and restart the current level. Restarting must let the player retry without losing unlocked progress.",
+    "done": "A player can pause and restart the current level without losing unlocked progress.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Win Screen",
+    "stage": "Add a win screen that appears after collecting the required objects before the countdown ends. Show elapsed time and a plain score.",
+    "done": "A player sees a win screen with time and score after completing the objective.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Loss Screen",
+    "stage": "Add a loss screen that appears when the countdown ends or detection fills. Include retry and level select buttons on that screen.",
+    "done": "A player sees a loss screen with retry and level select after failing.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Quit To Title",
+    "stage": "Make quit actions from pause, win, loss, and title navigation return the player to the title screen. Keep the control map visible on the title screen.",
+    "done": "A player can quit and return to the title screen.",
+    "reads": ["# 1. WHAT EVERY ONE HAS"]
+  },
+  {
+    "name": "Add Level Set",
+    "stage": "Build a small set of 3 playable levels using the existing systems. Each level must have a fixed required object count, a countdown, rooms, obstacles, hiding spaces, cover, objects, and people.",
+    "done": "A player can play three distinct levels from the level select.",
+    "reads": ["# 1. WHAT EVERY ONE HAS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Harder Rounds",
+    "stage": "Add harder rounds across the level set. Later levels must add more people, narrower sight, faster patrols, or shorter timers in plain visible changes.",
+    "done": "A player sees later levels are visibly harder with more people or shorter timers.",
+    "reads": ["# 1. WHAT EVERY ONE HAS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Balance Pass",
+    "stage": "Play the early levels and tune plain numbers until the early rounds are losable if the player does nothing and winnable if the player moves unseen, scares once or twice, and grabs well. Keep all settings generic and unthemed.",
+    "done": "A player loses early levels by doing nothing but can win them by doing a few stealth actions well.",
+    "reads": ["# 0. CONCEPT", "# 1. WHAT EVERY ONE HAS", "# 2. HOW IT IS BUILT"]
+  }
+]
+```

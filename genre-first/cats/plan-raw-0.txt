@@ -1,0 +1,207 @@
+```json
+[
+  {
+    "name": "Map Path Display",
+    "stage": "Create a fixed top-down map on a plain background. Draw a visible path as connected light gray rectangles from a square labeled Spawn to a square labeled Exit. Use one default font and put no theme art anywhere.",
+    "done": "A player sees a fixed map with a clear path from Spawn to Exit.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Moving Walker",
+    "stage": "Add a plain square labeled Walker at Spawn. Make it move along the path at a plain speed and disappear when it reaches Exit.",
+    "done": "A player sees a named walker travel from Spawn to Exit.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Exit Life Loss",
+    "stage": "Add a shared life total number near the map. When a walker reaches Exit, reduce the life total and stop that walker.",
+    "done": "A player sees the life total decrease when a walker reaches Exit.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Wave Spawn Timer",
+    "stage": "Add a wave timer and start control that releases a small group of walkers at fixed intervals during a wave. Use plain placeholder values for wave size and interval.",
+    "done": "A player sees timed waves send groups of walkers along the path.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Place Basic Tower",
+    "stage": "Add a place tower control that lets the player click near the path to place a plain square labeled Tower. Make the tower stay fixed and block that spot.",
+    "done": "A player can place a named tower near the path and see it on the map.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Tower Range Attack",
+    "stage": "Give the tower a circular range, an attack cooldown, and damage. Make it target the first walker inside range, reduce walker health, and show the current health as a number.",
+    "done": "A player sees a tower attack walkers in range and reduce their health.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Kill Wave Currency",
+    "stage": "Add a currency counter. Give currency for each killed walker and a small plain amount at wave completion.",
+    "done": "A player sees currency increase after kills and after a wave ends.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Title Screen",
+    "stage": "Add a plain title screen with the text Title Screen and a Start button that begins the map. Keep all text in one default font.",
+    "done": "A player sees a title screen and can start the game.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Pause Speed Restart",
+    "stage": "Add HUD buttons for Pause, Speed, and Restart. Pause stops walker and tower timing, Speed changes time scale, and Restart begins the current map from its initial state.",
+    "done": "A player can pause, speed up, and restart the map from the HUD.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Wave Counter HUD",
+    "stage": "Add a wave counter panel that shows current wave number, remaining waves, and the next wave number or start state. Use placeholder wave values.",
+    "done": "A player sees current, remaining, and next wave information during play.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Placement Range Preview",
+    "stage": "When placing a tower, show legal and illegal spots by highlighting valid cells or positions green and invalid positions red. Show a range preview circle before placement.",
+    "done": "A player sees whether a tower can be placed and sees its range before placing it.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Tower Menu Levels",
+    "stage": "Add a tower menu button that opens a list of 3 plain tower kinds, such as Basic Tower, Heavy Tower, and Fast Tower. Give each kind 3 placeable levels with plain costs and stats, and let the selected level enter placement mode.",
+    "done": "A player can open a menu with 3 tower kinds and their 3 levels, then choose one to place.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Select Upgrade Sell",
+    "stage": "Add a selection mode where clicking a placed tower opens a panel with its name, current level, stats, an Upgrade button, and a Sell button. Sell removes the tower and refunds a plain amount.",
+    "done": "A player can inspect, upgrade, or sell a placed tower and see the panel.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Upgrade Paths",
+    "stage": "Add upgrade paths or stat boosts for selected towers, such as Damage, Range, or Speed boosts. Make each path visibly raise a stat number and update the tower display or text.",
+    "done": "A player can choose an upgrade path or stat boost and see the tower's stats change.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Attack Effects",
+    "stage": "Add visible attack cooldown indicators, floating damage numbers, brief hit flashes on walkers, and death effects such as a flash or removal animation. Keep effects plain and generic.",
+    "done": "A player sees cooldowns, damage numbers, hit flashes, and death effects during combat.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Walker Health Bars",
+    "stage": "Add health bars above walkers and show a plain speed number under each walker. Give walkers fields for health, speed, and scaling stats that can be changed by wave later.",
+    "done": "A player sees walker health bars and speed values while walkers scale with later waves.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Play Counters",
+    "stage": "Add a HUD counter row for resource, total damage dealt, leaked walkers, and total kills. Update the counters live during play.",
+    "done": "A player sees live resource, damage, leak, and kill counters on the HUD.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Map End Screen",
+    "stage": "When all waves are survived or the life total reaches zero, switch to a plain end screen with the text WIN or LOSS based on the result and a placeholder quit control. Keep the screen separate from the map.",
+    "done": "A player sees an end screen showing win or loss when the game ends.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Quit To Title",
+    "stage": "Make quit controls on the map and end screens return to the title screen. Clear the current map session and reset game state before showing the title screen.",
+    "done": "A player can quit and returns to the title screen.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS"
+    ]
+  },
+  {
+    "name": "Single Map Session",
+    "stage": "Make one map into a session with 10 waves and a final wave. Set the wave counter to use these waves and start after the title screen.",
+    "done": "A player sees a single map session run through 10 waves with a final wave.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Harder Waves",
+    "stage": "Scale later waves with plain harder walker counts, health, speed, and stats. Increase each wave by fixed plain steps and mark the final wave as the largest.",
+    "done": "A player sees waves become harder with more and tougher walkers.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Win Screen",
+    "stage": "Replace the generic end screen for victory with a separate win screen that shows WIN, a plain session summary, and controls for quit or replay. Only show it after the final wave is survived.",
+    "done": "A player sees a separate win screen after surviving the final wave.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Loss Screen",
+    "stage": "Replace the generic end screen for defeat with a separate loss screen that shows LOSS, the leaked or life result, and controls for quit or replay. Only show it when life reaches zero.",
+    "done": "A player sees a separate loss screen when the life total reaches zero.",
+    "reads": [
+      "# 1. WHAT EVERY ONE HAS",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Balance Playthrough",
+    "stage": "Play the 10-wave session and tune plain numbers until doing nothing loses early waves, while placing and upgrading a few towers well wins them. Keep values simple and readable.",
+    "done": "A player can lose early waves by doing nothing and win them by making a few good tower choices.",
+    "reads": [
+      "# 2. HOW IT IS BUILT"
+    ]
+  }
+]
+```

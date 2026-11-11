@@ -1,0 +1,24 @@
+Game prompt: A game about frogs eating bugs
+dimension: 2d
+camera: top-down
+time model: real-time
+movement model: free movement
+session shape: endless
+failure: lose a life
+tone: silly
+size: one screen, a few minutes
+win/lose: survive as long as possible, no ending, play forever
+core mechanics:
+- catching: A system where targets move around the scene and the player must catch, grab or eat them before they get away.
+supporting mechanics:
+- scoring: A system for awarding points for how well the player plays, with combos, high scores or ranks.
+extra mechanics: none
+art style: flat vector: clean flat shapes, solid colours, crisp edges
+palette: saturated: bright, strong colours
+typography: hand-lettered: drawn, irregular letters
+music: chiptune: retro console bleeps
+sound effects style: retro bleeps: synthesized chip sounds
+screens: title, pause, game over, high scores
+hud: health, score, combo counter
+effects: particles, hit flash
+accessibility: colour-blind safe palette, reduced motion, remappable keys, difficulty options

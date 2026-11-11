@@ -1,0 +1,22 @@
+Game prompt: roguelike deckbuilder where you're a wizard cat climbing a tower
+dimension: 2d
+camera: side-on
+time model: turn-based
+movement model: grid-based
+session shape: a sequence of levels
+failure: permadeath, start a new run
+tone: silly
+size: a handful of levels, under 30 minutes
+win/lose: reach the exit, defeat a final boss
+core mechanics: player health, cards, enemies, jump, climb, hand, draw / discard, objectives, abilities / special moves, deck building, falling, bosses
+supporting mechanics: rewards, dodge, weapons, collectibles, melee attack, difficulty ramp, traps, spawn points, shoot, key items, currency, dash, environmental damage, puzzle types, secrets, inventory limit, armour / defence, consumables, switches and doors, shops, prices
+extra mechanics: hints, damage types, throw, transform, spell words, keys and locked doors, score, equipment, flee, landmarks, merchants, hiding spots, conversations, sneak, push and pull, merge, high scores, combos, roll dice, plot, waves, selling, collectible creatures, guards, cutscenes, companions, taming, allies, medals / ranks, decoration
+art style: pixel art: low-resolution sprites with visible square pixels and a limited palette
+palette: saturated: bright, strong colours
+typography: pixel font: blocky bitmap letters
+music: chiptune: retro console bleeps
+sound effects style: retro bleeps: synthesized chip sounds
+screens: title, pause, settings, game over, win, high scores
+hud: health, score, combo counter, currency
+effects: screen shake, particles, hit flash
+accessibility: colour-blind safe palette, reduced motion, remappable keys, difficulty options

@@ -1,0 +1,25 @@
+A generic game of a genre is written and playable. Here is what it is:
+
+{spec}
+
+Someone asked for this:
+
+{ask}
+
+Write the note that turns the generic game into theirs without changing a single rule. The note
+is read by the programmer who will make the change. Write exactly these parts:
+
+- One sentence naming the game and the situation: who the player is, what they defend, take,
+  cross or beat, and why.
+- A table, one line per kind of thing in the generic game (every tower, walker, pickup, screen,
+  currency, number on the HUD): the generic name, the themed name, what it looks like in one
+  phrase.
+- The look: art style, palette, font, three words for the music, in one line each, consistent
+  with the decisions below.
+- The title screen's title and one line under it.
+
+End with this sentence, exactly: "Rename, redraw and retitle; add no rule, remove no rule, change
+no number."
+
+Decisions already made for the look:
+{state}

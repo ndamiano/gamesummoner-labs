@@ -1,0 +1,33 @@
+The finished game was looked at in a browser, one screenshot at a time, and these things looked wrong. Fix each one, and keep the game playing the way it already does.
+
+Screenshot: The title screen, before a run starts.
+- [unclear] controls list, right column: The control labeled "Mouse" is shown in a keyboard-key style without specifying which mouse button or how to aim.
+
+Screenshot: One second into a run. The player is the zombie. Nothing has been built yet.
+- [broken] top right JUNK panel: The resource labels under the icons are overlapping or truncated and read as "CARDBOA RROPE" instead of separate readable labels.
+- [broken] top left BRAINS bar: The "BRAINS" label appears struck through or overlapped by a line, making the UI text look unintentionally broken.
+- [unclear] center of the play area: The player is supposed to be a zombie, but only a tiny green head is visible with no clear body and it sits ambiguously on top of a concrete slab, making the player hard to recognize.
+- [ugly] below the center HEAT panel: The text "Quiet street" floats directly over the road with no panel or context, looking like stray misplaced text.
+
+Screenshot: A yard set up to show everything at once. The player is the zombie. Placed in the yard: Box on a Stick, Free WiFi Sign, Banana Stand, Brain Rot Cleaning Station, Free Puppies, Fridge, Free Donuts, Mailbox, Garden Gnome, a row of Walls with a Door, Fetid Pool, Dead Flamingo, Crooked Sign and Tombstone. On screen too: four passers-by (a Local, a Jogger, a Phone Guy and a Shopper), a Cop, a Police officer and a Guard, and the junk spots the player searches.
+- [broken] top-left HUD: The carried-brains label is broken and reads "CARRIED 1/3AINS" instead of a clear inventory count.
+- [broken] top-right HUD: The first junk resource label is cut off and reads "CARDBOAR", making the category unclear.
+- [ugly] center of the screen: The large panel showing "Police" and "the street is watching" covers the middle of the yard and hides the player and nearby objects.
+- [unclear] center concrete patio: The player appears as a disembodied green head in a green square rather than a recognizable zombie survivor.
+- [broken] right-middle area: A red text fragment "D nut!" overlaps another object and looks like broken signage.
+- [ugly] right-middle stand: The "FREE DONUTS" sign is overlapped by a pink character/heart, making the prop messy and hard to read.
+- [unclear] far-left edge: The gray object meant to be a Fridge instead looks like a couch or bench.
+- [unclear] central yard: The row of Walls with a Door looks like stacked wooden benches rather than a wall structure.
+- [unclear] across the yard: Several named props such as "Free Puppies", "Brain Rot Cleaning Station", "Box on a Stick", "Banana Stand", "Garden Gnome", and "Dead Flamingo" cannot be identified from the screenshot.
+- [unclear] top and right detection cones: The passers-by, Cop, Police officer, and Guard are rendered as near-identical colored circles, so their roles are not distinguishable.
+- [unclear] lawn and pavement: Scattered small debris does not read as searchable junk spots.
+
+Screenshot: A run with the build menu open on the right. The player has 5 of each kind of junk.
+- [broken] top of the BUILD menu, first entry: The selected/first build entry shows the placeholder text "undefinedundefinedundefined" instead of an item name.
+- [broken] right-side JUNK panel under the four material counters: The labels "CARDBOARD" and "ROPE" are mashed together as "CARDBOARDROPE", making the second label unreadable as a separate label.
+- [broken] top edge of the BUILD menu, red warning text: The warning reads "BOCKETS FULL", which looks like a typo or partially cut-off message.
+- [broken] right edge of the BUILD menu, entries 4 and 5: Entry 4's description is cut off after "3 Cardboard · 2 Scrap · 1" and entry 5's title/description are cut off as "Brain Rot Cleaning St" and "3 Scrap · 2 Gizmo · 1 Rop".
+- [broken] bottom-right instructions under the BUILD menu: The instruction text is cut off at the edge and reads "Click a tile to place · Right click cance".
+- [unclear] BUILD menu entry 6 "Free Puppies": The cost line uses the unexplained abbreviation "1B" and says "Need junk" while the visible JUNK counters show 5 of each kind, making the requirement unclear.
+
+Each line says where on the screen and what was seen. Whoever looked saw only pictures, so a line may call a thing by the wrong name: find what is really drawn there by reading the files before you change it. Where a thing does not look like what it is meant to be, redraw it so a player knows it at a glance.

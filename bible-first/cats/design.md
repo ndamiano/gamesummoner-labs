@@ -1,0 +1,52 @@
+# 0. CONCEPT
+
+A hand-built Sashimi Bazaar board fills the screen: a winding crate path connects two glowing spawn points to the central Fish Stall; the player is a paw cursor. Top HUD shows health, wave, score, and coins. Right shelf holds three towers: Slingshot Cat (sharp), Spray Bottle Turret (slow), Yarn Cannon (splash). The player clicks a shelf tower, then clicks an empty floor tile to place it; placed towers automatically aim and shoot at enemies, causing hit flashes, particles, and coin drops. Seagulls, armored raccoons, and crabs act on their own: they march along the path toward the Fish Stall, and when they reach it they bite the stall, lowering health. Between waves, a shop panel offers prices for the same three towers. No story text appears; the names and flat bright market art carry the joke.
+
+# 1. DECISIONS
+
+Game prompt: a tower defense game where cats defend a fish market
+dimension: 2d
+camera: top-down
+time model: real-time
+movement model: no movement, cursor only
+session shape: a sequence of levels
+failure: restart the level
+tone: silly
+size: a handful of levels, under 30 minutes
+win/lose: none
+core mechanics: enemies, defend a point, place, spawn points, placement, aim, waves, shoot, objectives, currency
+supporting mechanics: prices, difficulty ramp, unlocks, rewards, buildable pieces, score, shops
+extra mechanics: armour / defence, bosses, hints, merge, damage types, consumables, hand, decoration, medals / ranks, cutscenes
+art style: flat vector: clean flat shapes, solid colours, crisp edges
+palette: saturated: bright, strong colours
+typography: hand-lettered: drawn, irregular letters
+music: chiptune: retro console bleeps
+sound effects style: retro bleeps: synthesized chip sounds
+screens: title, pause, settings, game over, level select
+hud: health, score, wave number, currency
+effects: particles, hit flash
+accessibility: colour-blind safe palette, reduced motion, difficulty options
+
+# 2. HOW IT IS BUILT
+
+
+Start with a crappy framework: a fixed grid, a marked path, two spawn dots, one target dot, moving enemy dots, click-to-place shooter dots, automatic targeting, coin/health/wave counters, and a game-over state. Playtest that until it works. Then swap each placeholder for the concept one at a time: grid to a hand-drawn fish market, path to crates, spawn dots to glowing spawn points, target dot to the Fish Stall, cursor to a paw, shooter dots to Slingshot Cat, Spray Bottle Turret, and Yarn Cannon, enemy dots to seagulls, raccoons, and crabs, counters to the HUD, and the placeholder shop to a between-wave shop panel. Each swap only replaces an existing placeholder; it adds no new rule, system, or screen. Finally draw the flat vector art, particles, hit flashes, and chiptune bleeps. A tower defense is 1 fixed path, 2 spawn points, 1 defended point, 3 enemy kinds, 3 tower kinds, 1 currency count, and 1 health loss condition; nothing in the concept changes what a tower defense is.
+
+# 3. THE GAME WE WANT
+
+## Story
+You are Captain Whiskers, a tuxedo cat who has inherited a debt and become night-shift supervisor of the Sashimi Bazaar. This is a tower defense game where cats defend a fish market. You do it because the market feeds kittens, lets old cats nap on warm crates, and shares tomorrow's catch with every tail in town. If you fail, the market closes, crates empty, and the cats lose their meeting place, food supply, and earned medals. The obvious alternative—human inspectors, a dockside fence, or moving the stalls—has failed. Humans are banned at feeding hour because they pick up fish and say "cute" instead of buying. A fence only blocks slow enemies and makes the market look like a sad cardboard box. Moving it loses the customers who already know the smell. So you stay, place towers, aim, shoot, and organize a defense with your own paws, because a fish market defended by cats is the only kind of market that can stay funny when everything goes wrong.
+
+## World
+The 2d world is a bright, flat-vector fish market seen from above: clean flat shapes, solid colours, crisp edges, saturated colours, hand-lettered signs, and stalls drawn like a comic strip. The camera is top-down, and the player never walks through it; there is no movement, cursor only. The player moves the cursor to place pieces, aim, shoot, drag consumables, and inspect shops. Time runs in real-time, so waves arrive while crates are dragged, fishmongers shout, and cats groom on counters. If the player does nothing, the market still lives: a fishmonger slaps fish onto ice, a tabby knocks over a tin, customers browse, and enemy spawn points glow with silly warnings before seagulls, raccoons, hungry dogs, crab thieves, and other nuisances march toward the market's central point. The player can act on spawn points, buildable pieces, currency, decorations, and the market’s central point; the goal is to defend a point while enemies march. Placing a tower changes the world: it becomes a cat with a slingshot, spray bottle turret, tuna lure, yarn cannon, or stink bomb launcher. Aiming and shooting make enemies hit flash, particles burst, and coins jingle. Upgrading or merging towers makes the market safer, while decoration makes customers happier and earns bonus rewards. Sound is chiptune: synthesized chip sounds and retro bleeps for placement, hits, coins, waves, and failure.
+
+## Content
+The game contains a handful of levels, each a different part of the fish market—salmon alley, crab pit, frozen tuna vault, ice-cream cat corner, and final festival aisle—and is meant to be played in under thirty minutes as a sequence of levels. Each level has its own spawn points, objectives, prices, and difficulty ramp. Enemies include fast seagulls, armored raccoons, sneaky crabs, hungry bulldogs, and bosses such as the Great Gull, Barrel Bandit, and Fish-Feast Phantom. Towers are buildable pieces with damage types: sharp, splash, slow, stink, and silly confusion that makes enemies dance instead of march. Towers can be upgraded with armour / defence, repaired, sold, or merged into larger cat towers that combine abilities. Currency is earned from waves, objectives, rewards, and score. Shops open between waves, offering prices for towers, consumables, and decorations. Consumables include catnip grenades, spray-bottle blasts, tuna lures, and temporary shields. The player also holds a hand of market cards: emergency hints, wave delays, extra coins, and one-time bonuses that can be dragged onto the board. Hints appear as paw prints and explain placement, aim, and wave threats.
+
+Sessions differ because each level changes the path, enemy mix, shop stock, and decoration slots. Across sessions, the player unlocks new towers, decorations, medals / ranks, and cutscenes. Cutscenes are short, silly vignettes: a cat salutes a fish, a seagull cries into a napkin, a market opens under confetti. Medals and ranks reward speed, low damage taken, clever placement, decoration, and score. Accessibility options include a colour-blind safe palette, reduced motion, and difficulty options that soften enemy health, prices, and wave pressure while preserving the same silly defense.
+
+## A Session
+A session begins on the title screen, where the player can start, open level select, or go to settings. In settings, the player chooses reduced motion, colour-blind safe palette, and difficulty options. Level select shows each market area as a hand-lettered map, with medals and ranks already earned. The first screen of a level is a short cutscene: the fishmonger asks for help, the market point is shown, and the first wave timer starts. The player sees health, score, wave number, and currency in the HUD. The first decision is placement: where to put cheap towers, where to save coins, and which spawn points to watch. The player places towers, aims, and shoots; if the game offers manual aim during a wave, the cursor becomes a targeting paw. Enemies arrive in waves. As they reach the defended point, health falls and the market flashes red. As they are defeated, coins, particles, and hit flashes reward the player. Between waves, shops appear, prices update, and the player can buy, upgrade, merge, decorate, or use consumables and hand cards. If the player pauses, the pause screen offers settings, restart, and level select. If health reaches zero, the game over screen appears with a silly fishmonger crying, but it is not a final loss: the player restarts the level. If the wave objectives are completed, the level ends with rewards, score, a medal attempt, and an unlock cutscene. The next level begins with a new path, higher prices, stronger enemies, and new buildable pieces.
+
+## Resolution
+The whole game ends after the final market day, when the last boss is shooed away and the market opens for a festival. There is no final win/lose that locks the player out. Instead, the market is shown peaceful, decorated, and bustling, with every unlocked cat tower standing proudly and every medal earned displayed on a hand-lettered board. The player is left with a finished sequence of levels, a score to beat, ranks to pursue, and a playable sandbox of unlocked pieces where they can replay any level for better medals. The ending is not a trophy vault; it is a fish market that keeps running, defended by the cats who made it funny enough to survive.

@@ -1,0 +1,5 @@
+The finished game was looked at in a browser, one screenshot at a time, and these things looked wrong. Fix each one, and keep the game playing the way it already does.
+
+{findings}
+
+Each line says where on the screen and what was seen. Whoever looked saw only pictures, so a line may call a thing by the wrong name: find what is really drawn there by reading the files before you change it. Where a thing does not look like what it is meant to be, redraw it so a player knows it at a glance.

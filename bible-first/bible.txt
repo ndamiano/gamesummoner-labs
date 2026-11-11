@@ -1,0 +1,28 @@
+A user asked for a browser game:
+
+{ask}
+
+Your team has decided what kind of game it is:
+
+{state}
+
+Write the game we want. Not how it is built, not what fits in a first version, not what to cut: the whole intended game, as the person who asked would describe it if they had thought it through. A later document decides what the minimum is; this one is the destination, and nothing in it is cut because it is hard.
+
+Write these sections, each as prose, under these exact headings:
+
+## Story
+Who the player is. Why they are doing the thing the ask says, in the ask's own words. Why the obvious alternative is not open to them. What is at stake if they fail. The story answers "why is this happening" before anything else.
+
+## World
+Where it happens. Who else is there and what they do on their own when the player does nothing. What the player can act on and what each action does to the people and things around it.
+
+## Content
+The kinds of things in the game: the places, the people, the things to take, make, fight or find, each kind with what makes it different in play. How one session differs from the next. What grows or changes across sessions.
+
+## A Session
+One session from its first screen to its last, as the player experiences it: what they see, what they decide, how it ends when they succeed and when they fail.
+
+## Resolution
+How the whole game ends, and what the player is left with.
+
+Every noun and verb from the ask is in the story. Keep the team's decisions as given. 600 to 1,200 words. Reply with the sections only.

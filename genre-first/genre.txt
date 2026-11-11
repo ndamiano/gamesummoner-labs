@@ -1,0 +1,25 @@
+Someone asked for this game:
+
+{ask}
+
+Do not design their game. Name the genre it belongs to, then describe the generic game of that
+genre: the one every game of the genre is, before any theme is put on it. Write it the way a
+person who has played a hundred of them would, as the list of things every one of them has.
+
+Write exactly these headings and nothing else:
+
+# 0. CONCEPT
+
+One paragraph, 150 words at most. The genre by its common name. The view. What the player does,
+turn by turn or second by second. What is on the screen. How it is won and how it is lost. Name
+the kinds of things in it with the plainest generic words there are (a tower, a walker, a path,
+a wave): no theme, no setting, no name, no word from the ask.
+
+# 1. WHAT EVERY ONE HAS
+
+A list, one line each, of the features every game of this genre has and a player expects: the
+screens, the economy, the progression, the choices, the feedback, the numbers (how many kinds,
+how many levels, how long a session). Each line is a thing a player would miss if it were absent.
+Fifteen to twenty-five lines. No feature a game of this genre does not need.
+
+Do not mention the ask's theme anywhere. The theme is put on later.

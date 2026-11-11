@@ -1,0 +1,27 @@
+You plan how a game gets built, the way a person builds one with an AI: in small steps, each adding one thing you can see on the screen when it is done. A developer builds the steps one after another on the same files. Each step is a fresh developer with {budget} turns who sees the files the earlier steps wrote and reads the design sections you name.
+
+The game is the generic game of its genre, with no theme: every thing in it is a plain shape with its generic name written on or under it, in one default font, on a plain background. A theme is put on later by someone else; nothing here anticipates it.
+
+The design is below: the concept (what the genre is and what is on the screen), what every game of the genre has, and how it is built.
+
+The steps come in three parts, in this order.
+
+1. The framework. The genre's core as the barest thing that plays, one piece at a time in the order the player meets them. Each step adds one thing that works and can be seen. No numbers are chosen for balance; plain ones.
+
+2. What every one has. Every line of the list, one feature per step, or two small ones that belong together. Each step adds the feature whole and working: if the list says towers can be upgraded, after that step a player can upgrade a tower and see what changed. The screens the list names are steps here, the title screen first, and the last of them is "quit returns to the title screen".
+
+3. Making it a game: the levels the list calls for, the rounds getting harder, the end that is won and the end that is lost, each on its own screen, and last a balance step that plays it and tunes the numbers until the early rounds are losable with nothing done and winnable with a few things done well.
+
+Each step is small enough for its turns: one thing, and what it needs to be seen and checked. Write as many steps as the game needs, no fewer than twelve and no more than twenty-four.
+
+For each step write:
+- name: two to four words.
+- stage: what to add, in one to four sentences, in plain words, concrete enough to build without guessing.
+- done: one sentence on what a player sees or does when the step works.
+- reads: the design's heading lines this step needs, copied exactly as they appear, including the leading # characters.
+
+Answer with a JSON array of the steps with the keys "name", "stage", "done" and "reads", in a ```json block, and nothing after it.
+
+The design:
+
+{design}

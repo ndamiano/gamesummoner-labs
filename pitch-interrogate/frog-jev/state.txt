@@ -1,0 +1,45 @@
+Game prompt: a platformer where you play as a frog
+
+the game: Bullfrog Crossing is a room-based 2D platformer in which the player controls a small frog crossing a rain-swollen, moonlit greenhouse that has become a swamp. The player moves and jumps from safe surface to safe surface, crossing each room from its start edge to its exit edge. Fixed hazards punish careless lines by returning the frog to the last safe edge. Pale moths are collectibles placed off the straight line and reachable through alternate platforming lines. Collecting moths does not grant abilities or change rooms, but it contributes to each room’s recorded score. The game’s extra layer is score: each room stores the player’s best clean completed crossing, and later attempts can leave a better score than before.
+
+view: Side-on 2D platformer view. The camera follows the frog within one room at a time and frames the start edge, the next safe surfaces, the hazard layout, and the exit edge. Rooms are discrete connected spaces, not an open world.
+
+time: Real-time continuous platforming. There is no turn system.
+
+a run: A run starts with the frog on the cracked tile edge at the opening room’s start edge, with no instruction except the shape of the next safe surface. The player crosses rooms in the named order: opening greenhouse, flooded potting bench, broken fountain, root-choked greenhouse, abandoned children’s pond. A room is completed when the frog reaches its exit edge, such as the drain at the end of the opening greenhouse; that exit opens the next connected room. The run ends when the frog reaches and exits the abandoned children’s pond, the final named room. Failure does not end the run: the frog returns to the last safe edge and may try another line. Completed rooms remain completed, and the player may replay completed rooms to improve their recorded scores. Difficulty increases as later rooms become longer, darker, wetter, more connected, more densely arranged with fixed hazards, less obvious in safe lines, and more populated with hidden moths. The player may also be pulled toward faster lines and clean/moth scoring.
+
+tone: A “particular quiet, rainy world,” where “the pleasure is finding the safe line through a dangerous place and leaving a better score than before.” The game “does not fight back. It takes the rhythm away.” The frog is “a frog that belongs in the swamp but has been displaced into a human greenhouse.”
+
+look and sound: Moonlit, rain-swollen, wet, dark greenhouse and swamp rooms with moonlit glass, flooded clay pots, lily pads, black moss, broken glass, still oil, and pale moths; sound is quiet rain, water, glass, and small platforming touches, with no combat or power-up sounds.
+
+core mechanics:
+- platforming: A system for moving through a space by jumping between surfaces under gravity. In this game, platforming is the only player verb. The player moves and jumps a small frog from safe surface to safe surface across rooms. Safe surfaces are non-hazard platforms and edges such as cracked tile edges, overturned pots, wet glass, glass shelves, flooded clay pots, lily pads, ledges, start edges, and exit edges. A room is a crossing from its start edge to its exit edge. The frog reaches the exit edge to complete the room and open the next connected room. The opening room and all rooms communicate the crossing through visible safe surfaces and hazard placement, with no instruction except the shape of the next safe surface. The player may choose the obvious safe line, a faster line, or an alternate line for collectibles. There is no swimming, climbing, gliding, dashing, special movement, or special powers; wet glass and flooded surfaces are ordinary platforming surfaces unless they are listed as hazards. If the frog leaves safe surfaces into water or void, or touches a hazard, it is returned to the last safe edge: the nearest non-hazard surface the frog was standing on before the failed move, or the room’s start edge if none exists. The current attempt’s unrecorded crossing progress is discarded.
+- hazards: A system of dangers fixed in place in a level, which hurt the player on touch and must be avoided or got past. In this game, hazards are fixed, non-combat obstacles arranged to punish careless lines. Earliest hazards are obvious fixed obstacles: a shard of broken glass, a slick of black moss, and a snapped mousetrap waiting in a leaf. Later hazards include still pools of oil, bad edges, water in flooded basins and rooms, and other fixed traps. Touching a hazard or falling into water or void breaks the crossing and returns the frog to the last safe edge. Hazards do not move, attack, become safe, or require combat; the game does not fight back, it takes the rhythm away.
+
+supporting mechanics:
+- collectibles: A system for hiding things around the game for the player to find and collect as a set. In this game, collectibles are pale moths. A moth may be visible but placed where the straight line cannot reach it, behind hazards, on a longer ledge route, or otherwise tucked behind hazard arrangements. The player reaches it by taking an alternate platforming line that looks past the obvious path. Collecting a moth counts toward that room’s moth count and is included when calculating that room’s recorded score; it gives no new ability and does not change the room. Moths remain collected after failure and after completing a room.
+
+extra mechanics:
+- scoring: A system that awards points for how well the player plays and records the best scores. In this game, scoring rewards clean, complete crossings. A crossing is complete when the frog reaches the exit edge. It is clean when no hazard is touched and no fall returns the frog. A clean completed crossing records a score for that room. The base score for a clean completed crossing is 100. Each moth collected in that room adds 10 to the score for any clean completed crossing of that room; moths collected in earlier attempts count because they persist. The room stores the highest such score as the recorded best score. Unclean completions open the next room but do not record a score. The interface shows the room’s best recorded score and moths collected, and it indicates whether the current attempt is still clean.
+
+content:
+- “Title: **Bullfrog Crossing**”: names the game.
+- “rain-swollen greenhouse after closing”: opening setting; establishes the quiet, wet, dark, displaced swamp atmosphere.
+- “small frog sitting on a cracked tile edge”: opening room’s start edge and first safe edge.
+- “no instruction except the shape of the next safe surface”: the game communicates platforming through readable space, not text.
+- “overturned pots, wet glass, and lily pads floating in a flooded basin”: safe platforming surfaces and room geometry used for crossings.
+- “glass shelves”: safe platforming surfaces used in later crossings.
+- “shard of broken glass”, “slick of black moss”, “snapped mousetrap waiting in a leaf”: earliest obvious fixed hazards that break the crossing on touch.
+- “still pools of oil”: fixed hazards that break the crossing on touch.
+- “bad edges” and “small traps”: unsafe edges and fixed trap elements that cause falls or return to the last safe edge.
+- “pale moth behind a pot”: first collectible, visible but not reachable on the straight line.
+- “pale moths”: collectibles hidden behind hazard arrangements and reachable by alternate platforming lines.
+- “moonlit glass”: visual material for glass surfaces and moonlit atmosphere.
+- “flooded clay pots”: pot-like platforms that may hold water around or on their edges; only their dry/non-hazard surfaces are safe surfaces.
+- “lily pads in a greenhouse basin”: safe floating platforms in flooded rooms.
+- “flooded basin”: water area; falling into it returns the frog to the last safe edge.
+- “connected swamp rooms: flooded potting bench, broken fountain, root-choked greenhouse, abandoned children’s pond”: later rooms in order; each contains hidden moths and hazard arrangements.
+- “drain at the end of the opening greenhouse”: example exit edge for the first room.
+- “frog that belongs in the swamp but has been displaced into a human greenhouse”: narrative framing for the player’s frog and setting.
+
+left out: combat, shooter mechanics, puzzle mechanics, a frog with special powers, an open world, new verbs, fighting the greenhouse, swimming or traversal special powers, moving hazards, combat hazards, moth-granted abilities, and room changes caused by collectibles.

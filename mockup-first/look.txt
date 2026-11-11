@@ -1,0 +1,32 @@
+A generic game of a genre is written and playable. Here is what it is:
+
+{spec}
+
+Someone asked for this:
+
+{ask}
+
+The generic game is about to be made into theirs, by showing the programmer one picture of the
+finished game and a short note. Write both. Exactly these two headings and nothing else:
+
+# NOTE
+
+120 words at most, plain sentences, no table. The game's title. One sentence of situation: who
+the player is, what they are doing, and why. Then the name of each kind of thing the generic
+game has (only things it has; one name each): the player or the placed things, the things that
+move on their own, the items, the currency, the lives, a level or wave, the start and the end.
+
+# MOCKUP
+
+A description of one screenshot of the finished game during play, for an image model to paint,
+150 to 250 words. Start with "A screenshot of a finished 2D browser game" (or 3D, as decided),
+the title and what kind of game it is. Then the art style and palette from the decisions below.
+Then the place, as the player sees it. Then each kind of thing on screen, using the note's names,
+in the counts the generic game has (if it has three kinds, three are shown). Then the HUD: only
+what a player needs every second of play, each element with where it sits and the exact text or
+number it shows, in one bar at the top and, if the game has things to pick or buy, one bar at the
+bottom. Nothing else on the HUD. End with "Clean game UI, readable, nothing cluttered, no
+watermark. 16:9."
+
+Decisions already made for the look:
+{state}

@@ -1,0 +1,7 @@
+# 0. CONCEPT
+
+Bloomwick Churchyard is one hand-built graveyard corner with two candy roofs, a hedge, a well, and a low fence. First-person Gulp appears at a spawn point; the screen shows a crosshair center, minimap top-left, score top-right, combo bottom-center. Four movers act on their own: two townsfolk (a baker, a guard) walk preset paths and run home when hit, and two animals (a chicken, a duckling) peck near the well and flee when approached. Two targets sit against the fence: a crate and a barrel. The player only presses melee: a bonk makes a target or mover recoil, makes movers run, and raises the combo counter; the only result is a silly reaction chain and a score bump.
+
+# 2. HOW IT IS BUILT
+
+Build a crappy 3D first-person framework with a gray box place, a capsule player, four moving boxes with wander/hit-flee stubs, two gray target boxes, a number counter, and placeholder title/pause/settings screens until it moves, hits, and counts; then the UI: replace the gray box place with the hand-built churchyard, the capsule with Gulp, the moving boxes with the townsfolk and animals, the target boxes with the crate and barrel, the number with score/combo, and the placeholder screens with hand-lettered title/pause/settings. These replacements only swap placeholders; they never add a rule, system, or screen the framework lacked. A first-person sandbox is 1 place, 1 player, 4 movers, 2 targets, 1 melee action, 1 counter, and 1 menu shell; nothing in the concept changes what a first-person sandbox is.

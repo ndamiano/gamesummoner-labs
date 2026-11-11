@@ -1,0 +1,12 @@
+A user asked for a browser game:
+
+{ask}
+
+Rewrite it as the one-paragraph request an experienced game developer would hand a programmer who builds from it with no further questions. The paragraph:
+
+- Names the nearest well-known game shape, the kind the field has built a thousand times, and the view (top-down, side-on, first-person) in the first sentence.
+- Lists the core systems as concrete on-screen things the player sees and does: the entities, the one or two verbs, what they produce, the win and the loss, the clock or the score. A system a player cannot see is not on the list.
+- Carries every noun and verb from the user's ask as the thing that replaces the shape's placeholders, so the game is the user's and not the shape's.
+- Ends with the detail and quality words the user used, or "high detail" if they used none.
+
+At most 150 words, prose or a comma list, no headings, no options, no questions. Reply with the paragraph only.

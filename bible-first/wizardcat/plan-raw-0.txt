@@ -1,0 +1,234 @@
+```json
+[
+  {
+    "name": "Add Grid And Exit",
+    "stage": "Create a fixed side-on grid room, 12 cells wide and 8 tall, with visible cell borders. Leave one bottom-left cell empty for the player and put a single red locked square in the top-right cell. Do not add names, sprites, or balance numbers.",
+    "done": "A player sees a grid room with a red locked square in the top-right corner.",
+    "reads": [
+      "# 2. HOW IT IS BUILT",
+      "# 1. DECISIONS"
+    ]
+  },
+  {
+    "name": "Add Player Square",
+    "stage": "Place a blue square in the bottom-left start cell. It can be clicked but does not move yet.",
+    "done": "A player sees a blue square standing in the start cell.",
+    "reads": [
+      "# 2. HOW IT IS BUILT",
+      "# 1. DECISIONS"
+    ]
+  },
+  {
+    "name": "Add Draw And Discard",
+    "stage": "Draw two face-down rectangle piles: a draw pile in the bottom-left area and a discard pile in the bottom-right area. Clicking either pile does nothing yet.",
+    "done": "A player sees two face-down piles at the bottom of the room.",
+    "reads": [
+      "# 2. HOW IT IS BUILT",
+      "# 0. CONCEPT"
+    ]
+  },
+  {
+    "name": "Add Card Hand",
+    "stage": "Add a row of five empty card slots at bottom center. At start, move three blank rectangles from the draw pile into the hand slots.",
+    "done": "A player sees three blank rectangle cards in a hand row.",
+    "reads": [
+      "# 2. HOW IT IS BUILT",
+      "# 0. CONCEPT"
+    ]
+  },
+  {
+    "name": "Add Move Card",
+    "stage": "Turn one blank rectangle into a Move card. Clicking it moves the player square one cell toward the clicked cell, sends the card to discard, and draws one replacement rectangle into an empty hand slot if one exists.",
+    "done": "A player clicks a card and sees the blue square move one cell, then a replacement card appears in hand.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Add Enemy Square",
+    "stage": "Place two gray enemy squares in empty cells. At the end of the player turn, each enemy moves one cell toward the player; if it is already adjacent, it hits the player for 1.",
+    "done": "A player sees gray squares move toward the blue square and hit it after a card is played.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Add Attack Card",
+    "stage": "Turn another blank rectangle into an Attack card. Clicking it targets the nearest adjacent enemy, draws a temporary X on it, sends the card to discard, and draws one replacement if the hand has an empty slot.",
+    "done": "A player clicks the card and sees an X appear on a nearby enemy, then the card moves to discard.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Add Health Bars",
+    "stage": "Give the player and every enemy a simple health bar above it. Attack hits reduce the target's health by 1. When health reaches 0, fade the square away.",
+    "done": "A player sees health bars shrink and a square fade away when its health reaches zero.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Add Hazard Square",
+    "stage": "Place brown hazard squares in the room. At the end of the turn, any square standing on a hazard loses 1 health.",
+    "done": "A player sees a square lose health when it ends a turn on a brown hazard.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 1. DECISIONS"
+    ]
+  },
+  {
+    "name": "Add Key Item Card",
+    "stage": "Mark one shelf cell. Add one Item card rectangle with two tiny square buttons: one places a small white square token on the shelf cell, and one heals the player square by 1. Using either button discards the card and draws a replacement; touching the token removes it and turns the exit square green.",
+    "done": "A player sees an item card create a token that opens the exit, or heal the player.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Replace Player With Pip",
+    "stage": "Replace the blue player square with a small wizard-cat sprite and a tea-cosy hat. Add a tiny idle wiggle and a simple step animation. Keep the same cell hitbox, health, move, and item behavior.",
+    "done": "A player sees a cat instead of a square, with a small idle and step animation.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT",
+      "# 3. THE GAME WE WANT",
+      "## Story"
+    ]
+  },
+  {
+    "name": "Replace Enemies With Books",
+    "stage": "Replace gray enemy squares with book-guard sprites: book bodies, eyes, and a small flap animation. Keep the same move, hit, and health behavior.",
+    "done": "A player sees books with eyes moving toward the cat and taking hits.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Replace Hazards With Pots",
+    "stage": "Replace brown hazard squares with soup-pot sprites and a looping steam puff. Keep the same end-of-turn damage.",
+    "done": "A player sees pots dripping steam and the cat takes damage when standing on one.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Replace Exit With Bell",
+    "stage": "Replace the exit square with a door and a bell above it. Keep locked and open states: locked shows a dark bell, open shows a bright bell.",
+    "done": "A player sees a bell door instead of a square, changing appearance when opened.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Replace Cards With Faces",
+    "stage": "Replace blank card rectangles with faces for Move cards (Dash, Climb), Attack cards (Wand-Sword, Crossbow), and Item cards (Feather Key, Heal). Map the existing behaviors to those faces without adding new rules.",
+    "done": "A player sees named card faces with simple icons, and the same cards still work.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Replace Key With Feather",
+    "stage": "Replace the white square token with a feather-key sprite and a short float animation. Keep the same touch-to-open behavior.",
+    "done": "A player sees a feather key on a shelf and the bell door opens when touched.",
+    "reads": [
+      "# 0. CONCEPT",
+      "# 2. HOW IT IS BUILT"
+    ]
+  },
+  {
+    "name": "Add Top HUD Counters",
+    "stage": "Add a top bar with four counters: health, currency, score, and combo. Start with health 1, currency 0, score 0, and combo 0. Update health when health bars change.",
+    "done": "A player sees health, currency, score, and combo numbers at the top.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## A Session"
+    ]
+  },
+  {
+    "name": "Add Bottom Card Tray",
+    "stage": "Turn the hand row into a bottom card tray with draw pile count, discard count, and clear card slots. Keep the existing card click targets.",
+    "done": "A player sees a bottom card tray with draw count, discard count, and card slots.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## A Session"
+    ]
+  },
+  {
+    "name": "Add Menu Screens",
+    "stage": "Add a menu button in the top bar. When clicked, it opens a pause panel with buttons for Settings, Deck, Hints, and Quit. Include empty placeholder panels for title, settings, game over, win, and high scores.",
+    "done": "A player sees a menu button and placeholder screens behind it.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## A Session"
+    ]
+  },
+  {
+    "name": "Add Card Costs",
+    "stage": "Add a cost number to each card and a currency cost check before any card action. Use plain costs: Move 0, Attack 1, Item 1, and start with 3 currency. Gray out a card when the currency is too low.",
+    "done": "A player sees costs on cards and cannot play a card when the currency counter is too low.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## Content"
+    ]
+  },
+  {
+    "name": "Add Level Rewards",
+    "stage": "When the player moves onto the open Bell Door, show a reward panel with three card faces. Let the player add one card to the deck or remove one card, then reload the current room as a new round.",
+    "done": "A player sees a reward panel and then the same room starts again as a new round.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## Content",
+      "## A Session"
+    ]
+  },
+  {
+    "name": "Add Harder Levels",
+    "stage": "Replace same-room reload with a short level sequence: a second room, a third room, and a final room. Increase enemy counts, hazard counts, and room tightness, and put a larger boss token in the final room.",
+    "done": "A player sees later rooms with more enemies and hazards, ending in a larger boss token.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## Content",
+      "## World"
+    ]
+  },
+  {
+    "name": "Add Lives And End",
+    "stage": "Give Pip nine health points shown in the top bar. When health reaches zero, show the game over panel with score and a New Run button. When the boss token is defeated and the bell door is touched, show the win panel.",
+    "done": "A player sees a nine-point health bar, a game over after death, and a win after the final boss and bell.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## Story",
+      "## A Session"
+    ]
+  },
+  {
+    "name": "Balance Early Level",
+    "stage": "Play the first room several times. Tune starting health, costs, enemy counts, hazards, and rewards until playing no cards loses, while playing a few Move and Attack cards well wins.",
+    "done": "The first room is losable with no cards and winnable after a few good card plays.",
+    "reads": [
+      "# 1. DECISIONS",
+      "# 3. THE GAME WE WANT",
+      "## A Session",
+      "## Content"
+    ]
+  }
+]
+```

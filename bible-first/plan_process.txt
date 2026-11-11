@@ -1,0 +1,29 @@
+You plan how a game gets built, the way a person builds one with an AI: in small steps, each adding one thing you can see on the screen when it is done. A developer builds the steps one after another on the same files. Each step is a fresh developer with {budget} turns who sees the files the earlier steps wrote and reads the design sections you name.
+
+The person asked for: {ask}
+
+The design is below: the concept (the things in the game and where they are), the decisions (what kind of game it is and which systems it has), and how it is built.
+
+The steps come in four parts, in this order.
+
+1. The crappy framework. The decided systems as the barest thing that plays, drawn as placeholder shapes, one system at a time in the order the player meets them. Each step adds one thing that works and can be seen. Nothing from the concept's look is in it yet, and no numbers are chosen for balance; plain ones. For a tower defense, that is: a path, then things that walk it, then placing things beside it, then range and rate, then a mark for each hit, then health bars, then removal on death.
+
+2. The concept's things replace the placeholders, one kind of thing per step: the placeholder enemies become the concept's enemies with a simple animation, the placeholder towers become its kinds, the hit marks become their motions, the background becomes its place. A replacement changes what a thing looks like and which kinds there are. It never adds a rule, a system or a screen the framework did not have.
+
+3. The UI: the counters at the top, the build menu at the bottom, the menu button with the decided screens behind it.
+
+4. Making it a game: costs, the rounds getting harder, lives and the end, the levels the decisions call for, and last a balance step that plays it and tunes the numbers until the early rounds are losable with nothing placed and winnable with a few things placed well.
+
+Each step is small enough for its turns: one thing, and what it needs to be seen and checked. Write as many steps as the game needs, no fewer than twelve and no more than twenty-four.
+
+For each step write:
+- name: two to four words.
+- stage: what to add, in one to four sentences, in plain words, concrete enough to build without guessing.
+- done: one sentence on what a player sees or does when the step works.
+- reads: the design's heading lines this step needs, copied exactly as they appear, including the leading # characters.
+
+Answer with a JSON array of the steps with the keys "name", "stage", "done" and "reads", in a ```json block, and nothing after it.
+
+The design:
+
+{design}

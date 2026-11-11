@@ -1,0 +1,9 @@
+The screenshot is one example moment of the finished game's main play screen. Make this game look like that.
+
+What the picture decides: the art style and palette, how each kind of thing is drawn, and what is on the HUD and where. The HUD in the picture is the whole HUD of play: every other counter, panel, label or line the game shows during play now either moves into the title, win and loss screens or goes away. Where the picture shows a thing you cannot draw well in code, ask for the art.
+
+What the picture does not decide: the layout of any level, where things stand, how many are on screen, or what the game's other screens contain. Those stay as the game has them. The other screens and every level take the picture's style, not its contents.
+
+{names}
+
+Keep every rule and every number exactly as it is: the same kinds, the same levels and their layouts, the same costs, speeds, counts, the same way to win and to lose. Add nothing the picture does not show.

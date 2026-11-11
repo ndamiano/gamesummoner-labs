@@ -1,0 +1,22 @@
+Game prompt: cozy farming game but the crops are weird alien plants
+dimension: 2d
+camera: top-down
+time model: real-time with pause
+movement model: free movement
+session shape: open world
+failure: no failure
+tone: cozy
+size: many levels, a few hours
+win/lose: no ending, play forever
+core mechanics: crops, grow, harvest, pick up and drop, map / world, resource types, wait and collect, gathering spots, materials, currency
+supporting mechanics: unlocks, tools needed, selling, watering / tending, recipes, collectibles, placement, rewards, dig, respawn, prices, inventory limit, landmarks, shops, conversations, day / night, carry and tow, crafting stations, throw, merchants, secrets, buildable pieces, push and pull, consumables, hints, cook, dash, trading, rooms / structures, decoration, seasons, equipment, experience and levels, merge, quest givers
+extra mechanics: fast travel, townsfolk, side quests, plot, upgrades to crafted items, relationships / affection, boosts, lore, collectible creatures, buildings with jobs, production chains, livestock, pets, taming, skill tree, cutscenes, companions
+art style: pixel art: low-resolution sprites with visible square pixels and a limited palette
+palette: pastel: soft light colours
+typography: pixel font: blocky bitmap letters
+music: acoustic: guitar, piano, folk instruments
+sound effects style: minimal: soft clicks and tones
+screens: title, pause, settings
+hud: minimap, currency
+effects: particles
+accessibility: colour-blind safe palette, reduced motion, remappable keys

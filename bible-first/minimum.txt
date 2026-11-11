@@ -1,0 +1,23 @@
+A user asked for a browser game:
+
+{ask}
+
+Your team has decided what kind of game it is:
+
+{state}
+
+And written the game we want:
+
+{bible}
+
+Now write the minimum that is a game. Two sections, under these exact headings.
+
+# 0. CONCEPT
+
+One paragraph, at most 150 words: the things in the first playable game and where they are on the screen. One place, built by hand, not generated. The player in it. The people or things that act on their own, and what they do. The one thing the player does and what it produces. The few kinds there are (two or three of each, named from the game we want). Nothing from the story that is not on the screen; the story is in the names and the look, not in text.
+
+# 2. HOW IT IS BUILT
+
+One paragraph: the way a person would build it with an AI: a crappy framework first, with placeholder shapes, until it plays; then the concept's things replace the placeholders one at a time; then the UI. A thing from the concept only ever replaces a placeholder. It never adds a rule, a system or a screen that the framework did not already have. Then name the game's shape in one sentence of the form "A <shape> is <the five to eight things it is made of>; nothing in the concept changes what a <shape> is." Pick the numbers yourself and keep them plain.
+
+Reply with the two sections only.

@@ -1,0 +1,22 @@
+Game prompt: a platformer where you play as a frog
+dimension: 2d
+camera: side-on
+time model: real-time
+movement model: free movement
+session shape: a sequence of levels
+failure: restart the level
+tone: silly
+size: a handful of levels, under 30 minutes
+win/lose: reach the exit
+core mechanics: platforming, hazards
+supporting mechanics: collectibles
+extra mechanics: scoring
+art style: pixel art: low-resolution sprites with visible square pixels and a limited palette
+palette: saturated: bright, strong colours
+typography: pixel font: blocky bitmap letters
+music: chiptune: retro console bleeps
+sound effects style: retro bleeps: synthesized chip sounds
+screens: title, pause, settings, win, level select, high scores
+hud: score
+effects: particles, hit flash
+accessibility: colour-blind safe palette, reduced motion

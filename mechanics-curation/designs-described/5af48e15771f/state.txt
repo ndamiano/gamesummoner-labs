@@ -1,0 +1,25 @@
+Game prompt: A lighthouse keeper on a stormy night, swinging the beam to steer ships past the rocks while keeping the lamp fuelled.
+dimension: 2d
+camera: side-on
+time model: real-time
+movement model: no movement, cursor only
+session shape: single screen
+failure: lose a life
+tone: tense
+size: one screen, a few minutes
+win/lose: survive as long as possible
+core mechanics:
+- upkeep: A system where something the player depends on runs down over time, such as fuel, power, air or a light, and the player must keep topping it up before it runs out.
+- multitasking: A system where the player has several jobs to keep going at once, each getting worse while it is left alone, and must choose which one to attend to.
+- escort: A system where the player guides or protects others who cannot look after themselves, such as ships, survivors or a convoy, until they reach safety.
+supporting mechanics: none
+extra mechanics: none
+art style: hand-drawn / painterly: brush strokes, ink lines or watercolour texture
+palette: dark: mostly black with a few bright accents
+typography: hand-lettered: drawn, irregular letters
+music: ambient: slow textures, no strong beat
+sound effects style: realistic: recorded-sounding impacts and foley
+screens: title, game over
+hud: none
+effects: screen shake, particles, hit flash, trails, bloom
+accessibility: colour-blind safe palette, reduced motion, difficulty options

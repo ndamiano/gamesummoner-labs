@@ -1,0 +1,38 @@
+You plan how the looks of a game get reworked in stages. The game's full design is below. The whole design is built and plays: the files are mapped under "What exists". Everything on screen is drawn by code, and it stays drawn by code. It works, but it looks like a first draft. A developer will now redraw it, in stages, one after another, on the same files. Each stage is a fresh developer who has {budget} turns, is shown the map of the files but has not read them, cannot see the screen, and reads the design sections you name for their stage.
+
+How to cut the stages:
+- A stage redraws one family of things that share a look: the ground and backdrop, one kind of character, one group of objects, the HUD, the screens. At most five drawn things in a stage, so each one gets real care. A game with many objects gets several object stages.
+- The first stage sets the look the rest follow. It writes the shared drawing helpers at the top of the drawing file (outline, ground shadow, shaded fill, wobble), redraws the ground with them, and leaves a short note at the top of that file on how to use them. Every later stage names those helpers and draws with them.
+- One stage is the HUD and every piece of text on the screen.
+- The last stage is the screens and motion: the title, pause and end screens, and the small movements and effects that make the game feel alive.
+- Every stage starts from a game that runs and ends on a game that runs. Only drawing changes. No rule, number, body size, position, timing, input or debug function changes, and every state a thing can be in still looks different from its other states.
+- Use as many stages as the game needs, at least 4 and at most 12.
+
+What better means. Write these into each stage in the words that fit its things, because the developer reads only their own stage:
+- Shape: a thing is known by its outline at the size it is drawn. It is built from several shapes, not one circle or one box.
+- Size: a thing is drawn as large as the space around it allows, which can be larger than the body the rules use. Things are drawn in the order of their y, so a nearer one overlaps a farther one.
+- Light: one light direction for the whole game. Each colour has a base, a shadow side and a highlight, and everything that stands on the ground has a soft shadow under it.
+- Line: one outline colour and one outline weight everywhere.
+- Ground: large quiet areas get texture and variation, kept low in contrast so the things on them stand out.
+- Text: words drawn in the world are large enough to read, or they are left out. Text in the HUD is measured before it is placed, never overlaps other text and never leaves its panel.
+- Overlays: anything that covers a lot of the screen, such as a range or a field of view, stays faint enough to read what is under it.
+- Motion: nothing alive holds perfectly still, and an action has a squash, a flash or a pop.
+- The design's palette stays. The design's recipe for a thing is the least it must show, not the most.
+
+Begin each stage by saying that the whole game is built in this folder and must keep playing exactly as it does, then name the existing files and functions the stage will change, by their path and name in the map, so the developer knows where to look first.
+
+For each stage write:
+- name: two to four words for the stage list.
+- stage: what to redraw and how, in three to eight sentences, concrete enough to draw without guessing.
+- done: one sentence on what a player sees when the stage works.
+- reads: the design's heading lines this stage needs, copied exactly as they appear in the design, including the leading # characters. Only what this stage draws from, not the whole design.
+
+Answer with a JSON array of objects with the keys "name", "stage", "done" and "reads", in a ```json block, and nothing after it.
+
+The design:
+
+{design}
+
+What exists:
+
+{codemap}

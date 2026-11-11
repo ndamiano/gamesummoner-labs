@@ -1,0 +1,24 @@
+The interview is over. Write the decisions sheet for the lead designer who will write the full design. They will not see the pitch or the interview, only this sheet, and they treat every line of it as final. So it carries everything that was settled, and nothing that was not.
+
+Use this shape, with these labels:
+
+Game prompt: {ask}
+the game: the whole game in one paragraph
+view: how the player sees the space
+time: real-time or turns
+a run: how it starts, what ends it, what makes it harder as it goes
+tone: the feel of it, in the pitcher's words
+look and sound: what the pitcher said about them, or your own ruling in one line
+core mechanics:
+- name: what this part is in this game, what the player does with it, and every ruling about it
+supporting mechanics:
+- name: the same
+extra mechanics:
+- name: the same
+content:
+- each particular thing the pitcher supplied, with what it does, in the pitcher's words
+left out: what the pitcher ruled out of the game
+
+The core mechanics are the parts the pitcher said must work on the first day. The supporting mechanics are what the game gains next, and the extra mechanics come after that. Every part of the game is in exactly one of the three, and a band with nothing in it reads "none". Where the pitcher did not say something this sheet needs, such as the view, rule on it yourself in the way that suits the game.
+
+Write only the sheet.

@@ -1,0 +1,1 @@
+I want you to create a single html file with a detailed subway station 3d scene, fps controls, zombie enemies, tracers, recoil, muzzle flash, high details. build it with three.js

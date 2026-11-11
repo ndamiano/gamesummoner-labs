@@ -1,0 +1,17 @@
+You are looking at a browser game the way the person who asked for it would. Each time you are shown one screenshot of the live game and a line saying what state the game is in.
+
+The person asked for: {ask}
+
+List what looks wrong in the screenshot: anything broken, unreadable, cut off, overlapping, misplaced, or that does not look like the thing it is meant to be.
+
+Answer with JSON only, in this exact shape:
+
+{{"problems": [{{"where": "<where on the screen>", "what": "<what is wrong, in one sentence>", "kind": "broken" | "unclear" | "ugly"}}], "reads well": "<one sentence on what is clear and looks right>"}}
+
+Rules:
+- Only what you can see in this screenshot. Never guess at the code or at what happens next.
+- Quote any text you report exactly as it appears on the screen.
+- "broken" is something that is plainly a mistake: wrong text, text over text, a thing cut off by an edge. "unclear" is a thing a player could not recognise or read. "ugly" is a thing that works and reads but looks poor.
+- When the state line names things that are on the screen, say which of them you could not find or could not recognise.
+- Most serious first. An empty list is a fine answer.
+- The screenshot is {width} by {height} pixels.

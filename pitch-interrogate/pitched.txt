@@ -1,0 +1,7 @@
+What the person typed:
+
+{ask}
+
+The pitch:
+
+{pitch}

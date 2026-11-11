@@ -1,0 +1,84 @@
+Game prompt: a platformer where you play as a frog
+the game: A quiet, wet, frog-scale traversal platformer in which the player is a small, wet frog trying to reach a moonlit rooftop pond where the frogs are calling. The player moves through a rain-soaked garden and city edge seen from the ground—gutters, rain barrels, drainpipes, stone paths, greenhouse glass, dripping vines, and puddles that turn into platforms—by crouching, releasing, landing, sticking, sliding, tongue-grabbing, swinging, climbing, eating, avoiding, and sometimes swimming awkwardly. The tongue is the main verb, but it is not a magic rope: it only catches small, visible, grabbable anchors and cannot stick to smooth glass or open water. The game is not about fighting enemies, collecting, survival meters, or filling counters; it is about reading scenes as a frog would, finding routes upward, and using small physical consequences in the environment. Failure is forgiving but never weightless: the worst outcome is embarrassment, delay, and a forced rethink of the route.
+
+view: Side-on 2D platformer view; camera follows the frog at ground scale, scrolls vertically when routes rise, and keeps the distant rooftop pond visible when possible.
+
+time: real-time
+
+a run: A run begins when the frog wakes on a leaf in a rain barrel or is placed at the last safe perch after a hazard resets it. It ends when the frog reaches the next safe perch in the crafted place; the full game ends when the frog reaches the moonlit rooftop pond. Failure does not end the run: it causes delay, embarrassment, and a forced rethink, with reset to the last safe perch. The opening places are close together and legible. It becomes harder as levels become more vertical and connected, require combined traversal, and add cat watching, heron shadows, fish, sprinklers, currents, wind, slippery glass, brittle or weak anchors, and direct dangerous versus longer safer routes.
+
+tone: quiet and wet; small, wet frog; not fighting its way there, but finding a way there; forgiving but never weightless; embarrassment, delay, and a forced rethink of the route; noticing the world at the size of a frog.
+
+look and sound: Rain-soaked garden and city edge seen from the ground: gutters, rain barrels, drainpipes, stone paths, greenhouse glass, dripping vines, puddles, and a moonlit rooftop pond with lilies; sound is rain, drips, gurgles, frog calls, and readable animal cues.
+
+core mechanics:
+- crouch-hop: The player moves to the right; the frog hops. It does not run. Hold and the frog crouches, its legs coiling; release and it launches in an arc. The first gap is short and forgiving. The jump is about aim and commitment, not speed. Once the frog leaves the ground it must live with the result.
+- tongue: A quick flick snaps out, catches a fly, and the frog swallows it. Hold tongue control and the frog’s tongue extends, catching a branch; releasing lets the frog swing. The tongue is not just for eating; it is for moving. It is not a magic rope. It catches things that are small, grabbable, and visible: twigs, hanging wires, bottle caps, spider silk, branches, the legs of insects, the edges of cracked tiles. It cannot stick to smooth glass or open water. The player must look for anchors. If the player guesses wrong, the tongue snaps out and grabs nothing, and the frog drops. If they guess slightly wrong, the tongue catches a weak object, and the object breaks or moves unexpectedly. A missed tongue leaves the frog dangling for a beat before it falls.
+- sticky climbing and sliding: When the frog lands on a damp wall, its sticky pads catch. The player can slide upward against it. The wall is not a platform in the usual sense; it is a surface the frog can cling to. The frog can climb damp walls, slide down wet ones, and hang from things.
+- wet-surface movement and water recovery: Surfaces are wet, slick, sticky, brittle, or moving. A drop hits the leaf and the leaf rocks, teaching the player that this body is light, slippery, and easily moved. A bad hop makes the frog slide off a wet tile or land in a puddle. If the frog gets into water, it can swim, but poorly, and must haul itself onto the nearest edge. Water carries the player in currents but also slows them down.
+- avoidance and stillness: A cat watches from a distance, not attacking yet, but its eyes follow the frog. The player learns that stillness matters. Moving too much makes the cat step closer. The game is not teaching combat. It is teaching reading, timing, and how much the frog’s own body can be trusted. The player avoids hazards through stillness, timing, and observation.
+- forgiving failure and reset: When it goes wrong, the game is forgiving but never weightless. A bad hop makes the frog slide off a wet tile or land in a puddle. If a cat catches the frog, the cat bats it away gently but humiliatingly, and the frog is reset to the last safe perch. There is no death screen, no score shame, no harsh punishment. The worst outcome is embarrassment, delay, and a forced rethink of the route.
+
+supporting mechanics:
+- combined traversal: After the opening phase, the game stops teaching and starts trusting. The levels become more vertical and more connected. The player is no longer asked only to cross a gap; they are asked to combine things. A rain barrel can be entered through a broken window, climbed by sticky tiles, exited through a drain, then used to swing from a branch outside. The later game is still about traversal, but the routes become richer.
+- hazard escalation and distraction: More hazards become active: a heron’s shadow passes over open ground, and the player learns that open ground is dangerous; a heron patrols a pond, so the player may need to wait for a shadow to pass or disturb a nearby branch so the heron looks elsewhere; if a heron snaps at the frog, there is a brief dark swallow, then the frog is coughed up nearby; a fish that snaps; a sprinkler that starts without warning, turning a ledge into a slide; wind that changes the arc of a hop, so the player must use the tongue to anchor before jumping. You do not defeat enemies. You avoid them, distract them, or slip past them while they are distracted.
+- environmental consequences: The world is not made of locked doors or switches. It is made of small physical consequences. The player can use hazards: start a sprinkler to knock a caterpillar off a branch so the branch dips lower; pull a cork from a pipe so water begins to flow and carries a leaf into place. Puzzles are physical and environmental, not riddles.
+- route variety: A level may have a direct but dangerous path and a longer but safer path. The direct path may require a chain of tongue swings over a pond. The longer path may require climbing a wall, waiting out a cat, and crossing a rain gutter. A garden path can be crossed by hopping across lily pads, but a heron patrols that pond, so the player may need to wait for a shadow to pass or disturb a nearby branch so the heron looks elsewhere.
+
+extra mechanics:
+- eating reactions: Eating is not a score system. Eating a wasp might make the frog hiccup and puff, which can cause a strange hop. Eating a fly might make it sneeze. These are flavor and feedback, not progress.
+
+content:
+- leaf floating in rain barrel: A drop hits the leaf and the leaf rocks, teaching the player that this body is light, slippery, and easily moved.
+- rain barrel: A rain barrel leads to a drainpipe. A rain barrel can be entered through a broken window, climbed by sticky tiles, exited through a drain, then used to swing from a branch outside. Rain barrels tip.
+- drainpipe: The drainpipe leads to a stack of wet crates. Drainpipes gurgle and spit.
+- wet crates: A stack of wet crates forms a path.
+- branch: A branch hangs over a wider gap. A branch is a bridge. It can be caught by the tongue and used to swing.
+- cat: A cat watches from a distance, not attacking yet, but its eyes follow the frog. Moving too much makes the cat step closer. A cat can swat at the frog if it is noticed. If a cat catches the frog, the cat bats it away gently but humiliatingly, and the frog is reset to the last safe perch. A cat is a disaster.
+- heron: A heron’s shadow passes over open ground, and the player learns that open ground is dangerous. A heron patrols a pond, so the player may need to wait for a shadow to pass or disturb a nearby branch so the heron looks elsewhere. If a heron snaps at the frog, there is a brief dark swallow, then the frog is coughed up nearby.
+- fish: A fish that snaps is a hazard.
+- sprinkler: A sprinkler can start without warning, turning a ledge into a slide. A sprinkler can be started to knock a caterpillar off a branch so the branch dips lower.
+- slippery surface: A bad hop makes the frog slide off a wet tile.
+- crumbling ledge: A crumbling ledge is a readable hazard.
+- current: Water carries the player in currents but also slows them down. A current carries the frog away.
+- puddle: Puddles turn into platforms. A bad hop can land in a puddle. A puddle is a lake.
+- gutter: Gutters are traversable features. A gutter is a canyon.
+- stone path: Stone paths are part of the rain-soaked garden and city edge.
+- greenhouse glass: Greenhouse glass cannot be stuck to, but condensation makes the metal frames slippery.
+- dripping vines: Dripping vines are part of the wet environment and can be climbed or used as anchors.
+- rooftop pond: The goal is always visible in a distant shape: a rooftop pond, a ring of lilies, a faint chorus. It is a moonlit rooftop pond where the frogs are calling.
+- lily pad: A garden path can be crossed by hopping across lily pads, but a heron patrols that pond.
+- tin can: A tin can is a frog-scale landmark.
+- garden hose: A garden hose is a frog-scale landmark.
+- mossy stone: A mossy stone is a frog-scale landmark.
+- wooden fence rail: A wooden fence rail is a frog-scale landmark.
+- hanging vine: A hanging vine is a frog-scale landmark.
+- spider web: A spider web is a frog-scale landmark. Spider silk can be caught by the tongue.
+- koi pond: A koi pond is a frog-scale landmark and hazard space.
+- cat door: A cat door is a frog-scale landmark.
+- broken window: A broken window can let the frog enter a rain barrel.
+- sticky tile: Sticky tiles can be climbed.
+- drain: A drain can be exited from a rain barrel.
+- wind: A rooftop has wind that changes the arc of a hop, so the player must use the tongue to anchor before jumping.
+- weak object: The tongue catches a weak object, and the object breaks or moves unexpectedly.
+- twig: A twig is a small, grabbable, visible tongue anchor.
+- hanging wire: A hanging wire is a small, grabbable, visible tongue anchor.
+- bottle cap: A bottle cap is a small, grabbable, visible tongue anchor.
+- spider silk: Spider silk is a small, grabbable, visible tongue anchor.
+- branch: A branch is a small, grabbable, visible tongue anchor and bridge.
+- insect leg: The leg of an insect can be caught by the tongue.
+- cracked tile edge: The edge of a cracked tile can be caught by the tongue.
+- fly: A fly passes nearby. The tongue catches the fly, and the frog swallows it. Flies are not coins. They are part of the ecology and sometimes part of the joke. Eating a fly might make the frog sneeze.
+- wasp: A wasp can be eaten. Eating a wasp might make the frog hiccup and puff, causing a weird but useful sideways hop.
+- small beetle: Small beetles can be eaten as flavor and feedback, not progress.
+- caterpillar: A caterpillar can be knocked off a branch by starting a sprinkler so the branch dips lower.
+- cork: A cork can be pulled from a pipe so water begins to flow and carries a leaf into place.
+- leaf: A leaf can be carried into place by flowing water.
+- smooth glass: Smooth glass cannot be stuck to by the tongue.
+- open water: Open water cannot be stuck to by the tongue.
+- frog body: The frog has sticky toe pads, bulging eyes that follow threats, a throat that swells when it is nervous, and a tongue that can grab, yank, and pull. It can climb damp walls, slide down wet ones, swim awkwardly, and hang from things.
+- frog-scale landmark list: rain barrels, lily pads, drainpipes, tin cans, garden hoses, greenhouse glass, mossy stones, wooden fence rails, hanging vines, spider webs, koi ponds, cat doors, sprinklers, and rooftop ponds.
+- hazard list: a cat that watches, a heron that strikes, a fish that snaps, a sprinkler that sprays, a slippery surface, a crumbling ledge, a current that carries the frog away.
+- scale metaphors: A puddle is a lake. A gutter is a canyon. A cat is a disaster. A branch is a bridge.
+
+left out: not a human wearing frog skin; not a cartoon adventurer with a sword; not a realistic animal documentary; not a combat platformer; you do not defeat enemies; not a survival game with meters for thirst, hunger, or stamina; the game does not pretend to simulate every animal need; not a collectathon; flies are not coins; the player is not asked to fill a counter; not an open world; not a puzzle game about abstract machines; not a human platformer with a frog costume; no death screen; no score shame; no harsh punishment; no locked doors or switches; no score system for eating; no map-like reading of the scene.

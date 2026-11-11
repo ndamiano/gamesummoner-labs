@@ -1,0 +1,23 @@
+Game prompt: zombie game but you're the zombie lol
+dimension: 3d
+camera: first-person
+time model: real-time
+movement model: free movement
+session shape: open world
+failure: no failure
+tone: silly
+size: many levels, a few hours
+win/lose: none
+core mechanics: map / world, jump, melee attack, falling
+supporting mechanics: abilities / special moves, chase and catch, pick up and drop, spawn points, climb, physics objects, landmarks, unlocks, dash, dodge, collectibles, noise, detection, throw, hiding spots, secrets, switches and doors, townsfolk, push and pull, swim
+extra mechanics: rewards, hints, carry and tow, guards, transform, boosts, conversations, score, experience and levels, decoration, day / night, keys and locked doors, grapple and swing, quest givers, side quests, fast travel, lore, herd and lead, collectible creatures, skill tree, companions
+art style: stylized / toon: soft shapes, bright colours, cartoon proportions
+palette: saturated: bright, strong colours
+lighting: daylight: bright, even sun
+typography: hand-lettered: drawn, irregular letters
+music: chiptune: retro console bleeps
+sound effects style: retro bleeps: synthesized chip sounds
+screens: title, pause, settings
+hud: score, minimap, combo counter
+effects: particles, hit flash, trails
+accessibility: colour-blind safe palette, reduced motion, remappable keys

@@ -1,0 +1,148 @@
+```json
+[
+  {
+    "name": "Map shell",
+    "stage": "Create a fixed top-down tile map with flat placeholder rectangles for walkable ground, blocked objects, three planting squares, and edge shapes. Do not draw cottage, well, stall, pond, or plants.",
+    "done": "A player sees a static map with clear paths and blocked placeholder shapes.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Player square",
+    "stage": "Add a small square player that moves freely with arrow keys or WASD, stops on blocked placeholder objects, and keeps the camera fixed top-down on the map.",
+    "done": "The player sees the square move around the map and cannot pass through blocked placeholder objects.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Hotbar slots",
+    "stage": "Draw a bottom hotbar with three empty placeholder slots, highlight the selected slot, and let number keys or arrow keys change selection. Do not give the slots any game action yet.",
+    "done": "The player sees a bottom hotbar and can visibly switch between three slots.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Generic crop cycle",
+    "stage": "Make the three empty hotbar slots control the plain crop cycle: first slot plants a plain square, second waters it, third harvests when ripe. Each crop square shows empty, growing, watered, ripe, and cleared states with plain fixed timers.",
+    "done": "The player can plant, water, and harvest a plain square and sees its state change over time.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Sell placeholder",
+    "stage": "Add a stationary placeholder sell square that detects the generic harvested item count and converts items into a plain currency count when the player stands beside it. Show a simple placeholder coin count near the square.",
+    "done": "The player sees a placeholder coin count change when selling generic items.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Wandering square",
+    "stage": "Add a plain wandering square near the pond placeholder that moves slowly to random nearby walkable spots and stops briefly. It does not interact with the player or crops.",
+    "done": "The player sees a placeholder square wander near the pond without affecting gameplay.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Drifting dots",
+    "stage": "Add small placeholder drifting dots that appear over ripe crop squares and drift upward slowly. The dots are visual only and do not change crop state.",
+    "done": "The player sees placeholder dots drift over ripe crop squares.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Generic HUD",
+    "stage": "Add a top-right HUD with a simple minimap rectangle showing player and map objects as dots, a plain day counter, and a plain currency counter. Use placeholder text boxes and no pixel art.",
+    "done": "The player sees a minimap, day count, and currency count in the top-right corner.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Pause key",
+    "stage": "Add a pause key that freezes player movement, crop timers, wandering square, drifting dots, and day counter. Pressing it again resumes and shows a plain placeholder pause overlay.",
+    "done": "The player sees the game stop moving and a simple pause overlay while paused.",
+    "reads": ["# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Valley plot",
+    "stage": "Replace the placeholder map with the hand-built valley plot: cottage on left, three soil beds in middle, well by beds, merchant stall on right, and pond edge at bottom. Keep all collision and crop positions exactly the same.",
+    "done": "The player sees the cozy valley plot instead of placeholder rectangles.",
+    "reads": ["# 0. CONCEPT", "# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Alien crop sprites",
+    "stage": "Replace the three plain timed squares with Glassleaf, Echovine, and Bubblebeans sprites and simple idle or growth animations. Keep the same empty, growing, watered, ripe, and cleared states and the same plant, water, and harvest rules.",
+    "done": "The player sees three distinct alien crops grow through the same placeholder states.",
+    "reads": ["# 0. CONCEPT", "# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Tool icons",
+    "stage": "Replace the three empty hotbar slots with pixel icons for the watering can, net, and hoe. Keep the existing generic action bindings unchanged; the icons are only visual stand-ins for the three slots.",
+    "done": "The player sees the hotbar showing the watering can, net, and hoe icons.",
+    "reads": ["# 0. CONCEPT", "# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Merchant stall",
+    "stage": "Replace the placeholder sell square with the merchant stall and a merchant sprite standing behind it. Keep the same sell interaction and currency change.",
+    "done": "The player sees a merchant stall and merchant at the right side of the plot.",
+    "reads": ["# 0. CONCEPT", "# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Glowgoat sprite",
+    "stage": "Replace the placeholder wandering square with a glowgoat sprite that wanders near the pond with a slow idle animation. Keep the same non-interactive wandering behavior.",
+    "done": "The player sees a glowgoat wandering near the pond.",
+    "reads": ["# 0. CONCEPT", "# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Spore sprite drift",
+    "stage": "Replace the placeholder drifting dots with small spore-sprite sprites that drift over ripe crops. Keep them visual only and tied to the same ripe crop state.",
+    "done": "The player sees spore-sprites drift over ripe alien crops.",
+    "reads": ["# 0. CONCEPT", "# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Pixel HUD",
+    "stage": "Draw the top-right HUD in pixel font and pastel palette: minimap frame, day counter, and currency counter. Use the existing minimap, day, and currency values; do not add new HUD data.",
+    "done": "The player sees a readable pixel-font minimap, day, and currency display.",
+    "reads": ["# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Pixel hotbar",
+    "stage": "Draw the bottom hotbar in pixel art: three slots with icons, selection highlight, and key hints. Use the existing hotbar state; do not add new actions.",
+    "done": "The player sees a polished bottom hotbar with the selected slot highlighted.",
+    "reads": ["# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Pause panel",
+    "stage": "Add a menu button and a pixel pause panel that reuses the existing pause state. Include Resume, Settings, and Title buttons, with Settings and Title disabled placeholders for now.",
+    "done": "The player can open a pause menu and resume the same game.",
+    "reads": ["# 1. DECISIONS", "# 2. HOW IT IS BUILT"]
+  },
+  {
+    "name": "Title screen",
+    "stage": "Add a title screen with the game title, Start button, and a path into the existing plot. Use pixel font and placeholder pastel menu art; do not add gameplay systems.",
+    "done": "The player can start the game from a title screen.",
+    "reads": ["# 1. DECISIONS", "# 3. THE GAME WE WANT", "## A Session"]
+  },
+  {
+    "name": "Settings screen",
+    "stage": "Add a settings screen reachable from the pause panel and title screen. Include placeholder toggles for colour-blind safe palette, reduced motion, and remappable keys; do not add new gameplay systems.",
+    "done": "The player can open settings and return to the game.",
+    "reads": ["# 1. DECISIONS", "# 3. THE GAME WE WANT", "## A Session"]
+  },
+  {
+    "name": "Seed costs",
+    "stage": "Add seed purchase costs for Glassleaf, Echovine, and Bubblebeans at the merchant and set plain sale values for harvested crops. Make merchant prices vary on a plain cycle over days. Keep the existing sell flow and use plain placeholder values for now.",
+    "done": "The player can buy seeds for coins and sell crops for coins, with coin totals changing.",
+    "reads": ["# 1. DECISIONS", "# 2. HOW IT IS BUILT", "# 3. THE GAME WE WANT", "## Content"]
+  },
+  {
+    "name": "Day progression",
+    "stage": "Make the day counter advance on a fixed cycle and show a soft day-night tint. Add a rest action that ends the day safely. Keep no lives, no failure, and no forced end.",
+    "done": "The player sees time pass and can end a day safely without game over.",
+    "reads": ["# 1. DECISIONS", "# 3. THE GAME WE WANT", "## World", "## A Session", "## Resolution"]
+  },
+  {
+    "name": "Level unlock",
+    "stage": "Add a simple unlock gate for one additional hand-built plot area, using a plain coin or day threshold and a minimap travel point. Keep the first plot always available and add no failure.",
+    "done": "The player can travel to a newly unlocked second plot after reaching the unlock threshold.",
+    "reads": ["# 1. DECISIONS", "# 3. THE GAME WE WANT", "## World", "## Content"]
+  },
+  {
+    "name": "Balance pass",
+    "stage": "Play the first day and tune seed costs, sale values, growth timers, day length, and unlock thresholds until the first day is calm with no actions and profitable with a few beds tended well. Keep no failure and no forced end.",
+    "done": "A new player can idle through the first day without losing coins and can earn a small profit by tending three beds well.",
+    "reads": ["# 1. DECISIONS", "# 3. THE GAME WE WANT", "## A Session", "## Resolution"]
+  }
+]
+```

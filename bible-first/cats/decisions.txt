@@ -1,0 +1,22 @@
+Game prompt: a tower defense game where cats defend a fish market
+dimension: 2d
+camera: top-down
+time model: real-time
+movement model: no movement, cursor only
+session shape: a sequence of levels
+failure: restart the level
+tone: silly
+size: a handful of levels, under 30 minutes
+win/lose: none
+core mechanics: enemies, defend a point, place, spawn points, placement, aim, waves, shoot, objectives, currency
+supporting mechanics: prices, difficulty ramp, unlocks, rewards, buildable pieces, score, shops
+extra mechanics: armour / defence, bosses, hints, merge, damage types, consumables, hand, decoration, medals / ranks, cutscenes
+art style: flat vector: clean flat shapes, solid colours, crisp edges
+palette: saturated: bright, strong colours
+typography: hand-lettered: drawn, irregular letters
+music: chiptune: retro console bleeps
+sound effects style: retro bleeps: synthesized chip sounds
+screens: title, pause, settings, game over, level select
+hud: health, score, wave number, currency
+effects: particles, hit flash
+accessibility: colour-blind safe palette, reduced motion, difficulty options

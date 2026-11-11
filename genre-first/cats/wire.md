@@ -1,0 +1,37 @@
+The game is Fish Market Felines, a finished tower defense. The art for it has been drawn and is on disk; this change puts the art in and lays the HUD out. It changes no rule and no number: every cost, damage, range, speed, wave, life and payout stays exactly what it is.
+
+The pictures, all WebP, sprites on transparent backgrounds, under the game folder:
+- assets/thief_seagull.webp: a chubby seagull thief carrying a small sack of fish over its shoulder, walking, whole body
+- assets/thief_crab.webp: a small orange crab with oversized running legs carrying a fish, scuttling, whole body
+- assets/cat_tabby.webp: a yellow tabby cat standing upright holding a tuna-can launcher, guard pose, whole body
+- assets/cat_calico.webp: a calico cat standing upright holding a sardine spray bottle, guard pose, whole body
+- assets/cat_white.webp: a white cat standing upright holding an anchor-shaped mallet, guard pose, whole body
+- assets/badge_paper.webp: a small paper collar with a tiny fish tag, game icon
+- assets/badge_tin.webp: a dented tin badge with a fish bone on it, game icon
+- assets/badge_captain.webp: a small captain's hat with a fishhook, game icon
+- assets/crate_fish.webp: a blue wooden crate full of fresh fish, game icon
+- assets/coin_fish.webp: a shiny gold coin shaped like a fish, game icon
+- assets/shot_fish.webp: a single small flying fish, projectile, game icon
+- assets/gate_alley.webp: a cracked wooden alley gate with paw prints and fish scraps, top-down game prop
+- assets/dock_boat.webp: a small wooden dock with a rowboat tied to it, top-down game prop
+- assets/tile_floor.webp: seamless top-down texture of pale sandy wooden market floor planks
+- assets/tile_path.webp: seamless top-down texture of wet teal cobblestones with scattered fish scales
+- assets/title_art.webp: a seaside fish market stall with a red and white striped awning, three cartoon cats posing proudly behind crates of fish, harbour and boats behind, evening light
+
+Use them like this:
+- Every walker is drawn as thief_seagull (or thief_crab for the faster kind if the code distinguishes one; otherwise all seagulls), scaled to fit one path cell, flipped horizontally when walking left. Its health bar stays above it. No label text on walkers.
+- Each tower kind is drawn as its cat: kind 1 cat_tabby, kind 2 cat_calico, kind 3 cat_white, scaled to one cell. The tower's level shows as a small badge at its top-right corner: badge_paper at level 1, badge_tin at level 2, badge_captain at level 3. No label text on towers.
+- Shots are shot_fish, small, rotated toward their target.
+- The floor is tile_floor repeated; the path is tile_path repeated. Draw the spawn cell with gate_alley and the exit cell with dock_boat on top of the path.
+- The lives counter shows crate_fish beside its number; the currency counter shows coin_fish beside its number.
+- The title screen shows title_art large above the title. Keep the title, the subline and the start button as they are.
+- Remove every coloured placeholder rectangle and every text label that stood in for a picture. Keep the range preview circle and the legal/illegal placement highlights.
+
+The HUD, laid out again so the map has the screen:
+- One bar across the top, at most 56 pixels tall: left to right, crate_fish + lives; coin_fish + fish coins; "Rush 3 / 14" with the small wave pips; then the three control buttons Pause, Speed (shows 1x/2x/3x), Restart, and Quit at the far right. Same keys as now.
+- One bar across the bottom, at most 96 pixels tall: the three cats as buttons, each showing its picture, name and cost, the selected one outlined; to their right the selected tower's panel when one is selected (its cat, name, level badge, range, damage, rate, Upgrade with its cost, Sell with its value); when nothing is selected, one line of help text instead.
+- Nothing else on the HUD. The four live counters (damage dealt, leaked, kills, resource) move into the end screens' summary; take them off the play screen.
+- The map fills everything between the two bars, cells scaled to fit.
+- Font: one hand-lettered-looking web-safe fallback stack ("Patrick Hand", "Comic Sans MS", cursive) for titles and buttons, a plain sans for numbers. Palette: deep navy background behind the bars, sand floor, teal path, coral for Upgrade and the start button, lemon for currency numbers.
+
+Read the files, make exactly this, and call done when the game plays as before with the art in and the HUD as described.

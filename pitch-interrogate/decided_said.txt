@@ -1,0 +1,5 @@
+The game's systems were decided before the pitch, with their bands:
+
+{bands}
+
+Band every part of the page under the system it belongs to: the core band holds the core systems and what on the page they are made of, and nothing else; the supporting band the supporting systems; the extra band the extra systems.

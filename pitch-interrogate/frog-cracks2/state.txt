@@ -1,0 +1,125 @@
+Game prompt: a platformer where you play as a frog
+
+the game: a crafted, real-time platformer in which the player is “a small, wet frog” in “a rain-soaked garden and city edge seen from the ground,” trying to reach “a moonlit rooftop pond where the frogs are calling.” The player moves right, crouch-hops in arcs, uses the tongue to eat insects or grab visible anchors, sticks to damp textured surfaces, and avoids or distracts hazards without combat. The game is made of clear, authored places, each completed by reaching its endpoint, with routes built from “what a frog can and cannot do.” Failure is forgiving but never weightless: the worst outcome is “embarrassment, delay, and a forced rethink of the route.”
+
+view: side-on 2D/2.5D platformer with a low frog-scale camera, parallax layers, and the rooftop-pond goal kept as a distant shape whenever possible.
+
+time: real-time.
+
+a run: The game begins “under a dripping gutter where the frog has just woken on a leaf floating in a rain barrel.” “A drop hits the leaf and the leaf rocks, teaching the player that this body is light, slippery, and easily moved.” The player moves right; the frog crouches and launches in arcs. A fly teaches the tongue, a damp wall teaches sticky pads, a branch teaches tongue-swinging, and a watching cat teaches stillness. The goal is always visible: “a rooftop pond, a ring of lilies, a faint chorus.” A crafted place completes when the frog reaches its authored endpoint: “the next perch, drain outlet, roofline, lily pad, or rooftop pond.” The game completes when the final moonlit rooftop pond is reached; “after that the frog joins the calling chorus and the game ends.” Later the game “stops teaching and starts trusting,” becoming “more vertical and more connected,” asking the player to combine verbs, use hazards, choose between direct dangerous routes and longer safer routes, and read the scene as “a set of things you might hang from, pull, climb, or use.”
+
+tone: “quiet and wet.” The player is “a small, wet frog,” not “a human wearing frog skin, not a cartoon adventurer with a sword, not a realistic animal documentary.” The game is about “reading, timing, and how much the frog’s own body can be trusted.” The frog “is not fighting its way there. It is finding a way there.” Failure is “forgiving but never weightless.” There is “no death screen, no score shame, no harsh punishment.” The worst outcome is “embarrassment, delay, and a forced rethink of the route.”
+
+look and sound: “rain-soaked garden and city edge seen from the ground,” with “gutters, rain barrels, drainpipes, stone paths, greenhouse glass, dripping vines, and puddles that turn into platforms,” ending in “a moonlit rooftop pond” and “a faint chorus”; sound is diegetic and wet—drips, rain, splashes, gurgling pipes, animal movement, and frog calls—with no HUD prompts.
+
+core mechanics:
+- ground states and crouch-hop: on ordinary ground the frog has only standing, aiming/facing, crouch-charging, and launching. “Hold a control and the frog crouches, its legs coiling; release and it launches in an arc.” Tap crouch gives a minimal short hop; hold crouch gives a longer aimed arc up to a fixed cap. Facing/aim input changes where it will launch but does not move the frog. It cannot run, walk, slide, or crawl on ordinary ground. Once airborne it is ballistic: no air steering, braking, aim change, or second push, except wind, current, or a tongue catch.
+- tongue, eating, and stable anchors: the tongue is one held action. A quick snap sends the tongue out for an instant; if it touches an edible insect, it catches and swallows it, then retracts. A held extension sends the tongue out along the frog’s aim; if the tip hits a grabbable anchor, it sticks at contact. While held, the frog is attached and can pull or swing. Release detaches it and keeps the momentum. A clean miss has no dangle: it grabs nothing and the frog falls normally. “Timing is wrong” means releasing too low or too late, so the swing fails and the frog drops. The tongue is not a magic rope. It catches “things that are small, grabbable, and visible,” but cannot stick to smooth glass or open water. Insects are never anchors. A short snap cannot stick to an anchor, and a held extension does not become an eating action.
+- sticky pads and grip: pads grip only damp, textured, porous surfaces: bark, moss, wet wood, rough stone, damp concrete. Smooth, dry, dusty, oily, glazed, glass, open water, and metal covered in a condensation film do not grip. On a climbable damp wall, landing makes the frog cling; it does not slide upward. To move upward, the player holds toward the wall and times small hops or crawls, each successful pad contact moving the frog a little. On a slippery surface, holding toward the wall only slows the slide; the frog slides down.
+- shallow water, puddles, and swimming: a puddle turns into a platform only when it raises an authored floatable into place, or when it is shallow enough that the bottom is the platform. The water is not the platform; the bottom, leaf, cork, or tin lid is. If the frog enters deeper still water, it sinks and swims poorly: it can paddle, but it cannot jump from the water and strong water pushes it. To leave, it paddles until its front paws catch an authored edge, then hauls itself up. If no edge is reachable, the current carries it to the nearest safe bank, or it returns to the last safe perch.
+- checkpoints and reset: a last safe perch is the most recent authored perch where the frog stood safely for a beat: a stable ledge, branch, barrel rim, tile, or bank that is not moving, submerged, in a current, or actively hazard-triggered. It is not the nearest random object. If the frog falls out of the authored space, is carried by a current to a dead end, or is returned by a hazard, it reappears at that last safe perch. If no reachable perch exists, the game places it at the nearest authored safe bank or checkpoint for that hazard, or at the place’s opening perch if needed. “Coughed up nearby” means the nearest safe perch that will not drop the frog back into the same hazard. Reset restores the place to the authored checkpoint state stored at the last safe perch. Dynamic state created after that checkpoint returns: weak anchors unbreak, tipped barrels upright, currents return to their source state, wet surfaces reset to the checkpoint’s authored wetness, animals return to default attention/patrol, and disturbed branches, corks, or eaten wasps re-form. If a change was part of reaching a new safe perch, it becomes part of that new checkpoint.
+- cat awareness and response: the cat notices by line of sight plus movement or noise. Standing still in cover is hidden; moving, hopping, or splashing in view raises its attention. When noticed, the cat steps closer only while the frog remains visible or moving. If the frog stays exposed near it, the cat swats. After the swat, the cat loses interest for a few seconds and returns to watching or patrolling; the frog is reset. If the frog stops or hides, the cat’s attention decays.
+- place completion: a crafted place completes when the frog reaches the place’s authored endpoint: the next perch, drain outlet, roofline, lily pad, or rooftop pond. The endpoint itself is the completion condition. No collecting, switches, or hidden objectives are required. If the frog reaches it by any authored route, the place ends and the next place begins.
+- core verb availability: all core verbs are available from the start. The opening fly, wall, branch, and cat are authored teaching moments, not unlocks. Availability is marked by the player’s input and the world’s physical tags: if a surface is gripable, the pads catch; if a thing is an anchor, the tongue can catch it. Nothing is locked behind discovery.
+
+supporting mechanics:
+- hazard activation and physical thresholds: hazards are authored physical systems, not switches or random dice. A hazard begins on its own when its own state reaches a visible threshold: pressure builds in a sprinkler, a timer weight falls, an animal patrol reaches a line. A hazard becomes something the player can intentionally use when the player can change that physical state: knock a cork loose, hit a hose clamp, disturb a branch, splash near a water sensor. “Without warning” means no HUD prompt, not invisible randomness.
+- weak anchors: weak anchors are authored anchors tagged weak. They are always placed by the level, never random. They are identified by visual cues: cracked, frayed, waterlogged, loose, hanging by one thread, discolored, or swaying differently from stable anchors. They are grabbable, but they have a stress limit. If the player hangs too long, pulls the wrong way, or loads them unexpectedly, the allowed outcomes are slip, break, or move. Slip: the tongue catches, holds briefly, then slides off, leaving the frog dangling before it falls. Break: the anchor snaps away or falls, the tongue detaches, and the frog drops unless it catches another anchor. Move: the anchor shifts or swings while still attached, changing the route; if it moves past its limit, it breaks or slips.
+- lily pads and floatable platforms: lily pads and floatables are buoyant platforms with load, drag, and stability. They support the frog while their buoyancy exceeds the load and the frog is not hanging from their edge; landing on the edge or staying too long can tilt or sink them. They drift with currents, rotate, collide, and can become temporary platforms when lodged. They become unsafe when current carries them away, load capsizes them, a splash or current destabilizes them, or water drains and they fall; if they fail under the frog, it enters the water unless attached.
+- hollow landmarks and containers: hollow landmarks are real interiors with openings. If an opening is reachable and wide enough, the frog can enter; inside it stands, climbs, crawls, or swims on the interior surfaces, following the same grip and water rules. It exits only through an authored opening: a rim, drain, hole, flap, or gap; a flap opens when pushed or pulled far enough, and a drain is an exit only if the frog reaches the outlet ledge and can hop or cling out. If the object tips, breaks, or fills, the interior behaves physically: the floor tilts, surfaces collapse, or water swims the frog out.
+- currents and flows: currents and flows are authored directional water fields. Still water only slows; a current carries when its flow is stronger than the frog’s swim. The frog can fight weak flow but is swept by strong flow unless it reaches an edge or anchors. Floatables are carried, collide, and become temporary platforms when lodged. A flow begins when a physical source crosses a visible threshold—cork pulled, pipe unblocked, rain fills a basin, drainpipe pressure builds—and changes when the channel, water level, or obstruction changes. It stops when the source closes, the water drains below threshold, or the place resets.
+- drainpipe gurgles and spits: a drainpipe gurgle is the telegraph of pressure building behind a partial blockage: bubbles, vibration, wetness at the pipe mouth. It ends when pressure reaches threshold and the pipe spits: a short water/air pulse that wets nearby surfaces, pushes light objects, can knock loose debris, and may create a brief current. The pulse stops when pressure releases or water drains below threshold. The player can wait, stand outside the mouth, anchor, or use the spit to move or clear objects.
+- sprinkler spray and wet surfaces: sprinkler spray is an authored water source. It wets surfaces in its visible cone; if the surface is smooth or can hold a running film, it becomes a slick slide and the frog cannot grip it, while porous textured surfaces only become damp unless continuous spray washes their grip away. Spray can knock loose small objects and creatures, push floatables, fill basins, and start currents. If the frog is hit by spray, it is pushed and its next move is made from a wet surface; it does not take damage. The spray ends when its pressure cycle ends, the player interrupts the feed, or the water drains; the wet effect remains until the water recedes, dries, or the place resets.
+- dynamic surfaces: leaves sink, rain barrels tip, and crumbling ledges break. These are authored dynamic objects with visible stress cues. A leaf bends under sustained weight or repeated hops; when its bend limit is reached, it sinks and drops the frog unless the frog is attached. A rain barrel tips when weight crosses its tipping point, when the frog lands on the wrong side, or when the player knocks or pushes it; it rotates, sliding the frog off or carrying it. A crumbling ledge cracks on the first load and breaks on the second load or under sustained weight; the player can avoid or delay it by not landing, hopping lightly, or anchoring the tongue to offload the ledge. If it changes while the frog is on it, the surface stops being solid: the frog slides, falls, or is carried by the moving object unless the tongue catches another anchor.
+- heron: open ground is dangerous when it lies in a heron’s hunting sight: water, lawn, open tiles, places with no cover or anchor. The shadow is the telegraph marking the target area. The heron snaps when the frog moves or splashes inside that sight while unhidden. If the frog is still, under cover, on a wall, or outside sight, the heron ignores it. Disturbing a branch creates motion elsewhere, so the heron shifts attention and stops hunting that spot. If it snaps, there is “a brief dark swallow,” then the frog is “coughed up nearby” to the nearest safe perch that will not drop it back into the same hazard.
+- fish: a fish is a water hazard that lurks in ponds and koi pools. The player knows it is present from ripples, bubbles, disturbed lily pads, and the fish’s shape under the surface. It snaps when the frog enters the water, splashes, or moves within its strike radius. If it snaps, the fish grabs the frog, dunkes it, and spits it onto the nearest safe bank; if no bank is reachable, the frog returns to the last safe perch or nearest authored safe edge. It ignores a still frog on a bank or a frog under cover.
+
+extra mechanics:
+- wind zones: wind is an authored horizontal force zone on rooftops. It is shown by flags, swaying plants, drifting rain, dust, ripples, and audio. It pushes the frog while airborne and can shove a crouched frog if the frog is exposed. The player can wait out a gust, anchor with the tongue, take a lower or covered route, or time the jump with or against the wind.
+- wasp puff: a wasp is an authored interactive insect. A quick snap that swallows it sets a one-shot puff: if grounded, after a short hiccup the frog performs a forced small sideways hop; if airborne, the puff adds a brief sideways impulse to the current arc. The player cannot aim the puff, only plan from the wasp’s placement and the frog’s position. If the puff causes a bad landing, it is treated like any bad hop: the frog falls, gets reset, or is caught by water or hazards, with no extra penalty.
+- multi-route traversal: a level may have “a direct but dangerous path and a longer but safer path.” The direct path may require “a chain of tongue swings over a pond.” The longer path may require “climbing a wall, waiting out a cat, and crossing a rain gutter.” The player can also use hazards: “start a sprinkler to knock a caterpillar off a branch so the branch dips lower; pull a cork from a pipe so water begins to flow and carries a leaf into place.” The world is not made of locked doors or switches. It is made of small physical consequences.
+
+content:
+- rain-soaked garden and city edge seen from the ground: “gutters, rain barrels, drainpipes, stone paths, greenhouse glass, dripping vines, and puddles that turn into platforms.” This is the whole authored world.
+- gutters: “a gutter is a canyon.” They are channels, routes, and sometimes water paths; they are crossed by ledges, anchors, or authored safe routes.
+- rain barrels: start of the game, later traversal objects. They can be entered through authored openings, climbed by sticky tiles, exited through drains, and tipped if authored dynamic.
+- drainpipes: “A rain barrel leads to a drainpipe.” They are hollow landmarks, exits, and pressure systems that can gurgle, spit, wet surfaces, push objects, and create brief currents.
+- stone paths: ground surfaces that may be wet, slick, sticky, or open heron sight depending on authored tags.
+- greenhouse glass: “glass that cannot be stuck to,” while “condensation makes the metal frames slippery.”
+- dripping vines: hanging vines that may be anchors, grip surfaces, or dynamic objects if authored.
+- puddles: “puddles that turn into platforms.” They become platforms only when the bottom or an authored floatable is the real support.
+- leaf floating in a rain barrel: “A drop hits the leaf and the leaf rocks, teaching the player that this body is light, slippery, and easily moved.” Leaves bend, sink, and can become temporary floatables.
+- damp wall: “too high to jump onto.” When the frog lands on it, “its sticky pads catch,” and the player can climb by timed small hops or crawls.
+- branch: “A branch hangs over a wider gap.” It is a tongue anchor. It can be disturbed to move a heron’s attention or to change a route if authored dynamic.
+- stack of wet crates: “The drainpipe leads to a stack of wet crates.” Wet wood may be gripable or anchorable if authored as such.
+- cat: “A cat watches from a distance, not attacking yet, but its eyes follow the frog.” It notices by line of sight plus movement or noise, steps closer, swats if the frog is exposed near it, then loses interest and returns to watching or patrolling.
+- heron: “A heron’s shadow passes over open ground, and the player learns that open ground is dangerous.” The shadow telegraphs the target area; the heron snaps at movement or splash inside its sight.
+- fish: “a fish that snaps.” It lurks in ponds and koi pools, telegraphs through ripples, bubbles, disturbed lily pads, and its shape, and snaps when the frog enters water, splashes, or moves within its strike radius.
+- sprinkler: “A sprinkler can start without warning, turning a ledge into a slide.” It wets surfaces, pushes light objects, can knock loose small creatures, fill basins, and start currents.
+- lily pads: “A garden path can be crossed by hopping across lily pads.” They are floatable platforms with load, drag, stability, drift, and failure states.
+- koi ponds: water hazards containing fish, lily pads, currents, and safe banks.
+- rooftop ponds: “a rooftop pond, a ring of lilies, a faint chorus.” The final moonlit rooftop pond is the endpoint where the frog joins the calling chorus.
+- ring of lilies: goal marker and authored endpoint area.
+- faint chorus: goal marker and final completion signal.
+- moonlit rooftop pond where the frogs are calling: the final place and completion condition.
+- garden path: traversable route that may require lily pads, currents, lily pads, or waiting out a heron.
+- rain gutter: route segment that can be crossed by climbing, waiting, or using a safe path.
+- direct but dangerous path: “a chain of tongue swings over a pond.”
+- longer but safer path: “climbing a wall, waiting out a cat, and crossing a rain gutter.”
+- caterpillar: “start a sprinkler to knock a caterpillar off a branch so the branch dips lower.”
+- cork: “pull a cork from a pipe so water begins to flow and carries a leaf into place.”
+- hose clamp: a player-changeable physical state if authored dynamic; hitting it can alter flow or object movement.
+- water sensor: activated by “splash near a water sensor.”
+- twigs: grabbable anchors.
+- hanging wires: grabbable anchors.
+- bottle caps: grabbable anchors.
+- spider silk: grabbable anchors; if weak-cued, weak anchors.
+- branches: grabbable anchors.
+- edges of cracked tiles: grabbable anchors.
+- weak anchor cues: “cracked, frayed, waterlogged, loose, hanging by one thread, discolored, or swaying differently from stable anchors.”
+- flies: “A fly passes nearby. The player discovers the tongue.” Eating them may cause a cosmetic swallow, sneeze, or small animation, but they produce no traversal effect. They are not coins.
+- wasps: authored interactive insects. Eating one reliably causes a puff: the frog hiccups, puffs, and performs one involuntary small hop or altered arc, but only where authored as part of a route or puzzle.
+- small beetles: ordinary insects; eating them produces no mechanical effect.
+- tin cans: authored small containers or floatable landmarks; if authored hollow, follow hollow rules; if authored floatable, follow buoyancy rules.
+- garden hoses: authored water-feed or hazard components; hose clamps may be hit to change flow if authored dynamic.
+- mossy stones: gripable damp textured surfaces.
+- wooden fence rails: gripable wet wood or anchors if authored as such.
+- spider webs: source of spider silk anchors.
+- cat doors: authored flap openings; they open when pushed or pulled far enough.
+- crumbling ledge: cracks on first load and breaks on second load or sustained weight unless avoided, lightened, or offloaded by tongue anchoring.
+- current: “a current that carries the frog away.” It carries when flow is stronger than the frog’s swim; the frog can fight weak flow but is swept by strong flow unless it reaches an edge or anchors.
+- slippery surface: smooth, dry, dusty, oily, glazed, glass, open water, or condensation-filmed metal; holding toward it only slows slide.
+- rain: ambient world element; it can fill basins, create currents, drift as a wind cue, and contribute to wetness.
+- wind cues: “flags, swaying plants, drifting rain, dust, ripples, and audio.”
+- fish cues: “ripples, bubbles, disturbed lily pads, and the fish’s shape under the surface.”
+- drainpipe cues: “bubbles, vibration, wetness at the pipe mouth.”
+- cat cues: “its eyes follow the frog.”
+- heron cues: “A heron’s shadow passes over open ground.”
+- frog body: “sticky toe pads, bulging eyes that follow threats, a throat that swells when it is nervous, and a tongue that can grab, yank, and pull.”
+- scale language: “A puddle is a lake. A gutter is a canyon. A cat is a disaster. A branch is a bridge.”
+
+left out:
+- “Not a human wearing frog skin, not a cartoon adventurer with a sword, not a realistic animal documentary.”
+- “This game is not a combat platformer. You do not defeat enemies.”
+- “You are not asked to fight your way there.”
+- “No death screen, no score shame, no harsh punishment.”
+- “No survival meters for thirst, hunger, or stamina.”
+- “The game does not pretend to simulate every animal need.”
+- “This game is not a collectathon. Flies are not coins.”
+- “No counter, no collecting, no score.”
+- “No hidden objectives required.”
+- “This game is not an open world.”
+- “The world is not made of locked doors or switches.”
+- “No abstract puzzle machines.”
+- “No random dice, invisible randomness, or HUD prompts for hazards.”
+- “No permanent broken world or soft lock.”
+- “No running, walking, sliding, or crawling on ordinary ground.”
+- “No air steering, braking, second push, or aim change while airborne.”
+- “No correcting a bad hop by accelerating away.”
+- “No jumping from deep still water.”
+- “No slide upward on walls.”
+- “No releasing to let the frog swing; release detaches and keeps momentum.”
+- “No insects as anchors, including the legs of insects.”
+- “No eating score or generic insect traversal effects.”
+- “No aiming the wasp puff.”
+- “Not a human platformer with a frog costume.”
