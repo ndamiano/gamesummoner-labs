@@ -1,0 +1,1 @@
+Her head, face and hair must match <image3> exactly: same hairstyle, same hair length, same bangs, same face, seen from the same side-on angle. Use <image3> only for the head, not for the pose.
